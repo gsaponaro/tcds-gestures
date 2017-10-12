@@ -1,3 +1,11 @@
+# MATLAB/Octave
+*.m~
+*.mex*
+slprj/
+octave-workspace
+*.autosave
+
+
 # Prerequisites
 *.d
 
