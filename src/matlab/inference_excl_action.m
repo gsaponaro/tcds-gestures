@@ -1,9 +1,18 @@
 function result = inference_excl_action(netobj,posterior,prior,hmm_ev,action_map)
 
+fprintf('\n');
+fprintf('computing p( ');
+fprintf('%s ', posterior{:});
+fprintf('| ')
+fprintf('%s ', prior{:});
+fprintf(') ...\n');
+
 action_keys = keys(action_map);
 
 result = 0;
 for a = 1:length(hmm_ev)
+    fprintf('action %d (%s):\n', a, action_keys{a});
+    
     %% BN part
 
     % to marginalize out the action, we will enter its hard evidence
@@ -23,12 +32,15 @@ for a = 1:length(hmm_ev)
 
     % extract predictions (posteriors)
     pred = BNSoftPredictionAccuracy3(netobj, posterior);
+
+    fprintf('\t p_BN=%f p_HMM=%f product=%f ', pred.T(a), hmm_ev(a), pred.T(a)*hmm_ev(a));
     
     %% HMM part
     % given by hmm_ev, already re-ordered to follow BN action values order
     
     %% merge the evidence of the two models
     result = result + pred.T(a)*hmm_ev(a);
+    fprintf('result_so_far=%f\n', result);
 end;
 
 % normalize to unitary sum
