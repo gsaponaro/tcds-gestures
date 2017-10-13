@@ -1,18 +1,28 @@
-function result = fusion(netobj,posterior,prior,hmm_ev,action_map)
-% FUSION  Fuse evidence from Bayesian Network with evidence from Hidden
-%         Markov Model.
+function result = fusion(netobj,inferred,observed,hmm_ev,action_map)
+% FUSION  Fuse evidence from affordances Bayesian Network with evidence
+%         from gesture Hidden Markov Model. This function automatically
+%         chooses the correct merging strategy, depending on the presence
+%         or absence of the action node among the list of inferred nodes
+%         (i.e., posteriors).
 %
-% netobj: Bayesian Network struct
+% Inputs
 %
-% posterior: cell array of node names (strings) to infer
+% netobj: Bayesian Network struct, see also
+%         https://github.com/giampierosalvi/AffordancesAndSpeech
 %
-% prior: cell array pairs of node name and value name for the
-%        BN observed nodes
+% inferred: string array of the node names to do the inference on
 %
-% hmm_ev: array of probabilities obtained by Hidden Markov Model (i.e.,
-%         the posterior probability distribution of the gesture classes)
+% observed: cell array with pairs of node name and value name corresponding
+%           to the Bayesian Network evidence
+%
+% hmm_ev: array of probabilities obtained from gesture Hidden Markov Model
+%         (i.e., posterior probability distribution of the gesture classes)
 %
 % action_map: (optional) map container with action names and indexes
+%
+% Outputs
+%
+% result: TODO describe
 %
 % Example where inference includes action node:
 % netobj = fusion(netobj, {'Action'}, {'Color','yellow','Size','big'}, [0.8 0.1 0.1])
@@ -28,23 +38,23 @@ if nargin < 5
     action_map = containers.Map(action_keys,action_vals);
 end;
 
-if ~isstring(string(posterior))
-    error('fusion: posterior argument must be a string array (cell array of strings).');
+if ~isstring(string(inferred))
+    error('fusion: inferred argument must be a string array (cell array of strings).');
 end;
 
-if ~iscell(prior)
-    error('fusion: prior argument must be a cell array.');
+if ~iscell(observed)
+    error('fusion: observed argument must be a cell array.');
 end;
 
 if sum(hmm_ev) ~= 1
-    error('fusion: phmm argument elements must sum to one.');
+    error('fusion: hmm_ev argument elements must sum to one.');
 end;
 
 %% determine the type of fusion and apply it
-if cellcontains(posterior,'Action')
-    % case 1: posterior nodes include action
-    result = inference_incl_action(netobj,posterior,prior,hmm_ev);
+if cellcontains(inferred,'Action')
+    % case 1: inferred nodes include action
+    result = inference_incl_action(netobj,inferred,observed,hmm_ev);
 else
-    % case 2: posterior nodes do not include action
-    result = inference_excl_action(netobj,posterior,prior,hmm_ev,action_map);
+    % case 2: inferred nodes do not include action
+    result = inference_excl_action(netobj,inferred,observed,hmm_ev,action_map);
 end

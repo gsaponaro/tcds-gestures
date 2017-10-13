@@ -1,12 +1,15 @@
-% GLU 2017, training of Words-Affordances Bayesian Network
-% Giampiero Salvi
+% Training of Words-Affordances Bayesian Network
+% see https://github.com/giampierosalvi/AffordancesAndSpeech by Giampiero Salvi
+% script by Giovanni Saponaro, 2017
 
 %% configure BNT and other paths
 addpath(genpath('~/matlab/toolbox/FullBNT-1.0.4'))
 addpath('.');
 
-% set to full path to <vislab svn repository>/app/baltazar/Affordances/speech/bayesian_net
-LanguageBoostrapping_root = ('~/NOBACKUP/vislab/app/baltazar/Affordances/speech/bayesian_net');
+% words-affordances Bayesian Network
+% 1. clone the repository https://github.com/giampierosalvi/AffordancesAndSpeech
+% 2. then, set below the full path to AffordancesAndSpeech/bayesian_net
+LanguageBoostrapping_root = ('~/NOBACKUP/AffordancesAndSpeech/bayesian_net');
 
 addpath(genpath([LanguageBoostrapping_root '/matlab']))
 

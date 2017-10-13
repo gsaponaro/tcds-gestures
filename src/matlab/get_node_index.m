@@ -4,6 +4,8 @@ function index = get_node_index(cellarray,node)
 %
 % Example:
 % get_node_index({'a','b','c'},'c') = 3
+%
+% Giovanni Saponaro
 
 unfiltered_index = find(ismember(cellarray, node));
 

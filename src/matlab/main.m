@@ -1,3 +1,11 @@
+% MAIN  Run experiments related to merging of evidence from affordances
+%       Bayesian Network with evidence from gesture Hidden Markov Model.
+%
+% Pre-requisites: install FullBNT and the words-affordances Bayesian
+%                 Network code (see below).
+%
+% Giovanni Saponaro, Giampiero Salvi
+
 %% configure paths
 
 % BNT
@@ -21,40 +29,40 @@ load('BN_lab.mat');
 
 %% map of BN action names with corresponding indexes
 node_idx = BNWhichNode(netobj_lab, 'Action'); % 1
-bn_a_keys = netobj_lab.nodeValueNames{node_idx}; % {'grasp', 'tap', 'touch'}
-bn_a_vals = [];
+bn_keys = netobj_lab.nodeValueNames{node_idx}; % {'grasp', 'tap', 'touch'}
+bn_vals = zeros(1,3); % it will be [1 2 3]
 for a = 1 : netobj_lab.node_sizes(node_idx)
-    bn_a_vals = [bn_a_vals BNWhichNodeValue(netobj_lab, node_idx, bn_a_keys{a})];
+    bn_vals(a) = BNWhichNodeValue(netobj_lab, node_idx, bn_keys{a});
 end;
 clear a;
-% bn_a_vals = [1 2 3]
-bn_a_map = containers.Map(bn_a_keys,bn_a_vals);
+bn_map = containers.Map(bn_keys,bn_vals);
 
 %% map of HMM gesture names with corresponding indexes
-hmm_g_keys = {'tap', 'grasp', 'push'};
-hmm_g_vals = [1 2 3]; % hmm1 hmm3 hmm4 (hmm2 is touch, unused)
-hmm_g_map = containers.Map(hmm_g_keys,hmm_g_vals);
+hmm_keys = {'tap', 'grasp', 'push'};
+hmm_vals = [1 2 3]; % hmm1 hmm3 hmm4 (hmm2 is touch, unused)
+hmm_map = containers.Map(hmm_keys,hmm_vals);
 
 %% case 1 example: inference over nodes including action
-% BN priors
-nodevaluepairs = {'Shape', 'circle', 'Size', 'small'};
-% BN posteriors
-posteriornodes = {'Action'};
+% BN observed nodes
+observed = {'Shape', 'circle', 'Size', 'small'};
+% BN nodes to infer
+inferred = {'Action'};
 % HMM evidence in GestureHMM order
-phmm = [0.8 0.1 0.1];
+hmm_ev = [0.8 0.1 0.1];
 % HMM evidence in BNActionValue order
 reorder = [2 1 3]; % TODO use get_remapping
-hmm_ev_ordered = phmm(:, reorder);
-result1 = fusion(netobj_lab, posteriornodes, nodevaluepairs, hmm_ev_ordered);
+hmm_ev_ordered = hmm_ev(:, reorder);
+% do the HMM+BN merged inference
+result1 = fusion(netobj_lab, inferred, observed, hmm_ev_ordered);
 
 %% case 2 example: inference over nodes not including action
 % BN priors
-nodevaluepairs = {'Shape', 'circle', 'Size', 'small'};
+observed = {'Shape', 'circle', 'Size', 'small'};
 % BN posteriors
-posteriornodes = {'ObjVel'};
+inferred = {'ObjVel'};
 % HMM evidence in GestureHMM order
-phmm = [0.8 0.1 0.1];
+hmm_ev = [0.8 0.1 0.1];
 % HMM evidence in BNActionValue order
 reorder = [2 1 3]; % TODO use get_remapping
-hmm_ev_ordered = phmm(:, reorder);
-result2 = fusion(netobj_lab, posteriornodes, nodevaluepairs, hmm_ev_ordered);
+hmm_ev_ordered = hmm_ev(:, reorder);
+result2 = fusion(netobj_lab, inferred, observed, hmm_ev_ordered);

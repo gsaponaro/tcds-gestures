@@ -4,6 +4,8 @@ function found = cellcontains(cellarray,element)
 %
 % Example:
 % cellcontains({'a','b','c'},'a') = logical 1 (true)
+%
+% Giovanni Saponaro
 
 if ~isstring(string(cellarray))
     error('cellcontains: cellarray argument must be a string array (cell array of strings).');
