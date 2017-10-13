@@ -1,0 +1,107 @@
+%!TEX encoding = UTF-8 Unicode
+
+\section{Proposed Approach}
+
+BELOW IS THE GLU TEXT
+
+In this paper, we combine (1)~the robot affordance model of~\cite{salvi:2012:smcb}, which associates verbal descriptions to the physical interactions of an agent with the environment, with (2)~the gesture recognition system of~\cite{saponaro:2013:crhri}, which infers the type of action from human user movements.
+We consider three \emph{manipulative gestures} corresponding to physical actions performed by agent(s) onto objects on a table~(see Fig.~\ref{fig:experimental_setup}): grasp, tap, and touch.
+We reason on the effects of these actions onto the objects of the world, and on the co-occurring verbal description of the experiments. In the complete framework, we will use \acfp{BN}, which are a probabilistic model that represents random variables and conditional dependencies on a graph, such as in Fig.~\ref{fig:model}. One of the advantages of using \acp{BN} is that their expressive power allows the marginalization over any set of variables given any other set of variables.
+
+Our main contribution is that of extending~\cite{salvi:2012:smcb} by relaxing the assumption that the action is known during the learning phase.
+This assumption is acceptable when the robot learns through self-exploration and interaction with the environment, but must be relaxed if the robot needs to generalize the acquired knowledge through the observation of another~(human) agent.
+We estimate the action performed by a human user during a \hr{} collaborative task, by employing statistical inference methods and \acp{HMM}. This provides two advantages. First, we can infer the executed action during training. Secondly, at testing time we can merge the action information obtained from gesture recognition with the information about affordances.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.8\columnwidth]{fullNetAbstract}
+  \caption{Abstract representation of the probabilistic dependencies in the model. Shaded nodes are observable or measurable in the present study, and edges indicate Bayesian dependency.}
+  \label{fig:model}
+\end{figure}
+
+\subsection{\acl{BN} for \AffWords{} Modeling}
+\label{sec:bn}
+
+Following the method adopted in~\cite{salvi:2012:smcb}, we use a Bayesian probabilistic framework to allow a robot to ground the basic world behavior and verbal descriptions associated to it. The world behavior is defined by random variables describing: the actions~$A$, defined over the set~$\mathcal{A} = \{a_i\}$, object properties~$F$, over $\mathcal{F} = \{f_i\}$, and effects~$E$, over~$\mathcal{E} = \{e_i\}$. We denote~$X = \{A, F, E\}$ the state of the world as experienced by the robot. The verbal descriptions are denoted by the set of words~$W = \{w_i\}$. Consequently, the relationships between words and concepts are expressed by the joint probability distribution~$p(X,W)$ of actions, object features, effects, and words in the spoken utterance. The symbolic variables and their discrete values are listed in Table~\ref{tab:bnsymb}. In addition to the symbolic variables, the model also includes word variables, describing the probability of each word co-occurring in the verbal description associated to a robot experiment in the environment.
+
+\begin{table}
+    \centering
+    \caption{The symbolic variables of the \acl{BN} which we use in this work~(a subset of the ones from~\cite{salvi:2012:smcb}), with the corresponding discrete values obtained from clustering during previous robot exploration of the environment.}
+    \label{tab:bnsymb}
+    \begin{tabular}{*{3}{l}} % left-aligned columns
+    \toprule
+    name   & description     & values \\
+    \midrule
+    Action & action          & grasp, tap, touch \\
+    Shape  & object shape    & sphere, box \\
+    Size   & object size     & small, medium, big \\
+    ObjVel & object velocity & slow, medium, fast \\
+    \bottomrule
+    \end{tabular}
+\end{table}
+
+This joint probability distribution, that is illustrated by the part of Fig.~\ref{fig:model} enclosed in the dashed box, is estimated by the robot in an ego-centric way through interaction with the environment, as in~\cite{salvi:2012:smcb}. As a consequence, during learning, the robot knows what action it is performing with certainty, and the variable~$A$ assumes a deterministic value. This assumption is relaxed in the present study, by extending the model to the observation of external~(human) agents as explained below.
+
+\subsection{\aclp{HMM} for Gesture Recognition}
+
+\newcommand{\myscalefactor}{0.8}
+
+\newcommand{\standardhmm}[1]{
+    \node[draw,circle] (hmm#1s1) {1};
+    \node[draw,circle, right of=hmm#1s1] (hmm#1s2) {2};
+    \node[circle, right of=hmm#1s2] (hmm#1s3) {\dots};
+    \node[draw,circle, right of=hmm#1s3] (hmm#1s4) {Q};
+    \node[left of=hmm#1s1]  (invisible1) {};
+    \node[right of=hmm#1s4] (invisible2) {};
+    \path[->] (hmm#1s1) edge (hmm#1s2);
+    \path[loop above] (hmm#1s1) edge (hmm#1s1);
+    \path[->] (hmm#1s2) edge (hmm#1s3);
+    \path[loop above] (hmm#1s2) edge (hmm#1s2);
+    \path[dashed] (hmm#1s2) -- (hmm#1s3);
+    \path[->] (hmm#1s3) edge (hmm#1s4);
+    \path[loop above] (hmm#1s4) edge (hmm#1s4);
+    %\path[->] (hmm#1s4) edge[bend left] (hmm#1s1);
+    \path[->] (invisible1) edge (hmm#1s1);
+    \path[->] (hmm#1s4) edge (invisible2);
+}
+
+\newcommand{\modeltwo}{
+  \begin{tikzpicture}[scale=\myscalefactor, every node/.style={scale=\myscalefactor}]
+  \matrix (M) [matrix of nodes, ampersand replacement=\&] {%
+    grasp gesture HMM \& \standardhmm{1} \\
+    tap gesture HMM \& \standardhmm{2} \\
+    touch gesture HMM \& \standardhmm{3} \\
+    %garbage \& \standardhmm{4} \\
+  };
+  \end{tikzpicture}
+}
+
+\begin{figure}
+  \centering
+  \modeltwo
+  \caption{Structure of the \acp{HMM} used for human gesture recognition, adapted from~\cite{saponaro:2013:crhri}. In this work, we consider three independent, multiple-state \acp{HMM}, each of them trained to recognize one of the considered manipulation gestures.}
+  \label{fig:hmms}
+\end{figure}
+
+As for the gesture recognition \acsp{HMM}, we use the models that we previously trained in~\cite{saponaro:2013:crhri} for spotting the manipulation-related gestures under consideration. Our input features are the 3D coordinates of the tracked human hand: the coordinates are obtained with a commodity depth sensor, then transformed to be centered on the person torso~(to be invariant to the distance of the user from the sensor) and normalized to account for variability in amplitude~(to be invariant to wide/emphatic vs narrow/subtle executions of the same gesture class).
+
+The gesture recognition models are represented in Fig.~\ref{fig:hmms}, and correspond to the Gesture \acp{HMM} block in Fig.~\ref{fig:model}. The \ac{HMM} for one gesture is defined by a set of (hidden) discrete states~$\mathcal{S} = \{s_1, \dots, s_Q\}$ which model the temporal phases comprising the dynamic execution of the gesture, and by a set of parameters~$\lambda = \{ A, B, \Pi \}$, where~$A = \{ a_{ij} \}$ is the transition probability matrix, $a_{ij}$ is the transition probability from state~$s_i$ at time~$t$ to state~$s_j$ at time~$t+1$, $B = \{ f_i \}$ is the set of $Q$~observation probability functions~(one per state~$i$) with continuous mixtures of Gaussian values, and~$\Pi$ is the initial probability distribution for the states.
+
+At recognition~(testing) time, we obtain likelihood scores of a new gesture being classified with the common \FB{} inference algorithm. In Sec.~\ref{sec:combination}, we discuss different ways in which the output information of the gesture recognizer can be combined with the \acl{BN} of words and affordances.
+
+\subsection{Combining the \acs{BN} with Gesture \acsp{HMM}}
+\label{sec:combination}
+
+In this study we wish to generalize the model of~\cite{salvi:2012:smcb} by observing external~(human) agents, as shown in Fig.~\ref{fig:experimental_setup}. For this reason, the full model is now extended with a perception module capable of inferring the action of the agent from visual inputs. This corresponds to the Gesture \acp{HMM} block in Fig.~\ref{fig:model}. The \AffWords{} \acf{BN} model and the Gestures \acp{HMM} may be combined in different ways~\cite{pan:2006:ictai}:
+\begin{enumerate}
+\item the Gesture \acp{HMM} may provide a hard decision on the action performed by the human~(i.e., considering only the top result) to the \ac{BN},
+
+\item the Gesture \acp{HMM} may provide a posterior distribution~(i.e., soft decision) to the \ac{BN},
+
+\item if the task is to infer the action, the posterior from the Gesture \acp{HMM} and the one from the \ac{BN} may be combined as follows, assuming that they provide independent information:
+\begin{equation*}
+p(A) = \phmm(A) \, \pbn(A).
+\end{equation*}
+\end{enumerate}
+
+In the experimental section, we will show that what the robot has learned subjectively or alone~(by self-exploration, knowing the action identity as a prior~\cite{salvi:2012:smcb}), can subsequently be used when observing a new agent~(human), provided that the actions can be estimated with Gesture \acp{HMM} as in~\cite{saponaro:2013:crhri}.

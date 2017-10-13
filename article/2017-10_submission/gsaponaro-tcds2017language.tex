@@ -1,0 +1,130 @@
+%!TEX encoding = UTF-8 Unicode
+
+\documentclass[journal]{IEEEtran}
+
+\usepackage[T1]{fontenc} % output - specifies encoding used in fonts; needs full LaTeX distribution to produce good-looking output
+\usepackage[utf8]{inputenc} % input - type accented characters directly from keyboard
+\usepackage[english]{babel} % internationalization - hyphenation, typographic rules for one or more languages
+
+\usepackage[
+    backend=biber, % bibliography engine
+    style=ieee, % bibliography style .bbx and citation style .cbx
+    hyperref, % make citations and references clickable - requires hyperref pkg
+    maxbibnames=99, % 99 = display all authors of multi-author articles
+    doi=false, % do not display DOI
+    isbn=false, % do not display ISBN
+    ]
+        {biblatex} % note: incompatible with ucs (-> utf8x), natbib
+\usepackage[
+    autostyle] % adapt citation style to current document language
+        {csquotes} % Context Sensitive Quotations; provides biblatex \enquote{}
+
+\usepackage[nolist]{acronym}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{subfig}
+\usepackage{tabularx}
+\usepackage{url}
+
+\usepackage{tikz}
+\usetikzlibrary{matrix,positioning}
+\usetikzlibrary{decorations.text}
+\usetikzlibrary{shapes.geometric}
+\tikzstyle{circle}=[shape=circle,minimum size=0.7cm,very thick]
+\tikzstyle{every path}=[very thick]
+
+\usepackage{hyperref}
+\usepackage[update,prepend]{epstopdf}
+\graphicspath{{figures/}}
+
+\addbibresource{lang_journal_bibliography.bib}
+
+% custom commands and frequent expressions that require typesetting care
+\newcommand{\AffWords}{Affordance--Words}
+\newcommand{\FB}{Forward--Backward}
+\newcommand{\HR}{Human--Robot}
+\newcommand{\HRI}{\HR{} Interaction}
+\newcommand{\hh}{human--human}
+\newcommand{\hr}{human--robot}
+\newcommand{\hri}{\hr{} interaction}
+\newcommand{\ObjAct}{Object--Action}
+\newcommand{\SensMot}{Sensory--Motor}
+
+\newcommand{\phmm}{\ensuremath{p_{\text{HMM}}}}
+\newcommand{\pbn}{\ensuremath{p_{\text{BN}}}}
+
+% list of acronyms
+\begin{acronym}
+\acro{AI}{Artificial Intelligence}
+\acro{BN}{Bayesian Network}
+\acro{HMM}{Hidden Markov Model}
+\acro{MTRNN}{Multiple Timescales Recurrent Neural Network}
+\acro{OAC}{\ObjAct{} Complex}
+\acrodefplural{OAC}{\ObjAct{} Complexes}
+\acro{PDF}{Probability Density Function}
+\end{acronym}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\title{Beyond the Self: Using Grounded Affordance Knowledge to Interpret Others' Actions}
+
+\author{Giovanni~Saponaro,~\IEEEmembership{Student Member,~IEEE,}
+        Lorenzo~Jamone,~\IEEEmembership{Member,~IEEE,}
+        Alexandre~Bernardino,~\IEEEmembership{Member,~IEEE}
+        Giampiero~Salvi,~\IEEEmembership{Member,~IEEE}
+\thanks{G.~Saponaro, and A.~Bernardino are with the
+Institute for Systems and Robotics, Instituto Superior Técnico,
+Universidade de Lisboa, Lisbon, Portugal, e-mail: \{gsaponaro,rodrigo.ventura,alex\}@isr.tecnico.ulisboa.pt.
+
+L.~Jamone is with ARQ~(Advanced Robotics at Queen Mary), School of Electronic Engineering and Computer Science, Queen Mary University of London, United Kingdom
+and with the
+Institute for Systems and Robotics, Instituto Superior Técnico, Universidade de Lisboa, Lisbon, Portugal,
+e-mail: l.jamone@qmul.ac.uk.
+
+G.~Salvi is with the Speech, Music and Hearing Department,
+KTH Royal Institute of Technology, Stockholm, Sweden,
+e-mail: giampi@kth.se
+}}
+
+% make the title area
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+TODO
+\end{abstract}
+
+\begin{IEEEkeywords}
+affordances, gestures, humanoid robots, language learning.
+\end{IEEEkeywords}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{gsaponaro-tcds2017language-introduction}
+
+TODO: ALSO CITE GLU~\cite{saponaro:2017:glu}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{gsaponaro-tcds2017language-related_work}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{gsaponaro-tcds2017language-approach}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{gsaponaro-tcds2017language-results}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{gsaponaro-tcds2017language-conclusions}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Acknowledgments}
+
+This work was partially supported by the FCT project~UID/EEA/50009/2013 and by the CHIST-ERA project IGLU.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\printbibliography
+
+\end{document}
