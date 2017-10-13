@@ -7,7 +7,7 @@ addpath(genpath('~/matlab/toolbox/FullBNT-1.0.4'));
 addpath('.');
 
 % gesture Hidden Markov Models
-test_path = [getenv('HOME') '/Dropbox/phd/work-2017/work-2017-05/glu2017_oni_videos'];
+#test_path = [getenv('HOME') '/Dropbox/phd/work-2017/work-2017-05/glu2017_oni_videos'];
 
 % words-affordances Bayesian Network
 % 1. clone the repository https://github.com/giampierosalvi/AffordancesAndSpeech
