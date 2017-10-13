@@ -11,8 +11,8 @@
 % BNT
 addpath(genpath('~/matlab/toolbox/FullBNT-1.0.4'));
 
-% current directory
 addpath('.');
+addpath('./robot_data'); % Bayesian Network
 
 % gesture Hidden Markov Models
 %test_path = [getenv('HOME') '/Dropbox/phd/work-2017/work-2017-05/glu2017_oni_videos'];

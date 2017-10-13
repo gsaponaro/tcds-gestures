@@ -5,6 +5,7 @@
 %% configure BNT and other paths
 addpath(genpath('~/matlab/toolbox/FullBNT-1.0.4'))
 addpath('.');
+addpath('./robot_data'); % Bayesian Network
 
 % words-affordances Bayesian Network
 % 1. clone the repository https://github.com/giampierosalvi/AffordancesAndSpeech
