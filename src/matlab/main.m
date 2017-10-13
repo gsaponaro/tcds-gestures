@@ -45,8 +45,7 @@ phmm = [0.8 0.1 0.1];
 % HMM evidence in BNActionValue order
 reorder = [2 1 3]; % TODO use get_remapping
 hmm_ev_ordered = phmm(:, reorder);
-% fusion
-case1 = inference_incl_action(netobj_lab, posteriornodes, nodevaluepairs, hmm_ev_ordered);
+result1 = fusion(netobj_lab, posteriornodes, nodevaluepairs, hmm_ev_ordered);
 
 %% case 2 example: inference over nodes not including action
 % BN priors
@@ -58,5 +57,4 @@ phmm = [0.8 0.1 0.1];
 % HMM evidence in BNActionValue order
 reorder = [2 1 3]; % TODO use get_remapping
 hmm_ev_ordered = phmm(:, reorder);
-% fusion
-case2 = inference_excl_action(netobj_lab, posteriornodes, nodevaluepairs, hmm_ev_ordered, bn_a_map);
+result2 = fusion(netobj_lab, posteriornodes, nodevaluepairs, hmm_ev_ordered);
