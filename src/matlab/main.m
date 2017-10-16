@@ -28,17 +28,16 @@ addpath(genpath([LanguageBoostrapping_root '/matlab']))
 %% load Bayesian Network
 load('BN_lab.mat');
 
-%% map of BN action names with corresponding indexes
-node_idx = BNWhichNode(netobj_lab, 'Action'); % 1
-bn_keys = netobj_lab.nodeValueNames{node_idx}; % {'grasp', 'tap', 'touch'}
-bn_vals = zeros(1,3); % it will be [1 2 3]
-for a = 1 : netobj_lab.node_sizes(node_idx)
-    bn_vals(a) = BNWhichNodeValue(netobj_lab, node_idx, bn_keys{a});
-end;
-clear a;
-bn_map = containers.Map(bn_keys,bn_vals);
+%% map with possible values of a node
+bn_map = make_bn_node_map(netobj_lab,'Action');
 
-%% case 1 example: inference over nodes including action
+%% examples
+e = 1; % example counter
+
+fprintf('case 1 examples (inference over nodes including Action)\n\n');
+% =====================================================================
+
+fprintf('%d.\n', e);
 % BN observed nodes
 observed = {'Shape', 'circle', 'Size', 'small'};
 % BN nodes to infer
@@ -51,7 +50,30 @@ hmm_ev_ordered = hmm_ev(:, reorder);
 % do the HMM+BN merged inference
 result1 = fusion(netobj_lab, inferred, observed, hmm_ev_ordered);
 
-%% case 2 example: inference over nodes not including action
+clear observed inferred hmm_ev reorder hmm_ev_ordered result1;
+e = e+1;
+
+fprintf('%d.\n', e);
+% BN observed nodes
+observed = {'Color', 'yellow', 'Shape', 'circle'};
+% BN nodes to infer
+inferred = {'Action', 'ObjVel'};
+% HMM evidence in GestureHMM order
+hmm_ev = [0.8 0.1 0.1];
+% HMM evidence in BNActionValue order
+reorder = [2 1 3]; % TODO use get_remapping
+hmm_ev_ordered = hmm_ev(:, reorder);
+% do the HMM+BN merged inference
+result1 = fusion(netobj_lab, inferred, observed, hmm_ev_ordered);
+
+clear observed inferred hmm_ev reorder hmm_ev_ordered result1;
+e = e+1;
+
+fprintf('case 2 examples (inference over nodes not including Action)\n\n');
+% =====================================================================
+
+fprintf('%d.\n', e);
+
 % BN priors
 observed = {'Shape', 'circle', 'Size', 'small'};
 % BN posteriors
@@ -62,3 +84,5 @@ hmm_ev = [0.8 0.1 0.1];
 reorder = [2 1 3]; % TODO use get_remapping
 hmm_ev_ordered = hmm_ev(:, reorder);
 result2 = fusion(netobj_lab, inferred, observed, hmm_ev_ordered);
+
+e = e+1;

@@ -46,6 +46,18 @@ fprintf('| ')
 fprintf('%s ', observed{:});
 fprintf(') ...\n');
 
+num_inferred_nodes = length(inferred);
+if num_inferred_nodes==1
+    % list of inferred nodes contains only 'Action'
+    simplecase = true;
+else
+    % list of inferred contains 'Action' and other nodes
+    simplecase = false;
+end;
+
+% position of the 'Action' node in the list
+actnode_idx = get_node_index(inferred, 'Action');
+
 %% BN part
 % enter node evidence for all prior nodes
 netobj = BNEnterNodeEvidence(netobj, observed, 0);
@@ -54,18 +66,45 @@ netobj = BNEnterNodeEvidence(netobj, observed, 0);
 % extract predictions (posteriors)
 pred = BNSoftPredictionAccuracy3(netobj, inferred);
 
-fprintf(strrep(['... p_BN = (' num2str(pred.T', ' %f ') ')'], ',)', ''));
-
+fprintf('... p_BN =');
+if simplecase
+    fprintf(strrep([' (' num2str(pred.T', ' %f ') ')'], ',)', ''));
+else
+    fprintf('\n');
+    disp(pred.T);
+end;
+    
 %% HMM part
 % given by hmm_ev, already re-ordered to follow BN action values order
 
 fprintf(strrep(['\n... p_HMM = (' num2str(hmm_ev, ' %f ') ')'], ',)', ''));
 
 %% merge the evidence of the two models
-result = pred.T .* hmm_ev';
+
+% first, construct aux vector to be like size(inferred), except for the
+% Action dimension entry, where it will be 1.
+% example:
+% inferred = {'Action', 'Color'} -> normally [3 4] -> we force [1 4]
+sizes_for_repmat = [];
+for d = 1:num_inferred_nodes
+    if d==actnode_idx
+        sizes_for_repmat = [sizes_for_repmat 1];
+    else
+        sizes_for_repmat = [sizes_for_repmat length(make_bn_node_map(netobj,inferred{d}))]; % TODO optimize
+    end;
+end;
+fprintf('\nDEBUG sizes_for_repmat =');
+disp(sizes_for_repmat);
+
+hmm_ev_rep = repmat(hmm_ev', sizes_for_repmat);
+fprintf('DEBUG hmm evidence appropriately stacked =');
+hmm_ev_rep
+result = bsxfun(@times, pred.T, hmm_ev_rep);
 
 %% normalize to unitary sum
-result = normalise(result);
+fprintf('result (not normalized):\n');
+disp(result);
+%result = normalise(result);
 
-fprintf(strrep(['\n... => (' num2str(result', ' %f ') ')'], ',)', ''));
-fprintf('\n');
+%fprintf(strrep(['\n... => (' num2str(result', ' %f ') ')'], ',)', ''));
+%fprintf('\n');
