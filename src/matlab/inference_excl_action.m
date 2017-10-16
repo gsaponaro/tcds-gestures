@@ -47,40 +47,40 @@ fprintf('%s ', observed{:});
 fprintf(') ...\n');
 
 action_keys = keys(action_map);
+action_length = length(action_map);
+action_size = size(action_map);
 
-% TODO fix implementation
-result = 0;
-for a = 1:length(hmm_ev)
+result = zeros(action_size);
+
+for a = 1:action_length
     fprintf('action %d (%s):\n', a, action_keys{a});
     
     %% BN part
 
-    % to marginalize out the action, we will enter its hard evidence
-    % for each possible value of it as a prior.
+    % copy of inferred nodes to be modified only in this iteration
+    temp_inferred = inferred;
 
-    % copy of observed nodes to be modified only in this iteration
-    temp_observed = observed;
-
-    if ~cellcontains(temp_observed,'Action')
-        temp_observed{end+1} = 'Action';
-        temp_observed{end+1} = char(action_keys(a));
+    if ~cellcontains(temp_inferred,'Action')
+        temp_inferred{end+1} = 'Action';
+        %temp_inferred{end+1} = char(action_keys(a));
+        %fprintf('DEBUG Action=%s...\n', char(action_keys(a)));
     end;
 
     % enter node evidence for all prior nodes
-    netobj = BNEnterNodeEvidence(netobj, temp_observed, 0);
+    netobj = BNEnterNodeEvidence(netobj, observed, 0);
     % TODO enter word evidence if available
 
     % extract predictions (posteriors)
-    pred = BNSoftPredictionAccuracy3(netobj, inferred);
+    pred = BNSoftPredictionAccuracy3(netobj, temp_inferred);
 
-    fprintf('\t p_BN=%f p_HMM=%f product=%f ', pred.T(a), hmm_ev(a), pred.T(a)*hmm_ev(a));
+    %fprintf(strrep(['... p_BN = (' num2str(pred.T', ' %f ') ')'], ',)', ''));
     
     %% HMM part
     % given by hmm_ev, already re-ordered to follow BN action values order
+
+    fprintf(strrep(['\n... p_HMM = (' num2str(hmm_ev, ' %f ') ')'], ',)', ''));
     
     %% merge the evidence of the two models
-    result = result + pred.T(a)*hmm_ev(a);
-    fprintf('result_so_far=%f\n', result);
 end;
 
 % normalize to unitary sum
