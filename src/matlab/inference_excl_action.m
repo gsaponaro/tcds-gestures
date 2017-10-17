@@ -30,8 +30,8 @@ function result = inference_excl_action(netobj,inferred,observed,hmm_ev)
 % Giovanni Saponaro, Giampiero Salvi
 
 if cellcontains(observed,'Action')
-    perror('inference_excl_action: Action is already observed by BN, case not implemented');
-    perror('NOTE: if Action is already observed by BN, why even merge it with HMM?');
+    error('inference_excl_action: Action is already observed by BN');
+    error('not implemented');
 end;
 
 fprintf('\n');
@@ -79,7 +79,7 @@ hmm_ev_rep = repmat(hmm_ev', sizes_for_repmat);
 fprintf('\n');
 
 %% matrix multiplication
-%fprintf('\nDEBUG going to multiply %s by %s...\n', mat2str(size(pred.T)), mat2str(size(hmm_ev_rep)));
+fprintf('\nDEBUG going to multiply %s by %s...\n', mat2str(size(pred.T)), mat2str(size(hmm_ev_rep)));
 result = pred.T * hmm_ev_rep;
 fprintf('\n... result (not normalized) =\n');
 disp(result);

@@ -41,10 +41,6 @@ if sum(hmm_ev) ~= 1
     error('fusion: hmm_ev argument elements must sum to one.');
 end;
 
-if cellcontains(observed,'Action')
-    error('fusion: the case when Action is in the observed nodes is not yet implemented.');
-end;
-
 %% determine the type of fusion and apply it
 if cellcontains(inferred,'Action')
     % case 1: inferred nodes include action
