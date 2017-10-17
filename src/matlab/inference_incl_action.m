@@ -44,7 +44,6 @@ netobj = BNEnterNodeEvidence(netobj, observed, 0);
 pred = BNSoftPredictionAccuracy3(netobj, inferred);
 
 fprintf('... p_BN =\n');
-fprintf('\n');
 disp(pred.T);
     
 %% HMM part
