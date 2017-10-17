@@ -1,4 +1,4 @@
-function result = inference_excl_action(netobj,inferred,observed,hmm_ev,action_map)
+function result = inference_excl_action(netobj,inferred,observed,hmm_ev)
 % INFERENCE_EXCL_ACTION  Compute an inference from the combined affordances
 %                        Bayesian + gesture Hidden Markov Model, in the case
 %                        where the inferred nodes (i.e., posteriors)
@@ -19,8 +19,6 @@ function result = inference_excl_action(netobj,inferred,observed,hmm_ev,action_m
 %
 % hmm_ev: array of probabilities obtained from gesture Hidden Markov Model
 %         (i.e., posterior probability distribution of the gesture classes)
-%
-% action_map: (optional) map container with action names and indexes
 %
 % Outputs
 %
