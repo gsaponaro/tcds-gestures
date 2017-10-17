@@ -68,8 +68,10 @@ pred = BNSoftPredictionAccuracy3(netobj, inferred);
 
 fprintf('... p_BN =');
 if simplecase
+    % print BN prediction transposed -> row vector
     fprintf(strrep([' (' num2str(pred.T', ' %f ') ')'], ',)', ''));
 else
+    % print BN prediction matrix
     fprintf('\n');
     disp(pred.T);
 end;
@@ -84,7 +86,7 @@ fprintf(strrep(['\n... p_HMM = (' num2str(hmm_ev, ' %f ') ')'], ',)', ''));
 % first, construct aux vector to be like size(inferred), except for the
 % Action dimension entry, where it will be 1.
 % example:
-% inferred = {'Action', 'Color'} -> normally [3 4] -> we force [1 4]
+% inferred = {'Action', 'Color'} -> size=[3 4] -> sizes_for_repmat=[1 4]
 sizes_for_repmat = [];
 for d = 1:num_inferred_nodes
     if d==actnode_idx
@@ -93,16 +95,16 @@ for d = 1:num_inferred_nodes
         sizes_for_repmat = [sizes_for_repmat length(make_bn_node_map(netobj,inferred{d}))]; % TODO optimize
     end;
 end;
-fprintf('\nDEBUG sizes_for_repmat =');
-disp(sizes_for_repmat);
+% fprintf('\nDEBUG sizes_for_repmat =');
+% disp(sizes_for_repmat);
 
 hmm_ev_rep = repmat(hmm_ev', sizes_for_repmat);
-fprintf('DEBUG hmm evidence appropriately stacked =');
-hmm_ev_rep
+% fprintf('DEBUG hmm evidence appropriately stacked =');
+% hmm_ev_rep
 result = bsxfun(@times, pred.T, hmm_ev_rep);
 
 %% normalize to unitary sum
-fprintf('result (not normalized):\n');
+fprintf('\n...result (not normalized):\n');
 disp(result);
 %result = normalise(result);
 

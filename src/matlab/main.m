@@ -38,35 +38,36 @@ fprintf('case 1 examples (inference over nodes including Action)\n\n');
 % =====================================================================
 
 fprintf('%d.\n', e);
-% BN observed nodes
-observed = {'Shape', 'circle', 'Size', 'small'};
-% BN nodes to infer
-inferred = {'Action'};
-% HMM evidence in GestureHMM order
-hmm_ev = [0.8 0.1 0.1];
-% HMM evidence in BNActionValue order
+observed = {'Shape', 'circle', 'Size', 'small'}; % BN observed nodes
+inferred = {'Action'}; % BN nodes to infer
+hmm_ev = [0.8 0.1 0.1]; % HMM evidence in GestureHMM order
 reorder = [2 1 3]; % TODO use get_remapping
-hmm_ev_ordered = hmm_ev(:, reorder);
-% do the HMM+BN merged inference
-result1 = fusion(netobj_lab, inferred, observed, hmm_ev_ordered);
+hmm_ev_ordered = hmm_ev(:, reorder); % HMM evidence in BNActionValue order
+result = fusion(netobj_lab, inferred, observed, hmm_ev_ordered);
 
-clear observed inferred hmm_ev reorder hmm_ev_ordered result1;
+clear observed inferred hmm_ev reorder hmm_ev_ordered result;
 e = e+1;
 
 fprintf('%d.\n', e);
-% BN observed nodes
 observed = {'Color', 'yellow', 'Shape', 'circle'};
-% BN nodes to infer
 inferred = {'Action', 'ObjVel'};
-% HMM evidence in GestureHMM order
 hmm_ev = [0.8 0.1 0.1];
-% HMM evidence in BNActionValue order
 reorder = [2 1 3]; % TODO use get_remapping
 hmm_ev_ordered = hmm_ev(:, reorder);
-% do the HMM+BN merged inference
-result1 = fusion(netobj_lab, inferred, observed, hmm_ev_ordered);
+result = fusion(netobj_lab, inferred, observed, hmm_ev_ordered);
 
-clear observed inferred hmm_ev reorder hmm_ev_ordered result1;
+clear observed inferred hmm_ev reorder hmm_ev_ordered result;
+e = e+1;
+
+fprintf('%d.\n', e);
+observed = {'ObjVel', 'fast', 'Shape', 'circle'};
+inferred = {'Action', 'Color'};
+hmm_ev = [0.8 0.1 0.1];
+reorder = [2 1 3]; % TODO use get_remapping
+hmm_ev_ordered = hmm_ev(:, reorder);
+result = fusion(netobj_lab, inferred, observed, hmm_ev_ordered);
+
+clear observed inferred hmm_ev reorder hmm_ev_ordered result;
 e = e+1;
 
 fprintf('case 2 examples (inference over nodes not including Action)\n\n');
@@ -83,6 +84,6 @@ hmm_ev = [0.8 0.1 0.1];
 % HMM evidence in BNActionValue order
 reorder = [2 1 3]; % TODO use get_remapping
 hmm_ev_ordered = hmm_ev(:, reorder);
-result2 = fusion(netobj_lab, inferred, observed, hmm_ev_ordered);
+result = fusion(netobj_lab, inferred, observed, hmm_ev_ordered);
 
 e = e+1;
