@@ -70,6 +70,7 @@ fprintf('... p_BN =');
 if simplecase
     % print BN prediction transposed -> row vector
     fprintf(strrep([' (' num2str(pred.T', ' %f ') ')'], ',)', ''));
+    fprintf('\n');
 else
     % print BN prediction matrix
     fprintf('\n');
@@ -79,7 +80,7 @@ end;
 %% HMM part
 % given by hmm_ev, already re-ordered to follow BN action values order
 
-fprintf(strrep(['\n... p_HMM = (' num2str(hmm_ev, ' %f ') ')'], ',)', ''));
+fprintf(strrep(['... p_HMM = (' num2str(hmm_ev, ' %f ') ')'], ',)', ''));
 
 %% merge the evidence of the two models
 
@@ -104,7 +105,7 @@ hmm_ev_rep = repmat(hmm_ev', sizes_for_repmat);
 result = bsxfun(@times, pred.T, hmm_ev_rep);
 
 %% normalize to unitary sum
-fprintf('\n...result (not normalized):\n');
+fprintf('\n... result (not normalized) =\n');
 disp(result);
 %result = normalise(result);
 
