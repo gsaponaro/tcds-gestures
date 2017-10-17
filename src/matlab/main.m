@@ -96,3 +96,6 @@ result = fusion(netobj_lab, inferred, observed, hmm_ev_ordered);
 
 clear observed inferred hmm_ev reorder hmm_ev_ordered result;
 e = e+1;
+
+% TODO: support case-2 queries with more than one inferred nodes,
+%       such as inferred = {'ObjVel', 'Color'};

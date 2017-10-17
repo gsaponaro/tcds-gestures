@@ -24,10 +24,10 @@ function result = inference_excl_action(netobj,inferred,observed,hmm_ev,action_m
 %
 % Outputs
 %
-% result: element-wise multiplication between Bayesian Network inference
-%         (with the Action variable marginalized out) and gesture Hidden
-%         Markov Model inference, i.e.,
-%         p(X1|X2,V) = sum_{a=1}^{num_actions} p_BN(Action=a,X1|X2) .* p_HMM(Action=a|V)
+% result: matrix multiplication between Bayesian Network inference
+%         (with the Action variable) and gesture Hidden Markov Model
+%         inference, i.e.,
+%         p(X1|X2,V) = sum_{a=1}^{num_actions} p_BN(Action=a,X1|X2) * p_HMM(Action=a|V)
 %
 % Giovanni Saponaro, Giampiero Salvi
 
@@ -43,10 +43,6 @@ fprintf('| ')
 fprintf('%s ', observed{:});
 fprintf(') ...\n');
 
-action_names = keys(action_map);
-num_actions = length(action_map);
-%action_size = size(action_map)
-
 %% BN part
 
 % copy of inferred augmented with 'Action' var, to be marginalized out
@@ -56,9 +52,6 @@ if ~cellcontains(temp_inferred,'Action')
 else
     warning('inference_excl_action: inferred already contains Action');
 end;
-fprintf('DEBUG temp_inferred = ');
-fprintf('%s ', temp_inferred{:});
-fprintf('\n');
 
 % enter node evidence for all prior nodes
 netobj = BNEnterNodeEvidence(netobj, observed, 0);
@@ -67,63 +60,42 @@ netobj = BNEnterNodeEvidence(netobj, observed, 0);
 % extract predictions (posteriors)
 pred = BNSoftPredictionAccuracy3(netobj, temp_inferred);
 
-fprintf('... whole p_BN =\n');
+fprintf('... auxiliary p_BN( ');
+fprintf('%s ', temp_inferred{:});
+fprintf('| ')
+fprintf('%s ', observed{:});
+fprintf(') =\n');
 disp(pred.T);
-
-actnode_idx = get_node_index(temp_inferred, 'Action'); % position of 'Action'
 
 %% HMM part
 % given by hmm_ev, already re-ordered to follow BN action values order
 
-fprintf(strrep(['\n... p_HMM = (' num2str(hmm_ev, ' %f ') ')'], ',)', ''));
+fprintf(strrep(['... p_HMM = (' num2str(hmm_ev, ' %f ') ')'], ',)', ''));
+
+%% merge the evidence of the two models
+
+% reshape hmm_ev to a format suitable for matrix multiplication below
+sizes_for_repmat = [1 1]; % TODO support queries with >1 inferred nodes
+hmm_ev_rep = repmat(hmm_ev', sizes_for_repmat);
+
 fprintf('\n');
 
-hmm_ev_rep = hmm_ev';
-
-% for a = 1:num_actions
-%     fprintf('\nDEBUG action %d (%s):\n', a, action_names{a});
-%     
-%     fprintf('DEBUG we take entry %d -> \n', a);
-%     % ugly hack, TODO generalize
-%     if actnode_idx==1
-%         disp(pred.T(a,:,:,:));
-%     elseif actnode_idx==2
-%         disp(pred.T(:,a,:,:));
-%     elseif actnode_idx==3
-%         disp(pred.T(:,:,a,:));
-%     elseif actnode_idx==4
-%         disp(pred.T(:,:,:,a));
-%     else
-%         perror('reference_excl_action: queries of this complexity not implemented');
-%     end;
-%     
-%     %% merge the evidence of the two models
-% end;
-
 %% matrix multiplication
-fprintf('\nDEBUG going to multiply %s by %s...\n', mat2str(size(pred.T)), mat2str(size(hmm_ev_rep)));
+%fprintf('\nDEBUG going to multiply %s by %s...\n', mat2str(size(pred.T)), mat2str(size(hmm_ev_rep)));
 result = pred.T * hmm_ev_rep;
 fprintf('\n... result (not normalized) =\n');
 disp(result);
-
-% fprintf('\nDEBUG ground truth:\n');
-% other_map = make_bn_node_map(netobj,inferred{1}); % Color
-% num_other = length(other_map);
-% gt = zeros(num_other,1);
-% for c = 1:num_other
-%     curr = 0;
-%     for a = 1:num_actions
-%         curr = curr + pred.T(c,a)*hmm_ev_rep(a);
-%     end;
-%     gt(c) = curr;
-% end;
-% gt
 
 %% normalize to unitary sum (along which dimension? always the Action one?)
 %result = normalise(result);
 
 %% compute original BN query without marginalizing out Action, for comparison
-fprintf('\nfor comparison, the result purely with BN (ignoring HMM) would be:\n');
+fprintf('for comparison, the result purely with BN (ignoring HMM) would be:\n');
+fprintf('p_BN( ');
+fprintf('%s ', inferred{:});
+fprintf('| ')
+fprintf('%s ', observed{:});
+fprintf(') =\n');
 netobj = BNEnterNodeEvidence(netobj, observed, 0);
 pred_only_bn = BNSoftPredictionAccuracy3(netobj, inferred);
 disp(pred_only_bn.T);
