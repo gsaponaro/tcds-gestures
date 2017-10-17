@@ -79,7 +79,7 @@ hmm_ev_rep = repmat(hmm_ev', sizes_for_repmat);
 fprintf('\n');
 
 %% matrix multiplication
-fprintf('\nDEBUG going to multiply %s by %s...\n', mat2str(size(pred.T)), mat2str(size(hmm_ev_rep)));
+%fprintf('\nDEBUG going to multiply %s by %s...\n', mat2str(size(pred.T)), mat2str(size(hmm_ev_rep)));
 result = pred.T * hmm_ev_rep;
 fprintf('\n... result (not normalized) =\n');
 disp(result);
