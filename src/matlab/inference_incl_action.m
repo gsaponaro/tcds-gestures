@@ -35,18 +35,6 @@ fprintf('| ')
 fprintf('%s ', observed{:});
 fprintf(') ...\n');
 
-num_inferred_nodes = length(inferred);
-if num_inferred_nodes==1
-    % list of inferred nodes contains only 'Action'
-    simplecase = true;
-else
-    % list of inferred contains 'Action' and other nodes
-    simplecase = false;
-end;
-
-% position of the 'Action' node in the list
-actnode_idx = get_node_index(inferred, 'Action');
-
 %% BN part
 % enter node evidence for all prior nodes
 netobj = BNEnterNodeEvidence(netobj, observed, 0);
@@ -55,16 +43,9 @@ netobj = BNEnterNodeEvidence(netobj, observed, 0);
 % extract predictions (posteriors)
 pred = BNSoftPredictionAccuracy3(netobj, inferred);
 
-fprintf('... p_BN =');
-if simplecase
-    % print BN prediction transposed -> row vector
-    fprintf(strrep([' (' num2str(pred.T', ' %f ') ')'], ',)', ''));
-    fprintf('\n');
-else
-    % print BN prediction matrix
-    fprintf('\n');
-    disp(pred.T);
-end;
+fprintf('... p_BN =\n');
+fprintf('\n');
+disp(pred.T);
     
 %% HMM part
 % given by hmm_ev, already re-ordered to follow BN action values order
@@ -74,10 +55,11 @@ fprintf(strrep(['... p_HMM = (' num2str(hmm_ev, ' %f ') ')'], ',)', ''));
 %% merge the evidence of the two models
 
 % first, construct aux vector to be like size(inferred), except for the
-% Action dimension entry, where it will be 1.
-% example:
+% Action dimension entry, where it will be 1. Example:
 % inferred = {'Action', 'Color'} -> size=[3 4] -> sizes_for_repmat=[1 4]
 sizes_for_repmat = [];
+num_inferred_nodes = length(inferred);
+actnode_idx = get_node_index(inferred, 'Action'); % position of 'Action'
 for d = 1:num_inferred_nodes
     if d==actnode_idx
         sizes_for_repmat = [sizes_for_repmat 1];
@@ -85,18 +67,14 @@ for d = 1:num_inferred_nodes
         sizes_for_repmat = [sizes_for_repmat length(make_bn_node_map(netobj,inferred{d}))]; % TODO optimize
     end;
 end;
-% fprintf('\nDEBUG sizes_for_repmat =');
-% disp(sizes_for_repmat);
 
+% stack repetitions of hmm_ev appropriately for the multiplication below
 hmm_ev_rep = repmat(hmm_ev', sizes_for_repmat);
-% fprintf('DEBUG hmm evidence appropriately stacked =');
-% hmm_ev_rep
-result = bsxfun(@times, pred.T, hmm_ev_rep);
 
-%% normalize to unitary sum
+%% element-wise multiplication
+result = bsxfun(@times, pred.T, hmm_ev_rep);
 fprintf('\n... result (not normalized) =\n');
 disp(result);
-%result = normalise(result);
 
-%fprintf(strrep(['\n... => (' num2str(result', ' %f ') ')'], ',)', ''));
-%fprintf('\n');
+%% normalize to unitary sum (along which dimension? always the Action one?)
+%result = normalise(result);
