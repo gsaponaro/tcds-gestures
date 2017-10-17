@@ -22,20 +22,9 @@ function result = inference_incl_action(netobj,inferred,observed,hmm_ev)
 %
 % Outputs
 %
-% result: TODO describe
-%
-% Example:
-% observed = {'Shape', 'circle', 'Size', 'small'};
-% inferred = {'Action'};
-% hmm_ev = [0.8 0.1 0.1];
-% reorder = [2 1 3];
-% hmm_ev_ordered = hmm_ev(:, reorder);
-% result = inference_incl_action(netobj,inferred,observed,hmm_ev_ordered);
-% ->
-% computing p( Action | Shape circle Size small ) ...
-% ... p_BN = (0.413323  0.421183  0.165493)
-% ... p_HMM = (0.100000  0.800000  0.100000)
-% ... => (0.104684  0.853400  0.041915)
+% result: element-wise multiplication between Bayesian Network inference
+%         and gesture Hidden Markov Model inference, i.e.,
+%         p(Action,X1|X2,V) = p_BN(Action,X1|X2) .* p_HMM(Action|V)
 %
 % Giovanni Saponaro, Giampiero Salvi
 
