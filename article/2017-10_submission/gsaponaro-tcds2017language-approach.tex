@@ -46,7 +46,34 @@ We estimate the action performed by a human user during a \hr{} collaborative ta
   \end{minipage}
   \begin{minipage}{0.5\textwidth}
     \centering
-    \includegraphics[width=0.8\columnwidth]{fullNetAbstract}
+    \begin{tikzpicture}
+      % single nodes
+      \node[affnode] (actions) {Actions};
+      \node[affnode, right of=actions] (f1) [right=0.7cm] {$f_1$};
+      \node[affnode, right of=f1] (f2) {$f_2$};
+      \node[right of=f2] (fdots) {$\dots$};
+      \node[affnode, below of=f1] (e2) [below=0.7cm] {$e_2$};
+      \node[affnode, left of=e2] (e1) {$e_1$};
+      \node[right of=e2] (edots) {$\dots$};
+      \node[wordnode, below of=e1] (w1)  [below=0.7cm] {$w_1$};
+      \node[wordnode, right of=w1] (w2) {$w_2$};
+      \node[right of=w2] (wdots) {$\dots$};
+      % groups
+      \node[group, fit=(f1) (f2) (fdots),label=above:Object Features] (features) {};
+      \node[group, fit=(e1) (e2) (edots),label=above:Effects] (effects) {};
+      \node[group, fit=(w1) (w2) (wdots),label=above:Words] (words) {};
+      % arrows
+      \draw[->, thick] (actions) -- ([xshift=-30pt]effects.north);
+      \draw[->, thick] (actions) to [out=260,in=150] (words.west);
+      \draw[->, thick] (features) -- ([xshift=20pt]effects.north);
+      \draw[->, thick] ([xshift=20pt]features.south) to [out=280,in=30] (words.east);
+      \draw[->, thick] ([xshift=30pt]effects.south) -- ([xshift=30pt]words.north);
+      % extra
+      \node[affnode, above of=actions] (gestures) [above=0.7cm] {Gesture Features};
+      \draw[->,thick] (actions) -- (gestures);
+    \end{tikzpicture}
+    %\centering
+    %\includegraphics[width=0.8\columnwidth]{fullNetAbstract}
   \end{minipage}
   \caption{Abstract representation of the probabilistic dependencies in the model. Shaded nodes are observable or measurable in the present study, and edges indicate Bayesian dependency.}
   \label{fig:model}
