@@ -12,13 +12,12 @@ Our main contribution is that of extending~\cite{salvi:2012:smcb} by relaxing th
 This assumption is acceptable when the robot learns through self-exploration and interaction with the environment, but must be relaxed if the robot needs to generalize the acquired knowledge through the observation of another~(human) agent.
 We estimate the action performed by a human user during a \hr{} collaborative task, by employing statistical inference methods and \acp{HMM}. This provides two advantages. First, we can infer the executed action during training. Secondly, at testing time we can merge the action information obtained from gesture recognition with the information about affordances.
 
-\begin{figure*}
-  \tikzstyle{affnode} = [ellipse, draw, fill=gray!20, thick]%node distance=1cm, text width=6em, text centered, minimum height=4em, thick]
+\begin{figure}
+  \tikzstyle{affnode} = [ellipse, draw, thick]%fill=gray!20, thick]%node distance=1cm, text width=6em, text centered, minimum height=4em, thick]
   \tikzstyle{wordnode} = [ellipse, draw, thick]
   \tikzstyle{group} = [rectangle, draw, black, thick]%, inner sep=0.5cm
-  \tikzstyle{dashedgroup} = [rectangle, draw, inner sep=0.5cm, dashed, rounded corners, black, thick]
+  \tikzstyle{dashedgroup} = [rectangle, draw, inner sep=0.8cm, dashed, rounded corners, black]
 
-  \begin{minipage}{0.5\textwidth}
     \centering
     \begin{tikzpicture}
       % single nodes
@@ -36,32 +35,7 @@ We estimate the action performed by a human user during a \hr{} collaborative ta
       \node[group, fit=(f1) (f2) (fdots),label=above:Object Features] (features) {};
       \node[group, fit=(e1) (e2) (edots),label=above:Effects] (effects) {};
       \node[group, fit=(w1) (w2) (wdots),label=above:Words] (words) {};
-      % arrows
-      \draw[->, thick] (actions) -- ([xshift=-30pt]effects.north);
-      \draw[->, thick] (actions) to [out=260,in=150] (words.west);
-      \draw[->, thick] (features) -- ([xshift=20pt]effects.north);
-      \draw[->, thick] ([xshift=20pt]features.south) to [out=280,in=30] (words.east);
-      \draw[->, thick] ([xshift=30pt]effects.south) -- ([xshift=30pt]words.north);
-    \end{tikzpicture}
-  \end{minipage}
-  \begin{minipage}{0.5\textwidth}
-    \centering
-    \begin{tikzpicture}
-      % single nodes
-      \node[affnode] (actions) {Actions};
-      \node[affnode, right of=actions] (f1) [right=0.7cm] {$f_1$};
-      \node[affnode, right of=f1] (f2) {$f_2$};
-      \node[right of=f2] (fdots) {$\dots$};
-      \node[affnode, below of=f1] (e2) [below=0.7cm] {$e_2$};
-      \node[affnode, left of=e2] (e1) {$e_1$};
-      \node[right of=e2] (edots) {$\dots$};
-      \node[wordnode, below of=e1] (w1)  [below=0.7cm] {$w_1$};
-      \node[wordnode, right of=w1] (w2) {$w_2$};
-      \node[right of=w2] (wdots) {$\dots$};
-      % groups
-      \node[group, fit=(f1) (f2) (fdots),label=above:Object Features] (features) {};
-      \node[group, fit=(e1) (e2) (edots),label=above:Effects] (effects) {};
-      \node[group, fit=(w1) (w2) (wdots),label=above:Words] (words) {};
+      \node[dashedgroup, fit=(actions) (features) (effects) (words),label=above:Affordance model]{};
       % arrows
       \draw[->, thick] (actions) -- ([xshift=-30pt]effects.north);
       \draw[->, thick] (actions) to [out=260,in=150] (words.west);
@@ -69,15 +43,14 @@ We estimate the action performed by a human user during a \hr{} collaborative ta
       \draw[->, thick] ([xshift=20pt]features.south) to [out=280,in=30] (words.east);
       \draw[->, thick] ([xshift=30pt]effects.south) -- ([xshift=30pt]words.north);
       % extra
-      \node[affnode, above of=actions] (gestures) [above=0.7cm] {Gesture Features};
+      \node[affnode, above of=actions] (gestures) [above=1cm] {Gesture Features};
       \draw[->,thick] (actions) -- (gestures);
     \end{tikzpicture}
     %\centering
     %\includegraphics[width=0.8\columnwidth]{fullNetAbstract}
-  \end{minipage}
   \caption{Abstract representation of the probabilistic dependencies in the model. Shaded nodes are observable or measurable in the present study, and edges indicate Bayesian dependency.}
   \label{fig:model}
-\end{figure*}
+\end{figure}
 
 \subsection{\acl{BN} for \AffWords{} Modeling}
 \label{sec:bn}
