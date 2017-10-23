@@ -48,6 +48,29 @@ result = fusion(netobj_lab, inferred, observed, hmm_ev_ordered);
 clear observed inferred hmm_ev reorder hmm_ev_ordered result;
 e = e+1;
 
+% Word nodes: repeat it to indicate presence, set to '-' to indicate absense
+fprintf('%d.\n', e);
+observed = {'Shape', 'circle', 'Size', 'small', 'moves', 'moves'};
+inferred = {'Action'};
+hmm_ev = [0.8 0.1 0.1];
+reorder = [2 1 3]; % TODO use get_remapping
+hmm_ev_ordered = hmm_ev(:, reorder);
+result = fusion(netobj_lab, inferred, observed, hmm_ev_ordered);
+
+clear observed inferred hmm_ev reorder hmm_ev_ordered result;
+e = e+1;
+
+fprintf('%d.\n', e);
+observed = {'Shape', 'circle', 'Size', 'small', 'moves', 'moves', 'rolling', '-'};
+inferred = {'Action'};
+hmm_ev = [0.8 0.1 0.1];
+reorder = [2 1 3]; % TODO use get_remapping
+hmm_ev_ordered = hmm_ev(:, reorder);
+result = fusion(netobj_lab, inferred, observed, hmm_ev_ordered);
+
+clear observed inferred hmm_ev reorder hmm_ev_ordered result;
+e = e+1;
+
 fprintf('%d.\n', e);
 observed = {'Color', 'yellow', 'Shape', 'circle'};
 inferred = {'Action', 'ObjVel'};

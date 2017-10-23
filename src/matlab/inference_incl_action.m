@@ -36,9 +36,8 @@ fprintf('%s ', observed{:});
 fprintf(') ...\n');
 
 %% BN part
-% enter node evidence for all prior nodes
+% enter node evidence for all prior observed nodes
 netobj = BNEnterNodeEvidence(netobj, observed, 0);
-% TODO enter word evidence if available
 
 % extract predictions (posteriors)
 pred = BNSoftPredictionAccuracy3(netobj, inferred);
@@ -50,6 +49,7 @@ disp(pred.T);
 % given by hmm_ev, already re-ordered to follow BN action values order
 
 fprintf(strrep(['... p_HMM = (' num2str(hmm_ev, ' %f ') ')'], ',)', ''));
+fprintf('\n');
 
 %% merge the evidence of the two models
 
