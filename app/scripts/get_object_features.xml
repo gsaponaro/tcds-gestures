@@ -1,0 +1,95 @@
+<application>
+<name>GLU 2017 get object features</name>
+
+        <dependencies>
+        </dependencies>
+
+        <module>
+                <name>lbpExtract</name>
+                <parameters>--radius 7 --maxArea 6000 --maxArcLength 600</parameters>
+                <node>localhost</node>
+        </module>
+
+        <module>
+                <name>blobDescriptor</name>
+                <node>localhost</node>
+        </module>
+
+        <module>
+                <name>sequentialLabeller</name>
+                <node>localhost</node>
+        </module>
+
+        <module>
+                <name>yarpview</name>
+                <parameters>--name /view/robotView --x 0 --y 0</parameters>
+                <node>localhost</node>
+        </module>
+
+        <module>
+                <name>yarpview</name>
+                <parameters>--name /view/lbpSegmented --x 365 --y 0</parameters>
+                <node>localhost</node>
+        </module>
+
+        <module>
+                <name>yarpdatadumper</name>
+                <parameters>--name imgInput --type image --connect /icub/camcalib/left/out --downsample 30</parameters>
+                <node>localhost</node>
+        </module>
+
+        <module>
+                <name>yarpdatadumper</name>
+                <parameters>--name imgSeg --type image --connect /lbpExtract/segmentedlbp:o --downsample 30</parameters>
+                <node>localhost</node>
+        </module>
+
+        <module>
+                <name>yarpdatadumper</name>
+                <parameters>--name obj --connect /blobDescriptor/affDescriptor:o --downsample 30</parameters>
+                <node>localhost</node>
+        </module>
+
+        <connection>
+                <from>/icub/camcalib/left/out</from>
+                <to>/lbpExtract/image:i</to>
+                <protocol>udp</protocol>
+        </connection>
+
+        <connection>
+            <from>/lbpExtract/extractedlbp:o</from>
+            <to>/blobDescriptor/binImg:i</to>
+            <protocol>udp</protocol>
+        </connection>
+
+        <connection>
+            <from>/icub/camcalib/left/out</from>
+            <to>/blobDescriptor/rawImg:i</to>
+            <protocol>udp</protocol>
+        </connection>
+
+        <connection>
+            <from>/sequentialLabeller/labeledImg:o</from>
+            <to>/blobDescriptor/labeledImg:i</to>
+            <protocol>udp</protocol>
+        </connection>
+
+        <connection>
+            <from>/lbpExtract/extractedlbp:o</from>
+            <to>/sequentialLabeller/binImg:i</to>
+            <protocol>udp</protocol>
+        </connection>
+
+        <connection>
+            <from>/icub/camcalib/left/out</from>
+            <to>/view/robotView</to>
+            <protocol>mjpeg</protocol>
+        </connection>
+
+        <connection>
+            <from>/lbpExtract/segmentedlbp:o</from>
+            <to>/view/lbpSegmented</to>
+            <protocol>mjpeg</protocol>
+        </connection>
+
+</application>

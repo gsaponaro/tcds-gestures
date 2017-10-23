@@ -1,0 +1,78 @@
+<application>
+<name>GLU 2017 playback touch</name>
+
+        <dependencies>
+        </dependencies>
+
+        <module>
+                <!-- replace with full path of yarp openni2 driver files, http://wiki.icub.org/wiki/OpenNI2 -->
+                <workdir>/home/g/NOBACKUP/yarp_openni2_root</workdir>
+                <name>yarpdev</name>
+                <!-- replace playback argument with full path to oni file -->
+                <parameters>--device OpenNI2DeviceServer --playback /home/g/Dropbox/phd/work-2017/work-2017-05/glu2017_oni_videos/glu-touch1.oni</parameters>
+                <node>localhost</node>
+        </module>
+
+        <module>
+                <name>humanHandProcessor</name>
+                <node>localhost</node>
+        </module>
+
+        <module>
+                <name>yarpview</name>
+                <parameters>--name /view/asus/color --x 0 --y 0</parameters>
+                <node>localhost</node>
+        </module>
+
+        <module>
+                <name>yarpview</name>
+                <parameters>--name /view/asus/depth --x 365 --y 0</parameters>
+                <node>localhost</node>
+        </module>
+
+        <module>
+                <name>yarpscope</name>
+                <parameters>--title "touch" --x 0 --y 352 --remote /humanHandProcessor/hand:o --index "(0 1)" --min -2400 --max 2000 --color "(Blue Red)" --graph_size "(2 2)"</parameters>
+                <node>localhost</node>
+        </module>
+
+        <module>
+                <name>yarpdatadumper</name>
+                <parameters>--name touch1_hand --connect /humanHandProcessor/hand:o</parameters>
+                <node>localhost</node>
+        </module>
+
+        <module>
+                <name>yarpdatadumper</name>
+                <parameters>--name touch1_rgb --type image --connect /OpenNI2/imageFrame:o</parameters>
+                <node>localhost</node>
+        </module>
+
+        <connection>
+                <from>/OpenNI2/userSkeleton:o</from>
+                <to>/humanHandProcessor/skel:i</to>
+        </connection>
+
+        <connection>
+                <from>/OpenNI2/imageFrame:o</from>
+                <to>/view/asus/color</to>
+                <protocol>udp</protocol>
+        </connection>
+
+        <connection>
+                <from>/OpenNI2/depthFrame:o</from>
+                <to>/view/asus/depth</to>
+                <protocol>udp</protocol>
+        </connection>
+
+        <connection>
+                <from>/humanHandProcessor/hand:o</from>
+                <to>/touch1_hand</to>
+        </connection>
+
+        <connection>
+                <from>/OpenNI2/imageFrame:o</from>
+                <to>/touch1_rgb</to>
+        </connection>
+
+</application>
