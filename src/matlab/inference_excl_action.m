@@ -81,11 +81,15 @@ fprintf('\n');
 %% matrix multiplication
 %fprintf('\nDEBUG going to multiply %s by %s...\n', mat2str(size(pred.T)), mat2str(size(hmm_ev_rep)));
 result = pred.T * hmm_ev_rep;
-fprintf('\n... result (not normalized) =\n');
-disp(result);
 
-%% normalize to unitary sum (along which dimension? always the Action one?)
-%result = normalise(result);
+% fprintf('\n... result (not normalized) =\n');
+% disp(result);
+
+%% normalize the whole matrix (joint probability) to unitary sum
+result = normalize(result);
+
+fprintf('\n... result (normalized) =\n');
+disp(result);
 
 %% compute original BN query without marginalizing out Action, for comparison
 fprintf('for comparison, the result purely with BN (ignoring HMM) would be:\n');
