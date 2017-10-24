@@ -1,0 +1,274 @@
+% This is not an official TikZ library. Use at your own risk!
+
+\makeatletter
+% alternative latex arrow
+\pgfarrowsdeclare{latexnew}{latexnew}
+{
+  \ifdim\pgfgetarrowoptions{latexnew}=-1pt%
+    \pgfutil@tempdima=0.28pt%
+    \pgfutil@tempdimb=\pgflinewidth%
+    \ifdim\pgfinnerlinewidth>0pt%
+      \pgfmathsetlength\pgfutil@tempdimb{.6\pgflinewidth-.4*\pgfinnerlinewidth}%
+    \fi%
+    \advance\pgfutil@tempdima by.3\pgfutil@tempdimb%
+  \else%
+    \pgfutil@tempdima=\pgfgetarrowoptions{latexnew}%
+    \divide\pgfutil@tempdima by 10%
+  \fi%
+  \pgfarrowsleftextend{+-1\pgfutil@tempdima}%
+  \pgfarrowsrightextend{+9\pgfutil@tempdima}%
+}
+{
+  \ifdim\pgfgetarrowoptions{latexnew}=-1pt%
+    \pgfutil@tempdima=0.28pt%
+    \pgfutil@tempdimb=\pgflinewidth%
+    \ifdim\pgfinnerlinewidth>0pt%
+      \pgfmathsetlength\pgfutil@tempdimb{.6\pgflinewidth-.4*\pgfinnerlinewidth}%
+    \fi%
+    \advance\pgfutil@tempdima by.3\pgfutil@tempdimb%
+  \else%
+    \pgfutil@tempdima=\pgfgetarrowoptions{latexnew}%
+    \divide\pgfutil@tempdima by 10%
+    \pgfsetlinewidth{0bp}%
+  \fi%
+  \pgfpathmoveto{\pgfqpoint{9\pgfutil@tempdima}{0pt}}
+  \pgfpathcurveto
+  {\pgfqpoint{6.3333\pgfutil@tempdima}{.5\pgfutil@tempdima}}
+  {\pgfqpoint{2\pgfutil@tempdima}{2\pgfutil@tempdima}}
+  {\pgfqpoint{-1\pgfutil@tempdima}{3.75\pgfutil@tempdima}}
+  \pgfpathlineto{\pgfqpoint{-1\pgfutil@tempdima}{-3.75\pgfutil@tempdima}}
+  \pgfpathcurveto
+  {\pgfqpoint{2\pgfutil@tempdima}{-2\pgfutil@tempdima}}
+  {\pgfqpoint{6.3333\pgfutil@tempdima}{-.5\pgfutil@tempdima}}
+  {\pgfqpoint{9\pgfutil@tempdima}{0pt}}
+  \pgfusepathqfill
+}
+
+% alternative latex reversed arrow
+\pgfarrowsdeclarereversed{latexnew reversed}{latexnew reversed}{latexnew}{latexnew}
+
+% alternative latex' arrow
+\pgfarrowsdeclare{latex'new}{latex'new}
+{
+  \ifdim\pgfgetarrowoptions{latex'new}=-1pt%
+    \pgfutil@tempdima=0.28pt%
+    \advance\pgfutil@tempdima by.3\pgflinewidth%
+  \else%
+    \pgfutil@tempdima=\pgfgetarrowoptions{latex'new}%
+    \divide\pgfutil@tempdima by 10%
+  \fi%
+  \pgfarrowsleftextend{+-4\pgfutil@tempdima}
+  \pgfarrowsrightextend{+6\pgfutil@tempdima}
+}
+{
+  \ifdim\pgfgetarrowoptions{latex'new}=-1pt%
+    \pgfutil@tempdima=0.28pt%
+    \advance\pgfutil@tempdima by.3\pgflinewidth%
+  \else%
+    \pgfutil@tempdima=\pgfgetarrowoptions{latex'new}%
+    \divide\pgfutil@tempdima by 10%
+    \pgfsetlinewidth{0bp}%
+  \fi%
+  \pgfpathmoveto{\pgfqpoint{6\pgfutil@tempdima}{0\pgfutil@tempdima}}
+  \pgfpathcurveto
+  {\pgfqpoint{3.5\pgfutil@tempdima}{.5\pgfutil@tempdima}}
+  {\pgfqpoint{-1\pgfutil@tempdima}{1.5\pgfutil@tempdima}}
+  {\pgfqpoint{-4\pgfutil@tempdima}{3.75\pgfutil@tempdima}}
+  \pgfpathcurveto
+  {\pgfqpoint{-1.5\pgfutil@tempdima}{1\pgfutil@tempdima}}
+  {\pgfqpoint{-1.5\pgfutil@tempdima}{-1\pgfutil@tempdima}}
+  {\pgfqpoint{-4\pgfutil@tempdima}{-3.75\pgfutil@tempdima}}
+  \pgfpathcurveto
+  {\pgfqpoint{-1\pgfutil@tempdima}{-1.5\pgfutil@tempdima}}
+  {\pgfqpoint{3.5\pgfutil@tempdima}{-.5\pgfutil@tempdima}}
+  {\pgfqpoint{6\pgfutil@tempdima}{0\pgfutil@tempdima}}
+  \pgfusepathqfill
+}
+
+% alternative latex' reversed arrow
+\pgfarrowsdeclarereversed{latex'new reversed}{latex'new reversed}{latex'new}{latex'new}
+
+% alternative o arrow
+\pgfarrowsdeclare{onew}{onew}
+{
+  \pgfarrowsleftextend{+-.5\pgflinewidth}
+  \ifdim\pgfgetarrowoptions{onew}=-1pt%
+    \pgfutil@tempdima=0.4pt%
+    \advance\pgfutil@tempdima by.2\pgflinewidth%
+    \pgfutil@tempdimb=9\pgfutil@tempdima\advance\pgfutil@tempdimb by.5\pgflinewidth%
+    \pgfarrowsrightextend{+\pgfutil@tempdimb}%
+  \else%
+    \pgfutil@tempdima=\pgfgetarrowoptions{onew}%
+    \advance\pgfutil@tempdima by -0.5\pgflinewidth%
+    \pgfarrowsrightextend{+\pgfutil@tempdima}%
+  \fi%
+}
+{ 
+  \ifdim\pgfgetarrowoptions{onew}=-1pt%
+    \pgfutil@tempdima=0.4pt%
+    \advance\pgfutil@tempdima by.2\pgflinewidth%
+    \pgfutil@tempdimb=0pt%
+  \else%
+    \pgfutil@tempdima=\pgfgetarrowoptions{onew}%
+    \divide\pgfutil@tempdima by 9%
+    \pgfutil@tempdimb=0.5\pgflinewidth%
+  \fi%
+  \pgfsetdash{}{+0pt}
+  \pgfpathcircle{\pgfpointadd{\pgfqpoint{4.5\pgfutil@tempdima}{0bp}}%
+                             {\pgfqpoint{-\pgfutil@tempdimb}{0bp}}}%
+                {4.5\pgfutil@tempdima-\pgfutil@tempdimb}%
+  \pgfusepathqstroke
+}
+
+% alternative square arrow
+\pgfarrowsdeclare{squarenew}{squarenew}
+{
+ \ifdim\pgfgetarrowoptions{squarenew}=-1pt%
+   \pgfutil@tempdima=0.4pt
+   \advance\pgfutil@tempdima by.275\pgflinewidth%
+   \pgfarrowsleftextend{+-\pgfutil@tempdima}
+   \advance\pgfutil@tempdima by.5\pgflinewidth
+   \pgfarrowsrightextend{+\pgfutil@tempdima}
+ \else%
+   \pgfutil@tempdima=\pgfgetarrowoptions{squarenew}%
+   \divide\pgfutil@tempdima by 8%
+   \pgfarrowsleftextend{+-7\pgfutil@tempdima}%
+   \pgfarrowsrightextend{+1\pgfutil@tempdima}%
+ \fi%
+}
+{
+ \ifdim\pgfgetarrowoptions{squarenew}=-1pt%
+   \pgfutil@tempdima=0.4pt%
+   \advance\pgfutil@tempdima by.275\pgflinewidth%
+   \pgfutil@tempdimb=0pt%
+ \else%
+   \pgfutil@tempdima=\pgfgetarrowoptions{squarenew}%   
+   \divide\pgfutil@tempdima by 8%
+   \pgfutil@tempdimb=0.5\pgflinewidth%
+ \fi%
+ \pgfsetdash{}{+0pt}
+ \pgfsetroundjoin
+ \pgfpathmoveto{\pgfpointadd{\pgfqpoint{1\pgfutil@tempdima}{4\pgfutil@tempdima}}
+                            {\pgfqpoint{-\pgfutil@tempdimb}{-\pgfutil@tempdimb}}}
+ \pgfpathlineto{\pgfpointadd{\pgfqpoint{-7\pgfutil@tempdima}{4\pgfutil@tempdima}}
+                            {\pgfqpoint{\pgfutil@tempdimb}{-\pgfutil@tempdimb}}}
+ \pgfpathlineto{\pgfpointadd{\pgfqpoint{-7\pgfutil@tempdima}{-4\pgfutil@tempdima}}
+                            {\pgfqpoint{\pgfutil@tempdimb}{\pgfutil@tempdimb}}}
+ \pgfpathlineto{\pgfpointadd{\pgfqpoint{1\pgfutil@tempdima}{-4\pgfutil@tempdima}}
+                            {\pgfqpoint{-\pgfutil@tempdimb}{\pgfutil@tempdimb}}}
+ \pgfpathclose
+ \pgfusepathqfillstroke
+}
+
+% alternative stealth arrow
+\pgfarrowsdeclare{stealthnew}{stealthnew}
+{
+  \ifdim\pgfgetarrowoptions{stealthnew}=-1pt%
+    \pgfutil@tempdima=0.28pt%
+    \pgfutil@tempdimb=\pgflinewidth%
+    \ifdim\pgfinnerlinewidth>0pt%
+      \pgfmathsetlength\pgfutil@tempdimb{.6\pgflinewidth-.4*\pgfinnerlinewidth}%
+    \fi%
+    \advance\pgfutil@tempdima by.3\pgfutil@tempdimb%
+  \else%
+    \pgfutil@tempdima=\pgfgetarrowoptions{stealthnew}%
+    \divide\pgfutil@tempdima by 8%
+  \fi%
+  \pgfarrowsleftextend{+-3\pgfutil@tempdima}
+  \pgfarrowsrightextend{+5\pgfutil@tempdima}
+}
+{
+  \ifdim\pgfgetarrowoptions{stealthnew}=-1pt%
+    \pgfutil@tempdima=0.28pt%
+    \pgfutil@tempdimb=\pgflinewidth%
+    \ifdim\pgfinnerlinewidth>0pt%
+      \pgfmathsetlength\pgfutil@tempdimb{.6\pgflinewidth-.4*\pgfinnerlinewidth}%
+    \fi%
+    \advance\pgfutil@tempdima by.3\pgfutil@tempdimb%
+  \else%
+    \pgfutil@tempdima=\pgfgetarrowoptions{stealthnew}%
+    \divide\pgfutil@tempdima by 8%
+    \pgfsetlinewidth{0bp}%
+  \fi%
+  \pgfpathmoveto{\pgfqpoint{5\pgfutil@tempdima}{0pt}}
+  \pgfpathlineto{\pgfqpoint{-3\pgfutil@tempdima}{4\pgfutil@tempdima}}
+  \pgfpathlineto{\pgfpointorigin}
+  \pgfpathlineto{\pgfqpoint{-3\pgfutil@tempdima}{-4\pgfutil@tempdima}}
+  \pgfusepathqfill
+}
+
+% alternative stealth reversed arrow
+\pgfarrowsdeclarereversed{stealthnew reversed}{stealthnew reversed}{stealthnew}{stealthnew}
+
+% alternative to arrow
+\pgfarrowsdeclare{tonew}{tonew}
+{
+  \ifdim\pgfgetarrowoptions{tonew}=-1pt%
+    \pgfutil@tempdima=0.84pt%
+    \advance\pgfutil@tempdima by1.3\pgflinewidth%
+    \pgfutil@tempdimb=0.21pt%
+    \advance\pgfutil@tempdimb by.625\pgflinewidth%
+  \else%
+    \pgfutil@tempdima=\pgfgetarrowoptions{tonew}%
+    \pgfarrowsleftextend{+-0.8\pgfutil@tempdima}%
+    \pgfarrowsrightextend{+0.2\pgfutil@tempdima}%
+  \fi%
+}
+{
+  \ifdim\pgfgetarrowoptions{tonew}=-1pt%
+    \pgfutil@tempdima=0.28pt%
+    \advance\pgfutil@tempdima by.3\pgflinewidth%
+    \pgfutil@tempdimb=0pt,%
+  \else%
+    \pgfutil@tempdima=\pgfgetarrowoptions{tonew}%
+    \multiply\pgfutil@tempdima by 100%
+    \divide\pgfutil@tempdima by 375%
+    \pgfutil@tempdimb=0.4\pgflinewidth%
+  \fi%
+  \pgfsetdash{}{+0pt}
+  \pgfsetroundcap
+  \pgfsetroundjoin
+  \pgfpathmoveto{\pgfpointorigin}
+  \pgflineto{\pgfpointadd{\pgfpoint{0.75\pgfutil@tempdima}{0bp}}
+                         {\pgfqpoint{-2\pgfutil@tempdimb}{0bp}}}
+  \pgfusepathqstroke
+  \pgfsetlinewidth{0.8\pgflinewidth}
+  \pgfpathmoveto{\pgfpointadd{\pgfqpoint{-3\pgfutil@tempdima}{4\pgfutil@tempdima}}
+                             {\pgfqpoint{\pgfutil@tempdimb}{0bp}}}
+  \pgfpathcurveto
+  {\pgfpointadd{\pgfqpoint{-2.75\pgfutil@tempdima}{2.5\pgfutil@tempdima}}
+               {\pgfqpoint{0.5\pgfutil@tempdimb}{0bp}}}
+  {\pgfpointadd{\pgfqpoint{0pt}{0.25\pgfutil@tempdima}}
+               {\pgfqpoint{-0.5\pgfutil@tempdimb}{0bp}}}
+  {\pgfpointadd{\pgfqpoint{0.75\pgfutil@tempdima}{0pt}}
+               {\pgfqpoint{-\pgfutil@tempdimb}{0bp}}}
+  \pgfpathcurveto
+  {\pgfpointadd{\pgfqpoint{0pt}{-0.25\pgfutil@tempdima}}
+               {\pgfqpoint{-0.5\pgfutil@tempdimb}{0bp}}}
+  {\pgfpointadd{\pgfqpoint{-2.75\pgfutil@tempdima}{-2.5\pgfutil@tempdima}}
+               {\pgfqpoint{0.5\pgfutil@tempdimb}{0bp}}}
+  {\pgfpointadd{\pgfqpoint{-3\pgfutil@tempdima}{-4\pgfutil@tempdima}}
+               {\pgfqpoint{\pgfutil@tempdimb}{0bp}}}
+  \pgfusepathqstroke
+}
+
+% alias alternative to arrow
+\pgfarrowsdeclarealias{<new}{>new}{tonew}{tonew}
+
+\makeatother
+
+% tip length code
+\pgfsetarrowoptions{latexnew}{-1pt}
+\pgfsetarrowoptions{latex'new}{-1pt}
+\pgfsetarrowoptions{onew}{-1pt}
+\pgfsetarrowoptions{squarenew}{-1pt}
+\pgfsetarrowoptions{stealthnew}{-1pt}
+\pgfsetarrowoptions{tonew}{-1pt}
+\pgfkeys{/tikz/.cd, arrowhead/.default=-1pt, arrowhead/.code={
+  \pgfsetarrowoptions{latexnew}{#1},
+  \pgfsetarrowoptions{latex'new}{#1},
+  \pgfsetarrowoptions{onew}{#1},
+  \pgfsetarrowoptions{squarenew}{#1},
+  \pgfsetarrowoptions{stealthnew}{#1},
+  \pgfsetarrowoptions{tonew}{#1},
+}}

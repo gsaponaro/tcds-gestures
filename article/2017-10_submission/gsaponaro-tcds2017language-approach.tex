@@ -36,14 +36,14 @@ We estimate the action performed by a human user during a \hr{} collaborative ta
       \node[group, fit=(e1) (e2) (edots),label=above:Effects] (effects) {};
       \node[group, fit=(w1) (w2) (wdots),label=above:Words] (words) {};
       % arrows
-      \draw[->, thick] (gestures) -- ([xshift=-30pt]effects.north);
-      \draw[->, thick] (gestures) to [out=260,in=150] (words.west);
-      \draw[->, thick] (features) -- ([xshift=20pt]effects.north);
-      \draw[->, thick] ([xshift=20pt]features.south) to [out=280,in=30] (words.east);
-      \draw[->, thick] ([xshift=30pt]effects.south) -- ([xshift=30pt]words.north);
+      \draw[myarrow] (gestures) -- ([xshift=-30pt]effects.north);
+      \draw[myarrow] (gestures) to [out=260,in=150] (words.west);
+      \draw[myarrow] (features) -- ([xshift=20pt]effects.north);
+      \draw[myarrow] ([xshift=20pt]features.south) to [out=280,in=30] (words.east);
+      \draw[myarrow] ([xshift=30pt]effects.south) -- ([xshift=30pt]words.north);
       % extra
       \node[affnode, above of=gestures] (actions) [above=1cm] {Actions};
-      \draw[->,thick] (actions) -- (gestures);
+      \draw[myarrow] (actions) -- (gestures);
     \end{tikzpicture}
 
     \vspace{6mm}
@@ -69,14 +69,14 @@ We estimate the action performed by a human user during a \hr{} collaborative ta
       \node[group, fit=(w1) (w2) (wdots),label=above:Words] (words) {};
       \node[dashedgroup, fit=(actions) (features) (effects) (words),label=above:Affordance model]{};
       % arrows
-      \draw[->, thick] (actions) -- ([xshift=-30pt]effects.north);
-      \draw[->, thick] (actions) to [out=260,in=150] (words.west);
-      \draw[->, thick] (features) -- ([xshift=20pt]effects.north);
-      \draw[->, thick] ([xshift=20pt]features.south) to [out=280,in=30] (words.east);
-      \draw[->, thick] ([xshift=30pt]effects.south) -- ([xshift=30pt]words.north);
+      \draw[myarrow] (actions) -- ([xshift=-30pt]effects.north);
+      \draw[myarrow] (actions) to [out=260,in=150] (words.west);
+      \draw[myarrow] (features) -- ([xshift=20pt]effects.north);
+      \draw[myarrow] ([xshift=20pt]features.south) to [out=280,in=30] (words.east);
+      \draw[myarrow] ([xshift=30pt]effects.south) -- ([xshift=30pt]words.north);
       % extra
       \node[affnode, above of=actions] (gestures) [above=1cm] {Gesture Features};
-      \draw[->,thick] (actions) -- (gestures);
+      \draw[myarrow] (actions) -- (gestures);
       \node[dashedgroup, fit=(actions) (gestures),label=above:Gesture/Action recognition]{};
     \end{tikzpicture}
 
