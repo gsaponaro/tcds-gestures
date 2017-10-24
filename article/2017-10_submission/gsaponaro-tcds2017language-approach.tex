@@ -17,6 +17,7 @@ We estimate the action performed by a human user during a \hr{} collaborative ta
   \tikzstyle{wordnode} = [ellipse, draw, thick]
   \tikzstyle{group} = [rectangle, draw, black, thick]%, inner sep=0.5cm
   \tikzstyle{dashedgroup} = [rectangle, draw, inner sep=0.8cm, dashed, rounded corners, black]
+  \tikzstyle{dottedgrouptrapezium} = [trapezium, draw, dotted, rounded corners, black]
   \begin{minipage}{0.5\textwidth}
     \centering
     \begin{tikzpicture}
@@ -67,7 +68,7 @@ We estimate the action performed by a human user during a \hr{} collaborative ta
       \node[group, fit=(f1) (f2) (fdots),label=above:Object Features] (features) {};
       \node[group, fit=(e1) (e2) (edots),label=above:Effects] (effects) {};
       \node[group, fit=(w1) (w2) (wdots),label=above:Words] (words) {};
-      \node[dashedgroup, fit=(actions) (features) (effects) (words),label=above:Affordance model]{};
+      \node[dashedgroup, fit=(actions) (features) (effects) (words),label={[shift={(0:2.2)}]above:Affordance model}]{};
       % arrows
       \draw[myarrow] (actions) -- ([xshift=-30pt]effects.north);
       \draw[myarrow] (actions) to [out=260,in=150] (words.west);
@@ -77,7 +78,7 @@ We estimate the action performed by a human user during a \hr{} collaborative ta
       % extra
       \node[affnode, above of=actions] (gestures) [above=1cm] {Gesture Features};
       \draw[myarrow] (actions) -- (gestures);
-      \node[dashedgroup, fit=(actions) (gestures),label=above:Gesture/Action recognition]{};
+      \node[dottedgrouptrapezium, trapezium angle=103, xshift=-21, fit=(actions) (gestures),label=above:Gesture/Action recognition]{};
     \end{tikzpicture}
 
     our model
