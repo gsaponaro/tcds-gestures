@@ -33,7 +33,7 @@ In the following, we give details about the affordance-word model and the gestur
 %We estimate the action performed by a human user during a \hr{} collaborative task, by employing statistical inference methods and \acp{HMM}. This provides two advantages. First, we can infer the executed action during training. Secondly, at testing time we can merge the action information obtained from gesture recognition with the information about affordances.
 
 
-\subsection{\acl{BN} for \AffWords{} Modeling}
+\subsection{\AffWords{} Modeling}
 \label{sec:bn}
 
 Following the method adopted in~\cite{salvi:2012:smcb}, we use a Bayesian probabilistic framework to allow a robot to ground the basic world behavior and verbal descriptions associated to it.
@@ -66,9 +66,11 @@ We call $X = \{a, f_1, f_2, \dots, e_1, e_2, \dots\}$ the combination of all the
     \end{tabular}
 \end{table}
 
-This joint probability distribution, that is illustrated by the part of Fig.~\ref{fig:model}~(b) enclosed in the Affordance-word model dashed box, is estimated by the robot in an ego-centric way through interaction with the environment, as in~\cite{salvi:2012:smcb}. As a consequence, during learning, the robot knows what action it is performing with certainty, and the variable~$A$ assumes a deterministic value. This assumption is relaxed in the present study, by extending the model to the observation of external~(human) agents as explained below.
+This joint probability distribution is modeled by a Bayesian network sketched in the part of Fig.~\ref{fig:model}~(b) enclosed in the Affordance-word model dashed box.
+The dependency structure and the model parameters are estimated by the robot in an ego-centric way through interaction with the environment, as in~\cite{salvi:2012:smcb}.
+As a consequence, during learning, the robot knows what action it is performing with certainty, and the variable~$A$ assumes a deterministic value. This assumption is relaxed in the present study, by extending the model to the observation of external~(human) agents as explained below.
 
-\subsection{\aclp{HMM} for Gesture Recognition}
+\subsection{Gesture/Action Recognition}
 
 \newcommand{\myscalefactor}{0.8}
 
@@ -109,21 +111,61 @@ This joint probability distribution, that is illustrated by the part of Fig.~\re
   \label{fig:hmms}
 \end{figure}
 
-The gesture/action recognition system is based on hidden Markov models with Gaussian mixture models as emitting probability distributions as in~\cite{saponaro:2013:crhri}.
+The gesture/action recognition system is based on hidden Markov models with Gaussian emitting probability distributions as in~\cite{saponaro:2013:crhri}.
+The gesture recognition models are represented in Fig.~\ref{fig:hmms}, and correspond to the Gesture/Action recognition block in Fig.~\ref{fig:model}~(b).
 
 %As for the gesture recognition \acsp{HMM}, we use the models that we previously trained in~\cite{saponaro:2013:crhri} for spotting the manipulation-related gestures under consideration.
-Our input features are the 3D coordinates of the tracked human hand: the coordinates are obtained with a commodity depth sensor, then transformed to be centered on the person torso~(to be invariant to the distance of the user from the sensor) and normalized to account for variability in amplitude~(to be invariant to wide/emphatic vs narrow/subtle executions of the same gesture class).
+Our input features are the 3D coordinates of the tracked human hand indicated by the $g_i$ variables in Figure~\ref{fig:model}.
+The coordinates are obtained with a commodity depth sensor, then transformed to be centered on the person torso~(to be invariant to the distance of the user from the sensor) and normalized to account for variability in amplitude~(to be invariant to wide/emphatic vs narrow/subtle executions of the same gesture class).
 
-The gesture recognition models are represented in Fig.~\ref{fig:hmms}, and correspond to the Gesture/Action recognition block in Fig.~\ref{fig:model}~(b).
-The \ac{HMM} for one gesture is defined by a set of (hidden) discrete states~$\mathcal{S} = \{s_1, \dots, s_Q\}$ which model the temporal phases comprising the dynamic execution of the gesture, and by a set of parameters~$\lambda = \{ A, B, \Pi \}$, where~$A = \{ a_{ij} \}$ is the transition probability matrix, $a_{ij}$ is the transition probability from state~$s_i$ at time~$t$ to state~$s_j$ at time~$t+1$, $B = \{ f_i \}$ is the set of $Q$~observation probability functions~(one per state~$i$) with continuous mixtures of Gaussian values, and~$\Pi$ is the initial probability distribution for the states.
+The model for each gesture/action is a so called left-to-right \ac{HMM} where the transition model between the discrete states $\mathcal{S} = \{s_1, \dots, s_Q\}$ is structured so that states with lower index represent events that occur earlier in time.
+%set of (hidden) discrete states~$\mathcal{S} = \{s_1, \dots, s_Q\}$ which model the temporal phases comprising the dynamic execution of the gesture, and by a set of parameters~$\lambda = \{ A, B, \Pi \}$, where~$A = \{ a_{ij} \}$ is the transition probability matrix, $a_{ij}$ is the transition probability from state~$s_i$ at time~$t$ to state~$s_j$ at time~$t+1$, $B = \{ f_i \}$ is the set of $Q$~observation probability functions~(one per state~$i$) with continuous mixtures of Gaussian values, and~$\Pi$ is the initial probability distribution for the states.
 
-At recognition~(testing) time, we obtain likelihood scores of a new gesture being classified with the common \FB{} inference algorithm.
-This likelihood can be expressed as $P(V|a)$, where $V$ is a sequence of visual features (3D coordinates of the hand) and $a$ is one of the possible actions.
+Although not expressed so far in the notation, the continuous variables $g_i$ are measured at regular time intervals.
+At a certain time step $n$ the feature vector can be expressed as $\mathbf{g}[n] = \{g_1[n], \dots g_D[n]\}$.
+The input to the model is a sequence of $N$ such feature vectors $\mathbf{g}[1], \dots, \mathbf{g}[N]$ that we call for simplicity $G_1^N$, nad $N$ can vary for every recording.
+
+At recognition~(testing) time, we can use the models to estimate the likelihood of a new sequence of observations $G_1^N$, given each possible gesture/action by means of the \FB{} inference algorithm.
+We can express this likelihood as $\mathcal{L}(G_1^N|a)$, where $a$ is one of the possible actions.
+By normalizing the likelihoods, assuming that the gestures are equally likely \emph{a priori}, we can obtain the posterior probability of the action given the sequence of observations that we call $\phmm(a|G_1^N)$.
 
 %In Sec.~\ref{sec:combination}, we discuss different ways in which the output information of the gesture recognizer can be combined with the \acl{BN} of words and affordances.
 
+\newcommand{\pcomb}{\ensuremath P_{\text{COMB}}}
+
 \subsection{Combining the \acs{BN} with Gesture \acsp{HMM}}
 \label{sec:combination}
+The two models described above define two probability distributions over the relevant variables for the problem:
+\begin{eqnarray*}
+  \pbn(a, F, E, W) &=& \pbn(a, f_1, f_2, \dots, e_1, e_2, \dots,\\
+  && \hspace{1cm} \dots, w_1, w_2, \dots), \text{ and} \\
+  \phmm(a|G_1^N) &&
+\end{eqnarray*}
+The goal is to merge the information brought by both models and estimate $\pcomb(a, F, E, W|G_1^N)$, that is, the joint probability of all the affordance and word variables, given that we observe a certain gesture/action performed by the human.
+
+During inference, we will have a (possibly empty) set of observed variables $X_\text{OBS} \subseteq (a \cup F \cup E \cup W)$, and a set of variables on which we wish to perform the inference: $X_\text{INF} \subseteq (a \cup F \cup E \cup W)$.
+In order for the inference to be non-trivial it must be $X_\text{OBS} \cap X_\text{INF} = \varnothing$, that is, we should not observe any inference variable.
+According to the Bayesian network alone, the inference will compute the probability distribution of the inference variables $X_\text{INF}$ given the observed variables $X_\text{OBS}$ by marginalizing over all the other (latent) variables $X_\text{LAT} = (a \cup F \cup E \cup W) \setminus (X_\text{OBS} \cup X_\text{INF})$, where $\setminus$ is the set difference operation:
+\begin{eqnarray*}
+ \pbn(X_\text{INF}|X_\text{OBS}) = \sum_{X_\text{LAT}} \pbn(X_\text{INF}, X_\text{LAT}| X_\text{OBS})
+\end{eqnarray*}
+
+If we want to combine the evidence brought by the Bayesian network with the evidence brought by the hidden Markov model, there are two cases that can occur:
+\begin{enumerate}
+\item the variable action is included among the inference variables: $a \in X_\text{INF}$
+\item the variable action is not included among the inference variables: $a \not\in X_\text{INF}$.
+\end{enumerate}
+Those two cases can be addressed separately when we do inference.
+
+In the first case, we call $X_\text{INF}^\prime$ the set of inference variables excluding the action $a$, that is $X_\text{INF} = \{X_\text{INF}^\prime, a\}$.
+We can write:
+\begin{align*}
+  & \pcomb(X_\text{INF}| X_\text{OBS}, G_1^N) = \pcomb(a, X_\text{INF}^\prime| X_\text{OBS}, G_1^N)= \\
+  &= \pbn(a, X_\text{INF}^\prime| X_\text{OBS}, G_1^N) \phmm(a, X_\text{INF}^\prime| X_\text{OBS}, G_1^N)= \\
+  &= \pbn(a, X_\text{INF}^\prime| X_\text{OBS}) \phmm(a, | G_1^N).
+\end{align*}
+
+GLU TEXT
 
 In this study we wish to generalize the model of~\cite{salvi:2012:smcb} by observing external~(human) agents, as shown in Fig.~\ref{fig:experimental_setup}. For this reason, the full model is now extended with a perception module capable of inferring the action of the agent from visual inputs. This corresponds to the Gesture \acp{HMM} block in Fig.~\ref{fig:model}. The \AffWords{} \acf{BN} model and the Gestures \acp{HMM} may be combined in different ways~\cite{pan:2006:ictai}:
 \begin{enumerate}
