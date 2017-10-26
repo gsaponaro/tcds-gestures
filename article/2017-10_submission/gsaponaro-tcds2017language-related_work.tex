@@ -1,5 +1,90 @@
 %!TEX encoding = UTF-8 Unicode
 
+\begin{figure*}
+  \tikzstyle{affnode} = [ellipse, draw, thick]%fill=gray!20, thick]%node distance=1cm, text width=6em, text centered, minimum height=4em, thick]
+  \tikzstyle{wordnode} = [ellipse, draw, thick]
+  \tikzstyle{group} = [rectangle, draw, black, thick]%, inner sep=0.5cm
+  \tikzstyle{dashedgroup} = [rectangle, draw, inner sep=0.6cm, dashed, rounded corners, black]
+  \tikzstyle{dottedgrouptrapezium} = [trapezium, draw, dotted, rounded corners, black]
+  \begin{minipage}{0.5\textwidth}
+    \centering
+    \begin{tikzpicture}
+      % single nodes
+      \node[affnode] (g1) {$g_1$};
+      \node[affnode, right of=g1] (g2) {$g_2$};
+      \node[right of=g2] (gdots) {$\dots$};
+      \node[affnode, right of=gdots] (f1) [right=0.5cm] {$f_1$};
+      \node[affnode, right of=f1] (f2) {$f_2$};
+      \node[right of=f2] (fdots) {$\dots$};
+      \node[affnode, below of=f1] (e2) [below=0.7cm] {$e_2$};
+      \node[affnode, left of=e2] (e1) {$e_1$};
+      \node[right of=e2] (edots) {$\dots$};
+      \node[wordnode, below of=e1] (w1)  [below=0.7cm] {$w_1$};
+      \node[wordnode, right of=w1] (w2) {$w_2$};
+      \node[right of=w2] (wdots) {$\dots$};
+      % groups
+      \node[group, fit=(g1) (g2) (gdots),label=above:Gesture Features] (gestures) {};
+      \node[group, fit=(f1) (f2) (fdots),label=above:Object Features] (features) {};
+      \node[group, fit=(e1) (e2) (edots),label=above:Effects] (effects) {};
+      \node[group, fit=(w1) (w2) (wdots),label=above:Words] (words) {};
+      % arrows
+      \draw[myarrow] (gestures) -- ([xshift=-30pt]effects.north);
+      \draw[myarrow] (gestures) to [out=260,in=150] (words.west);
+      \draw[myarrow] (features) -- ([xshift=20pt]effects.north);
+      \draw[myarrow] ([xshift=20pt]features.south) to [out=280,in=30] (words.east);
+      \draw[myarrow] ([xshift=30pt]effects.south) -- ([xshift=30pt]words.north);
+      % extra
+      \node[affnode, above of=gestures] (actions) [above=1cm] {Actions};
+      \draw[myarrow] (actions) -- (gestures);
+      \node[dashedgroup, fit=(gestures) (features) (effects) (words),label={[shift={(0:2.2)}]above:Observable variables}] (observable) {};
+    \end{tikzpicture}
+
+    \vspace{6mm}
+    (a) ideal case
+  \end{minipage}
+  \begin{minipage}{0.5\textwidth}
+    \centering
+    \begin{tikzpicture}
+      % single nodes
+      \node[affnode] (g1) {$g_1$};
+      \node[affnode, right of=g1] (g2) {$g_2$};
+      \node[right of=g2] (gdots) {$\dots$};
+      \node[group, fit=(g1) (g2) (gdots),label=above:Gesture Features] (gestures) {};
+      \node[affnode, below of=gestures] (actions) [below=1cm] {Actions};
+      \node[affnode, right of=actions] (f1) [right=1.6cm] {$f_1$};
+      \node[affnode, right of=f1] (f2) {$f_2$};
+      \node[right of=f2] (fdots) {$\dots$};
+      \node[affnode, below of=f1] (e2) [below=0.7cm] {$e_2$};
+      \node[affnode, left of=e2] (e1) {$e_1$};
+      \node[right of=e2] (edots) {$\dots$};
+      \node[wordnode, below of=e1] (w1)  [below=0.7cm] {$w_1$};
+      \node[wordnode, right of=w1] (w2) {$w_2$};
+      \node[right of=w2] (wdots) {$\dots$};
+      % groups
+      \node[group, fit=(f1) (f2) (fdots),label=above:Object Features] (features) {};
+      \node[group, fit=(e1) (e2) (edots),label=above:Effects] (effects) {};
+      \node[group, fit=(w1) (w2) (wdots),label=above:Words] (words) {};
+      \node[dashedgroup, fit=(actions) (features) (effects) (words),label={[shift={(0:2.2)}]above:Affordance-word model}]{};
+      % arrows
+      \draw[myarrow] (actions) -- ([xshift=-30pt]effects.north);
+      \draw[myarrow] (actions) to [out=260,in=150] (words.west);
+      \draw[myarrow] (features) -- ([xshift=20pt]effects.north);
+      \draw[myarrow] ([xshift=20pt]features.south) to [out=280,in=30] (words.east);
+      \draw[myarrow] ([xshift=30pt]effects.south) -- ([xshift=30pt]words.north);
+      % extra
+      %\node[affnode, above of=actions] (gestures) [above=1cm] {Gesture Features};
+      \draw[myarrow] (actions) -- (gestures);
+      \node[dashedgroup, fit=(actions) (gestures),label=above:Gesture/Action recognition]{};
+    \end{tikzpicture}
+
+    (b) our model
+  \end{minipage}
+    %\centering
+    %\includegraphics[width=0.8\columnwidth]{fullNetAbstract}
+  \caption{Abstract representation of the probabilistic dependencies in the model. Shaded nodes are observable or measurable in the present study, and edges indicate Bayesian dependency.}
+  \label{fig:model}
+\end{figure*}
+
 \section{Related Work}
 
 BELOW IS THE GLU TEXT

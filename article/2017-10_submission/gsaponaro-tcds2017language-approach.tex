@@ -1,126 +1,82 @@
 %!TEX encoding = UTF-8 Unicode
-
 \section{Proposed Approach}
-
-BELOW IS THE GLU TEXT
-
-In this paper, we combine (1)~the robot affordance model of~\cite{salvi:2012:smcb}, which associates verbal descriptions to the physical interactions of an agent with the environment, with (2)~the gesture recognition system of~\cite{saponaro:2013:crhri}, which infers the type of action from human user movements.
+The purpose of the proposed approach is to reuse the experience that the robot acquires when playing alone to interpret other people's actions.
+In order to achieve this, we combine (1)~the robot affordance model of~\cite{salvi:2012:smcb}, which associates verbal descriptions to the physical interactions of an agent with the environment, with (2)~the gesture recognition system of~\cite{saponaro:2013:crhri}, which infers the type of action from human user movements.
 We consider three \emph{manipulative gestures} corresponding to physical actions performed by agent(s) onto objects on a table~(see Fig.~\ref{fig:experimental_setup}): grasp, tap, and touch.
-We reason on the effects of these actions onto the objects of the world, and on the co-occurring verbal description of the experiments. In the complete framework, we will use \acfp{BN}, which are a probabilistic model that represents random variables and conditional dependencies on a graph, such as in Fig.~\ref{fig:model}. One of the advantages of using \acp{BN} is that their expressive power allows the marginalization over any set of variables given any other set of variables.
+We reason on the effects of these actions onto the objects of the world, and on the co-occurring verbal description of the experiments.
 
-Our main contribution is that of extending~\cite{salvi:2012:smcb} by relaxing the assumption that the action is known during the learning phase.
-This assumption is acceptable when the robot learns through self-exploration and interaction with the environment, but must be relaxed if the robot needs to generalize the acquired knowledge through the observation of another~(human) agent.
-We estimate the action performed by a human user during a \hr{} collaborative task, by employing statistical inference methods and \acp{HMM}. This provides two advantages. First, we can infer the executed action during training. Secondly, at testing time we can merge the action information obtained from gesture recognition with the information about affordances.
+A possible representation of the probabilistic dependencies that the robot needs to acquire in order to associate other people's actions to verbal descriptions is depicted in Figure~\ref{fig:model}~(a).
+The intended actions result in movements of the body that can be measured in terms of \emph{gesture features}.
+These movements, in turns, may determine some \emph{effects}, on the surroundings expressed by a number of relevant measurable variables.
+Those effects are also determined by the particular \emph{object features} associated with the objects that are involved in the action and that are also observable.
+Finally, an observer composes a verbal description of the situation based on all the observable variables.
 
-\begin{figure*}
-  \tikzstyle{affnode} = [ellipse, draw, thick]%fill=gray!20, thick]%node distance=1cm, text width=6em, text centered, minimum height=4em, thick]
-  \tikzstyle{wordnode} = [ellipse, draw, thick]
-  \tikzstyle{group} = [rectangle, draw, black, thick]%, inner sep=0.5cm
-  \tikzstyle{dashedgroup} = [rectangle, draw, inner sep=0.8cm, dashed, rounded corners, black]
-  \tikzstyle{dottedgrouptrapezium} = [trapezium, draw, dotted, rounded corners, black]
-  \begin{minipage}{0.5\textwidth}
-    \centering
-    \begin{tikzpicture}
-      % single nodes
-      \node[affnode] (gestures) {Gesture Features};
-      \node[affnode, right of=gestures] (f1) [right=1.2cm] {$f_1$};
-      \node[affnode, right of=f1] (f2) {$f_2$};
-      \node[right of=f2] (fdots) {$\dots$};
-      \node[affnode, below of=f1] (e2) [below=0.7cm] {$e_2$};
-      \node[affnode, left of=e2] (e1) {$e_1$};
-      \node[right of=e2] (edots) {$\dots$};
-      \node[wordnode, below of=e1] (w1)  [below=0.7cm] {$w_1$};
-      \node[wordnode, right of=w1] (w2) {$w_2$};
-      \node[right of=w2] (wdots) {$\dots$};
-      % groups
-      \node[group, fit=(f1) (f2) (fdots),label=above:Object Features] (features) {};
-      \node[group, fit=(e1) (e2) (edots),label=above:Effects] (effects) {};
-      \node[group, fit=(w1) (w2) (wdots),label=above:Words] (words) {};
-      % arrows
-      \draw[myarrow] (gestures) -- ([xshift=-30pt]effects.north);
-      \draw[myarrow] (gestures) to [out=260,in=150] (words.west);
-      \draw[myarrow] (features) -- ([xshift=20pt]effects.north);
-      \draw[myarrow] ([xshift=20pt]features.south) to [out=280,in=30] (words.east);
-      \draw[myarrow] ([xshift=30pt]effects.south) -- ([xshift=30pt]words.north);
-      % extra
-      \node[affnode, above of=gestures] (actions) [above=1cm] {Actions};
-      \draw[myarrow] (actions) -- (gestures);
-    \end{tikzpicture}
+By combining the affordance model in \cite{salvi:2012:smcb} and the gesture recognition system in \cite{saponaro:2013:crhri}, however, we need to do some simplifying assumptions, that are depicted in Figure~\ref{fig:model}~(b).
+The main difference, is that, in the learning phase in \cite{salvi:2012:smcb}, the intended action was known to the robot.
+The robot could, therefore, learn direct dependencies between the actions and the other variables in the affordance-word model depicted in the corresponding dashed box in Figure~\ref{fig:model}~(b).
+Although some of the effect variables refer to the robot's arm movements, this information was not rich enough to recognize each particular gesture and could therefore not be used directly to interpret other people's behavior.
 
-    \vspace{6mm}
-    ideal case
-  \end{minipage}
-  \begin{minipage}{0.5\textwidth}
-    \centering
-    \begin{tikzpicture}
-      % single nodes
-      \node[affnode] (actions) {Actions};
-      \node[affnode, right of=actions] (f1) [right=0.7cm] {$f_1$};
-      \node[affnode, right of=f1] (f2) {$f_2$};
-      \node[right of=f2] (fdots) {$\dots$};
-      \node[affnode, below of=f1] (e2) [below=0.7cm] {$e_2$};
-      \node[affnode, left of=e2] (e1) {$e_1$};
-      \node[right of=e2] (edots) {$\dots$};
-      \node[wordnode, below of=e1] (w1)  [below=0.7cm] {$w_1$};
-      \node[wordnode, right of=w1] (w2) {$w_2$};
-      \node[right of=w2] (wdots) {$\dots$};
-      % groups
-      \node[group, fit=(f1) (f2) (fdots),label=above:Object Features] (features) {};
-      \node[group, fit=(e1) (e2) (edots),label=above:Effects] (effects) {};
-      \node[group, fit=(w1) (w2) (wdots),label=above:Words] (words) {};
-      \node[dashedgroup, fit=(actions) (features) (effects) (words),label={[shift={(0:2.2)}]above:Affordance model}]{};
-      % arrows
-      \draw[myarrow] (actions) -- ([xshift=-30pt]effects.north);
-      \draw[myarrow] (actions) to [out=260,in=150] (words.west);
-      \draw[myarrow] (features) -- ([xshift=20pt]effects.north);
-      \draw[myarrow] ([xshift=20pt]features.south) to [out=280,in=30] (words.east);
-      \draw[myarrow] ([xshift=30pt]effects.south) -- ([xshift=30pt]words.north);
-      % extra
-      \node[affnode, above of=actions] (gestures) [above=1cm] {Gesture Features};
-      \draw[myarrow] (actions) -- (gestures);
-      \node[dottedgrouptrapezium, trapezium angle=103, xshift=-21, fit=(actions) (gestures),label=above:Gesture/Action recognition]{};
-    \end{tikzpicture}
+This limitation can be partly overcome by the gesture/action recognition model of~\cite{saponaro:2013:crhri} which can recover the particular intended action from the gesture features.
+Consequently, the relationship between gesture features, object features, effects and words, that we described earlier, are mediated by the actions variable in our model.
+The combination of the two models is our main contribution and allows us to relax the assumption made in \cite{salvi:2012:smcb} that the action is known during the learning phase.
 
-    our model
-  \end{minipage}
-    %\centering
-    %\includegraphics[width=0.8\columnwidth]{fullNetAbstract}
-  \caption{Abstract representation of the probabilistic dependencies in the model. Shaded nodes are observable or measurable in the present study, and edges indicate Bayesian dependency.}
-  \label{fig:model}
-\end{figure*}
+In the following, we give details about the affordance-word model and the gesture/action recognition model employed in the study and on the way we do inference by merging the information provided by those two models.
+
+%BELOW IS THE GLU TEXT
+
+%In this paper, we combine (1)~the robot affordance model of~\cite{salvi:2012:smcb}, which associates verbal descriptions to the physical interactions of an agent with the environment, with (2)~the gesture recognition system of~\cite{saponaro:2013:crhri}, which infers the type of action from human user movements.
+%We consider three \emph{manipulative gestures} corresponding to physical actions performed by agent(s) onto objects on a table~(see Fig.~\ref{fig:experimental_setup}): grasp, tap, and touch.
+%We reason on the effects of these actions onto the objects of the world, and on the co-occurring verbal description of the experiments. In the complete framework, we will use \acfp{BN}, which are a probabilistic model that represents random variables and conditional dependencies on a graph, such as in Fig.~\ref{fig:model}. One of the advantages of using \acp{BN} is that their expressive power allows the marginalization over any set of variables given any other set of variables.
+
+%Our main contribution is that of extending~\cite{salvi:2012:smcb} by relaxing the assumption that the action is known during the learning phase.
+%This assumption is acceptable when the robot learns through self-exploration and interaction with the environment, but must be relaxed if the robot needs to generalize the acquired knowledge through the observation of another~(human) agent.
+%We estimate the action performed by a human user during a \hr{} collaborative task, by employing statistical inference methods and \acp{HMM}. This provides two advantages. First, we can infer the executed action during training. Secondly, at testing time we can merge the action information obtained from gesture recognition with the information about affordances.
+
 
 \subsection{\acl{BN} for \AffWords{} Modeling}
 \label{sec:bn}
 
-Following the method adopted in~\cite{salvi:2012:smcb}, we use a Bayesian probabilistic framework to allow a robot to ground the basic world behavior and verbal descriptions associated to it. The world behavior is defined by random variables describing: the actions~$A$, defined over the set~$\mathcal{A} = \{a_i\}$, object properties~$F$, over $\mathcal{F} = \{f_i\}$, and effects~$E$, over~$\mathcal{E} = \{e_i\}$. We denote~$X = \{A, F, E\}$ the state of the world as experienced by the robot. The verbal descriptions are denoted by the set of words~$W = \{w_i\}$. Consequently, the relationships between words and concepts are expressed by the joint probability distribution~$p(X,W)$ of actions, object features, effects, and words in the spoken utterance. The symbolic variables and their discrete values are listed in Table~\ref{tab:bnsymb}. In addition to the symbolic variables, the model also includes word variables, describing the probability of each word co-occurring in the verbal description associated to a robot experiment in the environment.
+Following the method adopted in~\cite{salvi:2012:smcb}, we use a Bayesian probabilistic framework to allow a robot to ground the basic world behavior and verbal descriptions associated to it.
+All variables in the model are discrete or are discretized from continuous sensory variables through clustering in a preliminary learning phase.
+Details on the variable definition and possible values are given in Table~\ref{tab:bnsymb}.
+
+We call $X = \{a, f_1, f_2, \dots, e_1, e_2, \dots\}$ the combination of all the affordance variables that corresponds to the state of the world as experienced by the robot. The verbal descriptions are denoted by the set of words~$W = \{w_i\}$. Consequently, the relationships between words and concepts are expressed by the joint probability distribution~$p(X,W)$ of actions, object features, effects, and words in the spoken utterance.
 
 \begin{table}
     \centering
-    \caption{The symbolic variables of the \acl{BN} which we use in this work~(a subset of the ones from~\cite{salvi:2012:smcb}), with the corresponding discrete values obtained from clustering during previous robot exploration of the environment.}
+    \caption{The symbolic variables of the \acl{BN} (from~\cite{salvi:2012:smcb}), with the corresponding discrete values obtained from clustering during robot exploration of the environment.}
     \label{tab:bnsymb}
-    \begin{tabular}{*{3}{l}} % left-aligned columns
+    \begin{tabular}{clp{2.7cm}p{2.5cm}}
     \toprule
-    name   & description     & values \\
+    symbol & name   & description     & values \\
     \midrule
-    Action & action          & grasp, tap, touch \\
-    Shape  & object shape    & sphere, box \\
-    Size   & object size     & small, medium, big \\
-    ObjVel & object velocity & slow, medium, fast \\
+    $a$ & Action & action          & grasp, tap, touch \\
+    \midrule
+    $f_1$ & Color   & object color   & blue, yellow, green1, green2 \\
+    $f_2$ & Size   & object size     & small, medium, big \\
+    $f_3$ & Shape  & object shape    & sphere, box \\
+    \midrule
+    $e_1$ & ObjVel & object velocity & slow, medium, fast \\
+    $e_2$ & HandVel & robot hand velocity & slow, fast \\
+    $e_3$ & ObjHandVel & relative object hand velocity & slow, medium, fast \\
+    $e_4$ & Contact & object hand contact & short, long \\
+    \midrule
+    $w_i$ & word$_i$ & presence of word$_i$ in the verbal description & binary \\
     \bottomrule
     \end{tabular}
 \end{table}
 
-This joint probability distribution, that is illustrated by the part of Fig.~\ref{fig:model} enclosed in the dashed box, is estimated by the robot in an ego-centric way through interaction with the environment, as in~\cite{salvi:2012:smcb}. As a consequence, during learning, the robot knows what action it is performing with certainty, and the variable~$A$ assumes a deterministic value. This assumption is relaxed in the present study, by extending the model to the observation of external~(human) agents as explained below.
+This joint probability distribution, that is illustrated by the part of Fig.~\ref{fig:model}~(b) enclosed in the Affordance-word model dashed box, is estimated by the robot in an ego-centric way through interaction with the environment, as in~\cite{salvi:2012:smcb}. As a consequence, during learning, the robot knows what action it is performing with certainty, and the variable~$A$ assumes a deterministic value. This assumption is relaxed in the present study, by extending the model to the observation of external~(human) agents as explained below.
 
 \subsection{\aclp{HMM} for Gesture Recognition}
 
 \newcommand{\myscalefactor}{0.8}
 
 \newcommand{\standardhmm}[1]{
-    \node[draw,circle] (hmm#1s1) {1};
-    \node[draw,circle, right of=hmm#1s1] (hmm#1s2) {2};
+    \node[draw,circle] (hmm#1s1) {$s_1$};
+    \node[draw,circle, right of=hmm#1s1] (hmm#1s2) {$s_2$};
     \node[circle, right of=hmm#1s2] (hmm#1s3) {\dots};
-    \node[draw,circle, right of=hmm#1s3] (hmm#1s4) {Q};
+    \node[draw,circle, right of=hmm#1s3] (hmm#1s4) {$s_Q$};
     \node[left of=hmm#1s1]  (invisible1) {};
     \node[right of=hmm#1s4] (invisible2) {};
     \path[->] (hmm#1s1) edge (hmm#1s2);
@@ -153,11 +109,18 @@ This joint probability distribution, that is illustrated by the part of Fig.~\re
   \label{fig:hmms}
 \end{figure}
 
-As for the gesture recognition \acsp{HMM}, we use the models that we previously trained in~\cite{saponaro:2013:crhri} for spotting the manipulation-related gestures under consideration. Our input features are the 3D coordinates of the tracked human hand: the coordinates are obtained with a commodity depth sensor, then transformed to be centered on the person torso~(to be invariant to the distance of the user from the sensor) and normalized to account for variability in amplitude~(to be invariant to wide/emphatic vs narrow/subtle executions of the same gesture class).
+The gesture/action recognition system is based on hidden Markov models with Gaussian mixture models as emitting probability distributions as in~\cite{saponaro:2013:crhri}.
 
-The gesture recognition models are represented in Fig.~\ref{fig:hmms}, and correspond to the Gesture \acp{HMM} block in Fig.~\ref{fig:model}. The \ac{HMM} for one gesture is defined by a set of (hidden) discrete states~$\mathcal{S} = \{s_1, \dots, s_Q\}$ which model the temporal phases comprising the dynamic execution of the gesture, and by a set of parameters~$\lambda = \{ A, B, \Pi \}$, where~$A = \{ a_{ij} \}$ is the transition probability matrix, $a_{ij}$ is the transition probability from state~$s_i$ at time~$t$ to state~$s_j$ at time~$t+1$, $B = \{ f_i \}$ is the set of $Q$~observation probability functions~(one per state~$i$) with continuous mixtures of Gaussian values, and~$\Pi$ is the initial probability distribution for the states.
+%As for the gesture recognition \acsp{HMM}, we use the models that we previously trained in~\cite{saponaro:2013:crhri} for spotting the manipulation-related gestures under consideration.
+Our input features are the 3D coordinates of the tracked human hand: the coordinates are obtained with a commodity depth sensor, then transformed to be centered on the person torso~(to be invariant to the distance of the user from the sensor) and normalized to account for variability in amplitude~(to be invariant to wide/emphatic vs narrow/subtle executions of the same gesture class).
 
-At recognition~(testing) time, we obtain likelihood scores of a new gesture being classified with the common \FB{} inference algorithm. In Sec.~\ref{sec:combination}, we discuss different ways in which the output information of the gesture recognizer can be combined with the \acl{BN} of words and affordances.
+The gesture recognition models are represented in Fig.~\ref{fig:hmms}, and correspond to the Gesture/Action recognition block in Fig.~\ref{fig:model}~(b).
+The \ac{HMM} for one gesture is defined by a set of (hidden) discrete states~$\mathcal{S} = \{s_1, \dots, s_Q\}$ which model the temporal phases comprising the dynamic execution of the gesture, and by a set of parameters~$\lambda = \{ A, B, \Pi \}$, where~$A = \{ a_{ij} \}$ is the transition probability matrix, $a_{ij}$ is the transition probability from state~$s_i$ at time~$t$ to state~$s_j$ at time~$t+1$, $B = \{ f_i \}$ is the set of $Q$~observation probability functions~(one per state~$i$) with continuous mixtures of Gaussian values, and~$\Pi$ is the initial probability distribution for the states.
+
+At recognition~(testing) time, we obtain likelihood scores of a new gesture being classified with the common \FB{} inference algorithm.
+This likelihood can be expressed as $P(V|a)$, where $V$ is a sequence of visual features (3D coordinates of the hand) and $a$ is one of the possible actions.
+
+%In Sec.~\ref{sec:combination}, we discuss different ways in which the output information of the gesture recognizer can be combined with the \acl{BN} of words and affordances.
 
 \subsection{Combining the \acs{BN} with Gesture \acsp{HMM}}
 \label{sec:combination}
