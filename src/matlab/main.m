@@ -22,7 +22,7 @@ addpath('./human_data'); % external agent data, gestures, object features(?)
 % 1. clone the repository https://github.com/giampierosalvi/AffordancesAndSpeech
 % 2. then, set below the full path to AffordancesAndSpeech/bayesian_net
 LanguageBoostrapping_root = ('~/NOBACKUP/AffordancesAndSpeech/bayesian_net');
-if exist(LanguageBoostrapping_root)==0
+if exist(LanguageBoostrapping_root, 'file')==0
     LanguageBoostrapping_root = ('~/Documents/AffordancesAndSpeech/bayesian_net');
 end
 
