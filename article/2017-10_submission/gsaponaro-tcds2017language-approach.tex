@@ -275,7 +275,7 @@ If we want to combine the evidence brought by the Bayesian network with the evid
 \item the variable action is included among the inference variables: $A \in \xinf$
 \item the variable action is not included among the inference variables: $A \in \xlat$.
 \end{enumerate}
-We are here excluding the case that we observe the action directly ($A\in \xobs$) for two reasons: firstly, this would correspond to the robot perfroming the action himself, whereas we are interested in interpreting other people's actions;
+We are here excluding the case that we observe the action directly ($A\in \xobs$) for two reasons: firstly, this would correspond to the robot perfroming the action itself, whereas we are interested in interpreting other people's actions;
 secondly, this would make the evidence on the gesture features $G_1^N$ irrelevant, because in the model in Figure~\ref{fig:model:our}, there is a tail-to-tail connection from $G_1^N$ to the rest of the variables through the action variable, which means that, given the action, all dependencies to the gesture features are dropped. 
 
 The two cases enumerated above can be addressed separately when we do inference.
