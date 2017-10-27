@@ -1,5 +1,5 @@
 <application>
-<name>TCDS gestures, RGB-D view</name>
+<name>TCDS gestures, robot view</name>
 
         <dependencies>
         </dependencies>
@@ -14,6 +14,19 @@
                 <name>blobDescriptor</name>
                 <node>localhost</node>
         </module>
+
+        <!--
+        <module>
+            <name>shapeDescriptor</name>
+            <parameters>--name blobDescriptor</parameters>
+            <node>localhost</node>
+        </module>
+
+        <module>
+            <name>descriptorReduction</name>
+            <node>localhost</node>
+        </module>
+        -->
 
         <module>
                 <name>sequentialLabeller</name>
@@ -34,19 +47,21 @@
 
         <module>
                 <name>yarpdatadumper</name>
-                <parameters>--name imgInput --type image --connect /icub/camcalib/left/out --downsample 30</parameters>
+                <parameters>--name imgInput --type image --connect /icub/camcalib/left/out --downsample 15</parameters>
                 <node>localhost</node>
         </module>
 
+        <!--
         <module>
                 <name>yarpdatadumper</name>
-                <parameters>--name imgSeg --type image --connect /lbpExtract/segmentedlbp:o --downsample 30</parameters>
+                <parameters>--name imgSeg --type image --connect /lbpExtract/segmentedlbp:o --downsample 15</parameters>
                 <node>localhost</node>
         </module>
+        -->
 
         <module>
                 <name>yarpdatadumper</name>
-                <parameters>--name obj --connect /blobDescriptor/affDescriptor:o --downsample 30</parameters>
+                <parameters>--name obj --connect /blobDescriptor/affDescriptor:o --downsample 15</parameters>
                 <node>localhost</node>
         </module>
 
@@ -79,6 +94,18 @@
             <to>/sequentialLabeller/binImg:i</to>
             <protocol>udp</protocol>
         </connection>
+
+        <!--
+        <connection>
+            <from>/blobDescriptor/wholeDescriptors:o</from>
+            <to>/descriptorReduction/wholeDescriptors:i</to>
+        </connection>
+
+        <connection>
+            <from>/blobDescriptor/partDescriptors:o</from>
+            <to>/descriptorReduction/partDescriptors:i</to>
+        </connection>
+        -->
 
         <connection>
             <from>/icub/camcalib/left/out</from>
