@@ -123,10 +123,10 @@ The model for each gesture/action is a so called left-to-right \ac{HMM} where th
 
 Although not expressed so far in the notation, the continuous variables $g_i$ are measured at regular time intervals.
 At a certain time step $n$ the feature vector can be expressed as $\mathbf{g}[n] = \{g_1[n], \dots g_D[n]\}$.
-The input to the model is a sequence of $N$ such feature vectors $\mathbf{g}[1], \dots, \mathbf{g}[N]$ that we call for simplicity $G_1^N$, nad $N$ can vary for every recording.
+The input to the model is a sequence of $N$ such feature vectors $\mathbf{g}[1], \dots, \mathbf{g}[N]$ that we call for simplicity $G_1^N$, where $N$ can vary for every recording.
 
 At recognition~(testing) time, we can use the models to estimate the likelihood of a new sequence of observations $G_1^N$, given each possible gesture/action by means of the \FB{} inference algorithm.
-We can express this likelihood as $\mathcal{L}(G_1^N|a)$, where $a$ is one of the possible actions.
+We can express this likelihood as $\mathcal{L}_\text{HMM}(G_1^N|a)$, where $a$ is one of the possible actions.
 By normalizing the likelihoods, assuming that the gestures are equally likely \emph{a priori}, we can obtain the posterior probability of the action given the sequence of observations that we call $\phmm(a|G_1^N)$.
 
 %In Sec.~\ref{sec:combination}, we discuss different ways in which the output information of the gesture recognizer can be combined with the \acl{BN} of words and affordances.
@@ -141,7 +141,7 @@ The two models described above define two probability distributions over the rel
   && \hspace{1cm} \dots, w_1, w_2, \dots), \text{ and} \\
   \phmm(a|G_1^N) &&
 \end{eqnarray*}
-The goal is to merge the information brought by both models and estimate $\pcomb(a, F, E, W|G_1^N)$, that is, the joint probability of all the affordance and word variables, given that we observe a certain gesture/action performed by the human.
+The goal is to merge the information provided by both models and estimate $\pcomb(a, F, E, W|G_1^N)$, that is, the joint probability of all the affordance and word variables, given that we observe a certain gesture/action performed by the human.
 
 During inference, we will have a (possibly empty) set of observed variables $X_\text{OBS} \subseteq (a \cup F \cup E \cup W)$, and a set of variables on which we wish to perform the inference: $X_\text{INF} \subseteq (a \cup F \cup E \cup W)$.
 In order for the inference to be non-trivial it must be $X_\text{OBS} \cap X_\text{INF} = \varnothing$, that is, we should not observe any inference variable.
@@ -153,17 +153,24 @@ According to the Bayesian network alone, the inference will compute the probabil
 If we want to combine the evidence brought by the Bayesian network with the evidence brought by the hidden Markov model, there are two cases that can occur:
 \begin{enumerate}
 \item the variable action is included among the inference variables: $a \in X_\text{INF}$
-\item the variable action is not included among the inference variables: $a \not\in X_\text{INF}$.
+\item the variable action is not included among the inference variables: $a \in X_\text{LAT}$.
 \end{enumerate}
-Those two cases can be addressed separately when we do inference.
+We are here excluding the case that we observe the action directly ($a\in X_\text{OBS}$) for two reasons: firstly, this would correspond to the robot perfroming the action himself, whereas we are interested in interpreting other people's actions;
+secondly, this would make the evidence on the gesture features $G_1^N$ irrelevant, because in the model in Figure~\ref{fig:model}~(b), there is a tail-to-tail connection from $G_1^N$ to the rest of the variables through the action variable, which means that, given the action, all dependencies to the gesture features are dropped. 
+The two cases enumerated above can be addressed separately when we do inference.
 
-In the first case, we call $X_\text{INF}^\prime$ the set of inference variables excluding the action $a$, that is $X_\text{INF} = \{X_\text{INF}^\prime, a\}$.
+In the first case, we call $X_\text{INF}^\prime$ the set of inference variables excluding the action $a$, that is, $X_\text{INF} = \{X_\text{INF}^\prime, a\}$.
 We can write:
 \begin{align*}
   & \pcomb(X_\text{INF}| X_\text{OBS}, G_1^N) = \pcomb(a, X_\text{INF}^\prime| X_\text{OBS}, G_1^N)= \\
   &= \pbn(a, X_\text{INF}^\prime| X_\text{OBS}, G_1^N) \phmm(a, X_\text{INF}^\prime| X_\text{OBS}, G_1^N)= \\
-  &= \pbn(a, X_\text{INF}^\prime| X_\text{OBS}) \phmm(a, | G_1^N).
+  &= \pbn(a, X_\text{INF}^\prime| X_\text{OBS}) \phmm(a, | G_1^N) \\
+  &= \pbn(X_\text{INF}| X_\text{OBS}) \phmm(a, | G_1^N).
 \end{align*}
+
+EXPLAIN WHAT THIS MEANS
+
+In the case where the action is among the latent variables, 
 
 GLU TEXT
 
