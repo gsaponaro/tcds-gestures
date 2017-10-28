@@ -246,7 +246,8 @@ At a certain time step $n$ the feature vector can be expressed as $\mathbf{g}[n]
 The input to the model is a sequence of $N$ such feature vectors $\mathbf{g}[1], \dots, \mathbf{g}[N]$ that we call for simplicity $G_1^N$, where $N$ can vary for every recording.
 
 At recognition~(testing) time, we can use the models to estimate the likelihood of a new sequence of observations $G_1^N$, given each possible gesture/action by means of the \FB{} inference algorithm.
-We can express this likelihood as $\mathcal{L}_\text{HMM}(G_1^N|A)$, where $a$ is one of the possible actions.
+%We can express this likelihood as $\mathcal{L}_\text{HMM}(G_1^N|A)$, where $a$ is one of the possible actions.
+We can express this likelihood as $\mathcal{L}_\text{HMM}(G_1^N|A=a)$, where $a$ is one of the possible actions.
 By normalizing the likelihoods, assuming that the gestures are equally likely \emph{a priori}, we can obtain the posterior probability of the action given the sequence of observations that we call $\phmm(A|G_1^N)$.
 
 %In Sec.~\ref{sec:combination}, we discuss different ways in which the output information of the gesture recognizer can be combined with the \acl{BN} of words and affordances.
