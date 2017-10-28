@@ -6,7 +6,6 @@
   \tikzstyle{dashedgroup} = [rectangle, draw, inner sep=0.6cm, dashed, rounded corners, black]
   \tikzstyle{dottedgrouptrapezium} = [trapezium, draw, dotted, rounded corners, black]
   \tikzstyle{affarrow} = [->, thick, >=stealth']%, shorten >=2pt]%, shorten >=2pt]
-  %\begin{minipage}{0.5\textwidth}
   \centering
   \subfloat[][Ideal case: the affordance and word variables are dependent on the detailed time-evolving description of the action.]{
     \centering
@@ -42,10 +41,7 @@
     \end{tikzpicture}
     \label{fig:model:ideal}
   } \quad\quad
-  %  \vspace{6mm}
-  %  (a) ideal case
-  %\end{minipage}
-  %\begin{minipage}{0.5\textwidth}
+  %
   \subfloat[][Our simplified model: the affordance and word variables are dependent on the discrete action class.]{
     \centering
     \begin{tikzpicture}
@@ -80,13 +76,8 @@
       \draw[affarrow] (actions) -- (gestures);
       \node[dashedgroup, fit=(actions) (gestures),label=above:Gesture/Action recognition]{};
     \end{tikzpicture}
-    %
-    %    (b) our model
-    %  \end{minipage}
     \label{fig:model:our}
     }
-    %\centering
-    %\includegraphics[width=0.8\columnwidth]{fullNetAbstract}
   \caption{Abstract representation of the probabilistic dependencies in the model.}
   \label{fig:model}
 \end{figure*}
@@ -263,7 +254,7 @@ During inference, we have a (possibly empty) set of observed variables~$\xobs \s
 In order for the inference to be non-trivial it must be~$\xobs \cap \xinf = \varnothing$, that is, we should not observe any inference variable.
 According to the Bayesian network alone, the inference will compute the probability distribution of the inference variables~$\xinf$ given the observed variables~$\xobs$ by marginalizing over all the other (latent) variables $\xlat = X \setminus (\xobs \cup \xinf)$, where~$\setminus$~is the set difference operation:
 \begin{eqnarray*}
- \pbn(\xinf \given \xobs) = \sum_{\xlat} \pbn(\xinf, \xlat \given  \xobs).
+ \pbn(\xinf \given \xobs) = \sum_{\xlat} \pbn(\xinf, \xlat \given \xobs).
 \end{eqnarray*}
 
 If we want to combine the evidence brought by the Bayesian network with the evidence brought by the hidden Markov model, there are two cases that can occur:
