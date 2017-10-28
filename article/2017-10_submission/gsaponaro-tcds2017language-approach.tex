@@ -8,7 +8,7 @@
   \tikzstyle{affarrow} = [->, thick, >=stealth']%, shorten >=2pt]%, shorten >=2pt]
   %\begin{minipage}{0.5\textwidth}
   \centering
-  \subfloat[][ideal case: the affordance and word variables are dependent on the time-evolving detailed description of the action.]{
+  \subfloat[][Ideal case: the affordance and word variables are dependent on the time-evolving detailed description of the action.]{
     \centering
     \begin{tikzpicture}
       % single nodes
@@ -46,7 +46,7 @@
   %  (a) ideal case
   %\end{minipage}
   %\begin{minipage}{0.5\textwidth}
-  \subfloat[][our simplified model: the affordance and word variables are dependent on the discrete action class.]{
+  \subfloat[][Our simplified model: the affordance and word variables are dependent on the discrete action class.]{
     \centering
     \begin{tikzpicture}
       % single nodes
@@ -92,27 +92,27 @@
 \end{figure*}
 
 \section{Proposed Approach}
-The purpose of the proposed approach is to reuse the experience that the robot acquires when playing alone to interpret other people's actions.
+The purpose of the proposed approach is to reuse the experience that the robot has acquired when exploring the environment autonomously, for interpreting other people's actions.
 In order to achieve this, we combine (1)~the robot affordance model of~\cite{salvi:2012:smcb}, which associates verbal descriptions to the physical interactions of an agent with the environment, with (2)~the gesture recognition system of~\cite{saponaro:2013:crhri}, which infers the type of action from human user movements.
 We consider three \emph{manipulative gestures} corresponding to physical actions performed by agent(s) onto objects on a table~(see Fig.~\ref{fig:experimental_setup}): grasp, tap, and touch.
-We reason on the effects of these actions onto the objects of the world, and on the co-occurring verbal description of the experiments.
+Our proposed model performs probabilistic reasoning on the effects of these actions onto the objects of the world, and on the co-occurring verbal description of the experiments.
 
 A possible representation of the probabilistic dependencies that the robot needs to acquire in order to associate other people's actions to verbal descriptions is depicted in Figure~\ref{fig:model:ideal}.
 The intended actions result in movements of the body that can be measured in terms of \emph{gesture features}.
-These movements, in turns, may determine some \emph{effects}, on the surroundings expressed by a number of relevant measurable variables.
+These movements, in turn, may determine some \emph{effects} on the surroundings, expressed by a number of relevant measurable variables.
 Those effects are also determined by the particular \emph{object features} associated with the objects that are involved in the action and that are also observable.
 Finally, an observer composes a verbal description of the situation based on all the observable variables.
 
 By combining the affordance model in \cite{salvi:2012:smcb} and the gesture recognition system in \cite{saponaro:2013:crhri}, however, we need to do some simplifying assumptions, that are depicted in Figure~\ref{fig:model:our}.
-The main difference, is that, in the learning phase in \cite{salvi:2012:smcb}, the intended action was known to the robot.
-The robot could, therefore, learn direct dependencies between the actions and the other variables in the affordance-word model depicted in the corresponding dashed box in Figure~\ref{fig:model:our}.
+The main difference is that, in the learning phase in \cite{salvi:2012:smcb}, the intended action was known to the robot.
+The robot could, therefore, learn direct dependencies between the actions and the other variables in the \affword{} model depicted in the corresponding dashed box in Figure~\ref{fig:model:our}.
 Although some of the effect variables refer to the robot's arm movements, this information was not rich enough to recognize each particular gesture and could therefore not be used directly to interpret other people's behavior.
 
-This limitation can be partly overcome by the gesture/action recognition model of~\cite{saponaro:2013:crhri} which can recover the particular intended action from the gesture features.
-Consequently, the relationship between gesture features, object features, effects and words, that we described earlier, are mediated by the actions variable in our model.
-The combination of the two models is our main contribution and allows us to relax the assumption made in \cite{salvi:2012:smcb} that the action is known during the learning phase.
+This limitation can be partly overcome by the gesture/action recognition model of~\cite{saponaro:2013:crhri}, which can recover the particular intended action from the gesture features.
+Consequently, the relationship between Gesture Features, Object Features, Effects and Words, that we described earlier, is mediated by the Actions variable in our model.
+The combination of the two models is our main contribution, and allows us to relax the assumption made in \cite{salvi:2012:smcb} that the action is known during the learning phase.
 
-In the following, we give details about the affordance-word model and the gesture/action recognition model employed in the study and on the way we do inference by merging the information provided by those two models.
+In the remainder of this section, we give details about the \affword{} model, about the gesture/action recognition model employed in the study, and about the method that we employ to perform probabilistic inference by merging the information provided by those two models.
 
 %BELOW IS THE GLU TEXT
 
@@ -131,8 +131,8 @@ In the following, we give details about the affordance-word model and the gestur
 Following the method adopted in~\cite{salvi:2012:smcb}, we use a Bayesian probabilistic framework to allow a robot to ground the basic world behavior and verbal descriptions associated to it.
 All variables in the model are discrete or are discretized from continuous sensory variables through clustering in a preliminary learning phase.
 Details on the variable definition and possible values are given in Table~\ref{tab:bnsymb}.
-Note that the name of the values have been assigned by us arbitrarily to the clusters to make the results more interpretable.
-However, the robot has no prior knowledge about the meaning of these clusters. 
+Note that the name of the values have been assigned by us arbitrarily to the clusters, for the sake of making the results more human-interpretable.
+However, the robot has no prior knowledge about the meaning of these clusters.
 
 
 %\begin{table*}
@@ -238,7 +238,7 @@ The gesture recognition models are represented in Fig.~\ref{fig:hmms}, and corre
 Our input features are the 3D coordinates of the tracked human hand indicated by the $g_i$ variables in Figure~\ref{fig:model}.
 The coordinates are obtained with a commodity depth sensor, then transformed to be centered on the person torso~(to be invariant to the distance of the user from the sensor) and normalized to account for variability in amplitude~(to be invariant to wide/emphatic vs narrow/subtle executions of the same gesture class).
 
-The model for each gesture/action is a so called left-to-right \ac{HMM} where the transition model between the discrete states $\mathcal{S} = \{s_1, \dots, s_Q\}$ is structured so that states with lower index represent events that occur earlier in time.
+The model for each gesture/action is a so-called left-to-right \ac{HMM}, where the transition model between the discrete states $\mathcal{S} = \{s_1, \dots, s_Q\}$ is structured so that states with lower index represent events that occur earlier in time.
 %set of (hidden) discrete states~$\mathcal{S} = \{s_1, \dots, s_Q\}$ which model the temporal phases comprising the dynamic execution of the gesture, and by a set of parameters~$\lambda = \{ A, B, \Pi \}$, where~$A = \{ a_{ij} \}$ is the transition probability matrix, $a_{ij}$ is the transition probability from state~$s_i$ at time~$t$ to state~$s_j$ at time~$t+1$, $B = \{ f_i \}$ is the set of $Q$~observation probability functions~(one per state~$i$) with continuous mixtures of Gaussian values, and~$\Pi$ is the initial probability distribution for the states.
 
 Although not expressed so far in the notation, the continuous variables $g_i$ are measured at regular time intervals.
@@ -272,11 +272,11 @@ According to the Bayesian network alone, the inference will compute the probabil
 
 If we want to combine the evidence brought by the Bayesian network with the evidence brought by the hidden Markov model, there are two cases that can occur:
 \begin{enumerate}
-\item the variable action is included among the inference variables: $A \in \xinf$
+\item the variable action is included among the inference variables: $A \in \xinf$, or
 \item the variable action is not included among the inference variables: $A \in \xlat$.
 \end{enumerate}
-We are here excluding the case that we observe the action directly ($A\in \xobs$) for two reasons: firstly, this would correspond to the robot perfroming the action itself, whereas we are interested in interpreting other people's actions;
-secondly, this would make the evidence on the gesture features $G_1^N$ irrelevant, because in the model in Figure~\ref{fig:model:our}, there is a tail-to-tail connection from $G_1^N$ to the rest of the variables through the action variable, which means that, given the action, all dependencies to the gesture features are dropped. 
+Here, we are excluding the case where we observe the action directly ($A\in \xobs$) for two reasons: firstly, this would correspond to the robot performing the action itself, whereas we are interested in interpreting other people's actions;
+secondly, this would make the evidence on the gesture features $G_1^N$ irrelevant, because in the model in Figure~\ref{fig:model:our}, there is a tail-to-tail connection from $G_1^N$ to the rest of the variables through the action variable, which means that, given the action, all dependencies to the gesture features are dropped.
 
 The two cases enumerated above can be addressed separately when we do inference.
 In the first case, we call $\xinf^\prime$ the set of inference variables excluding the action $A$, that is, $\xinf = \{\xinf^\prime, A\}$.
@@ -290,9 +290,9 @@ We can write:
   &= \pbn(\xinf| \xobs) \phmm(A | G_1^N).
 \end{align*}
 
-The means that we can evaluate the two models independently and multiply the distribution we obtain from the Bayesian network over all the possible value of the inference variables, by the HMM posterior for the corresponding value of the action.
+The means that we can evaluate the two models independently and multiply the distribution we obtain from the Bayesian network over all the possible value of the inference variables, by the \ac{HMM} posterior for the corresponding value of the action.
 
-In the case where the action is among the latent variables, we define, similarly, $\xlat = \{A, \xlat^\prime\}$, and we have:
+In the second case, where the action is among the latent variables, we define, similarly, $\xlat = \{A, \xlat^\prime\}$, and we have:
 \begin{align*}
   & \pcomb(\xinf| \xobs, G_1^N) = \\
   &= \sum_{\{A,\xlat^\prime\}} \pcomb(\xinf, A, \xlat^\prime| \xobs, G_1^N)=\\
