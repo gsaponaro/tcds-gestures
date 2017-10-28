@@ -185,7 +185,7 @@ However, the robot has no prior knowledge about the meaning of these clusters.
     \end{tabular}
 \end{table}
 
-To simplify the notation, we can group the affordance and word variables according to their use for the following descriptions: action variable $A = \{a\}$, object feature variables $F=\{f_1, f_2, \dots\}$, effect variables $E=\{e_1, e_2, \dots\}$ and word variables $W = \{w_1, w_2, \dots\}$.
+To simplify the notation, we can group the affordance and word variables according to their use for the following descriptions: action variable~$A = \{a\}$, object feature variables~$F=\{f_1, f_2, \dots\}$, effect variables~$E=\{e_1, e_2, \dots\}$ and word variables~$W = \{w_1, w_2, \dots\}$.
 The Bayesian network model relates all these variables by means of the joint probability distribution~$P(A, F, E, W)$, sketched by the Affordance-word model box in Fig.~\ref{fig:model:our}.
 The dependency structure and the model parameters are estimated by the robot in an ego-centric way through interaction with the environment, as in~\cite{salvi:2012:smcb}.
 As a consequence, during learning, the robot knows what action it is performing with certainty, and the variable~$A$ assumes a deterministic value. This assumption is relaxed in the present study, by extending the model to the observation of external~(human) agents as explained below.
@@ -238,35 +238,30 @@ The gesture recognition models are represented in Fig.~\ref{fig:hmms}, and corre
 Our input features are the 3D coordinates of the tracked human hand indicated by the $g_i$ variables in Figure~\ref{fig:model}.
 The coordinates are obtained with a commodity depth sensor, then transformed to be centered on the person torso~(to be invariant to the distance of the user from the sensor) and normalized to account for variability in amplitude~(to be invariant to wide/emphatic vs narrow/subtle executions of the same gesture class).
 
-The model for each gesture/action is a so-called left-to-right \ac{HMM}, where the transition model between the discrete states $\mathcal{S} = \{s_1, \dots, s_Q\}$ is structured so that states with lower index represent events that occur earlier in time.
+The model for each gesture/action is a so-called left-to-right \ac{HMM}, where the transition model between the discrete states~$\mathcal{S} = \{s_1, \dots, s_Q\}$ is structured so that states with lower index represent events that occur earlier in time.
 %set of (hidden) discrete states~$\mathcal{S} = \{s_1, \dots, s_Q\}$ which model the temporal phases comprising the dynamic execution of the gesture, and by a set of parameters~$\lambda = \{ A, B, \Pi \}$, where~$A = \{ a_{ij} \}$ is the transition probability matrix, $a_{ij}$ is the transition probability from state~$s_i$ at time~$t$ to state~$s_j$ at time~$t+1$, $B = \{ f_i \}$ is the set of $Q$~observation probability functions~(one per state~$i$) with continuous mixtures of Gaussian values, and~$\Pi$ is the initial probability distribution for the states.
 
-Although not expressed so far in the notation, the continuous variables $g_i$ are measured at regular time intervals.
-At a certain time step $n$ the feature vector can be expressed as $\mathbf{g}[n] = \{g_1[n], \dots g_D[n]\}$.
-The input to the model is a sequence of $N$ such feature vectors $\mathbf{g}[1], \dots, \mathbf{g}[N]$ that we call for simplicity $G_1^N$, where $N$ can vary for every recording.
+Although not expressed so far in the notation, the continuous variables~$g_i$ are measured at regular time intervals.
+At a certain time step~$n$, the feature vector can be expressed as~$\mathbf{g}[n] = \{g_1[n], \dots g_D[n]\}$.
+The input to the model is a sequence of~$N$ such feature vectors~$\mathbf{g}[1], \dots, \mathbf{g}[N]$ that we call for simplicity~$G_1^N$, where~$N$ can vary for every recording.
 
-At recognition~(testing) time, we can use the models to estimate the likelihood of a new sequence of observations $G_1^N$, given each possible gesture/action by means of the \FB{} inference algorithm.
+At recognition~(testing) time, we can use the models to estimate the likelihood of a new sequence of observations~$G_1^N$, given each possible gesture/action by means of the \FB{} inference algorithm.
 %We can express this likelihood as $\mathcal{L}_\text{HMM}(G_1^N|A)$, where $a$ is one of the possible actions.
 We can express this likelihood as $\mathcal{L}_\text{HMM}(G_1^N|A=a)$, where $a$ is one of the possible actions.
-By normalizing the likelihoods, assuming that the gestures are equally likely \emph{a priori}, we can obtain the posterior probability of the action given the sequence of observations that we call $\phmm(A|G_1^N)$.
+By normalizing the likelihoods, assuming that the gestures are equally likely \emph{a priori}, we can obtain the posterior probability of the action given the sequence of observations that we call~$\phmm(A|G_1^N)$.
 
 %In Sec.~\ref{sec:combination}, we discuss different ways in which the output information of the gesture recognizer can be combined with the \acl{BN} of words and affordances.
-
-\newcommand{\pcomb}{\ensuremath P_\text{COMB}}
-\newcommand{\xinf}{\ensuremath X_\text{INF}}
-\newcommand{\xobs}{\ensuremath X_\text{OBS}}
-\newcommand{\xlat}{\ensuremath X_\text{LAT}}
 
 \subsection{Combining the \acs{BN} with Gesture \acsp{HMM}}
 \label{sec:combination}
 The two models described above define two probability distributions over the relevant variables for the problem:
-$\pbn(A, F, E, W)$ and $\phmm(A|G_1^N)$.
-The goal is to merge the information provided by both models and estimate $\pcomb(A, F, E, W|G_1^N)$, that is, the joint probability of all the affordance and word variables, given that we observe a certain gesture/action performed by the human.
+$\pbn(A, F, E, W)$ and~$\phmm(A|G_1^N)$.
+The goal is to merge the information provided by both models and estimate~$\pcomb(A, F, E, W|G_1^N)$, that is, the joint probability of all the affordance and word variables, given that we observe a certain gesture/action performed by the human.
 
-To simplify notation, we call $X = \{A, F, E, W\}$ the set of affordance and word variables $\{a, f_1, f_2, \dots, e_1, e_2, \dots, w_1, w_2, \dots\}$.
-During inference, we have a (possibly empty) set of observed variables $\xobs \subseteq X$, and a set of variables $\xinf \subseteq X$ on which we wish to perform the inference.
-In order for the inference to be non-trivial it must be $\xobs \cap \xinf = \varnothing$, that is, we should not observe any inference variable.
-According to the Bayesian network alone, the inference will compute the probability distribution of the inference variables $\xinf$ given the observed variables $\xobs$ by marginalizing over all the other (latent) variables $\xlat = X \setminus (\xobs \cup \xinf)$, where $\setminus$ is the set difference operation:
+To simplify notation, we call~$X = \{A, F, E, W\}$ the set of affordance and word variables~$\{a, f_1, f_2, \dots, e_1, e_2, \dots, w_1, w_2, \dots\}$.
+During inference, we have a (possibly empty) set of observed variables~$\xobs \subseteq X$, and a set of variables $\xinf \subseteq X$ on which we wish to perform the inference.
+In order for the inference to be non-trivial it must be~$\xobs \cap \xinf = \varnothing$, that is, we should not observe any inference variable.
+According to the Bayesian network alone, the inference will compute the probability distribution of the inference variables~$\xinf$ given the observed variables~$\xobs$ by marginalizing over all the other (latent) variables $\xlat = X \setminus (\xobs \cup \xinf)$, where $\setminus$ is the set difference operation:
 \begin{eqnarray*}
  \pbn(\xinf|\xobs) = \sum_{\xlat} \pbn(\xinf, \xlat| \xobs)
 \end{eqnarray*}
@@ -276,11 +271,11 @@ If we want to combine the evidence brought by the Bayesian network with the evid
 \item the variable action is included among the inference variables: $A \in \xinf$, or
 \item the variable action is not included among the inference variables: $A \in \xlat$.
 \end{enumerate}
-Here, we are excluding the case where we observe the action directly ($A\in \xobs$) for two reasons: firstly, this would correspond to the robot performing the action itself, whereas we are interested in interpreting other people's actions;
+Here, we are excluding the case where we observe the action directly~($A\in \xobs$) for two reasons: firstly, this would correspond to the robot performing the action itself, whereas we are interested in interpreting other people's actions;
 secondly, this would make the evidence on the gesture features $G_1^N$ irrelevant, because in the model in Figure~\ref{fig:model:our}, there is a tail-to-tail connection from $G_1^N$ to the rest of the variables through the action variable, which means that, given the action, all dependencies to the gesture features are dropped.
 
 The two cases enumerated above can be addressed separately when we do inference.
-In the first case, we call $\xinf^\prime$ the set of inference variables excluding the action $A$, that is, $\xinf = \{\xinf^\prime, A\}$.
+In the first case, we call~$\xinf^\prime$ the set of inference variables excluding the action~$A$, that is, $\xinf = \{\xinf^\prime, A\}$.
 We can write:
 \begin{align*}
   & \pcomb(\xinf| \xobs, G_1^N) = \pcomb(A, \xinf^\prime| \xobs, G_1^N)= \\
@@ -304,7 +299,7 @@ In the second case, where the action is among the latent variables, we define, s
   &= \sum_{A}\left[\phmm(A | G_1^N) \pbn(\xinf, A| \xobs)\right] \\
 \end{align*}
 
-This time, we first need to use the Bayesian network to do inference on the inference variables $\xinf$ and the action variable $A$, and then marginalize out $A$ after having multiplied the probabilities by the HMM posterior.
+This time, we first need to use the Bayesian network to do inference on the inference variables~$\xinf$ and the action variable~$A$, and then marginalize out~$A$ after having multiplied the probabilities by the \ac{HMM} posterior.
 
 %GLU TEXT
 %
