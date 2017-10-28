@@ -246,24 +246,24 @@ At a certain time step~$n$, the feature vector can be expressed as~$\mathbf{g}[n
 The input to the model is a sequence of~$N$ such feature vectors~$\mathbf{g}[1], \dots, \mathbf{g}[N]$ that we call for simplicity~$G_1^N$, where~$N$ can vary for every recording.
 
 At recognition~(testing) time, we can use the models to estimate the likelihood of a new sequence of observations~$G_1^N$, given each possible gesture/action by means of the \FB{} inference algorithm.
-%We can express this likelihood as $\mathcal{L}_\text{HMM}(G_1^N|A)$, where $a$ is one of the possible actions.
-We can express this likelihood as $\mathcal{L}_\text{HMM}(G_1^N|A=a)$, where $a$ is one of the possible actions.
-By normalizing the likelihoods, assuming that the gestures are equally likely \emph{a priori}, we can obtain the posterior probability of the action given the sequence of observations that we call~$\phmm(A|G_1^N)$.
+%We can express this likelihood as $\mathcal{L}_\text{HMM}(G_1^N \given A)$, where $a$ is one of the possible actions.
+We can express this likelihood as $\mathcal{L}_\text{HMM}(G_1^N \given A=a)$, where $a$ is one of the possible actions.
+By normalizing the likelihoods, assuming that the gestures are equally likely \emph{a priori}, we can obtain the posterior probability of the action given the sequence of observations that we call~$\phmm(A \given G_1^N)$.
 
 %In Sec.~\ref{sec:combination}, we discuss different ways in which the output information of the gesture recognizer can be combined with the \acl{BN} of words and affordances.
 
 \subsection{Combining the \acs{BN} with Gesture \acsp{HMM}}
 \label{sec:combination}
 The two models described above define two probability distributions over the relevant variables for the problem:
-$\pbn(A, F, E, W)$ and~$\phmm(A|G_1^N)$.
-The goal is to merge the information provided by both models and estimate~$\pcomb(A, F, E, W|G_1^N)$, that is, the joint probability of all the affordance and word variables, given that we observe a certain gesture/action performed by the human.
+$\pbn(A, F, E, W)$ and~$\phmm(A \given G_1^N)$.
+The goal is to merge the information provided by both models and estimate~$\pcomb(A, F, E, W \given G_1^N)$, that is, the joint probability of all the affordance and word variables, given that we observe a certain gesture/action performed by the human.
 
 To simplify the notation, we call $X = \{A, F, E, W\}$ the set of affordance and word variables~$\{a, f_1, f_2, \dots, e_1, e_2, \dots, w_1, w_2, \dots\}$.
 During inference, we have a (possibly empty) set of observed variables~$\xobs \subseteq X$, and a set of variables $\xinf \subseteq X$ on which we wish to perform the inference.
 In order for the inference to be non-trivial it must be~$\xobs \cap \xinf = \varnothing$, that is, we should not observe any inference variable.
 According to the Bayesian network alone, the inference will compute the probability distribution of the inference variables~$\xinf$ given the observed variables~$\xobs$ by marginalizing over all the other (latent) variables $\xlat = X \setminus (\xobs \cup \xinf)$, where~$\setminus$~is the set difference operation:
 \begin{eqnarray*}
- \pbn(\xinf|\xobs) = \sum_{\xlat} \pbn(\xinf, \xlat| \xobs).
+ \pbn(\xinf \given \xobs) = \sum_{\xlat} \pbn(\xinf, \xlat \given  \xobs).
 \end{eqnarray*}
 
 If we want to combine the evidence brought by the Bayesian network with the evidence brought by the hidden Markov model, there are two cases that can occur:
@@ -278,25 +278,25 @@ The two cases enumerated above can be addressed separately when we do inference.
 In the first case, we call~$\xinf^\prime$ the set of inference variables excluding the action~$A$, that is, $\xinf = \{\xinf^\prime, A\}$.
 We can write:
 \begin{align*}
-  & \pcomb(\xinf| \xobs, G_1^N) = \pcomb(A, \xinf^\prime| \xobs, G_1^N)= \\
-  &= \sum_{\xlat} \pcomb(A, \xinf^\prime, \xlat| \xobs, G_1^N)=\\
-  &= \sum_{\xlat} \left[\pbn(A, \xinf^\prime, \xlat| \xobs, G_1^N)\right. \\[-4mm]
-    & \mspace{80mu} \left.\phmm(A, \xinf^\prime, \xlat| \xobs, G_1^N)\right]= \\
-  &= \left[\sum_{\xlat} \pbn(A, \xinf^\prime, \xlat| \xobs)\right] \phmm(A | G_1^N) \\
-  &= \pbn(\xinf| \xobs) \phmm(A | G_1^N).
+  & \pcomb(\xinf \given  \xobs, G_1^N) = \pcomb(A, \xinf^\prime \given  \xobs, G_1^N)= \\
+  &= \sum_{\xlat} \pcomb(A, \xinf^\prime, \xlat \given \xobs, G_1^N)=\\
+  &= \sum_{\xlat} \left[\pbn(A, \xinf^\prime, \xlat \given \xobs, G_1^N)\right. \\[-4mm]
+    & \mspace{80mu} \left.\phmm(A, \xinf^\prime, \xlat \given \xobs, G_1^N)\right]= \\
+  &= \left[\sum_{\xlat} \pbn(A, \xinf^\prime, \xlat \given \xobs)\right] \phmm(A \given G_1^N) \\
+  &= \pbn(\xinf \given \xobs) \phmm(A \given G_1^N).
 \end{align*}
 
 The means that we can evaluate the two models independently and multiply the distribution we obtain from the Bayesian network over all the possible value of the inference variables, by the \ac{HMM} posterior for the corresponding value of the action.
 
 In the second case, where the action is among the latent variables, we define, similarly, $\xlat = \{A, \xlat^\prime\}$, and we have:
 \begin{align*}
-  & \pcomb(\xinf| \xobs, G_1^N) = \\
-  &= \sum_{\{A,\xlat^\prime\}} \pcomb(\xinf, A, \xlat^\prime| \xobs, G_1^N)=\\
-  &= \sum_{\{A,\xlat^\prime\}} \left[\pbn(\xinf, A, \xlat^\prime| \xobs, G_1^N)\right. \\[-4mm]
-    & \mspace{100mu} \left.\phmm(\xinf, A, \xlat^\prime| \xobs, G_1^N)\right]= \\[2mm]
-  &= \sum_{\{A,\xlat^\prime\}} \left[\pbn(\xinf, A, \xlat^\prime| \xobs) \phmm(A | G_1^N)\right] \\
-  &= \sum_{A}\left[\phmm(A | G_1^N)\sum_{\xlat^\prime} \pbn(\xinf, A, \xlat^\prime| \xobs)\right] \\
-  &= \sum_{A}\left[\phmm(A | G_1^N) \pbn(\xinf, A| \xobs)\right] \\
+  & \pcomb(\xinf \given \xobs, G_1^N) = \\
+  &= \sum_{\{A,\xlat^\prime\}} \pcomb(\xinf, A, \xlat^\prime \given \xobs, G_1^N)=\\
+  &= \sum_{\{A,\xlat^\prime\}} \left[\pbn(\xinf, A, \xlat^\prime \given \xobs, G_1^N)\right. \\[-4mm]
+    & \mspace{100mu} \left.\phmm(\xinf, A, \xlat^\prime \given \xobs, G_1^N)\right]= \\[2mm]
+  &= \sum_{\{A,\xlat^\prime\}} \left[\pbn(\xinf, A, \xlat^\prime \given \xobs) \phmm(A \given G_1^N)\right] \\
+  &= \sum_{A}\left[\phmm(A \given G_1^N)\sum_{\xlat^\prime} \pbn(\xinf, A, \xlat^\prime \given \xobs)\right] \\
+  &= \sum_{A}\left[\phmm(A \given G_1^N) \pbn(\xinf, A \given \xobs)\right]. \\
 \end{align*}
 
 This time, we first need to use the Bayesian network to do inference on the inference variables~$\xinf$ and the action variable~$A$, and then marginalize out~$A$ after having multiplied the probabilities by the \ac{HMM} posterior.
