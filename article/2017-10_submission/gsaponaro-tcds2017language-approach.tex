@@ -1,4 +1,7 @@
 %!TEX encoding = UTF-8 Unicode
+
+\section{Proposed Approach}
+
 \begin{figure*}
   \tikzstyle{affnode} = [ellipse, draw, thick]%fill=gray!20, thick]%node distance=1cm, text width=6em, text centered, minimum height=4em, thick]
   \tikzstyle{wordnode} = [ellipse, draw, thick]
@@ -82,7 +85,6 @@
   \label{fig:model}
 \end{figure*}
 
-\section{Proposed Approach}
 The purpose of the proposed approach is to reuse the experience that the robot has acquired when exploring the environment autonomously, for interpreting other people's actions.
 In order to achieve this, we combine (1)~the robot affordance model of~\cite{salvi:2012:smcb}, which associates verbal descriptions to the physical interactions of an agent with the environment, with (2)~the gesture recognition system of~\cite{saponaro:2013:crhri}, which infers the type of action from human user movements.
 We consider three \emph{manipulative gestures} corresponding to physical actions performed by agent(s) onto objects on a table~(see Fig.~\ref{fig:experimental_setup}): grasp, tap, and touch.
@@ -115,7 +117,6 @@ In the remainder of this section, we give details about the \affwords{} model, a
 %This assumption is acceptable when the robot learns through self-exploration and interaction with the environment, but must be relaxed if the robot needs to generalize the acquired knowledge through the observation of another~(human) agent.
 %We estimate the action performed by a human user during a \hr{} collaborative task, by employing statistical inference methods and \acp{HMM}. This provides two advantages. First, we can infer the executed action during training. Secondly, at testing time we can merge the action information obtained from gesture recognition with the information about affordances.
 
-
 \subsection{\AffWords{} Modeling}
 \label{sec:bn}
 
@@ -124,32 +125,6 @@ All variables in the model are discrete or are discretized from continuous senso
 Details on the variable definition and possible values are given in Table~\ref{tab:bnsymb}.
 Note that the name of the values have been assigned by us arbitrarily to the clusters, for the sake of making the results more human-interpretable.
 However, the robot has no prior knowledge about the meaning of these clusters.
-
-
-%\begin{table*}
-%    \centering
-%    \caption{The symbolic variables of the \acl{BN} (from~\cite{salvi:2012:smcb}), with the corresponding discrete values obtained from clustering during robot exploration of the environment.}
-%    \label{tab:bnsymb}
-%    %\begin{tabular}{clp{2.7cm}p{2.5cm}}
-%    \begin{tabular}{clll}
-%    \toprule
-%    symbol & name   & description     & values \\
-%    \midrule
-%    $a$ & Action & action          & grasp, tap, touch \\
-%    \midrule
-%    $f_1$ & Color   & object color   & blue, yellow, green1, green2 \\
-%    $f_2$ & Size   & object size     & small, medium, big \\
-%    $f_3$ & Shape  & object shape    & sphere, box \\
-%    \midrule
-%    $e_1$ & ObjVel & object velocity & slow, medium, fast \\
-%    $e_2$ & HandVel & robot hand velocity & slow, fast \\
-%    $e_3$ & ObjHandVel & relative object hand velocity & slow, medium, fast \\
-%    $e_4$ & Contact & object hand contact & short, long \\
-%    \midrule
-%    $w_i$ & word$_i$ & presence of word$_i$ in the verbal description & binary \\
-%    \bottomrule
-%    \end{tabular}
-%\end{table*}
 
 \begin{table}
     \centering
@@ -177,7 +152,7 @@ However, the robot has no prior knowledge about the meaning of these clusters.
 \end{table}
 
 To simplify the notation, we can group the affordance and word variables according to their use for the following descriptions: action variable~$A = \{a\}$, object feature variables~$F=\{f_1, f_2, \dots\}$, effect variables~$E=\{e_1, e_2, \dots\}$ and word variables~$W = \{w_1, w_2, \dots\}$.
-The Bayesian network model relates all these variables by means of the joint probability distribution~$P(A, F, E, W)$, sketched by the Affordance-word model box in Fig.~\ref{fig:model:our}.
+The \ac{BN} model relates all these variables by means of the joint probability distribution~$P(A, F, E, W)$, sketched by the Affordance-word model box in Fig.~\ref{fig:model:our}.
 The dependency structure and the model parameters are estimated by the robot in an ego-centric way through interaction with the environment, as in~\cite{salvi:2012:smcb}.
 As a consequence, during learning, the robot knows what action it is performing with certainty, and the variable~$A$ assumes a deterministic value. This assumption is relaxed in the present study, by extending the model to the observation of external~(human) agents as explained below.
 
@@ -245,6 +220,7 @@ By normalizing the likelihoods, assuming that the gestures are equally likely \e
 
 \subsection{Combining the \acs{BN} with Gesture \acsp{HMM}}
 \label{sec:combination}
+
 The two models described above define two probability distributions over the relevant variables for the problem:
 $\pbn(A, F, E, W)$ and~$\phmm(A \given G_1^N)$.
 The goal is to merge the information provided by both models and estimate~$\pcomb(A, F, E, W \given G_1^N)$, that is, the joint probability of all the affordance and word variables, given that we observe a certain gesture/action performed by the human.
@@ -252,16 +228,18 @@ The goal is to merge the information provided by both models and estimate~$\pcom
 To simplify the notation, we call $X = \{A, F, E, W\}$ the set of affordance and word variables~$\{a, f_1, f_2, \dots, e_1, e_2, \dots, w_1, w_2, \dots\}$.
 During inference, we have a (possibly empty) set of observed variables~$\xobs \subseteq X$, and a set of variables $\xinf \subseteq X$ on which we wish to perform the inference.
 In order for the inference to be non-trivial it must be~$\xobs \cap \xinf = \varnothing$, that is, we should not observe any inference variable.
-According to the Bayesian network alone, the inference will compute the probability distribution of the inference variables~$\xinf$ given the observed variables~$\xobs$ by marginalizing over all the other (latent) variables $\xlat = X \setminus (\xobs \cup \xinf)$, where~$\setminus$~is the set difference operation:
+According to the \ac{BN} alone, the inference will compute the probability distribution of the inference variables~$\xinf$ given the observed variables~$\xobs$ by marginalizing over all the other (latent) variables $\xlat = X \setminus (\xobs \cup \xinf)$, where~$\setminus$~is the set difference operation:
 \begin{eqnarray*}
  \pbn(\xinf \given \xobs) = \sum_{\xlat} \pbn(\xinf, \xlat \given \xobs).
 \end{eqnarray*}
 
-If we want to combine the evidence brought by the Bayesian network with the evidence brought by the hidden Markov model, there are two cases that can occur:
+If we want to combine the evidence brought by the \ac{BN} with the evidence brought by the hidden Markov model, there are two cases that can occur:
 \begin{enumerate}
 \item the variable action is included among the inference variables: $A \in \xinf$, or
+
 \item the variable action is not included among the inference variables: $A \in \xlat$.
 \end{enumerate}
+
 Here, we are excluding the case where we observe the action directly~($A\in \xobs$) for two reasons: firstly, this would correspond to the robot performing the action itself, whereas we are interested in interpreting other people's actions;
 secondly, this would make the evidence on the gesture features $G_1^N$ irrelevant, because in the model in Fig.~\ref{fig:model:our}, there is a tail-to-tail connection from $G_1^N$ to the rest of the variables through the action variable, which means that, given the action, all dependencies to the gesture features are dropped.
 
@@ -277,7 +255,7 @@ We can write:
   &= \pbn(\xinf \given \xobs) \phmm(A \given G_1^N).
 \end{align*}
 
-The means that we can evaluate the two models independently and multiply the distribution we obtain from the Bayesian network over all the possible value of the inference variables, by the \ac{HMM} posterior for the corresponding value of the action.
+The means that we can evaluate the two models independently and multiply the distribution we obtain from the \ac{BN} over all the possible value of the inference variables, by the \ac{HMM} posterior for the corresponding value of the action.
 
 In the second case, where the action is among the latent variables, we define, similarly, $\xlat = \{A, \xlat^\prime\}$, and we have:
 \begin{align*}
@@ -290,7 +268,7 @@ In the second case, where the action is among the latent variables, we define, s
   &= \sum_{A}\left[\phmm(A \given G_1^N) \pbn(\xinf, A \given \xobs)\right]. \\
 \end{align*}
 
-This time, we first need to use the Bayesian network to do inference on the inference variables~$\xinf$ and the action variable~$A$, and then marginalize out~$A$ after having multiplied the probabilities by the \ac{HMM} posterior.
+This time, we first need to use the \ac{BN} to do inference on the inference variables~$\xinf$ and the action variable~$A$, and then marginalize out~$A$ after having multiplied the probabilities by the \ac{HMM} posterior.
 
 %GLU TEXT
 %
