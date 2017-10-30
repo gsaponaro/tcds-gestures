@@ -6,7 +6,7 @@
 
         <module>
                 <name>lbpExtract</name>
-                <parameters>--radius 7 --maxArea 6000 --maxArcLength 600</parameters>
+                <parameters>--radius 7 --maxArea 6000 --maxArcLength 600 --topBound 100</parameters>
                 <node>localhost</node>
         </module>
 
@@ -41,27 +41,37 @@
 
         <module>
                 <name>yarpview</name>
-                <parameters>--name /view/lbpSegmented --x 365 --y 0</parameters>
+                <parameters>--name /view/segmentationBinary --x 365 --y 0</parameters>
+                <node>localhost</node>
+        </module>
+
+        <module>
+                <name>yarpview</name>
+                <parameters>--name /view/segmentationColor --x 675 --y 0</parameters>
                 <node>localhost</node>
         </module>
 
         <module>
                 <name>yarpdatadumper</name>
-                <parameters>--name imgInput --type image --connect /icub/camcalib/left/out --downsample 15</parameters>
+                <parameters>--name imgInput --type image --connect /icub/camcalib/left/out --downsample 10</parameters>
                 <node>localhost</node>
         </module>
 
-        <!--
         <module>
                 <name>yarpdatadumper</name>
-                <parameters>--name imgSeg --type image --connect /lbpExtract/segmentedlbp:o --downsample 15</parameters>
+                <parameters>--name imgSegmentationBinary --type image --connect /lbpExtract/extractedlbp:o --downsample 10</parameters>
                 <node>localhost</node>
         </module>
-        -->
 
         <module>
                 <name>yarpdatadumper</name>
-                <parameters>--name obj --connect /blobDescriptor/affDescriptor:o --downsample 15</parameters>
+                <parameters>--name imgSegmentationColor --type image --connect /lbpExtract/segmentedlbp:o --downsample 10</parameters>
+                <node>localhost</node>
+        </module>
+
+        <module>
+                <name>yarpdatadumper</name>
+                <parameters>--name obj --connect /blobDescriptor/affDescriptor:o --downsample 10</parameters>
                 <node>localhost</node>
         </module>
 
@@ -96,6 +106,12 @@
         </connection>
 
         <!--
+        yarp connect /icub/camcalib/left/out /shapeDescriptor/rawImg:i
+        yarp connect /lbpExtract/extractedlbp:o /shapeDescriptor/binImg:i
+        yarp connect /sequentialLabeller/labeledImg:o /shapeDescriptor/labeledImg:i
+        -->
+
+        <!--
         <connection>
             <from>/blobDescriptor/wholeDescriptors:o</from>
             <to>/descriptorReduction/wholeDescriptors:i</to>
@@ -114,8 +130,14 @@
         </connection>
 
         <connection>
+            <from>/lbpExtract/extractedlbp:o</from>
+            <to>/view/segmentationBinary</to>
+            <protocol>mjpeg</protocol>
+        </connection>
+
+        <connection>
             <from>/lbpExtract/segmentedlbp:o</from>
-            <to>/view/lbpSegmented</to>
+            <to>/view/segmentationColor</to>
             <protocol>mjpeg</protocol>
         </connection>
 
