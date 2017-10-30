@@ -36,13 +36,7 @@
 \usetikzlibrary{fit}
 \tikzstyle{circle}=[shape=circle,minimum size=0.7cm,very thick]
 \tikzstyle{every path}=[very thick]
-% https://tex.stackexchange.com/a/80090/18819
-% TODO: after upgrading to TikZ 3.0+, use arrows.meta
 \usetikzlibrary{arrows}
-\input{arrowsnew}
-\tikzset{options/.code={\tikzset{#1}}} % just to compact the code
-\tikzstyle{myarrow}=[->new, thick, arrowhead=0.2cm]
-
 
 \usepackage{hyperref}
 \usepackage[update,prepend]{epstopdf}
