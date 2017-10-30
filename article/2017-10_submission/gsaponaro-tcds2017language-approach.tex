@@ -254,8 +254,7 @@ We can write:
   &= \left[\sum_{\xlat} \pbn(A, \xinf^\prime, \xlat \given \xobs)\right] \phmm(A \given G_1^N) \\
   &= \pbn(\xinf \given \xobs) \phmm(A \given G_1^N).
 \end{align*}
-
-The means that we can evaluate the two models independently and multiply the distribution we obtain from the \ac{BN} over all the possible value of the inference variables, by the \ac{HMM} posterior for the corresponding value of the action.
+This means that we can evaluate the two models independently and multiply the distribution we obtain from the \ac{BN} over all the possible value of the inference variables, by the \ac{HMM} posterior for the corresponding value of the action.
 
 In the second case, where the action is among the latent variables, we define, similarly, $\xlat = \{A, \xlat^\prime\}$, and we have:
 \begin{align*}
@@ -267,7 +266,6 @@ In the second case, where the action is among the latent variables, we define, s
   &= \sum_{A}\left[\phmm(A \given G_1^N)\sum_{\xlat^\prime} \pbn(\xinf, A, \xlat^\prime \given \xobs)\right] \\
   &= \sum_{A}\left[\phmm(A \given G_1^N) \pbn(\xinf, A \given \xobs)\right]. \\
 \end{align*}
-
 This time, we first need to use the \ac{BN} to do inference on the inference variables~$\xinf$ and the action variable~$A$, and then marginalize out~$A$ after having multiplied the probabilities by the \ac{HMM} posterior.
 
 %GLU TEXT
