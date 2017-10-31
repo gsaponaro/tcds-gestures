@@ -23,7 +23,9 @@ w2 = BNGetWordProbs(netobj_lab);
 %% enter a word evidence, get W, enter more evidence, get W
 %% -> not OK because the marginals of word-nodes-with-evidence have
 %%    size 1 instead of 2
-netobj_lab = BNEnterWordEvidence(netobj_lab, {'the'}); % equivalent to EnterNodeEvidence {'the','the'}
-w3 = BNGetWordProbs(netobj_lab);
+word_ev = {'the'};
+netobj_lab = BNEnterWordEvidence(netobj_lab, word_ev); % equivalent to EnterNodeEvidence {'the','the'}
+word_indices = get_complement_word_indices(netobj_lab, word_ev);
+w3 = BNGetWordProbs(netobj_lab, word_indices);
 netobj_lab = BNEnterNodeEvidence(netobj_lab, {'Action', 'tap'});
-w4 = BNGetWordProbs(netobj_lab);
+w4 = BNGetWordProbs(netobj_lab, word_indices);
