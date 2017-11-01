@@ -135,7 +135,6 @@ In the following sections we give details on the probabilistic models enclosed i
 
 \subsection{\AffWords{} Modeling}
 \label{sec:bn}
-
 Following the method adopted in~\cite{salvi:2012:smcb}, we use a Bayesian probabilistic framework to allow a robot to ground the basic world behavior and verbal descriptions associated to it.
 All variables in the model are discrete or are discretized from continuous sensory variables through clustering in a preliminary learning phase.
 Details on the variable definition and possible values are given in Table~\ref{tab:bnsymb}.
@@ -172,7 +171,6 @@ The \ac{BN} model relates all these variables by means of the joint probability 
 The dependency structure and the model parameters are estimated by the robot in an ego-centric way through interaction with the environment, as in~\cite{salvi:2012:smcb}.
 As a consequence, during learning, the robot knows what action it is performing with certainty, and the variable~$A$ assumes a deterministic value. This assumption is relaxed in the present study, by extending the model to the observation of external~(human) agents as explained below.
 
-\subsection{Gesture/Action Recognition}
 
 \newcommand{\myscalefactor}{0.8}
 
@@ -213,6 +211,7 @@ As a consequence, during learning, the robot knows what action it is performing 
   \label{fig:hmms}
 \end{figure}
 
+\subsection{Gesture/Action Recognition}
 The gesture/action recognition system is based on hidden Markov models with Gaussian emitting probability distributions as in~\cite{saponaro:2013:crhri}.
 The gesture recognition models are represented in Fig.~\ref{fig:hmms}, and correspond to the Gesture/Action recognition block in Fig.~\ref{fig:model:our}.
 
@@ -236,7 +235,6 @@ By normalizing the likelihoods, assuming that the gestures are equally likely \e
 
 \subsection{Combining the \acs{BN} with Gesture \acsp{HMM}}
 \label{sec:combination}
-
 The two models described above define two probability distributions over the relevant variables for the problem:
 $\pbn(A, F, E, W)$ and~$\phmm(A \given G_1^N)$.
 The goal is to merge the information provided by both models and estimate~$\pcomb(A, F, E, W \given G_1^N)$, that is, the joint probability of all the affordance and word variables, given that we observe a certain gesture/action performed by the human.
