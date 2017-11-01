@@ -169,7 +169,7 @@ However, the robot has no prior knowledge about the meaning of these clusters.
 \end{table}
 
 To simplify the notation, we can group the affordance and word variables according to their use for the following descriptions: action variable~$A = \{a\}$, object feature variables~$F=\{f_1, f_2, \dots\}$, effect variables~$E=\{e_1, e_2, \dots\}$ and word variables~$W = \{w_1, w_2, \dots\}$.
-The \ac{BN} model relates all these variables by means of the joint probability distribution~$P(A, F, E, W)$, sketched by the Affordance-word model box in Fig.~\ref{fig:model}.
+The \ac{BN} model relates all these variables by means of the joint probability distribution~$\pbn(A, F, E, W)$, sketched by the Affordance-word model box in Fig.~\ref{fig:model}.
 The dependency structure and the model parameters are estimated by the robot in an ego-centric way through interaction with the environment, as in~\cite{salvi:2012:smcb}.
 As a consequence, during learning, the robot knows what action it is performing with certainty, and the variable~$A$ assumes a deterministic value.
 During inference, the probability distribution on the variable~$A$ can be inferred from evidence on the other nodes.
@@ -225,7 +225,7 @@ For example, similarly to the previous section, the affordance-word model predic
 If the human performs an unknown action on a spherical object and obtains a high velocity, the robot will be able to infer that the action is most probably a tap, although it was not able to recognize the gesture associated with this action.
 
 This information can be used to train a gesture/action recognition system similar to the one in~\cite{saponaro:2013:crhri}.
-The system, depicted in Fig.~\ref{fig:hmms} and corresponding to the Gesture/Action recognition block in Fig.~\ref{fig:model}, is based on hidden Markov models with Gaussian emitting probability distributions.
+The system, depicted in Fig.~\ref{fig:hmms} and corresponding to the Gesture/Action recognition block in Fig.~\ref{fig:model}, is based on hidden Markov models with Gaussian mixture models as emitting probability distributions.
 %The gesture recognition models are represented in Fig.~\ref{fig:hmms}, and correspond to the Gesture/Action recognition block in Fig.~\ref{fig:model}.
 %As for the gesture recognition \acsp{HMM}, we use the models that we previously trained in~\cite{saponaro:2013:crhri} for spotting the manipulation-related gestures under consideration.
 Our input features are the 3D coordinates of the tracked human hand indicated by the $g_i$ variables in Fig.~\ref{fig:model}.
@@ -240,8 +240,11 @@ The input to the model is a sequence of~$N$ such feature vectors~$\mathbf{g}[1],
 
 At recognition~(testing) time, we can use the models to estimate the likelihood of a new sequence of observations~$G_1^N$, given each possible gesture/action by means of the \FB{} inference algorithm.
 %We can express this likelihood as $\mathcal{L}_\text{HMM}(G_1^N \given A)$, where $a$ is one of the possible actions.
-We can express this likelihood as $\mathcal{L}_\text{HMM}(G_1^N \given A=a)$, where $a$ is one of the possible actions.
-By normalizing the likelihoods, assuming that the gestures are equally likely \emph{a priori}, we can obtain the posterior probability of the action given the sequence of observations that we call~$\phmm(A \given G_1^N)$.
+We can express this likelihood as $\mathcal{L}_\text{HMM}(G_1^N \given A=a_k)$, where $a_k$ is one of the possible actions.
+By normalizing the likelihoods, assuming that the gestures are equally likely \emph{a priori}, we can obtain the posterior probability of the action given the sequence of observations that we call~$\phmm(A=a_k \given G_1^N)$ as
+\begin{equation*}
+  \phmm(A=a_k \given G_1^N) = \frac{\mathcal{L}_\text{HMM}(G_1^N \given A=a_k)}{\sum_h \mathcal{L}_\text{HMM}(G_1^N \given A=a_h)}
+\end{equation*}
 
 %In Sec.~\ref{sec:combination}, we discuss different ways in which the output information of the gesture recognizer can be combined with the \acl{BN} of words and affordances.
 
