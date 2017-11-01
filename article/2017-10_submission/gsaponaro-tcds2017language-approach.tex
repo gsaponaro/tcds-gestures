@@ -81,7 +81,7 @@
     \end{tikzpicture}
 %    }
   \caption{Abstract representation of the probabilistic dependencies in the model.}
-    \label{fig:model:our}
+    \label{fig:model}
 %  \label{fig:model}
 \end{figure}
 The purpose of the proposed approach is to model the development of language learning from a first self-centered phase to a second socially aware phase.
@@ -93,7 +93,7 @@ In this phase human movements are interpreted and classified with similar method
 %reuse the experience that the robot has acquired when exploring the environment autonomously, for interpreting other people's actions.
 %In order to achieve this, we combine (1)~the robot affordance model of~\cite{salvi:2012:smcb}, which associates verbal descriptions to the physical interactions of an agent with the environment, with (2)~the gesture recognition system of~\cite{saponaro:2013:crhri}, which infers the type of action from human user movements.
 
-Figure~\ref{fig:model:our} illustrates the probabilistic dependencies in the complete model and will be detailed in the following subsections.
+Figure~\ref{fig:model} illustrates the probabilistic dependencies in the complete model and will be detailed in the following subsections.
 The key to our approach is the existence of the discrete variable Action, that is known to the robot in the ego-centric phase of learning, but must be inferred from observation in the social phase.
 In the social phase, this variable links all the other observable variables, that is, human gesture features, object properties, effect variables and words.
 It allows the robot to:
@@ -102,7 +102,7 @@ It allows the robot to:
 \item in many cases, use the affordance variables to infer the above mapping even in the absence of a verbal descriptions
 \item once the perceptual models for human gesture/actions are acquired, use the complete model to do inference on any variable given some evidence.
 \end{itemize}
-In the following sections we give details on the probabilistic models enclosed in Figure~\ref{fig:model:our} in the Affordance-word model and Gesture/Action recognition boxes, and finally on the way we combine evidence from the two models.
+In the following sections we give details on the probabilistic models enclosed in Figure~\ref{fig:model} in the Affordance-word model and Gesture/Action recognition boxes, and finally on the way we combine evidence from the two models.
 %We consider three \emph{manipulative gestures} corresponding to physical actions performed by agent(s) onto objects on a table~(see Fig.~\ref{fig:experimental_setup}): grasp, tap, and touch.
 %Our proposed model performs probabilistic reasoning on the effects of these actions onto the objects of the world, and on the co-occurring verbal description of the experiments.
 
@@ -167,7 +167,7 @@ However, the robot has no prior knowledge about the meaning of these clusters.
 \end{table}
 
 To simplify the notation, we can group the affordance and word variables according to their use for the following descriptions: action variable~$A = \{a\}$, object feature variables~$F=\{f_1, f_2, \dots\}$, effect variables~$E=\{e_1, e_2, \dots\}$ and word variables~$W = \{w_1, w_2, \dots\}$.
-The \ac{BN} model relates all these variables by means of the joint probability distribution~$P(A, F, E, W)$, sketched by the Affordance-word model box in Fig.~\ref{fig:model:our}.
+The \ac{BN} model relates all these variables by means of the joint probability distribution~$P(A, F, E, W)$, sketched by the Affordance-word model box in Fig.~\ref{fig:model}.
 The dependency structure and the model parameters are estimated by the robot in an ego-centric way through interaction with the environment, as in~\cite{salvi:2012:smcb}.
 As a consequence, during learning, the robot knows what action it is performing with certainty, and the variable~$A$ assumes a deterministic value. This assumption is relaxed in the present study, by extending the model to the observation of external~(human) agents as explained below.
 
@@ -213,7 +213,7 @@ As a consequence, during learning, the robot knows what action it is performing 
 
 \subsection{Gesture/Action Recognition}
 The gesture/action recognition system is based on hidden Markov models with Gaussian emitting probability distributions as in~\cite{saponaro:2013:crhri}.
-The gesture recognition models are represented in Fig.~\ref{fig:hmms}, and correspond to the Gesture/Action recognition block in Fig.~\ref{fig:model:our}.
+The gesture recognition models are represented in Fig.~\ref{fig:hmms}, and correspond to the Gesture/Action recognition block in Fig.~\ref{fig:model}.
 
 %As for the gesture recognition \acsp{HMM}, we use the models that we previously trained in~\cite{saponaro:2013:crhri} for spotting the manipulation-related gestures under consideration.
 Our input features are the 3D coordinates of the tracked human hand indicated by the $g_i$ variables in Fig.~\ref{fig:model}.
@@ -255,7 +255,7 @@ If we want to combine the evidence brought by the \ac{BN} with the evidence brou
 \end{enumerate}
 
 Here, we are excluding the case where we observe the action directly~($A\in \xobs$) for two reasons: firstly, this would correspond to the robot performing the action itself, whereas we are interested in interpreting other people's actions;
-secondly, this would make the evidence on the gesture features $G_1^N$ irrelevant, because in the model in Fig.~\ref{fig:model:our}, there is a tail-to-tail connection from $G_1^N$ to the rest of the variables through the action variable, which means that, given the action, all dependencies to the gesture features are dropped.
+secondly, this would make the evidence on the gesture features $G_1^N$ irrelevant, because in the model in Fig.~\ref{fig:model}, there is a tail-to-tail connection from $G_1^N$ to the rest of the variables through the action variable, which means that, given the action, all dependencies to the gesture features are dropped.
 
 The two cases enumerated above can be addressed separately when we do inference.
 In the first case, we call~$\xinf^\prime$ the set of inference variables excluding the action~$A$, that is, $\xinf = \{\xinf^\prime, A\}$.
