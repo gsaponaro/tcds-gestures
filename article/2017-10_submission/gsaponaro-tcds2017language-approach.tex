@@ -67,7 +67,7 @@
       \node[group, fit=(f1) (f2) (fdots),label=above:Object Features] (features) {};
       \node[group, fit=(e1) (e2) (edots),label=above:Effects] (effects) {};
       \node[group, fit=(w1) (w2) (wdots),label=above:Words] (words) {};
-      \node[dashedgroup, fit=(actions) (features) (effects) (words),label={[shift={(0:2.2)}]above:Affordance-word model}]{};
+      \node[dashedgroup, fit=(actions) (features) (effects) (words),label={[shift={(0:2.2)}]above:\AffWords{} model}]{};
       % arrows
       \draw[affarrow] (actions) -- ([xshift=-30pt]effects.north);
       \draw[affarrow] (actions) to [out=260,in=150] (words.west);
@@ -84,7 +84,7 @@
     \label{fig:model}
 %  \label{fig:model}
 \end{figure}
-The purpose of the proposed approach is to model the development of language learning from a first self-centered phase to a second socially aware phase.
+The purpose of the proposed approach is to model the development of language learning from a first self-centered phase to a second socially-aware phase.
 In the first phase the system learns by manipulating objects in its environment in a similar way as in~\cite{salvi:2012:smcb}.
 In this phase, it learns to associate verbal descriptions to the combination of its actions, object properties and effects, thus grounding the meaning of words in what we call affordances.
 In the second phase, the system turns to observing human actions of a similar nature as the ones explored in the first phase.
@@ -102,7 +102,7 @@ It allows the robot to:
 \item in many cases, use the affordance variables to infer the above mapping even in the absence of a verbal descriptions;
 \item once the perceptual models for human gesture/actions are acquired, use the complete model to do inference on any variable given some evidence.
 \end{itemize}
-In the following sections we give first details on the probabilistic models enclosed in the Affordance-word model box in Figure~\ref{fig:model}.
+In the following sections we give first details on the probabilistic models enclosed in the \AffWords{} model box in Figure~\ref{fig:model}.
 Then we describe the Gesture/Action recognition method.
 Finally, we describe the way we combine evidence from the two models.
 %We consider three \emph{manipulative gestures} corresponding to physical actions performed by agent(s) onto objects on a table~(see Fig.~\ref{fig:experimental_setup}): grasp, tap, and touch.
@@ -169,7 +169,7 @@ However, the robot has no prior knowledge about the meaning of these clusters.
 \end{table}
 
 To simplify the notation, we can group the affordance and word variables according to their use for the following descriptions: action variable~$A = \{a\}$, object feature variables~$F=\{f_1, f_2, \dots\}$, effect variables~$E=\{e_1, e_2, \dots\}$ and word variables~$W = \{w_1, w_2, \dots\}$.
-The \ac{BN} model relates all these variables by means of the joint probability distribution~$\pbn(A, F, E, W)$, sketched by the Affordance-word model box in Fig.~\ref{fig:model}.
+The \ac{BN} model relates all these variables by means of the joint probability distribution~$\pbn(A, F, E, W)$, sketched by the \AffWords{} model box in Fig.~\ref{fig:model}.
 The dependency structure and the model parameters are estimated by the robot in an ego-centric way through interaction with the environment, as in~\cite{salvi:2012:smcb}.
 As a consequence, during learning, the robot knows what action it is performing with certainty, and the variable~$A$ assumes a deterministic value.
 During inference, the probability distribution on the variable~$A$ can be inferred from evidence on the other nodes.
@@ -219,9 +219,9 @@ For example, if the robot is asked to make a spherical object roll, it will be a
 \subsection{Gesture/Action Recognition}
 When observing a human performing actions, the value of the action variable~$A$ is not known to the robot neither during learning nor during inference.
 During learning, we assume that the robot has yet not acquired a perceptual model of the gestures associated to the human actions.
-The value of~$A$ can, however, be inferred either from a verbal description of the scene or from the other affordance nodes through the affordance-word model described earlier.
+The value of~$A$ can, however, be inferred either from a verbal description of the scene or from the other affordance nodes through the \AffWords{} model described earlier.
 
-For example, similarly to the previous section, the affordance-word model predicts that performing a tap action on a spherical object will result in high velocity of the object.
+For example, similarly to the previous section, the \AffWords{} model predicts that performing a tap action on a spherical object will result in high velocity of the object.
 If the human performs an unknown action on a spherical object and obtains a high velocity, the robot will be able to infer that the action is most probably a tap, although it was not able to recognize the gesture associated with this action.
 
 This information can be used to train a gesture/action recognition system similar to the one in~\cite{saponaro:2013:crhri}.
