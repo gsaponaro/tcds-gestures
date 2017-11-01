@@ -94,15 +94,17 @@ In this phase human movements are interpreted and classified with similar method
 %In order to achieve this, we combine (1)~the robot affordance model of~\cite{salvi:2012:smcb}, which associates verbal descriptions to the physical interactions of an agent with the environment, with (2)~the gesture recognition system of~\cite{saponaro:2013:crhri}, which infers the type of action from human user movements.
 
 Figure~\ref{fig:model} illustrates the probabilistic dependencies in the complete model and will be detailed in the following subsections.
-The key to our approach is the existence of the discrete variable Action, that is known to the robot in the ego-centric phase of learning, but must be inferred from observation in the social phase.
+The key to our approach is the existence of the discrete variable Action, the value of which is known to the robot in the ego-centric phase of learning, but must be inferred from observation in the social phase.
 In the social phase, this variable links all the other observable variables, that is, human gesture features, object properties, effect variables and words.
 It allows the robot to:
 \begin{itemize}
-\item use language in order to determine the mapping between human gestures/actions and its own, and learn the corresponding perceptual models
-\item in many cases, use the affordance variables to infer the above mapping even in the absence of a verbal descriptions
+\item use language in order to determine the mapping between human and own gestures/actions, and learn the corresponding perceptual models;
+\item in many cases, use the affordance variables to infer the above mapping even in the absence of a verbal descriptions;
 \item once the perceptual models for human gesture/actions are acquired, use the complete model to do inference on any variable given some evidence.
 \end{itemize}
-In the following sections we give details on the probabilistic models enclosed in Figure~\ref{fig:model} in the Affordance-word model and Gesture/Action recognition boxes, and finally on the way we combine evidence from the two models.
+In the following sections we give first details on the probabilistic models enclosed in the Affordance-word model box in Figure~\ref{fig:model}.
+Then we describe the Gesture/Action recognition method.
+Finally, we describe the way we combine evidence from the two models.
 %We consider three \emph{manipulative gestures} corresponding to physical actions performed by agent(s) onto objects on a table~(see Fig.~\ref{fig:experimental_setup}): grasp, tap, and touch.
 %Our proposed model performs probabilistic reasoning on the effects of these actions onto the objects of the world, and on the co-occurring verbal description of the experiments.
 
@@ -169,7 +171,10 @@ However, the robot has no prior knowledge about the meaning of these clusters.
 To simplify the notation, we can group the affordance and word variables according to their use for the following descriptions: action variable~$A = \{a\}$, object feature variables~$F=\{f_1, f_2, \dots\}$, effect variables~$E=\{e_1, e_2, \dots\}$ and word variables~$W = \{w_1, w_2, \dots\}$.
 The \ac{BN} model relates all these variables by means of the joint probability distribution~$P(A, F, E, W)$, sketched by the Affordance-word model box in Fig.~\ref{fig:model}.
 The dependency structure and the model parameters are estimated by the robot in an ego-centric way through interaction with the environment, as in~\cite{salvi:2012:smcb}.
-As a consequence, during learning, the robot knows what action it is performing with certainty, and the variable~$A$ assumes a deterministic value. This assumption is relaxed in the present study, by extending the model to the observation of external~(human) agents as explained below.
+As a consequence, during learning, the robot knows what action it is performing with certainty, and the variable~$A$ assumes a deterministic value.
+During inference, the probability distribution on the variable~$A$ can be inferred from evidence on the other nodes.
+For example, if the robot is asked to make a spherical object roll, it will be able to select the action tap as most likely to obtain the desired effect, based on previous experience.
+%This assumption is relaxed in the present study, by extending the model to the observation of external~(human) agents as explained below.
 
 
 \newcommand{\myscalefactor}{0.8}
@@ -212,9 +217,16 @@ As a consequence, during learning, the robot knows what action it is performing 
 \end{figure}
 
 \subsection{Gesture/Action Recognition}
-The gesture/action recognition system is based on hidden Markov models with Gaussian emitting probability distributions as in~\cite{saponaro:2013:crhri}.
-The gesture recognition models are represented in Fig.~\ref{fig:hmms}, and correspond to the Gesture/Action recognition block in Fig.~\ref{fig:model}.
+When observing a human performing actions, the value of the action variable~$A$ is not known to the robot neither during learning nor during inference.
+During learning, we assume that the robot has yet not acquired a perceptual model of the gestures associated to the human actions.
+The value of~$A$ can, however, be inferred either from a verbal description of the scene or from the other affordance nodes through the affordance-word model described earlier.
 
+For example, similarly to the previous section, the affordance-word model predicts that performing a tap action on a spherical object will result in high velocity of the object.
+If the human performs an unknown action on a spherical object and obtains a high velocity, the robot will be able to infer that the action is most probably a tap, although it was not able to recognize the gesture associated with this action.
+
+This information can be used to train a gesture/action recognition system similar to the one in~\cite{saponaro:2013:crhri}.
+The system, depicted in Fig.~\ref{fig:hmms} and corresponding to the Gesture/Action recognition block in Fig.~\ref{fig:model}, is based on hidden Markov models with Gaussian emitting probability distributions.
+%The gesture recognition models are represented in Fig.~\ref{fig:hmms}, and correspond to the Gesture/Action recognition block in Fig.~\ref{fig:model}.
 %As for the gesture recognition \acsp{HMM}, we use the models that we previously trained in~\cite{saponaro:2013:crhri} for spotting the manipulation-related gestures under consideration.
 Our input features are the 3D coordinates of the tracked human hand indicated by the $g_i$ variables in Fig.~\ref{fig:model}.
 The coordinates are obtained with a commodity depth sensor, then transformed to be centered on the person torso~(to be invariant to the distance of the user from the sensor) and normalized to account for variability in amplitude~(to be invariant to wide/emphatic vs narrow/subtle executions of the same gesture class).
@@ -235,9 +247,9 @@ By normalizing the likelihoods, assuming that the gestures are equally likely \e
 
 \subsection{Combining the \acs{BN} with Gesture \acsp{HMM}}
 \label{sec:combination}
-The two models described above define two probability distributions over the relevant variables for the problem:
+Once learned, the two models described above define two probability distributions over the relevant variables for the problem:
 $\pbn(A, F, E, W)$ and~$\phmm(A \given G_1^N)$.
-The goal is to merge the information provided by both models and estimate~$\pcomb(A, F, E, W \given G_1^N)$, that is, the joint probability of all the affordance and word variables, given that we observe a certain gesture/action performed by the human.
+The goal during inference is to merge the information provided by both models and estimate~$\pcomb(A, F, E, W \given G_1^N)$, that is, the joint probability of all the affordance and word variables, given that we observe a certain gesture/action performed by the human.
 
 To simplify the notation, we call $X = \{A, F, E, W\}$ the set of affordance and word variables~$\{a, f_1, f_2, \dots, e_1, e_2, \dots, w_1, w_2, \dots\}$.
 During inference, we have a (possibly empty) set of observed variables~$\xobs \subseteq X$, and a set of variables $\xinf \subseteq X$ on which we wish to perform the inference.
