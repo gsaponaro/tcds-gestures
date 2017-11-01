@@ -2,50 +2,50 @@
 
 \section{Proposed Approach}
 
-\begin{figure*}
+\begin{figure}
   \tikzstyle{affnode} = [ellipse, draw, thick]%fill=gray!20, thick]%node distance=1cm, text width=6em, text centered, minimum height=4em, thick]
   \tikzstyle{wordnode} = [ellipse, draw, thick]
   \tikzstyle{group} = [rectangle, draw, black, thick]%, inner sep=0.5cm
   \tikzstyle{dashedgroup} = [rectangle, draw, inner sep=0.6cm, dashed, rounded corners, black]
   \tikzstyle{dottedgrouptrapezium} = [trapezium, draw, dotted, rounded corners, black]
   \tikzstyle{affarrow} = [->, thick, >=stealth']%, shorten >=2pt]%, shorten >=2pt]
-  \centering
-  \subfloat[][Ideal case: the affordance and word variables are dependent on the detailed time-evolving description of the action.]{
-    \centering
-    \begin{tikzpicture}
-      % single nodes
-      \node[affnode] (g1) {$g_1$};
-      \node[affnode, right of=g1] (g2) {$g_2$};
-      \node[right of=g2] (gdots) {$\dots$};
-      \node[affnode, right of=gdots] (f1) [right=0.5cm] {$f_1$};
-      \node[affnode, right of=f1] (f2) {$f_2$};
-      \node[right of=f2] (fdots) {$\dots$};
-      \node[affnode, below of=f1] (e2) [below=0.7cm] {$e_2$};
-      \node[affnode, left of=e2] (e1) {$e_1$};
-      \node[right of=e2] (edots) {$\dots$};
-      \node[wordnode, below of=e1] (w1)  [below=0.7cm] {$w_1$};
-      \node[wordnode, right of=w1] (w2) {$w_2$};
-      \node[right of=w2] (wdots) {$\dots$};
-      % groups
-      \node[group, fit=(g1) (g2) (gdots),label=above:Gesture Features] (gestures) {};
-      \node[group, fit=(f1) (f2) (fdots),label=above:Object Features] (features) {};
-      \node[group, fit=(e1) (e2) (edots),label=above:Effects] (effects) {};
-      \node[group, fit=(w1) (w2) (wdots),label=above:Words] (words) {};
-      % arrows
-      \draw[affarrow] (gestures) -- ([xshift=-30pt]effects.north);
-      \draw[affarrow] (gestures) to [out=260,in=150] (words.west);
-      \draw[affarrow] (features) -- ([xshift=20pt]effects.north);
-      \draw[affarrow] ([xshift=20pt]features.south) to [out=280,in=30] (words.east);
-      \draw[affarrow] ([xshift=30pt]effects.south) -- ([xshift=30pt]words.north);
-      % extra
-      \node[affnode, above of=g1] (actions) [above=1cm] {Actions};
-      \draw[affarrow] (actions)  to [out=250,in=90] (gestures.160);
-      \node[dashedgroup, fit=(gestures) (features) (effects) (words),label={[shift={(0:2.2)}]above:Observable variables}] (observable) {};
-    \end{tikzpicture}
-    \label{fig:model:ideal}
-  } \quad\quad
+%  \centering
+%  \subfloat[][Ideal case: the affordance and word variables are dependent on the detailed time-evolving description of the action.]{
+%    \centering
+%    \begin{tikzpicture}
+%      % single nodes
+%      \node[affnode] (g1) {$g_1$};
+%      \node[affnode, right of=g1] (g2) {$g_2$};
+%      \node[right of=g2] (gdots) {$\dots$};
+%      \node[affnode, right of=gdots] (f1) [right=0.5cm] {$f_1$};
+%      \node[affnode, right of=f1] (f2) {$f_2$};
+%      \node[right of=f2] (fdots) {$\dots$};
+%      \node[affnode, below of=f1] (e2) [below=0.7cm] {$e_2$};
+%      \node[affnode, left of=e2] (e1) {$e_1$};
+%      \node[right of=e2] (edots) {$\dots$};
+%      \node[wordnode, below of=e1] (w1)  [below=0.7cm] {$w_1$};
+%      \node[wordnode, right of=w1] (w2) {$w_2$};
+%      \node[right of=w2] (wdots) {$\dots$};
+%      % groups
+%      \node[group, fit=(g1) (g2) (gdots),label=above:Gesture Features] (gestures) {};
+%      \node[group, fit=(f1) (f2) (fdots),label=above:Object Features] (features) {};
+%      \node[group, fit=(e1) (e2) (edots),label=above:Effects] (effects) {};
+%      \node[group, fit=(w1) (w2) (wdots),label=above:Words] (words) {};
+%      % arrows
+%      \draw[affarrow] (gestures) -- ([xshift=-30pt]effects.north);
+%      \draw[affarrow] (gestures) to [out=260,in=150] (words.west);
+%      \draw[affarrow] (features) -- ([xshift=20pt]effects.north);
+%      \draw[affarrow] ([xshift=20pt]features.south) to [out=280,in=30] (words.east);
+%      \draw[affarrow] ([xshift=30pt]effects.south) -- ([xshift=30pt]words.north);
+%      % extra
+%      \node[affnode, above of=g1] (actions) [above=1cm] {Actions};
+%      \draw[affarrow] (actions)  to [out=250,in=90] (gestures.160);
+%      \node[dashedgroup, fit=(gestures) (features) (effects) (words),label={[shift={(0:2.2)}]above:Observable variables}] (observable) {};
+%    \end{tikzpicture}
+%    \label{fig:model:ideal}
+%  } \quad\quad
   %
-  \subfloat[][Our simplified model: the affordance and word variables are dependent on the discrete action class.]{
+%  \subfloat[][Our simplified model: the affordance and word variables are dependent on the discrete action class.]{
     \centering
     \begin{tikzpicture}
       % single nodes
@@ -79,33 +79,49 @@
       \draw[affarrow] (actions) -- (gestures);
       \node[dashedgroup, fit=(actions) (gestures),label=above:Gesture/Action recognition]{};
     \end{tikzpicture}
-    \label{fig:model:our}
-    }
+%    }
   \caption{Abstract representation of the probabilistic dependencies in the model.}
-  \label{fig:model}
-\end{figure*}
+    \label{fig:model:our}
+%  \label{fig:model}
+\end{figure}
+The purpose of the proposed approach is to model the development of language learning from a first self-centered phase to a second socially aware phase.
+In the first phase the system learns by manipulating objects in its environment in a similar way as in~\cite{salvi:2012:smcb}.
+In this phase, it learns to associate verbal descriptions to the combination of its actions, object properties and effects, thus grounding the meaning of words in what we call affordances.
+In the second phase, the system turns to observing human actions of a similar nature as the ones explored in the first phase.
+It reuses the experience acquired in the first phase to interpret the new observations and to address the correspondence problem between its own actions and the actions performed by the human.
+In this phase human movements are interpreted and classified with similar methods as in~\cite{saponaro:2013:crhri}.
+%reuse the experience that the robot has acquired when exploring the environment autonomously, for interpreting other people's actions.
+%In order to achieve this, we combine (1)~the robot affordance model of~\cite{salvi:2012:smcb}, which associates verbal descriptions to the physical interactions of an agent with the environment, with (2)~the gesture recognition system of~\cite{saponaro:2013:crhri}, which infers the type of action from human user movements.
 
-The purpose of the proposed approach is to reuse the experience that the robot has acquired when exploring the environment autonomously, for interpreting other people's actions.
-In order to achieve this, we combine (1)~the robot affordance model of~\cite{salvi:2012:smcb}, which associates verbal descriptions to the physical interactions of an agent with the environment, with (2)~the gesture recognition system of~\cite{saponaro:2013:crhri}, which infers the type of action from human user movements.
-We consider three \emph{manipulative gestures} corresponding to physical actions performed by agent(s) onto objects on a table~(see Fig.~\ref{fig:experimental_setup}): grasp, tap, and touch.
-Our proposed model performs probabilistic reasoning on the effects of these actions onto the objects of the world, and on the co-occurring verbal description of the experiments.
+Figure~\ref{fig:model:our} illustrates the probabilistic dependencies in the complete model and will be detailed in the following subsections.
+The key to our approach is the existence of the discrete variable Action, that is known to the robot in the ego-centric phase of learning, but must be inferred from observation in the social phase.
+In the social phase, this variable links all the other observable variables, that is, human gesture features, object properties, effect variables and words.
+It allows the robot to:
+\begin{itemize}
+\item use language in order to determine the mapping between human gestures/actions and its own, and learn the corresponding perceptual models
+\item in many cases, use the affordance variables to infer the above mapping even in the absence of a verbal descriptions
+\item once the perceptual models for human gesture/actions are acquired, use the complete model to do inference on any variable given some evidence.
+\end{itemize}
+In the following sections we give details on the probabilistic models enclosed in Figure~\ref{fig:model:our} in the Affordance-word model and Gesture/Action recognition boxes, and finally on the way we combine evidence from the two models.
+%We consider three \emph{manipulative gestures} corresponding to physical actions performed by agent(s) onto objects on a table~(see Fig.~\ref{fig:experimental_setup}): grasp, tap, and touch.
+%Our proposed model performs probabilistic reasoning on the effects of these actions onto the objects of the world, and on the co-occurring verbal description of the experiments.
 
-A possible representation of the probabilistic dependencies that the robot needs to acquire in order to associate other people's actions to verbal descriptions is depicted in Fig.~\ref{fig:model:ideal}.
-The intended actions result in movements of the body that can be measured in terms of \emph{gesture features}.
-These movements, in turn, may determine some \emph{effects} on the surroundings, expressed by a number of relevant measurable variables.
-Those effects are also determined by the particular \emph{object features} associated with the objects that are involved in the action and that are also observable.
-Finally, an observer composes a verbal description of the situation based on all the observable variables.
-
-By combining the affordance model in \cite{salvi:2012:smcb} and the gesture recognition system in \cite{saponaro:2013:crhri}, however, we need to do some simplifying assumptions, that are depicted in Fig.~\ref{fig:model:our}.
-The main difference is that, in the learning phase in \cite{salvi:2012:smcb}, the intended action was known to the robot.
-The robot could, therefore, learn direct dependencies between the actions and the other variables in the \affwords{} model depicted in the corresponding dashed box in Fig.~\ref{fig:model:our}.
-Although some of the effect variables refer to the robot's arm movements, this information was not rich enough to recognize each particular gesture and could therefore not be used directly to interpret other people's behavior.
-
-This limitation can be partly overcome by the gesture/action recognition model of~\cite{saponaro:2013:crhri}, which can recover the particular intended action from the gesture features.
-Consequently, the relationship between Gesture Features, Object Features, Effects and Words, that we described earlier, is mediated by the Actions variable in our model.
-The combination of the two models is our main contribution, and allows us to relax the assumption made in \cite{salvi:2012:smcb} that the action is known during the learning phase.
-
-In the remainder of this section, we give details about the \affwords{} model, about the gesture/action recognition model employed in the study, and about the method that we employ to perform probabilistic inference by merging the information provided by those two models.
+%A possible representation of the probabilistic dependencies that the robot needs to acquire in order to associate other people's actions to verbal descriptions is depicted in Fig.~\ref{fig:model:ideal}.
+%The intended actions result in movements of the body that can be measured in terms of \emph{gesture features}.
+%These movements, in turn, may determine some \emph{effects} on the surroundings, expressed by a number of relevant measurable variables.
+%Those effects are also determined by the particular \emph{object features} associated with the objects that are involved in the action and that are also observable.
+%Finally, an observer composes a verbal description of the situation based on all the observable variables.
+%
+%By combining the affordance model in \cite{salvi:2012:smcb} and the gesture recognition system in \cite{saponaro:2013:crhri}, however, we need to do some simplifying assumptions, that are depicted in Fig.~\ref{fig:model:our}.
+%The main difference is that, in the learning phase in \cite{salvi:2012:smcb}, the intended action was known to the robot.
+%The robot could, therefore, learn direct dependencies between the actions and the other variables in the \affwords{} model depicted in the corresponding dashed box in Fig.~\ref{fig:model:our}.
+%Although some of the effect variables refer to the robot's arm movements, this information was not rich enough to recognize each particular gesture and could therefore not be used directly to interpret other people's behavior.
+%
+%This limitation can be partly overcome by the gesture/action recognition model of~\cite{saponaro:2013:crhri}, which can recover the particular intended action from the gesture features.
+%Consequently, the relationship between Gesture Features, Object Features, Effects and Words, that we described earlier, is mediated by the Actions variable in our model.
+%The combination of the two models is our main contribution, and allows us to relax the assumption made in \cite{salvi:2012:smcb} that the action is known during the learning phase.
+%
+%In the remainder of this section, we give details about the \affwords{} model, about the gesture/action recognition model employed in the study, and about the method that we employ to perform probabilistic inference by merging the information provided by those two models.
 
 %BELOW IS THE GLU TEXT
 
