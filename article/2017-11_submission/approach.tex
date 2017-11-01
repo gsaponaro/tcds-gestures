@@ -93,7 +93,7 @@ In this phase human movements are interpreted and classified with similar method
 %reuse the experience that the robot has acquired when exploring the environment autonomously, for interpreting other people's actions.
 %In order to achieve this, we combine (1)~the robot affordance model of~\cite{salvi:2012:smcb}, which associates verbal descriptions to the physical interactions of an agent with the environment, with (2)~the gesture recognition system of~\cite{saponaro:2013:crhri}, which infers the type of action from human user movements.
 
-Figure~\ref{fig:model} illustrates the probabilistic dependencies in the complete model and will be detailed in the following subsections.
+Fig.~\ref{fig:model} illustrates the probabilistic dependencies in the complete model and will be detailed in the following subsections.
 The key to our approach is the existence of the discrete variable Action, the value of which is known to the robot in the ego-centric phase of learning, but must be inferred from observation in the social phase.
 In the social phase, this variable links all the other observable variables, that is, human gesture features, object properties, effect variables and words.
 It allows the robot to:
@@ -102,7 +102,7 @@ It allows the robot to:
 \item in many cases, use the affordance variables to infer the above mapping even in the absence of a verbal descriptions;
 \item once the perceptual models for human gesture/actions are acquired, use the complete model to do inference on any variable given some evidence.
 \end{itemize}
-In the following sections we give first details on the probabilistic models enclosed in the \AffWords{} model box in Figure~\ref{fig:model}.
+In the following sections we give first details on the probabilistic models enclosed in the \AffWords{} model box in Fig.~\ref{fig:model}.
 Then we describe the Gesture/Action recognition method.
 Finally, we describe the way we combine evidence from the two models.
 %We consider three \emph{manipulative gestures} corresponding to physical actions performed by agent(s) onto objects on a table~(see Fig.~\ref{fig:experimental_setup}): grasp, tap, and touch.
@@ -241,9 +241,11 @@ The input to the model is a sequence of~$N$ such feature vectors~$\mathbf{g}[1],
 At recognition~(testing) time, we can use the models to estimate the likelihood of a new sequence of observations~$G_1^N$, given each possible gesture/action by means of the \FB{} inference algorithm.
 %We can express this likelihood as $\mathcal{L}_\text{HMM}(G_1^N \given A)$, where $a$ is one of the possible actions.
 We can express this likelihood as $\mathcal{L}_\text{HMM}(G_1^N \given A=a_k)$, where $a_k$ is one of the possible actions.
-By normalizing the likelihoods, assuming that the gestures are equally likely \emph{a priori}, we can obtain the posterior probability of the action given the sequence of observations that we call~$\phmm(A=a_k \given G_1^N)$ as
+By normalizing the likelihoods, assuming that the gestures are equally likely \emph{a priori}, we can obtain the posterior probability of the action given the sequence of observations
+%that we call~$\phmm(A=a_k \given G_1^N)$
+as
 \begin{equation*}
-  \phmm(A=a_k \given G_1^N) = \frac{\mathcal{L}_\text{HMM}(G_1^N \given A=a_k)}{\sum_h \mathcal{L}_\text{HMM}(G_1^N \given A=a_h)}
+  \phmm(A=a_k \given G_1^N) = \frac{\mathcal{L}_\text{HMM}(G_1^N \given A=a_k)}{\sum_h \mathcal{L}_\text{HMM}(G_1^N \given A=a_h)}.
 \end{equation*}
 
 %In Sec.~\ref{sec:combination}, we discuss different ways in which the output information of the gesture recognizer can be combined with the \acl{BN} of words and affordances.
@@ -283,7 +285,7 @@ We can write:
   &= \left[\sum_{\xlat} \pbn(A, \xinf^\prime, \xlat \given \xobs)\right] \phmm(A \given G_1^N) \\
   &= \pbn(\xinf \given \xobs) \phmm(A \given G_1^N).
 \end{align*}
-This means that we can evaluate the two models independently and multiply the distribution we obtain from the \ac{BN} over all the possible value of the inference variables, by the \ac{HMM} posterior for the corresponding value of the action.
+This means that we can evaluate the two models independently, then multiply the distribution that we obtain from the \ac{BN}~(over all the possible value of the inference variables) by the \ac{HMM} posterior for the corresponding value of the action.
 
 In the second case, where the action is among the latent variables, we define, similarly, $\xlat = \{A, \xlat^\prime\}$, and we have:
 \begin{align*}
@@ -295,7 +297,7 @@ In the second case, where the action is among the latent variables, we define, s
   &= \sum_{A}\left[\phmm(A \given G_1^N)\sum_{\xlat^\prime} \pbn(\xinf, A, \xlat^\prime \given \xobs)\right] \\
   &= \sum_{A}\left[\phmm(A \given G_1^N) \pbn(\xinf, A \given \xobs)\right]. \\
 \end{align*}
-This time, we first need to use the \ac{BN} to do inference on the inference variables~$\xinf$ and the action variable~$A$, and then marginalize out~$A$ after having multiplied the probabilities by the \ac{HMM} posterior.
+This time, we first need to use the \ac{BN} to do inference on the variables~$\xinf$ and~$A$, and then we marginalize out the action variable~$A$ after having multiplied the probabilities by the \ac{HMM} posterior.
 
 %GLU TEXT
 %
