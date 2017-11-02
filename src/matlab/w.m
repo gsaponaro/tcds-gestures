@@ -16,7 +16,7 @@ netobj_lab = BNEnterNodeEvidence(netobj_lab, {'Action', 'tap'});
 w1after = BNGetWordProbs(netobj_lab);
 
 probdiff1 = w1after - w1before
-toplot1 = abs(probdiff1)>0.02
+toplot1 = abs(probdiff1)>0.02;
 
 if show_figures
     figure;
@@ -27,13 +27,13 @@ if show_figures
 end;
     
 %% new results. when querying over a node with evidence, exclude it
-observed_words = {'taps','medium','ball'};
-netobj_lab = BNEnterWordEvidence(netobj_lab, observed_words, true);
+observed_words = {'big','ball'};
+netobj_lab = BNEnterWordEvidence(netobj_lab, observed_words, false); % incremental=false resets the BN
 word_indices = get_complement_word_indices(netobj_lab, observed_words);
 w2before = BNGetWordProbs(netobj_lab, word_indices);
 %netobj_lab = BNEnterNodeEvidence(netobj_lab, {'Action', 'tap'});
-observed = {'Shape', 'circle', 'Size', 'medium'};
-observed = [observed sort(repmat(observed_words,1,2))]; % ugly
+observed = {'Color', 'blue'};
+%observed = [observed sort(repmat(observed_words,1,2))]; % ugly
 inferred = {'Action'};
 hmm_ev = [0.8 0.1 0.1];
 reorder = [2 1 3]; % TODO use get_remapping
@@ -42,4 +42,4 @@ result = fusion(netobj_lab, inferred, observed, hmm_ev_ordered);
 w2after = BNGetWordProbs(netobj_lab, word_indices);
 
 probdiff2 = w2before - w2after
-toplot2 = abs(probdiff2)>0.02
+toplot2 = abs(probdiff2)>0.02;
