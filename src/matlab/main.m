@@ -12,9 +12,6 @@ configurePaths;
 %% load Bayesian Network
 load('BN_lab.mat');
 
-%% map with possible values of a node
-bn_map = make_bn_node_map(netobj_lab,'Action');
-
 %% examples
 e = 1; % example counter
 
