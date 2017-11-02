@@ -37,7 +37,7 @@ bn_map = make_bn_node_map(netobj_lab,'Action');
 %% examples
 e = 1; % example counter
 
-%% retain evidence
+%% retain evidence?
 incremental = false;
 
 fprintf('case 1 examples (inference over nodes including Action)\n\n');
