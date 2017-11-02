@@ -37,7 +37,7 @@ if nargin<5
 end;
 
 fprintf('\n');
-fprintf('computing p( ');
+fprintf('computing P_comb( ');
 fprintf('%s ', inferred{:});
 fprintf('| ')
 fprintf('%s ', observed{:});
@@ -50,13 +50,13 @@ netobj = BNEnterNodeEvidence(netobj, observed, incremental);
 % extract predictions (posteriors)
 pred = BNSoftPredictionAccuracy3(netobj, inferred);
 
-fprintf('... p_BN =\n');
+fprintf('... P_BN =\n');
 disp(pred.T);
     
 %% HMM part
 % given by hmm_ev, already re-ordered to follow BN action values order
 
-fprintf(strrep(['... p_HMM = (' num2str(hmm_ev, ' %f ') ')'], ',)', ''));
+fprintf(strrep(['... P_HMM = (' num2str(hmm_ev, ' %f ') ')'], ',)', ''));
 fprintf('\n');
 
 %% merge the evidence of the two models

@@ -43,7 +43,7 @@ if cellcontains(observed,'Action')
 end;
 
 fprintf('\n');
-fprintf('computing p( ');
+fprintf('computing P_comb( ');
 fprintf('%s ', inferred{:});
 fprintf('| ')
 fprintf('%s ', observed{:});
@@ -65,7 +65,7 @@ netobj = BNEnterNodeEvidence(netobj, observed, incremental);
 % extract predictions (posteriors)
 pred = BNSoftPredictionAccuracy3(netobj, temp_inferred);
 
-fprintf('... auxiliary p_BN( ');
+fprintf('... auxiliary P_BN( ');
 fprintf('%s ', temp_inferred{:});
 fprintf('| ')
 fprintf('%s ', observed{:});
@@ -75,7 +75,7 @@ disp(pred.T);
 %% HMM part
 % given by hmm_ev, already re-ordered to follow BN action values order
 
-fprintf(strrep(['... p_HMM = (' num2str(hmm_ev, ' %f ') ')'], ',)', ''));
+fprintf(strrep(['... P_HMM = (' num2str(hmm_ev, ' %f ') ')'], ',)', ''));
 fprintf('\n');
 
 %% merge the evidence of the two models
@@ -99,7 +99,7 @@ disp(result);
 
 %% compute original BN query without marginalizing out Action, for comparison
 fprintf('for comparison, the result purely with BN (ignoring HMM) would be:\n');
-fprintf('p_BN( ');
+fprintf('P_BN( ');
 fprintf('%s ', inferred{:});
 fprintf('| ')
 fprintf('%s ', observed{:});
