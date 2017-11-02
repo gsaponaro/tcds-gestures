@@ -41,13 +41,12 @@ netobj_lab = BNResetEvidence(netobj_lab);
 e = e+1;
 fprintf('%d.\n', e);
 
-observed_words = {'blue','ball','rolls'};
+observed_words = {'big','blue','ball','sphere','rolls'};
 netobj_lab = BNEnterWordEvidence(netobj_lab, observed_words);
 fprintf('after first evidence:\n');
 BNShowCurrentEvidence(netobj_lab);
 word_indices = get_complement_word_indices(netobj_lab, observed_words);
 w2before = BNGetWordProbs(netobj_lab, word_indices);
-%netobj_lab = BNEnterNodeEvidence(netobj_lab, {'Action', 'tap'});
 observed = {'HandVel', 'fast'};
 %observed = [observed sort(repmat(observed_words,1,2))]; % ugly
 inferred = {'Action'};
@@ -59,7 +58,7 @@ fprintf('after second evidence:\n');
 BNShowCurrentEvidence(netobj_lab);
 w2after = BNGetWordProbs(netobj_lab, word_indices);
 
-probdiff2 = w2before - w2after;
+probdiff2 = w2after - w2before;
 toplot2 = abs(probdiff2)>0.02;
 
 if show_figures
