@@ -2,16 +2,8 @@
 
 show_figures = false;
 
-addpath(genpath('~/matlab/toolbox/FullBNT-1.0.4'));
-addpath('.');
-addpath('./robot_data'); % robot self-exploration data, words-affordances BN
-
-LanguageBoostrapping_root = ('~/NOBACKUP/AffordancesAndSpeech/bayesian_net');
-if exist(LanguageBoostrapping_root, 'file')==0
-    LanguageBoostrapping_root = ('~/Documents/AffordancesAndSpeech/bayesian_net');
-end
-
-addpath(genpath([LanguageBoostrapping_root '/matlab']));
+% add relevant directories to path
+configurePaths
 
 %% load Bayesian Network from .mat
 load('BN_lab.mat');
@@ -35,7 +27,7 @@ if show_figures
 end;
     
 %% new results. when querying over a node with evidence, exclude it
-observed_words = {'tap','medium','ball'};
+observed_words = {'taps','medium','ball'};
 netobj_lab = BNEnterWordEvidence(netobj_lab, observed_words, true);
 word_indices = get_complement_word_indices(netobj_lab, observed_words);
 w2before = BNGetWordProbs(netobj_lab, word_indices);

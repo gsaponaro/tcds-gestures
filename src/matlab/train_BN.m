@@ -3,18 +3,11 @@
 % script by Giovanni Saponaro, 2017
 
 %% configure BNT and other paths
-addpath(genpath('~/matlab/toolbox/FullBNT-1.0.4'))
-addpath('.');
-addpath('./robot_data'); % Bayesian Network
-
-% words-affordances Bayesian Network
-% 1. clone the repository https://github.com/giampierosalvi/AffordancesAndSpeech
-% 2. then, set below the full path to AffordancesAndSpeech/bayesian_net
-LanguageBoostrapping_root = ('~/NOBACKUP/AffordancesAndSpeech/bayesian_net');
-
-addpath(genpath([LanguageBoostrapping_root '/matlab']))
+configurePaths
 
 %% 1) create initial word-affordance network
+% Giampiero 2017-11-02: you need to be in AffordancesAndSpeech/bayesian_net
+% to run the following command
 netobj_lab = createBN('config/networkDefinition.txt');
 
 %% 2) set default properties (node types, initial connections...)
@@ -30,4 +23,6 @@ netobj_lab = BNLearnStructure(netobj_lab);
 netobj_lab = BNLearnParameters(netobj_lab);
 
 %% save Bayesian Network to .mat
+% Giampiero 2017-11-02: you need to be in tcds-gestures/src/matlab/robot_data
+% to run the following command
 %save('BN_lab.mat', 'netobj_lab');

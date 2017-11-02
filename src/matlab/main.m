@@ -8,25 +8,7 @@
 
 %% configure paths
 
-% BNT
-addpath(genpath('~/matlab/toolbox/FullBNT-1.0.4'));
-
-addpath('.');
-addpath('./robot_data'); % robot self-exploration data, words-affordances BN
-addpath('./human_data'); % external agent data, gestures, object features(?)
-
-% gesture Hidden Markov Models
-%test_path = [getenv('HOME') '/Dropbox/phd/work-2017/work-2017-05/glu2017_oni_videos'];
-
-% words-affordances Bayesian Network
-% 1. clone the repository https://github.com/giampierosalvi/AffordancesAndSpeech
-% 2. then, set below the full path to AffordancesAndSpeech/bayesian_net
-LanguageBoostrapping_root = ('~/NOBACKUP/AffordancesAndSpeech/bayesian_net');
-if exist(LanguageBoostrapping_root, 'file')==0
-    LanguageBoostrapping_root = ('~/Documents/AffordancesAndSpeech/bayesian_net');
-end
-
-addpath(genpath([LanguageBoostrapping_root '/matlab']))
+configurePaths
 
 %% load Bayesian Network
 load('BN_lab.mat');
