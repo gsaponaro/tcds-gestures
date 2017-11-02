@@ -33,7 +33,7 @@ hmm_ev = [0.8 0.1 0.1]; % HMM evidence in GestureHMM order
 % BNActionValue order: grasp, tap, touch
 reorder = [2 1 3]; % TODO use get_remapping
 hmm_ev_ordered = hmm_ev(:, reorder); % HMM evidence in BNActionValue order
-result = fusion(netobj_lab, inferred, observed, hmm_ev_ordered, incremental);
+fusion(netobj_lab, inferred, observed, hmm_ev_ordered, incremental);
 
 clear observed inferred hmm_ev reorder hmm_ev_ordered result;
 e = e+1;
@@ -46,7 +46,7 @@ inferred = {'Action'};
 hmm_ev = [0.8 0.1 0.1];
 reorder = [2 1 3]; % TODO use get_remapping
 hmm_ev_ordered = hmm_ev(:, reorder);
-result = fusion(netobj_lab, inferred, observed, hmm_ev_ordered, incremental);
+fusion(netobj_lab, inferred, observed, hmm_ev_ordered, incremental);
 
 clear observed inferred hmm_ev reorder hmm_ev_ordered result;
 e = e+1;
@@ -58,7 +58,7 @@ inferred = {'Action'};
 hmm_ev = [0.8 0.1 0.1];
 reorder = [2 1 3]; % TODO use get_remapping
 hmm_ev_ordered = hmm_ev(:, reorder);
-result = fusion(netobj_lab, inferred, observed, hmm_ev_ordered, incremental);
+fusion(netobj_lab, inferred, observed, hmm_ev_ordered, incremental);
 
 clear observed inferred hmm_ev reorder hmm_ev_ordered result;
 e = e+1;
@@ -70,7 +70,7 @@ inferred = {'Action', 'ObjVel'};
 hmm_ev = [0.8 0.1 0.1];
 reorder = [2 1 3]; % TODO use get_remapping
 hmm_ev_ordered = hmm_ev(:, reorder);
-result = fusion(netobj_lab, inferred, observed, hmm_ev_ordered, incremental);
+fusion(netobj_lab, inferred, observed, hmm_ev_ordered, incremental);
 
 clear observed inferred hmm_ev reorder hmm_ev_ordered result;
 e = e+1;
@@ -82,7 +82,7 @@ inferred = {'Action', 'Color'};
 hmm_ev = [0.8 0.1 0.1];
 reorder = [2 1 3]; % TODO use get_remapping
 hmm_ev_ordered = hmm_ev(:, reorder);
-result = fusion(netobj_lab, inferred, observed, hmm_ev_ordered, incremental);
+fusion(netobj_lab, inferred, observed, hmm_ev_ordered, incremental);
 
 clear observed inferred hmm_ev reorder hmm_ev_ordered result;
 e = e+1;
@@ -97,7 +97,7 @@ inferred = {'Color'};
 hmm_ev = [0.8 0.1 0.1];
 reorder = [2 1 3]; % TODO use get_remapping
 hmm_ev_ordered = hmm_ev(:, reorder);
-result = fusion(netobj_lab, inferred, observed, hmm_ev_ordered, incremental);
+fusion(netobj_lab, inferred, observed, hmm_ev_ordered, incremental);
 
 clear observed inferred hmm_ev reorder hmm_ev_ordered result;
 e = e+1;
@@ -109,7 +109,7 @@ inferred = {'Color'};
 hmm_ev = [0.8 0.1 0.1];
 reorder = [2 1 3]; % TODO use get_remapping
 hmm_ev_ordered = hmm_ev(:, reorder);
-result = fusion(netobj_lab, inferred, observed, hmm_ev_ordered, incremental);
+fusion(netobj_lab, inferred, observed, hmm_ev_ordered, incremental);
 
 clear observed inferred hmm_ev reorder hmm_ev_ordered result;
 e = e+1;

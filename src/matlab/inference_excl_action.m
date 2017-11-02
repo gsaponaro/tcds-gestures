@@ -1,4 +1,4 @@
-function result = inference_excl_action(netobj,inferred,observed,hmm_ev,incremental)
+function [netobj, result] = inference_excl_action(netobj,inferred,observed,hmm_ev,incremental)
 % INFERENCE_EXCL_ACTION  Compute an inference from the combined affordances
 %                        Bayesian + gesture Hidden Markov Model, in the case
 %                        where the inferred nodes (i.e., posteriors)
@@ -23,6 +23,8 @@ function result = inference_excl_action(netobj,inferred,observed,hmm_ev,incremen
 % incremental: retains evidence specified so far (optional, default true)
 %
 % Outputs
+%
+% netobj: updated Bayesian Network struct
 %
 % result: matrix multiplication between Bayesian Network inference
 %         (with the Action variable) and gesture Hidden Markov Model
