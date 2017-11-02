@@ -3,7 +3,7 @@
 % script by Giovanni Saponaro, 2017
 
 %% configure BNT and other paths
-configurePaths
+configurePaths;
 
 %% 1) create initial word-affordance network
 % Giampiero 2017-11-02: you need to be in AffordancesAndSpeech/bayesian_net

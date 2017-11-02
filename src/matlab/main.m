@@ -6,9 +6,8 @@
 %
 % Giovanni Saponaro, Giampiero Salvi
 
-%% configure paths
-
-configurePaths
+%% configure BNT and other paths
+configurePaths;
 
 %% load Bayesian Network
 load('BN_lab.mat');

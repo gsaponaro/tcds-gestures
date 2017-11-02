@@ -1,9 +1,10 @@
 %% experiments with probability of words being said
 
+%% user parameters
 show_figures = false;
 
-% add relevant directories to path
-configurePaths
+%% configure BNT and other paths
+configurePaths;
 
 %% load Bayesian Network from .mat
 load('BN_lab.mat');
@@ -11,8 +12,12 @@ load('BN_lab.mat');
 %% result 2 from GLU paper
 netobj_lab = BNEnterNodeEvidence(netobj_lab, {'Color', 'yellow', ...
     'Size', 'big', 'Shape', 'circle', 'ObjVel', 'fast'});
+fprintf('after first evidence:\n');
+BNShowCurrentEvidence(netobj_lab);
 w1before = BNGetWordProbs(netobj_lab);
 netobj_lab = BNEnterNodeEvidence(netobj_lab, {'Action', 'tap'});
+fprintf('after second evidence:\n');
+BNShowCurrentEvidence(netobj_lab);
 w1after = BNGetWordProbs(netobj_lab);
 
 probdiff1 = w1after - w1before
