@@ -37,17 +37,18 @@ if show_figures
 end;
     
 %% new results. when querying over a node with evidence, exclude it
+netobj_lab = BNResetEvidence(netobj_lab);
 e = e+1;
 fprintf('%d.\n', e);
 
-observed_words = {'big','ball'};
-netobj_lab = BNEnterWordEvidence(netobj_lab, observed_words, false); % incremental=false resets the BN
+observed_words = {'blue','ball','rolls'};
+netobj_lab = BNEnterWordEvidence(netobj_lab, observed_words);
 fprintf('after first evidence:\n');
 BNShowCurrentEvidence(netobj_lab);
 word_indices = get_complement_word_indices(netobj_lab, observed_words);
 w2before = BNGetWordProbs(netobj_lab, word_indices);
 %netobj_lab = BNEnterNodeEvidence(netobj_lab, {'Action', 'tap'});
-observed = {'Color', 'blue'};
+observed = {'HandVel', 'fast'};
 %observed = [observed sort(repmat(observed_words,1,2))]; % ugly
 inferred = {'Action'};
 hmm_ev = [0.8 0.1 0.1];
