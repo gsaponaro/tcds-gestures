@@ -1,4 +1,4 @@
-function result = inference_excl_action(netobj,inferred,observed,hmm_ev)
+function result = inference_excl_action(netobj,inferred,observed,hmm_ev,incremental)
 % INFERENCE_EXCL_ACTION  Compute an inference from the combined affordances
 %                        Bayesian + gesture Hidden Markov Model, in the case
 %                        where the inferred nodes (i.e., posteriors)
@@ -20,6 +20,8 @@ function result = inference_excl_action(netobj,inferred,observed,hmm_ev)
 % hmm_ev: array of probabilities obtained from gesture Hidden Markov Model
 %         (i.e., posterior probability distribution of the gesture classes)
 %
+% incremental: retains evidence specified so far (optional, default true)
+%
 % Outputs
 %
 % result: matrix multiplication between Bayesian Network inference
@@ -28,6 +30,10 @@ function result = inference_excl_action(netobj,inferred,observed,hmm_ev)
 %         p(X1|X2,V) = sum_{a=1}^{num_actions} p_BN(Action=a,X1|X2) * p_HMM(Action=a|V)
 %
 % Giovanni Saponaro, Giampiero Salvi
+
+if nargin<5
+    incremental = true;
+end;
 
 if cellcontains(observed,'Action')
     error('inference_excl_action: Action is already observed by BN');
@@ -52,7 +58,7 @@ else
 end;
 
 % enter node evidence for all prior observed nodes
-netobj = BNEnterNodeEvidence(netobj, observed, 0);
+netobj = BNEnterNodeEvidence(netobj, observed, incremental);
 
 % extract predictions (posteriors)
 pred = BNSoftPredictionAccuracy3(netobj, temp_inferred);
@@ -96,6 +102,6 @@ fprintf('%s ', inferred{:});
 fprintf('| ')
 fprintf('%s ', observed{:});
 fprintf(') =\n');
-netobj = BNEnterNodeEvidence(netobj, observed, 0);
+netobj = BNEnterNodeEvidence(netobj, observed, false);
 pred_only_bn = BNSoftPredictionAccuracy3(netobj, inferred);
 disp(pred_only_bn.T);

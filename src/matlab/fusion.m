@@ -1,4 +1,4 @@
-function result = fusion(netobj,inferred,observed,hmm_ev)
+function result = fusion(netobj,inferred,observed,hmm_ev,incremental)
 % FUSION  Fuse evidence from affordances Bayesian Network with evidence
 %         from gesture Hidden Markov Model. This function automatically
 %         chooses the correct merging strategy, depending on the presence
@@ -17,6 +17,8 @@ function result = fusion(netobj,inferred,observed,hmm_ev)
 %
 % hmm_ev: array of probabilities obtained from gesture Hidden Markov Model
 %         (i.e., posterior probability distribution of the gesture classes)
+%
+% incremental: retains evidence specified so far (optional, default true)
 %
 % Outputs
 %
@@ -41,11 +43,15 @@ if sum(hmm_ev) ~= 1
     error('fusion: hmm_ev argument elements must sum to one.');
 end;
 
+if nargin<5
+    incremental = true;
+end;
+
 %% determine the type of fusion and apply it
 if cellcontains(inferred,'Action')
     % case 1: inferred nodes include action
-    result = inference_incl_action(netobj,inferred,observed,hmm_ev);
+    result = inference_incl_action(netobj,inferred,observed,hmm_ev,incremental);
 else
     % case 2: inferred nodes do not include action
-    result = inference_excl_action(netobj,inferred,observed,hmm_ev);
+    result = inference_excl_action(netobj,inferred,observed,hmm_ev,incremental);
 end
