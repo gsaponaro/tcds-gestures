@@ -18,8 +18,18 @@ netobj_lab = BNEnterNodeEvidence(netobj_lab, {'Color', 'yellow', ...
     'Size', 'big', 'Shape', 'circle', 'ObjVel', 'fast'});
 
 %% rescore sentences with word probabilities and pick best sentence
-[description, normprob] = BNScoreSentences(netobj_lab, sentenceFilename)
+[sentences, normlogprobs] = BNScoreSentences(netobj_lab, sentenceFilename);
 
-% note that this just shows the best sentence, for debugging it
-% could be better to output the whole list with probabilities. I
-% might add at least the possiblity to get an n-best list.
+% find the best sentence
+[bestprob, bestsentidx] = max(normlogprobs);
+% ...and display it
+sentences{bestsentidx}
+
+% sort sentences:
+[sortedprobs, sortedidxs] = sort(normlogprobs, 'descend');
+
+% display n-best list
+nbest = 10;
+for h=1:nbest
+    disp([sentences{sortedidxs(h)} ' ' num2str(normlogprobs(sortedidxs(h)))]);
+end
