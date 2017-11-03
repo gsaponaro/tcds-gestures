@@ -102,7 +102,7 @@ netobj2 = netobj;
 netobj2 = BNResetEvidence(netobj2);
 netobj2 = BNEnterNodeEvidence(netobj2, observed, true, {'Action', hmm_ev});
 pred2 = BNSoftPredictionAccuracy3(netobj2, inferred);
-fprintf('Using BNT soft evidence, P_comb =\n');
+fprintf('using purely BNT, P_comb =\n');
 disp(pred2.T);
 
 %% compute original BN query without marginalizing out Action, for comparison
