@@ -2,12 +2,18 @@
 
 %% user parameters
 show_figures = true;
+word_delta_threshold = 0.02;
 
 %% configure BNT and other paths
 configurePaths;
 
 %% load Bayesian Network from .mat
 load('BN_lab.mat');
+
+%% Action probability distribution soft evidence from GestureHMM
+gesturehmm_pdf = [0.8 0.1 0.1]; % GestureHMM order: tap,grasp,touch
+reorder = [2 1 3]; % TODO use get_remapping
+hmm_ev = gesturehmm_pdf(:, reorder); % BNActionValue order: grasp,tap,touch
 
 %% example counter
 e = 1;
@@ -26,7 +32,7 @@ BNShowCurrentEvidence(netobj_lab);
 w1after = BNGetWordProbs(netobj_lab);
 
 probdiff1 = w1after - w1before;
-toplot1 = abs(probdiff1)>0.02;
+toplot1 = abs(probdiff1)>word_delta_threshold;
 
 if show_figures
     figure;
@@ -36,30 +42,26 @@ if show_figures
     ylabel('$\Delta p(w_i)$', 'Interpreter','latex', 'FontSize', 20);
 end;
     
-%% new results. when querying over a node with evidence, exclude it
 netobj_lab = BNResetEvidence(netobj_lab);
 e = e+1;
 fprintf('%d.\n', e);
 
-observed_words = {'big','blue','ball','sphere','rolls'};
-netobj_lab = BNEnterWordEvidence(netobj_lab, observed_words);
+%% new experiment
+observed1 = {'big','ball','rolling'};
+netobj_lab = BNEnterWordEvidence(netobj_lab, observed1);
 fprintf('after first evidence:\n');
 BNShowCurrentEvidence(netobj_lab);
-word_indices = get_complement_word_indices(netobj_lab, observed_words);
+word_indices = get_complement_word_indices(netobj_lab, observed1);
 w2before = BNGetWordProbs(netobj_lab, word_indices);
-observed = {'HandVel', 'fast'};
-%observed = [observed sort(repmat(observed_words,1,2))]; % ugly
+observed2 = {'ObjVel', 'fast'}; % the evidence observed1 was already retained
 inferred = {'Action'};
-hmm_ev = [0.8 0.1 0.1];
-reorder = [2 1 3]; % TODO use get_remapping
-hmm_ev_ordered = hmm_ev(:, reorder);
-[netobj_lab,~] = fusion(netobj_lab, inferred, observed, hmm_ev_ordered);
+[netobj_lab,~] = fusion(netobj_lab, inferred, observed2, hmm_ev);
 fprintf('after second evidence:\n');
 BNShowCurrentEvidence(netobj_lab);
 w2after = BNGetWordProbs(netobj_lab, word_indices);
 
 probdiff2 = w2after - w2before;
-toplot2 = abs(probdiff2)>0.02;
+toplot2 = abs(probdiff2)>word_delta_threshold;
 
 if show_figures
     figure;
