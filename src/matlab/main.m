@@ -12,13 +12,10 @@ configurePaths;
 %% load Bayesian Network
 load('BN_lab.mat');
 
-%% retain evidence?
-incremental = false;
-
-%% Action evidence from GestureHMM
-hmm_ev = [0.8 0.1 0.1]; % HMM evidence in GestureHMM order: tap,grasp,touch
+%% Action probability distribution soft evidence from GestureHMM
+gesturehmm_pdf = [0.8 0.1 0.1]; % GestureHMM order: tap,grasp,touch
 reorder = [2 1 3]; % TODO use get_remapping
-hmm_ev_ordered = hmm_ev(:, reorder); % BNActionValue order: grasp,tap,touch
+hmm_ev = gesturehmm_pdf(:, reorder); % BNActionValue order: grasp,tap,touch
 
 %% example counter
 e = 1;
@@ -30,8 +27,9 @@ fprintf('%d.\n', e);
 
 observed = {'Shape', 'circle', 'Size', 'small'}; % BN observed nodes
 inferred = {'Action'}; % BN nodes to infer
-fusion(netobj_lab, inferred, observed, hmm_ev_ordered, incremental);
+fusion(netobj_lab, inferred, observed, hmm_ev);
 
+netobj_lab = BNResetEvidence(netobj_lab);
 clear observed inferred;
 e = e+1;
 
@@ -40,8 +38,9 @@ fprintf('%d.\n', e);
 % Word nodes: repeat it to indicate presence, set to '-' to indicate absense
 observed = {'Shape', 'circle', 'Size', 'small', 'moves', 'moves'};
 inferred = {'Action'};
-fusion(netobj_lab, inferred, observed, hmm_ev_ordered, incremental);
+fusion(netobj_lab, inferred, observed, hmm_ev);
 
+netobj_lab = BNResetEvidence(netobj_lab);
 clear observed inferred;
 e = e+1;
 
@@ -49,8 +48,9 @@ fprintf('%d.\n', e);
 
 observed = {'Shape', 'circle', 'Size', 'small', 'moves', 'moves', 'rolling', '-'};
 inferred = {'Action'};
-fusion(netobj_lab, inferred, observed, hmm_ev_ordered, incremental);
+fusion(netobj_lab, inferred, observed, hmm_ev);
 
+netobj_lab = BNResetEvidence(netobj_lab);
 clear observed inferred;
 e = e+1;
 
@@ -58,8 +58,9 @@ fprintf('%d.\n', e);
 
 observed = {'Color', 'yellow', 'Shape', 'circle'};
 inferred = {'Action', 'ObjVel'};
-fusion(netobj_lab, inferred, observed, hmm_ev_ordered, incremental);
+fusion(netobj_lab, inferred, observed, hmm_ev);
 
+netobj_lab = BNResetEvidence(netobj_lab);
 clear observed inferred;
 e = e+1;
 
@@ -67,8 +68,9 @@ fprintf('%d.\n', e);
 
 observed = {'ObjVel', 'fast', 'Shape', 'circle'};
 inferred = {'Action', 'Color'};
-fusion(netobj_lab, inferred, observed, hmm_ev_ordered, incremental);
+fusion(netobj_lab, inferred, observed, hmm_ev);
 
+netobj_lab = BNResetEvidence(netobj_lab);
 clear observed inferred;
 e = e+1;
 
@@ -79,8 +81,9 @@ fprintf('%d.\n', e);
 
 observed = {'Shape', 'circle'};
 inferred = {'Color'};
-fusion(netobj_lab, inferred, observed, hmm_ev_ordered, incremental);
+fusion(netobj_lab, inferred, observed, hmm_ev);
 
+netobj_lab = BNResetEvidence(netobj_lab);
 clear observed inferred;
 e = e+1;
 
@@ -88,8 +91,9 @@ fprintf('%d.\n', e);
 
 observed = {'Shape', 'circle', 'Size', 'small'};
 inferred = {'Color'};
-fusion(netobj_lab, inferred, observed, hmm_ev_ordered, incremental);
+fusion(netobj_lab, inferred, observed, hmm_ev);
 
+netobj_lab = BNResetEvidence(netobj_lab);
 clear observed inferred;
 e = e+1;
 
