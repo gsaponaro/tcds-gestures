@@ -2,6 +2,76 @@
 
 \section{Proposed Approach}
 
+\newcommand{\myWidth}{0.22}
+\begin{figure*}
+    \centering
+    \subfloat
+    { \includegraphics[width=\myWidth\linewidth]{grasp-00000169} } \quad
+    %
+    \subfloat
+    { \includegraphics[width=\myWidth\linewidth]{grasp-00000170} } \quad
+    %
+    \subfloat
+    { \includegraphics[width=\myWidth\linewidth]{grasp-00000171} } \\
+    %
+    \subfloat
+    { \includegraphics[width=\myWidth\linewidth]{grasp-00000173} } \quad
+    %
+    \subfloat
+    { \includegraphics[width=\myWidth\linewidth]{grasp-00000177} } \quad
+    %
+    \subfloat
+    { \includegraphics[width=\myWidth\linewidth]{grasp-00000180} }
+    \caption{Grasp action example, from the point of view of the robot. An agent~(human) moves the hand towards an object vertically, then grasps and lifts it.}
+    \label{fig:action_examples:grasp}
+\end{figure*}
+
+\begin{figure*}
+    \centering
+    \subfloat
+    { \includegraphics[width=\myWidth\linewidth]{tap-00000109} } \quad
+    %
+    \subfloat
+    { \includegraphics[width=\myWidth\linewidth]{tap-00000110} } \quad
+    %
+    \subfloat
+    { \includegraphics[width=\myWidth\linewidth]{tap-00000112} } \\
+    %
+    \subfloat
+    { \includegraphics[width=\myWidth\linewidth]{tap-00000114} } \quad
+    %
+    \subfloat
+    { \includegraphics[width=\myWidth\linewidth]{tap-00000116} } \quad
+    %
+    \subfloat
+    { \includegraphics[width=\myWidth\linewidth]{tap-00000117} }
+    \caption{Tap action example, from the point of view of the robot. An agent~(human) moves the hand towards an object laterally and touches it, causing a motion effect.}
+    \label{fig:action_examples:tap}
+\end{figure*}
+
+\begin{figure*}
+    \centering
+    \subfloat
+    { \includegraphics[width=\myWidth\linewidth]{touch-00000196} } \quad
+    %
+    \subfloat
+    { \includegraphics[width=\myWidth\linewidth]{touch-00000197} } \quad
+    %
+    \subfloat
+    { \includegraphics[width=\myWidth\linewidth]{touch-00000198} } \\
+    %
+    \subfloat
+    { \includegraphics[width=\myWidth\linewidth]{touch-00000200} } \quad
+    %
+    \subfloat
+    { \includegraphics[width=\myWidth\linewidth]{touch-00000202} } \quad
+    %
+    \subfloat
+    { \includegraphics[width=\myWidth\linewidth]{touch-00000203} }
+    \caption{Touch action example, from the point of view of the robot. An agent~(human) moves the hand towards an object vertically, then touches it~(without grasping), then retracts the hand.}
+    \label{fig:action_examples:touch}
+\end{figure*}
+
 \begin{figure}
   \tikzstyle{affnode} = [ellipse, draw, thick]%fill=gray!20, thick]%node distance=1cm, text width=6em, text centered, minimum height=4em, thick]
   \tikzstyle{wordnode} = [ellipse, draw, thick]
@@ -87,7 +157,7 @@
 The purpose of the proposed approach is to model the development of language learning from a first, self-centered, individualistic phase to a second, socially aware phase.
 In the first phase the system learns by manipulating objects in its environment in a similar way as in~\cite{salvi:2012:smcb}.
 In this phase, it learns to associate verbal descriptions to the combination of its actions, object properties and effects, thus grounding the meaning of words in what we call affordances.
-In the second phase, the system turns to observing human actions of a similar nature as the ones explored in the first phase.
+In the second phase, the system turns to observing human actions of a similar nature as the ones explored in the first phase, shown in Figs.~\ref{fig:action_examples:grasp},~\ref{fig:action_examples:tap},~\ref{fig:action_examples:touch}.
 It reuses the experience acquired in the first phase to interpret the new observations and to address the correspondence problem between its own actions and the actions performed by the human.
 In this phase human movements are interpreted and classified with similar methods as in~\cite{saponaro:2013:crhri}.
 %reuse the experience that the robot has acquired when exploring the environment autonomously, for interpreting other people's actions.
