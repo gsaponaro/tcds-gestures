@@ -97,6 +97,14 @@ result = normalize(result);
 fprintf('\n... result (normalized) =\n');
 disp(result);
 
+%% BNT soft evidence
+netobj2 = netobj;
+netobj2 = BNResetEvidence(netobj2);
+netobj2 = BNEnterNodeEvidence(netobj2, observed, true, {'Action', hmm_ev});
+pred2 = BNSoftPredictionAccuracy3(netobj2, inferred);
+fprintf('Using BNT soft evidence, P_BN =\n');
+disp(pred2.T);
+
 %% compute original BN query without marginalizing out Action, for comparison
 fprintf('for comparison, the result purely with BN (ignoring HMM) would be:\n');
 fprintf('P_BN( ');
@@ -104,6 +112,7 @@ fprintf('%s ', inferred{:});
 fprintf('| ')
 fprintf('%s ', observed{:});
 fprintf(') =\n');
-netobj = BNEnterNodeEvidence(netobj, observed, false);
-pred_only_bn = BNSoftPredictionAccuracy3(netobj, inferred);
+netobj2 = BNResetEvidence(netobj2);
+netobj2 = BNEnterNodeEvidence(netobj2, observed);
+pred_only_bn = BNSoftPredictionAccuracy3(netobj2, inferred);
 disp(pred_only_bn.T);
