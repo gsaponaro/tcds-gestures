@@ -2,7 +2,12 @@
 
 \section{Experimental Results}
 
-BELOW IS THE GLU TEXT
+\subsection{GLU - Effect Prediction}
+
+Our model permits to make predictions over the effects of actions onto environment objects.
+
+In this experiment, we assume that the Gesture \acp{HMM} provide the discrete value of the recognized action performed by a human agent~(i.e., we enforce a hard decision over the observed action).
+%, referring to the possible combination strategies listed in Sec.~\ref{sec:combination}).
 
 \begin{figure}
     \centering
@@ -15,9 +20,6 @@ BELOW IS THE GLU TEXT
     \label{fig:effect_pred}
 \end{figure}
 
-We present preliminary examples of two types of results: predictions over the effects of actions onto environment objects, and predictions over the associated word descriptions in the presence or absence of an action prior. In this section, we assume that the Gesture \acp{HMM} provide the discrete value of the recognized action performed by a human agent~(i.e., we enforce a hard decision over the observed action, referring to the possible combination strategies listed in Sec.~\ref{sec:combination}).
-
-\subsection{Effect Prediction}
 
 From our combined model of words, affordances and observed actions, we report the inferred posterior value of the Object Velocity effect, given prior information about the action~(provided by the Gesture \acp{HMM}) and also about object features~(Shape and Size). Fig.~\ref{fig:effect_pred} shows the computed predictions in two cases. Fig.~\ref{fig:effect_pred:sphere} shows the anticipated object velocity when the human user performs the tapping action onto a small spherical object, whereas Fig.~\ref{fig:effect_pred:box} displays it when the target object is a big box. Indeed, given the same observed action prior~(lateral tap on the object), the expected movement is very different depending on the physical properties of the target object.
 
@@ -28,9 +30,13 @@ From our combined model of words, affordances and observed actions, we report th
 \label{fig:probdiff}
 \end{figure}
 
-\subsection{Prediction of Words}
+\subsection{GLU - Prediction of Words}
 
-In this experiment, we compare the associated \emph{verbal description} obtained by the \acl{BN} in the absence of an action prior, with the ones obtained in the presence of one. In particular, we compare the \emph{probability of word occurrence} in the following two situations:
+Our model permits to make predictions over the associated word descriptions in the presence or absence of an action prior.
+
+As in the previous experiment, we assume that the Gesture \acp{HMM} provide the discrete value of the recognized action performed by a human agent~(i.e., we enforce a hard decision over the observed action).
+
+We compare the associated \emph{verbal description} obtained by the \acl{BN} in the absence of an action prior, with the ones obtained in the presence of one. In particular, we compare the \emph{probability of word occurrence} in the following two situations:
 \begin{enumerate}
 \item when the robot prior knowledge~(evidence in the \ac{BN}) includes information about object features and effects only: \emph{Size=big, Shape=sphere, ObjVel=fast};
 
