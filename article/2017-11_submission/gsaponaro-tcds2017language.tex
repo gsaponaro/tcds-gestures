@@ -6,6 +6,8 @@
 \usepackage[utf8]{inputenc} % input - type accented characters directly from keyboard
 \usepackage[english]{babel} % internationalization - hyphenation, typographic rules for one or more languages
 
+\usepackage[nounderscore]{syntax} % definition of the context-free grammar
+
 \usepackage[
     backend=biber, % bibliography engine
     style=ieee, % bibliography style .bbx and citation style .cbx
@@ -136,5 +138,9 @@ This work was partially supported by the FCT project~UID/EEA/50009/2013 and by t
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \printbibliography
+
+\appendix
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{appendix}
 
 \end{document}
