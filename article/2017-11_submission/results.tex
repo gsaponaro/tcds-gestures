@@ -49,3 +49,43 @@ Fig.~\ref{fig:probdiff} shows the variation in word occurrence probabilities bet
 
 \item interestingly, the probability of the word \emph{rolling}~(which is an effect of an action onto an object) also increases when the tapping action evidence is entered. Even though the initial evidence of case~$1$ already included some effect information~(the velocity of the object), it is only now, when the robot perceives that the physical action was a tap, that the event rolling is associated.
 \end{itemize}
+
+\section{Emergence of Verbal Descriptions}
+
+In the previous experiment, we have seen how our model is able to generate word probabilities after having received probabilistic observed evidence.
+We now wish to go a step further and generate syntactically correct \emph{sentences}, according to the \ac{CFG} which was employed for recognizing the spoken descriptions in~\cite{salvi:2012:smcb}.
+
+We provide the full specification of the \acf{CFG} in Appendix~\ref{appendix:grammar}.
+This grammar is used for TODO COMPLETE\dots
+In other words, the grammar is \emph{not} used during the \AffWords{} \ac{BN} learning phase: the speech recognizer used therein assumes a loop of words with no grammatical structure, since the model is based on a bag-of-words assumption, where only the presence or absence of each word in the description is considered.
+
+To examine the generated verbal description, we proceed as follows: we provide evidence to the model~(hard or soft evidence), we extract the generated word probabilities and then we match them to a list of~\SI{1000} possible sentences~(randomly generated according to the \ac{CFG}).
+The matching process is described in Appendix~\ref{appendix:grammar}.
+
+For example, if we provide the following evidence the model:
+\begin{equation*}
+\{\text{Color=yellow, Size=big, Shape=circle, ObjVel=fast}\}
+\end{equation*}
+we obtain the sentences reported in Table~\ref{tab:generated_sentences_1}.
+
+\begin{table}
+    \centering
+    \caption{Sentences generated from the evidence $\{\text{Color=yellow, Size=big, Shape=circle, ObjVel=fast}\}$. The higher the score, the better. In the most likely sentence, the correct action-related verb ``taps'' is generated, and the object term ``ball'' is used twice, both in the first part and in the second part of the sentence.}
+    \label{tab:generated_sentences_1}
+    \begin{tabular}{ll}
+    \toprule
+    sentence & score \\
+    \midrule
+    \textbf{baltazar tapped the ball and the ball moves} & \bm{$-0.63813$} \\
+    baltazar taps the ball and the sphere is moving & $-0.64636$ \\
+    the robot touched the big sphere and the ball is rolling & $-0.64822$ \\
+    he taps the sphere and the sphere moves & $-0.65437$ \\
+    the robot has poked the ball and the sphere moves & $-0.67455$ \\
+    baltazar just tapped the sphere and the sphere is rolling & $-0.71942$ \\
+    baltazar taps the sphere and the big ball rolls & $-0.72702$ \\
+    baltazar taps the sphere and the yellow sphere rolls & $-0.73154$ \\
+    the robot just touched the sphere and the ball moves & $-0.79609$ \\
+    baltazar has poked the ball and the ball rolls & $-0.81551$ \\
+    \bottomrule
+    \end{tabular}
+\end{table}

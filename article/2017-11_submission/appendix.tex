@@ -1,10 +1,11 @@
 \section{Grammar Definition}
+\label{appendix:grammar}
 Below, we provide the grammar definition used to generate verbal descriptions from the probability distribution over words estimated by the model.
 Note, however, that no grammar was used during the learning phase: the speech recognizer used as a frontend to the spoken descriptions is based on a loop of words with no grammar, and the \AffWords{} model is based on a bag-of-words assumption, where only the presence or absence of each word in the description is considered.
 
 \begin{figure}
   \includegraphics[width=\textwidth, angle=90]{figures/grammar}
-  \caption{Graphical representation of the formal \ac{CFG} used to generate descriptions from word probability distribution.}
+  \caption{Graphical representation of the formal \acf{CFG} used to generate descriptions from word probability distribution.}
 \end{figure}
 
 \begin{grammar}
