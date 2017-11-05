@@ -54,10 +54,12 @@ Fig.~\ref{fig:probdiff} shows the variation in word occurrence probabilities bet
 
 In the previous experiment, we have seen how our model is able to generate word probabilities after having received probabilistic observed evidence.
 We now wish to go a step further and generate syntactically correct \emph{sentences}, according to the \ac{CFG} which was employed for recognizing the spoken descriptions in~\cite{salvi:2012:smcb}.
-
 We provide the full specification of the \acf{CFG} in Appendix~\ref{appendix:grammar}.
-This grammar is used for TODO COMPLETE\dots
-In other words, the grammar is \emph{not} used during the \AffWords{} \ac{BN} learning phase: the speech recognizer used therein assumes a loop of words with no grammatical structure, since the model is based on a bag-of-words assumption, where only the presence or absence of each word in the description is considered.
+
+Before analyzing the results, some clarifications are due about the \ac{CFG}:
+(i)~this grammar was used only for automatic speech recognition of the spoken descriptions provided by human narrators in the experiment of~\cite{salvi:2012:smcb}; it was \emph{not} used during the \AffWords{} \ac{BN} learning phase, which was unsupervised;
+(ii)~the speech recognizer is based on the bag-of-words assumptions, meaning that it considers a loop of words with no grammatical structure, where only the binary presence or absence of each word is considered;
+(iii)~the first expression of sentences formed with the grammar is always a subject with the token \verb!<agent>!, which is expanded \emph{randomly} to one of the following: ``the robot'', ``he'', or ``Baltazar''~(i.e., the name of the humanoid robot used in the experiments). In other words, the choice of the possible expansion is not related to the evidence in the other nodes of the model. This is evident also by looking at the leftmost word nodes of Fig.~\ref{fig:grammar}, which not linked to any other words.
 
 To examine the generated verbal description, we proceed as follows: we provide evidence to the model~(hard or soft evidence), we extract the generated word probabilities and then we match them to a list of~\SI{1000} possible sentences~(randomly generated according to the \ac{CFG}).
 The matching process is described in Appendix~\ref{appendix:grammar}.
