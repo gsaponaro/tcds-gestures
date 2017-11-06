@@ -8,16 +8,12 @@ Note however, that no grammar was used in learning: the speech recognizer used a
 \end{figure}
 
 \begin{grammar}
+  <sentence> ::= <agent> <action> <object> <conjunction> <object> <effect>
+
   <agent> ::= the robot | he | baltazar 
 
-  <size> ::= big | small
-  
-  <color> ::= green | yellow | blue
-  
-  <shape> ::= sphere | ball | cube | box | square
-  
-  <object> ::= the [<size>] [<color>] <shape>
-  
+  <action> ::= <touch> | <poke> | <tap> | <push> | <grasp> | <pick>
+
   <touch> ::= touches | [has] [just] touched | is touching
   
   <poke> ::= pokes | [has] [just] poked | is poking
@@ -29,20 +25,24 @@ Note however, that no grammar was used in learning: the speech recognizer used a
   <grasp> ::= grasps | [has] [just] grasped | is grasping
   
   <pick> ::= picks | [has] [just] picked | is picking
+
+  <object> ::= the [<size>] [<color>] <shape>
+
+  <size> ::= big | small
   
-  <action> ::= <touch> | <poke> | <tap> | <push> | <grasp> | <pick>
+  <color> ::= green | yellow | blue
   
+  <shape> ::= sphere | ball | cube | box | square
+
   <conjunction> ::= and | but
-  
+
+  <effect> ::= <inertmove> | <slideroll> | <fallrise>
+
   <inertmove> ::= is inert | is still | moves | is moving
   
   <slideroll> ::= slides | is sliding | rolls | is rolling
   
   <fallrise> ::= rises | is rising | falls | is falling
-  
-  <effect> ::= <inertmove> | <slideroll> | <fallrise>
-  
-  <sentence> ::= <agent> <action> <object> <conjunction> <object> <effect>
 \end{grammar}
 
 Given a probability distribution over the words $P(w_i)$, a number $N$ of sentences is randomly generated from the grammar using the \texttt{HSGen} tool from HTK.
