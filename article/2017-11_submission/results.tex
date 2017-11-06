@@ -167,3 +167,27 @@ generated sentences in Tab.~\ref{tab:conjunction:but}
     \bottomrule
     \end{tabular}
 \end{table*}
+
+\subsection{Solving Ambiguities with the Combined Model}
+
+Fig.~\ref{fig:update_from_softevidence} shows the result of predictions over nodes given some (hard) evidence, before and after incorporating further soft evidence
+
+\begin{figure*}
+    \centering
+    \subfloat[][Prediction of the model given the initial (hard) evidence.]
+    { \includegraphics[width=0.45\linewidth]{before_softevidence_prediction.eps} \label{fig:before_softevidence:pred} } \quad
+    %
+    \subfloat[][Updated prediction of the model after having incorporated the Action soft evidence.]
+    { \includegraphics[width=0.45\linewidth]{after_softevidence_prediction.eps} \label{fig:after_softevidence:pred} }
+    \caption{.}
+    \label{fig:update_from_softevidence}
+\end{figure*}
+
+word probabilities: Fig.~\ref{fig:after_softevidence:pw} (right now they are identical before and after incorporating the soft evidence)
+
+\begin{figure}
+\centering
+\includegraphics[width=0.9\columnwidth]{after_softevidence_pw.eps}
+\caption{Word occurrence probabilities given the evidence \emph{\{'Shape', 'box', 'ObjVel', 'fast'\}}. We have omitted words for which no significant probability was observed.}
+\label{fig:after_softevidence:pw}
+\end{figure}
