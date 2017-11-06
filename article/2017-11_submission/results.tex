@@ -49,3 +49,121 @@ Fig.~\ref{fig:probdiff} shows the variation in word occurrence probabilities bet
 
 \item interestingly, the probability of the word \emph{rolling}~(which is an effect of an action onto an object) also increases when the tapping action evidence is entered. Even though the initial evidence of case~$1$ already included some effect information~(the velocity of the object), it is only now, when the robot perceives that the physical action was a tap, that the event rolling is associated.
 \end{itemize}
+
+\subsection{Emergence of Verbal Descriptions}
+
+In the previous experiment, we have seen how our model is able to generate word probabilities after having received probabilistic observed evidence.
+We now wish to go a step further and generate syntactically correct \emph{sentences}, according to the \ac{CFG} which was employed for recognizing the spoken descriptions in~\cite{salvi:2012:smcb}.
+We provide the full specification of the \acf{CFG} in Appendix~\ref{appendix:grammar}.
+
+Before analyzing the results, some clarifications are due about the \ac{CFG}:
+(i)~this grammar was used only for automatic speech recognition of the spoken descriptions provided by human narrators in the experiment of~\cite{salvi:2012:smcb}; it was \emph{not} used during the \AffWords{} \ac{BN} learning phase, which was unsupervised;
+(ii)~the speech recognizer is based on the bag-of-words assumptions, meaning that it considers a loop of words with no grammatical structure, where only the binary presence or absence of each word is considered;
+(iii)~the first expression of sentences formed with the grammar is always a subject with the token \verb!<agent>!, which is expanded \emph{randomly} to one of the following: ``the robot'', ``he'', or ``Baltazar''~(i.e., the name of the humanoid robot used in the experiments). In other words, the choice of the possible expansion is not related to the evidence in the other nodes of the model. This is evident also by looking at the leftmost word nodes of Fig.~\ref{fig:grammar}, which not linked to any other words.
+
+To examine the generated verbal description, we proceed as follows: we provide evidence to the model~(hard or soft evidence), we extract the generated word probabilities and then we match them to a list of~\SI{1000} possible sentences~(randomly generated according to the \ac{CFG}).
+The matching process is described in Appendix~\ref{appendix:grammar}.
+
+For example, if we provide the following evidence the model:
+\begin{equation*}
+\{\text{Color=yellow, Size=big, Shape=circle, ObjVel=fast}\},
+\end{equation*}
+we obtain the sentences reported in Table~\ref{tab:generated_sentences_1}.
+
+\begin{table}
+    \centering
+    \caption{Sentences generated from the evidence $\{\text{Color=yellow, Size=big, Shape=circle, ObjVel=fast}\}$. The higher the score, the better. In the most likely sentence, the correct action-related verb ``taps'' is generated, and the object term ``ball'' is used twice, both in the first part and in the second part of the sentence.}
+    \label{tab:generated_sentences_1}
+    \begin{tabular}{ll}
+    \toprule
+    sentence & score \\
+    \midrule
+    \textbf{baltazar tapped the ball and the ball moves} & \bm{$-0.63813$} \\
+    baltazar taps the ball and the sphere is moving & $-0.64636$ \\
+    the robot touched the big sphere and the ball is rolling & $-0.64822$ \\
+    he taps the sphere and the sphere moves & $-0.65437$ \\
+    the robot has poked the ball and the sphere moves & $-0.67455$ \\
+    baltazar just tapped the sphere and the sphere is rolling & $-0.71942$ \\
+    baltazar taps the sphere and the big ball rolls & $-0.72702$ \\
+    baltazar taps the sphere and the yellow sphere rolls & $-0.73154$ \\
+    the robot just touched the sphere and the ball moves & $-0.79609$ \\
+    baltazar has poked the ball and the ball rolls & $-0.81551$ \\
+    \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsection{Reasoning over Effects, Choice of Correct Conjunction}
+
+Example in which the generated conjunction is ``and'' (because of consistency between Action, Object Features and Effect evidence):
+
+evidence: \emph{\{'Size', 'small', 'Shape', 'box', 'Action', 'touch', 'Contact', 'long', 'ObjHandVel', 'slow'\}}
+
+resulting word probabilities: Fig.~\ref{fig:conjunction_and:pw}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.9\columnwidth]{and_pw.eps}
+\caption{Word occurrence probabilities given the evidence \emph{\{'Size', 'small', 'Shape', 'box', 'Action', 'touch', 'Contact', 'long', 'ObjHandVel', 'slow'\}}. We have omitted words for which no significant probability was observed.}
+\label{fig:conjunction_and:pw}
+\end{figure}
+
+generated sentences in Tab.~\ref{tab:conjunction:and}
+
+\begin{table*}
+    \centering
+    \caption{.}
+    \label{tab:conjunction:and}
+    \begin{tabular}{ll}
+    \toprule
+    sentence & score \\
+    \midrule
+    the robot has touched the box and the square is still & $-0.55989$ \\
+    the robot is touching the box and the blue square is inert & $-0.62944$ \\
+    the robot has poked the green box and the yellow box is inert & $-0.68388$ \\
+    baltazar is touching the blue box and the square is still & $-0.69946$ \\
+    baltazar has poked the cube and the yellow box is inert & $-0.71426$ \\
+    baltazar touched the yellow cube and the square is still & $-0.72961$ \\
+    the robot pokes the yellow square and the yellow cube is inert & $-0.73993$ \\
+    the robot has just touched the yellow box and the square is inert & $-0.76648$ \\
+    baltazar pokes the green square and the blue box is still & $-0.80106$ \\
+    he just poked the blue cube and the yellow cube is still & $-0.97389$ \\
+    \bottomrule
+    \end{tabular}
+\end{table*}
+
+Example in which the generated conjunction is ``but'' (because of no consistency):
+
+evidence: \emph{\{'Size', 'small', 'Shape', 'box', 'Action', 'touch', 'Contact', 'short', 'ObjHandVel', 'medium'\}}
+
+resulting word probabilities: Fig.~\ref{fig:conjunction_but:pw}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.9\columnwidth]{but_pw.eps}
+\caption{Word occurrence probabilities given the evidence \emph{\{'Size', 'small', 'Shape', 'box', 'Action', 'touch', 'Contact', 'short', 'ObjHandVel', 'medium'\}}. We have omitted words for which no significant probability was observed.}
+\label{fig:conjunction_but:pw}
+\end{figure}
+
+generated sentences in Tab.~\ref{tab:conjunction:but}
+
+\begin{table*}
+    \centering
+    \caption{.}
+    \label{tab:conjunction:but}
+    \begin{tabular}{ll}
+    \toprule
+    sentence & score \\
+    \midrule
+    the robot is touching the cube but the square is inert & $-0.69236$ \\
+    the robot is poking the square but the cube is rolling & $-0.70946$ \\
+    he is touching the green box and the box is moving & $-0.71492$ \\
+    the robot has touched the box and the square is still & $-0.72471$ \\
+    he is touching the square but the small square is inert & $-0.74044$ \\
+    the robot has touched the green square and the small box is moving & $-0.74836$ \\
+    the robot just poked the small square but the square is moving & $-0.8005$ \\
+    the robot is touching the box and the blue square is inert & $-0.80153$ \\
+    the robot is poking the box and the blue square is moving & $-0.80337$ \\
+    baltazar is touching the box but the box moves & $-0.807$ \\
+    \bottomrule
+    \end{tabular}
+\end{table*}

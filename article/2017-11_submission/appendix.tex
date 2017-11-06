@@ -1,10 +1,12 @@
 \section{Grammar Definition}
-This is the grammar definition used to generate descriptions from the probability distribution over words estimated by the model.
-Note however, that no grammar was used in learning: the speech recognizer used as frontend to the spoken descriptions is based on a loop of words with no grammar, and the affordance-word model is based on a bag-of-word assumption where only the presence of absence of each word in the description is considered.
+\label{appendix:grammar}
+Below, we provide the grammar definition used to generate verbal descriptions from the probability distribution over words estimated by the model.
+Note, however, that no grammar was used during the learning phase: the speech recognizer used as a frontend to the spoken descriptions is based on a loop of words with no grammar, and the \AffWords{} model is based on a bag-of-words assumption, where only the presence or absence of each word in the description is considered.
 
 \begin{figure}
   \includegraphics[width=\textwidth, angle=90]{figures/grammar}
-  \caption{Graphical representation of the formal context-free grammar used to generate descriptions from word probability distribution.}
+  \caption{Graphical representation of the formal \acf{CFG} used to generate descriptions from word probability distribution.}
+  \label{fig:grammar}
 \end{figure}
 
 \begin{grammar}
@@ -15,15 +17,15 @@ Note however, that no grammar was used in learning: the speech recognizer used a
   <action> ::= <touch> | <poke> | <tap> | <push> | <grasp> | <pick>
 
   <touch> ::= touches | [has] [just] touched | is touching
-  
+
   <poke> ::= pokes | [has] [just] poked | is poking
-  
+
   <tap> ::= taps | [has] [just] tapped | is tapping
-  
+
   <push> ::= pushes | [has] [just] pushed | is pushing
-  
+
   <grasp> ::= grasps | [has] [just] grasped | is grasping
-  
+
   <pick> ::= picks | [has] [just] picked | is picking
 
   <object> ::= the [<size>] [<color>] <shape>
@@ -39,18 +41,17 @@ Note however, that no grammar was used in learning: the speech recognizer used a
   <effect> ::= <inertmove> | <slideroll> | <fallrise>
 
   <inertmove> ::= is inert | is still | moves | is moving
-  
+
   <slideroll> ::= slides | is sliding | rolls | is rolling
-  
+
   <fallrise> ::= rises | is rising | falls | is falling
 \end{grammar}
 
-Given a probability distribution over the words $P(w_i)$, a number $N$ of sentences is randomly generated from the grammar using the \texttt{HSGen} tool from HTK.
-Then the sentences are rescored according to the log likelihood of each words in the sentence normalized by the lenght of the sentence.
-Finally an n-best list of possible descriptions is produced by sorting the scores.
+Given a probability distribution over the words,~$P(w_i)$, a number~$N$ of sentences is randomly generated from the grammar using the \texttt{HSGen} tool from HTK~\cite{young:htkbook}.
+Then, the sentences are re-scored according to the log-likelihood of each word in the sentence, normalized by the length of the sentence.
+Finally, an $N$-best list of possible descriptions is produced by sorting the scores.
 
 \begin{equation*}
   \text{score}(s_j) = \frac{1}{n_j} \sum_{k=1}^{n_j} \log P(w_{jk}),
 \end{equation*}
-where $s_j$ is the $j$th sentence, $n_j$ is the number of words in sentence $s_j$ and $w_{jk}$ is the $k$th word in sentence $s_j$.
-
+where~$s_j$ is the~$j$th sentence,~$n_j$ is the number of words in the sentence~$s_j$, and~$w_{jk}$ is the~$k$th word in the sentence~$s_j$.
