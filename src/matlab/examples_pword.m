@@ -1,4 +1,10 @@
-%% experiments with probability of words being said
+% Run experiments about the probability of words being said.
+%
+% Dependencies:
+% - FullBNT
+% - https://github.com/giampierosalvi/AffordancesAndSpeech
+%
+% Giovanni Saponaro, Giampiero Salvi
 
 %% user parameters
 show_figures = true;
