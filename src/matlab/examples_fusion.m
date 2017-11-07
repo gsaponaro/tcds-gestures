@@ -1,8 +1,10 @@
-% MAIN  Run experiments related to merging of evidence from affordances
-%       Bayesian Network with evidence from gesture Hidden Markov Model.
+% Run experiments related to merging of evidence from affordances
+% Bayesian Network with (soft probabilistic) evidence from gesture
+% Hidden Markov Model.
 %
-% Pre-requisites: install FullBNT and the words-affordances Bayesian
-%                 Network code (see below).
+% Dependencies:
+% - FullBNT
+% - https://github.com/giampierosalvi/AffordancesAndSpeech
 %
 % Giovanni Saponaro, Giampiero Salvi
 
