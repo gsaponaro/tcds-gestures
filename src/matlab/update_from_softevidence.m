@@ -23,7 +23,7 @@ actions = keys(make_bn_node_map(netobj_lab,'Action'));
 handvels = keys(make_bn_node_map(netobj_lab,'HandVel'));
 
 %% P_BN(inferred | observed), also computed/printed internally by fusion
-marg = BNSoftPredictionAccuracy3(netobj_lab, inferred);
+marg = marginal_prob(netobj_lab, inferred);
 pbn = marg.T;
 
 if create_figures

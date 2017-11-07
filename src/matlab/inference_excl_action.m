@@ -60,7 +60,7 @@ end;
 netobj = BNEnterNodeEvidence(netobj, observed);
 
 % extract predictions (posteriors)
-pred = BNSoftPredictionAccuracy3(netobj, temp_inferred);
+pred = marginal_prob(netobj, temp_inferred);
 
 fprintf('... auxiliary P_BN( ');
 fprintf('%s ', temp_inferred{:});
@@ -97,7 +97,7 @@ disp(result);
 %% BNT soft evidence
 netobj2 = BNResetEvidence(netobj2);
 netobj2 = BNEnterNodeEvidence(netobj2, observed, true, {'Action', hmm_ev});
-pred2 = BNSoftPredictionAccuracy3(netobj2, inferred);
+pred2 = marginal_prob(netobj2, inferred);
 fprintf('using purely BNT, P_comb =\n');
 disp(pred2.T);
 
@@ -110,5 +110,5 @@ fprintf('%s ', observed{:});
 fprintf(') =\n');
 netobj2 = BNResetEvidence(netobj2);
 netobj2 = BNEnterNodeEvidence(netobj2, observed);
-pred_only_bn = BNSoftPredictionAccuracy3(netobj2, inferred);
+pred_only_bn = marginal_prob(netobj2, inferred);
 disp(pred_only_bn.T);

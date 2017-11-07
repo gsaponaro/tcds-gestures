@@ -45,7 +45,7 @@ netobj2 = netobj;
 netobj = BNEnterNodeEvidence(netobj, observed);
 
 % extract predictions (posteriors)
-pred = BNSoftPredictionAccuracy3(netobj, inferred);
+pred = marginal_prob(netobj, inferred);
 
 fprintf('... P_BN =\n');
 disp(pred.T);
@@ -90,7 +90,7 @@ disp(result);
 %% BNT soft evidence
 netobj2 = BNResetEvidence(netobj2);
 netobj2 = BNEnterNodeEvidence(netobj2, observed, true, {'Action', hmm_ev});
-pred2 = BNSoftPredictionAccuracy3(netobj2, inferred);
+pred2 = marginal_prob(netobj2, inferred);
 fprintf('using purely BNT, P_comb =\n');
 disp(pred2.T);
 %this warning is printed also when the matrices seem equal - maybe some
