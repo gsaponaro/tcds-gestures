@@ -3,11 +3,11 @@
 Below, we provide the grammar definition used to generate verbal descriptions from the probability distribution over words estimated by the model.
 Note, however, that no grammar was used during the learning phase: the speech recognizer used as a frontend to the spoken descriptions is based on a loop of words with no grammar, and the \AffWords{} model is based on a bag-of-words assumption, where only the presence or absence of each word in the description is considered.
 
-\begin{figure}
-  \includegraphics[width=\textwidth, angle=90]{figures/grammar}
-  \caption{Graphical representation of the formal \acf{CFG} used to generate descriptions from word probability distribution.}
-  \label{fig:grammar}
-\end{figure}
+%\begin{figure}
+%  \includegraphics[width=\textwidth, angle=90]{figures/grammar}
+%  \caption{Graphical representation of the formal \acf{CFG} used to generate descriptions from word probability distribution.}
+%  \label{fig:grammar}
+%\end{figure}
 
 \begin{grammar}
   <sentence> ::= <agent> <action> <object> <conjunction> <object> <effect>
@@ -47,11 +47,3 @@ Note, however, that no grammar was used during the learning phase: the speech re
   <fallrise> ::= rises | is rising | falls | is falling
 \end{grammar}
 
-Given a probability distribution over the words,~$P(w_i)$, a number~$N$ of sentences is randomly generated from the grammar using the \texttt{HSGen} tool from HTK~\cite{young:htkbook}.
-Then, the sentences are re-scored according to the log-likelihood of each word in the sentence, normalized by the length of the sentence.
-Finally, an $N$-best list of possible descriptions is produced by sorting the scores.
-
-\begin{equation*}
-  \text{score}(s_j) = \frac{1}{n_j} \sum_{k=1}^{n_j} \log P(w_{jk}),
-\end{equation*}
-where~$s_j$ is the~$j$th sentence,~$n_j$ is the number of words in the sentence~$s_j$, and~$w_{jk}$ is the~$k$th word in the sentence~$s_j$.
