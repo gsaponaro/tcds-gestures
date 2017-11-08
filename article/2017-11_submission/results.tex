@@ -2,7 +2,7 @@
 
 \section{Experimental Results}
 
-\subsection{GLU - Effect Prediction}
+\subsection{FROM GLU - Effect Prediction - REMOVE OR TRIM}
 
 Our model permits to make predictions over the effects of actions onto environment objects.
 
@@ -30,7 +30,7 @@ From our combined model of words, affordances and observed actions, we report th
 \label{fig:probdiff}
 \end{figure}
 
-\subsection{GLU - Prediction of Words}
+\subsection{FROM GLU - Prediction of Words - REMOVE OR TRIM}
 
 Our model permits to make predictions over the associated word descriptions in the presence or absence of an action prior.
 
@@ -123,6 +123,17 @@ In the most likely sentence of the list~(in bold), we note that (i)~the correct 
     \end{tabular}%
     } % end resizebox
 \end{table}
+
+\subsection{Impact of Evidence Type (Hard or Soft) on Word Probabilities}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.9\columnwidth]{impact_of_soft_evidence.eps}
+\caption{Side-by-side visualization of the predictions $\pcomb(\text{Action} \given \{ \text{Size=big, Shape=sphere, Action=}\phmm(A \mid G_1^N) \})$ as we give increasingly informative evidence $\phmm(\cdot)$: from uniform~(no evidence) up to hard evidence that Action=tap, with intermediate probability distributions over Action in between.}
+\label{fig:impact_of_soft_evidence}
+\end{figure}
+
+Fig.~\ref{fig:impact_of_soft_evidence}
 
 \subsection{Choice of Correct Conjunction}
 
