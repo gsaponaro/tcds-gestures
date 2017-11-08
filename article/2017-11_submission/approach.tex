@@ -217,21 +217,20 @@ However, the robot has no prior knowledge about the meaning of these clusters.
     \centering
     \caption{The symbolic variables of the \acl{BN} (from~\cite{salvi:2012:smcb}), with the corresponding discrete values obtained from clustering during robot exploration of the environment.}
     \label{tab:bnsymb}
-    %\begin{tabular}{clp{2.7cm}p{2.5cm}}
     \begin{tabular}{cp{3.3cm}l}
     \toprule
-    symbol & description     & values \\
+    symbol & name: description     & values \\
     \midrule
-    $a$ & action          & grasp, tap, touch \\
+    $a$ & Action: motor action          & grasp, tap, touch \\
     \midrule
-    $f_1$ & object color   & blue, yellow, green1, green2 \\
-    $f_2$ & object size     & small, medium, big \\
-    $f_3$ & object shape    & sphere, box \\
+    $f_1$ & Color: object color   & blue, yellow, green1, green2 \\
+    $f_2$ & Size: object size     & small, medium, big \\
+    $f_3$ & Shape: object shape    & sphere, box \\
     \midrule
-    $e_1$ & object velocity & slow, medium, fast \\
-    $e_2$ & robot hand velocity & slow, fast \\
-    $e_3$ & relative object hand velocity & slow, medium, fast \\
-    $e_4$ & object hand contact & short, long \\
+    $e_1$ & ObjVel: object velocity & slow, medium, fast \\
+    $e_2$ & HandVel: robot hand velocity & slow, fast \\
+    $e_3$ & ObjHandVel: relative \objecthand{} velocity & slow, medium, fast \\
+    $e_4$ & Contact: object hand contact & short, long \\
     \midrule
     $w_1$--$w_{49}$ & presence of each word in the verbal description & binary \\
     \bottomrule
