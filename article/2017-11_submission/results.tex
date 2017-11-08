@@ -104,6 +104,7 @@ In the most likely sentence of the list~(in bold), we note that (i)~the correct 
     \centering
     \caption{Sentences generated from the evidence $\xobs = \{\text{Color=yellow, Size=big, Shape=circle, ObjVel=fast}\}$ and ranked according to~\eqref{eq:sentence_score}. The higher the score, the better.}
     \label{tab:example_generated_sentences}
+    \resizebox{\linewidth}{!}{% https://tex.stackexchange.com/a/27105/18819
     \begin{tabular}{ll}
     \toprule
     sentence & score \\
@@ -119,7 +120,8 @@ In the most likely sentence of the list~(in bold), we note that (i)~the correct 
     the robot just touched the sphere and the ball moves & $-0.79609$ \\
     baltazar has poked the ball and the ball rolls & $-0.81551$ \\
     \bottomrule
-    \end{tabular}
+    \end{tabular}%
+    } % end resizebox
 \end{table}
 
 \subsection{Choice of Correct Conjunction}
@@ -144,10 +146,11 @@ evidence:
 
 generated sentences in Tab.~\ref{tab:conjunction:and}
 
-\begin{table*}
+\begin{table}
     \centering
     \caption{Top sentences generated from the evidence~$\xobs^\prime$ of~\eqref{eq:evidence_producing_and}. The ``and'' conjunction was chosen in all of them. Intuitively, the model has learned that a grasping action which produces a significant movement is successful.}
     \label{tab:conjunction:and}
+    \resizebox{\linewidth}{!}{% https://tex.stackexchange.com/a/27105/18819
     \begin{tabular}{ll}
     \toprule
     sentence & score \\
@@ -163,8 +166,9 @@ generated sentences in Tab.~\ref{tab:conjunction:and}
     the robot has grasped the green ball \textbf{and} the green ball falls & $-0.83028$ \\
     baltazar picks the square \textbf{and} the ball is rising & $-0.83326$ \\
     \bottomrule
-    \end{tabular}
-\end{table*}
+    \end{tabular}%
+    } % end resizebox
+\end{table}
 
 \bigskip
 
@@ -189,10 +193,11 @@ evidence:
 
 generated sentences in Tab.~\ref{tab:conjunction:but}
 
-\begin{table*}
+\begin{table}
     \centering
     \caption{Top sentences generated from the evidence~$\xobs''$ of~\eqref{eq:evidence_producing_but}. The ``but'' conjunction was chosen in all of them. Intuitively, the model has learned that a grasping action which produces no movement is a failure.}
     \label{tab:conjunction:but}
+    \resizebox{\linewidth}{!}{% https://tex.stackexchange.com/a/27105/18819
     \begin{tabular}{ll}
     \toprule
     sentence & score \\
@@ -208,8 +213,9 @@ generated sentences in Tab.~\ref{tab:conjunction:but}
     the robot grasped the ball \textbf{but} the green ball is still & $-0.68684$ \\
     baltazar picks the cube \textbf{but} the sphere is still & $-0.70024$ \\
     \bottomrule
-    \end{tabular}
-\end{table*}
+    \end{tabular}%
+    } % end resizebox
+\end{table}
 
 % A clarification is due: even though the conjunction ``and'' is still the most likely, the conjunction ``but'' has a comparable probability, given the observed evidence~(see Fig.~\ref{fig:conjunction_but:pw}).
 % Even so, ``but'' was chosen in the highest-ranked sentence and in two more of the top-ten sentences~(see Tab.~\ref{tab:conjunction:but}).
