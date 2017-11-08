@@ -35,7 +35,10 @@ if create_figures
     ylabel('Action', 'FontSize',fontsize);
     set(gca, 'yticklabel',actions);
     % char(strjoin(string(inferred), ' '))
-    zlabel('P_{BN}(Action,HandVel | Shape=box, ObjVel=fast)', 'FontSize',15);
+    %hz = zlabel('$P_{\rm{BN}}(\rm{Action,HandVel} \mid \rm{Shape=box, ObjVel=fast})$');
+    hz = zlabel('$P_{\rm{BN}}$');
+    set(hz, 'Interpreter','latex');
+    set(hz, 'FontSize',fontsize);
     zlim('manual');
     zlim([0, 1.0]);
     print('-depsc', 'before_softevidence_prediction.eps');
@@ -59,7 +62,10 @@ if create_figures
     set(gca, 'xticklabel',handvels);
     ylabel('Action', 'FontSize',fontsize);
     set(gca, 'yticklabel',actions);
-    zlabel({'P_{comb}(Action,HandVel |'; 'Shape=box, ObjVel=fast, Action=P_{HMM}(Action))'}, 'FontSize',15);
+    %hz = zlabel('$P_{\rm{comb}}(\rm{Action,HandVel} \mid \rm{Shape=box, ObjVel=fast, Action=}P_{\rm{HMM}}(Action))$');
+    hz = zlabel('$P_{\rm{comb}}$');
+    set(hz, 'Interpreter','latex');
+    set(hz, 'FontSize',fontsize);
     zlim('manual');
     zlim([0, 1.0]);
     print('-depsc', 'after_softevidence_prediction.eps');
