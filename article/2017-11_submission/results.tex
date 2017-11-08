@@ -122,18 +122,20 @@ In the most likely sentence of the list~(in bold), we note that (i)~the correct 
     \end{tabular}
 \end{table}
 
-\subsection{Reasoning over Effects, Choice of Correct Conjunction}
+\subsection{Choice of Correct Conjunction}
+
+\newcommand{\evidenceProducingAnd}{'Size', 'small', 'Shape', 'circle', 'Action', 'grasp'}
 
 Example in which the generated conjunction is ``and'' (because of consistency between Action, Object Features and Effect evidence):
 
-evidence: \emph{\{'Size', 'small', 'Shape', 'box', 'Action', 'touch', 'Contact', 'long', 'ObjHandVel', 'slow'\}}
+evidence: \evidenceProducingAnd
 
 resulting word probabilities: Fig.~\ref{fig:conjunction_and:pw}
 
 \begin{figure}
 \centering
 \includegraphics[width=0.9\columnwidth]{and_pw.eps}
-\caption{Word occurrence probabilities given the evidence \emph{\{'Size', 'small', 'Shape', 'box', 'Action', 'touch', 'Contact', 'long', 'ObjHandVel', 'slow'\}}. We have omitted words for which no significant probability was observed.}
+\caption{Word occurrence probabilities given the evidence \emph{\{\evidenceProducingAnd\}}. The ``and'' conjunction has a much higher probability than ``but''. See also Tab.~\ref{tab:conjunction:and}. We have omitted words for which no significant probability was observed.}
 \label{fig:conjunction_and:pw}
 \end{figure}
 
@@ -141,36 +143,40 @@ generated sentences in Tab.~\ref{tab:conjunction:and}
 
 \begin{table*}
     \centering
-    \caption{.}
+    \caption{Sentences generated from the evidence \emph{\{\evidenceProducingAnd\}}. The ``and'' conjunction was chosen~8/10 times. See also Fig.~\ref{fig:conjunction_and:pw}.}
     \label{tab:conjunction:and}
     \begin{tabular}{ll}
     \toprule
     sentence & score \\
     \midrule
-    the robot has touched the box and the square is still & $-0.55989$ \\
-    the robot is touching the box and the blue square is inert & $-0.62944$ \\
-    the robot has poked the green box and the yellow box is inert & $-0.68388$ \\
-    baltazar is touching the blue box and the square is still & $-0.69946$ \\
-    baltazar has poked the cube and the yellow box is inert & $-0.71426$ \\
-    baltazar touched the yellow cube and the square is still & $-0.72961$ \\
-    the robot pokes the yellow square and the yellow cube is inert & $-0.73993$ \\
-    the robot has just touched the yellow box and the square is inert & $-0.76648$ \\
-    baltazar pokes the green square and the blue box is still & $-0.80106$ \\
-    he just poked the blue cube and the yellow cube is still & $-0.97389$ \\
+    baltazar is picking the sphere \textbf{and} the ball is rising & $-0.59377$ \\
+    he picked the sphere \textbf{and} the ball moves & $-0.6413$ \\
+    baltazar grasped the ball \textbf{and} the ball rises & $-0.64737$ \\
+    baltazar grasps the ball \textbf{and} the green ball is moving & $-0.64832$ \\
+    the robot just picked the small sphere \textbf{and} the sphere is rising & $-0.6809$ \\
+    the robot is picking the blue sphere \textbf{and} the sphere is rising & $-0.73636$ \\
+    the robot picks the green ball \textbf{and} the green ball is still & $-0.76653$ \\
+    the robot just picked the ball \textbf{but} the ball is rising & $-0.80258$ \\
+    baltazar picks the green sphere \textbf{and} the sphere is still & $-0.80352$ \\
+    the robot picks the ball \textbf{but} the sphere is inert & $-0.81117$ \\
     \bottomrule
     \end{tabular}
 \end{table*}
 
+\bigskip
+
+\newcommand{\evidenceProducingBut}{'Size', 'small', 'Shape', 'box', 'Action', 'grasp'}
+
 Example in which the generated conjunction is ``but'' (because of no consistency):
 
-evidence: \emph{\{'Size', 'small', 'Shape', 'box', 'Action', 'touch', 'Contact', 'short', 'ObjHandVel', 'medium'\}}
+evidence: \evidenceProducingBut
 
 resulting word probabilities: Fig.~\ref{fig:conjunction_but:pw}
 
 \begin{figure}
 \centering
 \includegraphics[width=0.9\columnwidth]{but_pw.eps}
-\caption{Word occurrence probabilities given the evidence \emph{\{'Size', 'small', 'Shape', 'box', 'Action', 'touch', 'Contact', 'short', 'ObjHandVel', 'medium'\}}. We have omitted words for which no significant probability was observed.}
+\caption{Word occurrence probabilities given the evidence \emph{\{\evidenceProducingBut\}}. The conjunctions ``and'' and ``but'' have comparable probabilities, with the former being slightly higher. See also Tab.~\ref{tab:conjunction:but}. We have omitted words for which no significant probability was observed.}
 \label{fig:conjunction_but:pw}
 \end{figure}
 
@@ -178,22 +184,22 @@ generated sentences in Tab.~\ref{tab:conjunction:but}
 
 \begin{table*}
     \centering
-    \caption{.}
+    \caption{Sentences generated from the evidence \emph{\{\evidenceProducingBut\}}. The ``but'' conjunction was chosen~3/10 times, most importantly in the highest-ranked sentence. See also Fig.~\ref{fig:conjunction_but:pw}.}
     \label{tab:conjunction:but}
     \begin{tabular}{ll}
     \toprule
     sentence & score \\
     \midrule
-    the robot is touching the cube but the square is inert & $-0.69236$ \\
-    the robot is poking the square but the cube is rolling & $-0.70946$ \\
-    he is touching the green box and the box is moving & $-0.71492$ \\
-    the robot has touched the box and the square is still & $-0.72471$ \\
-    he is touching the square but the small square is inert & $-0.74044$ \\
-    the robot has touched the green square and the small box is moving & $-0.74836$ \\
-    the robot just poked the small square but the square is moving & $-0.8005$ \\
-    the robot is touching the box and the blue square is inert & $-0.80153$ \\
-    the robot is poking the box and the blue square is moving & $-0.80337$ \\
-    baltazar is touching the box but the box moves & $-0.807$ \\
+    the robot grasped the box \textbf{but} the square is inert & $-0.66595$ \\
+    the robot grasped the cube \textbf{and} the square is inert & $-0.67108$ \\
+    the robot picks the square \textbf{and} the square is inert & $-0.67156$ \\
+    the robot picks the square \textbf{and} the square is rising & $-0.70709$ \\
+    baltazar is picking the cube \textbf{but} the square is still & $-0.72525$ \\
+    he is grasping the square \textbf{and} the square is rising & $-0.72734$ \\
+    the robot grasped the small cube \textbf{and} the box is falling & $-0.73091$ \\
+    he is picking the green square \textbf{and} the cube is inert & $-0.74436$ \\
+    baltazar grasped the box \textbf{and} the box is inert & $-0.74621$ \\
+    he is grasping the box \textbf{but} the box is rising & $-0.74632$ \\
     \bottomrule
     \end{tabular}
 \end{table*}

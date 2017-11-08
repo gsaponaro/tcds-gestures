@@ -24,7 +24,8 @@ fprintf('%d.\n', e);
 
 %% enter some evidence
 netobj_lab = BNEnterNodeEvidence(netobj_lab, ...
-    {'Size', 'small', 'Shape', 'box', 'Action', 'touch', 'Contact', 'long', 'ObjHandVel', 'slow'});
+    {'Size', 'small', 'Shape', 'circle', 'Action', 'grasp'});
+    %{'Size', 'small', 'Shape', 'box', 'Action', 'touch', 'Contact', 'long', 'ObjHandVel', 'slow'});
 
 %% extract word probabilities
 pw = BNGetWordProbs(netobj_lab);
@@ -67,7 +68,8 @@ fprintf('\n');
 fprintf('%d.\n', e);
 
 netobj_lab = BNEnterNodeEvidence(netobj_lab, ...
-    {'Size', 'small', 'Shape', 'box', 'Action', 'touch', 'Contact', 'short', 'ObjHandVel', 'medium'});
+    {'Size', 'small', 'Shape', 'box', 'Action', 'grasp'});
+    %{'Size', 'small', 'Shape', 'box', 'Action', 'touch', 'Contact', 'short', 'ObjHandVel', 'medium'});
 
 pw = BNGetWordProbs(netobj_lab);
 toplot = pw>word_threshold;
