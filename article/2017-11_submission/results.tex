@@ -71,6 +71,7 @@ Consequently, the descriptions that the model generates when observing humans us
 The textual descriptions are generated as follows: we provide evidence to the model~(hard or soft evidence), we extract the generated word probabilities $P(w_i\given \text{evidence})$.
 We generate $N$ sentences randomly from the \ac{CFG} using the \texttt{HSGen} tool from HTK~\cite{young:htkbook}.
 Then, the sentences are re-scored according to the log-likelihood of each word in the sentence, normalized by the length of the sentence:
+% TODO: replace "evidence" with \xobs ?
 \begin{equation*}
   \text{score}(s_j\given \text{evidence}) = \frac{1}{n_j} \sum_{k=1}^{n_j} \log P(w_{jk}\given \text{evidence}),
 \end{equation*}
@@ -81,16 +82,26 @@ Finally, an $N$-best list of possible descriptions is produced by sorting the sc
 %To examine the generated verbal description, we proceed as follows:  and then we match them to a list of~\SI{1000} possible sentences~(randomly generated according to the \ac{CFG}).
 %The matching process is described in Appendix~\ref{appendix:grammar}.
 
-For example, if we provide the following evidence the model:
+For example, if we provide the following evidence to the model:
 \begin{equation*}
 \{\text{Color=yellow, Size=big, Shape=circle, ObjVel=fast}\},
 \end{equation*}
-we obtain the sentences reported in Table~\ref{tab:generated_sentences_1}.
+we obtain
+%the word probabilities of Fig.~\ref{fig:example_pw} and
+the sentences reported in Table~\ref{tab:example_generated_sentences}.
+In the most likely sentence of the list~(in bold), we note how (i)~the correct action-related verb ``taps'' is generated, and (ii)~the object term ``ball'' is used twice, both in the first part and in the second part of the sentence.
+
+% \begin{figure}
+% \centering
+% \includegraphics[width=0.9\columnwidth]{example_pw.eps}
+% \caption{Word occurrence probabilities given the evidence \emph{\{Color=yellow, Size=big, Shape=circle, ObjVel=fast\}}. We have omitted words for which no significant probability was observed.}
+% \label{fig:example_pw}
+% \end{figure}
 
 \begin{table}
     \centering
-    \caption{Sentences generated from the evidence $\{\text{Color=yellow, Size=big, Shape=circle, ObjVel=fast}\}$. The higher the score, the better. In the most likely sentence, the correct action-related verb ``taps'' is generated, and the object term ``ball'' is used twice, both in the first part and in the second part of the sentence.}
-    \label{tab:generated_sentences_1}
+    \caption{Sentences generated from the evidence $\{\text{Color=yellow, Size=big, Shape=circle, ObjVel=fast}\}$. The higher the score, the better.}
+    \label{tab:example_generated_sentences}
     \begin{tabular}{ll}
     \toprule
     sentence & score \\
