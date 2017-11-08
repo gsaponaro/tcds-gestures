@@ -7,6 +7,7 @@ load('BN_lab.mat');
 %% user parameters
 word_threshold = 0.2;
 create_figures = true;
+fontsize = 20;
 
 % 1000 sentences generated randomly accroding to the grammar in
 % AffordanceAndSpeech/word2sent/grammar.grm (see Makefile for more
@@ -17,30 +18,27 @@ sentenceFilename = 'sentence_data/sentence_1000samples.txt';
 %% example counter
 e = 1;
 
-%% Example in which the generated conjunction is ``and'' (because of
-%% consistency between Action, Object Features and Effect evidence)
+%% Example in which the generated conjunction is ``and''
 
 fprintf('%d.\n', e);
 
 %% enter some evidence
 netobj_lab = BNEnterNodeEvidence(netobj_lab, ...
-    {'Action', 'grasp', 'ObjVel', 'slow'});
-%    {'Action', 'grasp', 'Contact', 'long'});
-    %{'Size', 'small', 'Shape', 'box', 'Action', 'touch', 'Contact', 'long', 'ObjHandVel', 'slow'});
+    {'Action', 'grasp', 'ObjVel', 'medium'});
 
 %% extract word probabilities
-pw = BNGetWordProbs(netobj_lab);
+pw_evidenceand = BNGetWordProbs(netobj_lab);
 
-toplot = pw>word_threshold;
-if create_figures
-    figure;
-    bar(pw(toplot));
-    set(gca, 'xtick', 1:length(netobj_lab.WORDNODES(toplot)));
-    set(gca, 'xticklabel', netobj_lab.nodeNames(netobj_lab.WORDNODES(toplot)));
-    set(gca,'XTickLabelRotation',45);
-    ylabel('$p(w_i)$', 'Interpreter','latex', 'FontSize', 20);
-    print('-depsc', 'and_pw.eps');
-end;
+% toplot = pw>word_threshold;
+% if create_figures
+%     figure;
+%     bar(pw(toplot));
+%     set(gca, 'xtick', 1:length(netobj_lab.WORDNODES(toplot)));
+%     set(gca, 'xticklabel', netobj_lab.nodeNames(netobj_lab.WORDNODES(toplot)));
+%     set(gca,'XTickLabelRotation',45);
+%     ylabel('$p(w_i)$', 'Interpreter','latex', 'FontSize', 20);
+%     print('-depsc', 'and_pw.eps');
+% end;
 
 %% rescore sentences with word probabilities and pick best sentence
 [sentences, normlogprobs] = BNScoreSentences(netobj_lab, sentenceFilename);
@@ -63,27 +61,24 @@ netobj_lab = BNResetEvidence(netobj_lab);
 e = e+1;
 fprintf('\n');
 
-%% Example in which the generated conjunction is ``but'' (because of
-%% no consistency between Action, Object Features and Effect evidence):
+%% Example in which the generated conjunction is ``but''
 
 fprintf('%d.\n', e);
 
 netobj_lab = BNEnterNodeEvidence(netobj_lab, ...
-    {'Action', 'grasp', 'ObjVel', 'medium'});
-%    {'Action', 'grasp', 'Contact', 'short'});
-    %{'Size', 'small', 'Shape', 'box', 'Action', 'touch', 'Contact', 'short', 'ObjHandVel', 'medium'});
+    {'Action', 'grasp', 'ObjVel', 'slow'});
 
-pw = BNGetWordProbs(netobj_lab);
-toplot = pw>word_threshold;
-if create_figures
-    figure;
-    bar(pw(toplot));
-    set(gca, 'xtick', 1:length(netobj_lab.WORDNODES(toplot)));
-    set(gca, 'xticklabel', netobj_lab.nodeNames(netobj_lab.WORDNODES(toplot)));
-    set(gca,'XTickLabelRotation',45);
-    ylabel('$p(w_i)$', 'Interpreter','latex', 'FontSize', 20);
-    print('-depsc', 'but_pw.eps');
-end;
+pw_evidencebut = BNGetWordProbs(netobj_lab);
+% toplot = pw>word_threshold;
+% if create_figures
+%     figure;
+%     bar(pw(toplot));
+%     set(gca, 'xtick', 1:length(netobj_lab.WORDNODES(toplot)));
+%     set(gca, 'xticklabel', netobj_lab.nodeNames(netobj_lab.WORDNODES(toplot)));
+%     set(gca,'XTickLabelRotation',45);
+%     ylabel('$p(w_i)$', 'Interpreter','latex', 'FontSize', 20);
+%     print('-depsc', 'but_pw.eps');
+% end;
 
 [sentences, normlogprobs] = BNScoreSentences(netobj_lab, sentenceFilename);
 
@@ -96,3 +91,17 @@ nbest = 10;
 for h=1:nbest
     disp([sentences{sortedidxs(h)} ' ' num2str(normlogprobs(sortedidxs(h)))]);
 end
+
+if create_figures
+    figure;
+    pand_evidenceand = pw_evidenceand(strcmp(netobj_lab.nodeNames(netobj_lab.WORDNODES), 'and'));
+    pand_evidencebut = pw_evidencebut(strcmp(netobj_lab.nodeNames(netobj_lab.WORDNODES), 'and'));
+    pbut_evidenceand = pw_evidenceand(strcmp(netobj_lab.nodeNames(netobj_lab.WORDNODES), 'but'));
+    pbut_evidencebut = pw_evidencebut(strcmp(netobj_lab.nodeNames(netobj_lab.WORDNODES), 'but'));
+    pand_pbut = [pand_evidenceand pand_evidencebut; pbut_evidenceand pbut_evidencebut];
+    bar(pand_pbut);
+    set(gca, 'XTickLabel', {'and','but'}, 'FontSize',fontsize);
+    ylabel('$p(w_i)$', 'Interpreter','latex', 'FontSize',fontsize);
+    legend({'Action=grasp, ObjVel=medium','Action=grasp, ObjVel=slow'}, 'Location','north');
+    print('-depsc', 'p_conjunctions.eps');
+end;
