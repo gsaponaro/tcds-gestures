@@ -24,7 +24,8 @@ fprintf('%d.\n', e);
 
 %% enter some evidence
 netobj_lab = BNEnterNodeEvidence(netobj_lab, ...
-    {'Size', 'small', 'Shape', 'circle', 'Action', 'grasp'});
+    {'Action', 'grasp', 'ObjVel', 'slow'});
+%    {'Action', 'grasp', 'Contact', 'long'});
     %{'Size', 'small', 'Shape', 'box', 'Action', 'touch', 'Contact', 'long', 'ObjHandVel', 'slow'});
 
 %% extract word probabilities
@@ -68,7 +69,8 @@ fprintf('\n');
 fprintf('%d.\n', e);
 
 netobj_lab = BNEnterNodeEvidence(netobj_lab, ...
-    {'Size', 'small', 'Shape', 'box', 'Action', 'grasp'});
+    {'Action', 'grasp', 'ObjVel', 'medium'});
+%    {'Action', 'grasp', 'Contact', 'short'});
     %{'Size', 'small', 'Shape', 'box', 'Action', 'touch', 'Contact', 'short', 'ObjHandVel', 'medium'});
 
 pw = BNGetWordProbs(netobj_lab);
