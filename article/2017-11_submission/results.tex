@@ -128,7 +128,10 @@ In the most likely sentence of the list~(in bold), we note that (i)~the correct 
 
 Example in which the generated conjunction is ``and'' (because of consistency between nodes evidence):
 
-evidence: \evidenceProducingAnd
+evidence:
+\begin{equation} \label{eq:evidence_producing_and}
+    \xobs^\prime = \{ \text{\evidenceProducingAnd} \}
+\end{equation}
 
 %resulting word probabilities: Fig.~\ref{fig:conjunction_and:pw}
 
@@ -143,7 +146,7 @@ generated sentences in Tab.~\ref{tab:conjunction:and}
 
 \begin{table*}
     \centering
-    \caption{Top sentences generated from the evidence \emph{\{\evidenceProducingAnd\}}. The ``and'' conjunction was chosen in all of them. Intuitively, the model has learned that a grasping action which produces a significant movement is successful.}
+    \caption{Top sentences generated from the evidence~$\xobs^\prime$ of~\eqref{eq:evidence_producing_and}. The ``and'' conjunction was chosen in all of them. Intuitively, the model has learned that a grasping action which produces a significant movement is successful.}
     \label{tab:conjunction:and}
     \begin{tabular}{ll}
     \toprule
@@ -169,7 +172,11 @@ generated sentences in Tab.~\ref{tab:conjunction:and}
 
 Example in which the generated conjunction is ``but'' (because of no consistency):
 
-evidence: \evidenceProducingBut
+evidence:
+\begin{equation} \label{eq:evidence_producing_but}
+    \xobs'' = \{ \text{\evidenceProducingBut} \}
+\end{equation}
+
 
 %resulting word probabilities: Fig.~\ref{fig:conjunction_but:pw}
 
@@ -184,7 +191,7 @@ generated sentences in Tab.~\ref{tab:conjunction:but}
 
 \begin{table*}
     \centering
-    \caption{Top sentences generated from the evidence \emph{\{\evidenceProducingBut\}}. The ``but'' conjunction was chosen in all of them. Intuitively, the model has learned that a grasping action which produces no movement is a failure.}
+    \caption{Top sentences generated from the evidence~$\xobs''$ of~\eqref{eq:evidence_producing_but}. The ``but'' conjunction was chosen in all of them. Intuitively, the model has learned that a grasping action which produces no movement is a failure.}
     \label{tab:conjunction:but}
     \begin{tabular}{ll}
     \toprule
@@ -204,9 +211,9 @@ generated sentences in Tab.~\ref{tab:conjunction:but}
     \end{tabular}
 \end{table*}
 
-A clarification is due: even though the conjunction ``and'' is still the most likely, the conjunction ``but'' has a comparable probability, given the observed evidence~(see Fig.~\ref{fig:conjunction_but:pw}).
-Even so, ``but'' was chosen in the highest-ranked sentence and in two more of the top-ten sentences~(see Tab.~\ref{tab:conjunction:but}).
-This result can be loosely interpreted as TODO
+% A clarification is due: even though the conjunction ``and'' is still the most likely, the conjunction ``but'' has a comparable probability, given the observed evidence~(see Fig.~\ref{fig:conjunction_but:pw}).
+% Even so, ``but'' was chosen in the highest-ranked sentence and in two more of the top-ten sentences~(see Tab.~\ref{tab:conjunction:but}).
+% This result can be loosely interpreted as TODO
 
 \begin{figure}
 \centering

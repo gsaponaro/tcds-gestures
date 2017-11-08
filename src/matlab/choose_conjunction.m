@@ -102,6 +102,9 @@ if create_figures
     bar(pand_pbut);
     set(gca, 'XTickLabel', {'and','but'}, 'FontSize',fontsize);
     ylabel('$p(w_i)$', 'Interpreter','latex', 'FontSize',fontsize);
-    legend({'Action=grasp, ObjVel=medium','Action=grasp, ObjVel=slow'}, 'Location','north');
+    l = legend('$X_{\rm{obs}}^\prime$', '$X_{\rm{obs}}^{\prime\prime}$');
+    set(l, 'Location','north');
+    set(l, 'Interpreter','latex');
+    set(l, 'FontSize',fontsize);
     print('-depsc', 'p_conjunctions.eps');
 end;
