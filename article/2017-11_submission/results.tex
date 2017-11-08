@@ -68,13 +68,15 @@ Consequently, the descriptions that the model generates when observing humans us
 
 %The first expression of sentences formed with the grammar is always a subject with the non-terminal token \verb!<agent>!, which is expanded \emph{randomly} to one of the following: ``the robot'', ``he'', or ``Baltazar''~(i.e., the name of the humanoid robot used in the experiments). In other words, the choice of the possible expansion is not related to the evidence in the other nodes of the model. This is evident also by looking at the leftmost word nodes of Fig.~\ref{fig:grammar}, which not linked to any other words.
 
-The textual descriptions are generated as follows: we provide evidence to the model~(hard or soft evidence), we extract the generated word probabilities $P(w_i\given \text{evidence})$.
-We generate $N$ sentences randomly from the \ac{CFG} using the \texttt{HSGen} tool from HTK~\cite{young:htkbook}.
+The textual descriptions are generated as follows: given some observed evidence~$\xobs$ that we provide to the model~(hard or soft evidence), we extract the generated word probabilities
+%$P(w_i\given \text{evidence})$.
+$P(w_i \given \xobs)$.
+We generate~$N$ sentences randomly from the \ac{CFG} using the \texttt{HSGen} tool from HTK~\cite{young:htkbook}.
 Then, the sentences are re-scored according to the log-likelihood of each word in the sentence, normalized by the length of the sentence:
-% TODO: replace "evidence" with \xobs ?
-\begin{equation*}
-  \text{score}(s_j\given \text{evidence}) = \frac{1}{n_j} \sum_{k=1}^{n_j} \log P(w_{jk}\given \text{evidence}),
-\end{equation*}
+\begin{equation} \label{eq:sentence_score}
+  %\text{score}(s_j\given \text{evidence}) = \frac{1}{n_j} \sum_{k=1}^{n_j} \log P(w_{jk}\given \text{evidence}),
+  \text{score}(s_j \given \xobs) = \frac{1}{n_j} \sum_{k=1}^{n_j} \log P(w_{jk} \given \xobs),
+\end{equation}
 where~$s_j$ is the~$j$th sentence,~$n_j$ is the number of words in the sentence~$s_j$, and~$w_{jk}$ is the~$k$th word in the sentence~$s_j$.
 
 Finally, an $N$-best list of possible descriptions is produced by sorting the scores.
@@ -84,12 +86,12 @@ Finally, an $N$-best list of possible descriptions is produced by sorting the sc
 
 For example, if we provide the following evidence to the model:
 \begin{equation*}
-\{\text{Color=yellow, Size=big, Shape=circle, ObjVel=fast}\},
+\xobs = \{\text{Color=yellow, Size=big, Shape=circle, ObjVel=fast}\},
 \end{equation*}
 we obtain
 %the word probabilities of Fig.~\ref{fig:example_pw} and
 the sentences reported in Table~\ref{tab:example_generated_sentences}.
-In the most likely sentence of the list~(in bold), we note how (i)~the correct action-related verb ``taps'' is generated, and (ii)~the object term ``ball'' is used twice, both in the first part and in the second part of the sentence.
+In the most likely sentence of the list~(in bold), we note that (i)~the correct action-related verb ``taps'' is generated (in the initial evidence, no action information was present, only object features and effects information were), and (ii)~the object term ``ball'' is used twice, both in the first part and in the second part of the sentence (which we can interpret as a coherent choice).
 
 % \begin{figure}
 % \centering
@@ -100,7 +102,7 @@ In the most likely sentence of the list~(in bold), we note how (i)~the correct a
 
 \begin{table}
     \centering
-    \caption{Sentences generated from the evidence $\{\text{Color=yellow, Size=big, Shape=circle, ObjVel=fast}\}$. The higher the score, the better.}
+    \caption{Sentences generated from the evidence $\xobs = \{\text{Color=yellow, Size=big, Shape=circle, ObjVel=fast}\}$ and ranked according to~\eqref{eq:sentence_score}. The higher the score, the better.}
     \label{tab:example_generated_sentences}
     \begin{tabular}{ll}
     \toprule
