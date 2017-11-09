@@ -2,12 +2,28 @@
 
 \section{Experimental Results}
 
-\subsection{FROM GLU - Effect Prediction - REMOVE OR TRIM}
+In this section, we report our experimental findings obtained with our proposed model when using information originating from the observation of an external agent~(human).
+We present the following types of results:
+\begin{itemize}
+  \item inferences over affordance information, such as actions, object features and effects;
 
-Our model permits to make predictions over the effects of actions onto environment objects.
+  \item predictions over word probabilities;
 
-In this experiment, we assume that the Gesture \acp{HMM} provide the discrete value of the recognized action performed by a human agent~(i.e., we enforce a hard decision over the observed action).
-%, referring to the possible combination strategies listed in Sec.~\ref{sec:combination}).
+  \item generated verbal descriptions from word probabilities, which in turn give rise to language phenomena such as choice of most appropriate conjunction, choice of subject being repeated between two consecutive sentences.
+\end{itemize}
+
+\subsection{Inference over Affordances}
+
+RESULT FROM GLU WITH HARD EVIDENCE
+
+Our combined model can make predictions over the elements that form our computational concept of affordances, i.e., Action, Object Features, Effects in Fig.~\ref{fig:model}.
+For example, we can reason about the effects that actions cause onto environment objects.
+%In this experiment, we assume that the Gesture \acp{HMM} provide the discrete value of the recognized action performed by a human agent~(i.e., we enforce a hard decision over the observed action).
+In this first experiment, for simplicity we assume that the Gesture \acp{HMM} provide a \emph{hard decision} over the discrete value of the recognized action performed by a human agent.
+%From our combined model of words, affordances and observed actions, 
+In Fig.~\ref{fig:effect_pred}, we show the inferred posterior value of the Object Velocity effect, given prior information about the action~(provided by the Gesture \acp{HMM}) and also about object features~(Shape and Size) for two types of objects.
+%Fig.~\ref{fig:effect_pred} shows the computed predictions in two cases.
+Fig.~\ref{fig:effect_pred:sphere} shows the anticipated object velocity when the human user performs the tapping action onto a small spherical object, whereas Fig.~\ref{fig:effect_pred:box} displays it when the target object is a big box. Indeed, given the same observed action prior~(lateral tap on the object), the expected movement is very different depending on the physical properties of the target object.
 
 \begin{figure}
     \centering
@@ -16,52 +32,22 @@ In this experiment, we assume that the Gesture \acp{HMM} provide the discrete va
     %
     \subfloat[][Prediction of the movement effect on a big box.]
     { \includegraphics[width=0.45\linewidth]{effectpred_box.eps} \label{fig:effect_pred:box} }
-    \caption{Object velocity predictions, given prior information~(from Gesture \acp{HMM}) that the human user performs a tapping action.}
+    \caption{Object velocity predictions, given prior information~(from Gesture \acp{HMM} \emph{hard decision}) that the human user performs a tapping action.}
     \label{fig:effect_pred}
 \end{figure}
 
-
-From our combined model of words, affordances and observed actions, we report the inferred posterior value of the Object Velocity effect, given prior information about the action~(provided by the Gesture \acp{HMM}) and also about object features~(Shape and Size). Fig.~\ref{fig:effect_pred} shows the computed predictions in two cases. Fig.~\ref{fig:effect_pred:sphere} shows the anticipated object velocity when the human user performs the tapping action onto a small spherical object, whereas Fig.~\ref{fig:effect_pred:box} displays it when the target object is a big box. Indeed, given the same observed action prior~(lateral tap on the object), the expected movement is very different depending on the physical properties of the target object.
-
-\begin{figure}
-\centering
-\includegraphics[width=0.9\columnwidth]{partialfig.eps}
-\caption{Variation of word occurrence probabilities: $\Delta p(w_i) = p(w_i \mid F, E, A=\text{tap}) - p(w_i \mid F,E)$, where $F = \{\text{Size=big, Shape=sphere}\}$, $E = \{\text{ObjVel=fast}\}$. This variation corresponds to the difference of word probability when we add the tap action evidence~(obtained from the Gesture \acp{HMM}) to the initial evidence about object features and effects. We have omitted words for which no significant variation was observed.}
-\label{fig:probdiff}
-\end{figure}
-
-\subsection{FROM GLU - Prediction of Words from Hard Evidence - REMOVE OR TRIM}
-\label{sec:results:pword_hard_evidence}
-Our model permits to make predictions over the associated word descriptions in the presence or absence of an action prior.
-
-As in the previous experiment, we assume that the Gesture \acp{HMM} provide the discrete value of the recognized action performed by a human agent~(i.e., we enforce a hard decision over the observed action).
-
-We compare the associated \emph{verbal description} obtained by the \acl{BN} in the absence of an action prior, with the ones obtained in the presence of one. In particular, we compare the \emph{probability of word occurrence} in the following two situations:
-\begin{enumerate}
-\item when the robot prior knowledge~(evidence in the \ac{BN}) includes information about object features and effects only: \emph{Size=big, Shape=sphere, ObjVel=fast};
-
-\item when the robot prior knowledge includes, in addition to the above, evidence about the action as observed from the Gestures \acp{HMM}: \emph{Action=tap}.
-\end{enumerate}
-
-Fig.~\ref{fig:probdiff} shows the variation in word occurrence probabilities between the two cases, where we have omitted words for which no significant variation was observed in this case. We can interpret the difference in the predictions as follows:
-\begin{itemize}
-\item as expected, the probabilities of words related to tapping and pushing increase when a tapping action evidence from the Gestures \acp{HMM} is introduced; conversely, the probabilities of other action words~(touching and poking) decreases;
-
-\item interestingly, the probability of the word \emph{rolling}~(which is an effect of an action onto an object) also increases when the tapping action evidence is entered. Even though the initial evidence of case~$1$ already included some effect information~(the velocity of the object), it is only now, when the robot perceives that the physical action was a tap, that the event rolling is associated.
-\end{itemize}
-
-\subsection{Prediction from Soft Evidence}
+NEW RESULT WITH SOFT EVIDENCE (Action)
 
 \begin{figure}
 \centering
 \includegraphics[width=0.9\columnwidth]{impact_of_evidence_on_Action.eps}
-%\caption{Side-by-side visualization of the predictions $\pcomb(\text{Action} \given \{ \text{Size=big, Shape=sphere, Action=}\phmm(A \mid G_1^N) \})$ as we give increasingly informative evidence $\phmm(\cdot)$: from uniform~(no evidence) up to hard evidence that Action=tap, with intermediate probability distributions over Action in between.}
 \caption{Predictions about the action over a big sphere, when given different probabilistic soft evidence about the action.}
 \label{fig:impact_of_evidence_on_Action}
 \end{figure}
 
 TODO comment Fig.~\ref{fig:impact_of_evidence_on_Action}
 
+NEW RESULT WITH SOFT EVIDENCE (ObjVel)
 
 \begin{figure*}
 \centering
@@ -76,8 +62,35 @@ TODO comment Fig.~\ref{fig:impact_of_evidence_on_Action}
 
 TODO comment Fig.~\ref{fig:impact_of_evidence_on_ObjVel}
 
+\subsection{Prediction of Words}
 
-\subsection{Emergence of Verbal Descriptions}
+RESULT FROM GLU WITH HARD EVIDENCE
+
+\begin{figure}
+\centering
+\includegraphics[width=0.9\columnwidth]{partialfig.eps}
+\caption{Variation of word occurrence probabilities: $\Delta p(w_i) = p(w_i \mid F, E, A=\text{tap}) - p(w_i \mid F,E)$, where $F = \{\text{Size=big, Shape=sphere}\}$, $E = \{\text{ObjVel=fast}\}$. This variation corresponds to the difference of word probability when we add the tap action evidence~(obtained from the Gesture \acp{HMM}) to the initial evidence about object features and effects. We have omitted words for which no significant variation was observed.}
+\label{fig:probdiff}
+\end{figure}
+
+Our model permits to make predictions over the associated word descriptions in the presence or absence of an action prior.
+%As in the previous experiment, we assume that the Gesture \acp{HMM} provide the discrete value of the recognized action performed by a human agent~(i.e., we enforce a hard decision over the observed action).
+We compare the associated \emph{verbal description} obtained by the \acl{BN} in the absence of an action prior, with the ones obtained in the presence of one.
+In particular, we compare the \emph{probability of word occurrence} resulting from the following two situations:
+\begin{enumerate}
+%\item when the robot prior knowledge~(evidence in the \ac{BN}) includes information about object features and effects only: \emph{Size=big, Shape=sphere, ObjVel=fast};
+%\item when the robot prior knowledge includes, in addition to the above, evidence about the action as observed from the Gestures \acp{HMM}: \emph{Action=tap}.
+\item robot prior knowledge evidence consisting of information about object features and effects only: %$\xobs^{\text{before}} = \{ \text{Size=big, Shape=sphere, ObjVel=fast} \}$;
+\{Size=big, Shape=sphere, ObjVel=fast\};
+
+\item prior evidence as in the previous situation, with the addition of the action observed from the Gestures \acp{HMM}: %$\xobs^{\text{after}} = \{ \text{Size=big, Shape=sphere, ObjVel=fast, Action=tap} \}$.
+\{Size=big, Shape=sphere, ObjVel=fast, Action=tap\}.
+\end{enumerate}
+
+Fig.~\ref{fig:probdiff} shows the variation in word occurrence probabilities between the two cases, where we have omitted words for which no significant variation was observed.
+We can interpret the difference in the predictions as follows: (i)~as expected, the probabilities of words related to tapping and pushing increase when a tapping action evidence from the Gestures \acp{HMM} is introduced; conversely, the probabilities of other action words~(touching and poking) decreases; (ii)~interestingly, the probability of the word \emph{rolling}~(which is an effect of an action onto an object) also increases when the tapping action evidence is entered. Even though the initial evidence of case~$1$ already included some effect information~(the velocity of the object), it is only now, when the robot perceives that the physical action was a tap, that the event rolling is associated.
+
+\subsection{Verbal Descriptions and Language Properties}
 
 In TODO ADD REF, we have seen how our model is able to generate word probabilities after having received probabilistic observed evidence.
 In order to illustrate the capabilities of the model, we use the \ac{CFG} described in Appendix~\ref{appendix:grammar} to generate written descriptions of the robot observations on the basis of the probability distributions of the words inferred by the model.
@@ -85,15 +98,10 @@ Note that this grammar is defined here with the only purpose to interpret the pr
 The grammar was neither used in the speech recognition system, nor in learning the associations of the spoken utterances to the affordance variables.
 In the model described in~\cite{salvi:2012:smcb}, the speech recognizer used a free loop of words with uniform prior distribution over the words, and the Bayesian model used a bag-of-words assumption, thus disregarding any syntactic information about the spoken descriptions.
 
-%Before analyzing the results, some clarifications are due about the \ac{CFG}:
-%(i)~this grammar was used only for automatic speech recognition of the spoken descriptions provided by human narrators in the experiment of~\cite{salvi:2012:smcb}; it was \emph{not} used during the \AffWords{} \ac{BN} learning phase, which was unsupervised;
-%(ii)~the speech recognizer is based on the bag-of-words assumptions, meaning that it considers a loop of words with no grammatical structure, where only the binary presence or absence of each word is considered;
-During the self-centered learning phase, the verbal descriptions described the agent of the observed actions as either ``the robot'', ``he'', or ``Baltazar''.
+During the self-centered learning phase, the verbal descriptions described the agent of the observed actions as either ``the~robot'', ``he'', or ``Baltazar''.
 Consequently, the \AffWords{} model learned by the robot includes those words.
 In the current study, by merging the \AffWords{} model and the gesture/action recognition model, we allow the robot to reinterpret the concepts it has learned in the self-centered phase, but we do not add any new words to the model.
 Consequently, the descriptions that the model generates when observing humans use the same words to describe the agent.
-
-%The first expression of sentences formed with the grammar is always a subject with the non-terminal token \verb!<agent>!, which is expanded \emph{randomly} to one of the following: ``the robot'', ``he'', or ``Baltazar''~(i.e., the name of the humanoid robot used in the experiments). In other words, the choice of the possible expansion is not related to the evidence in the other nodes of the model. This is evident also by looking at the leftmost word nodes of Fig.~\ref{fig:grammar}, which not linked to any other words.
 
 The textual descriptions are generated as follows: given some observed evidence~$\xobs$ that we provide to the model~(hard or soft evidence), we extract the generated word probabilities
 %$P(w_i\given \text{evidence})$.
@@ -106,9 +114,6 @@ Then, the sentences are re-scored according to the log-likelihood of each word i
 \end{equation}
 where~$s_j$ is the~$j$th sentence,~$n_j$ is the number of words in the sentence~$s_j$, and~$w_{jk}$ is the~$k$th word in the sentence~$s_j$.
 Finally, an $N$-best list of possible descriptions is produced by sorting the scores.
-
-%To examine the generated verbal description, we proceed as follows:  and then we match them to a list of~\SI{1000} possible sentences~(randomly generated according to the \ac{CFG}).
-%The matching process is described in Appendix~\ref{appendix:grammar}.
 
 For example, if we provide the following evidence to the model:
 \begin{equation} \label{eq:evidence_example}
@@ -207,7 +212,6 @@ evidence:
 \begin{equation} \label{eq:evidence_producing_but}
     \xobs'' = \{ \text{\evidenceProducingBut} \}
 \end{equation}
-
 
 %resulting word probabilities: Fig.~\ref{fig:conjunction_but:pw}
 
