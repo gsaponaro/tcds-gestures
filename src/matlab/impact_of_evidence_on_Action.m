@@ -168,23 +168,23 @@ pbn8 = [0; 1; 0];
 if create_figures
     figure;
 
-    h1 = subplot(1,2,1);
-    b = bar([pbn1 pbn2 pbn3 pbn4 pbn5 pbn6 pbn7 pbn8]);
-    xlabel('Action', 'FontSize',fontsize);
-    set(gca, 'XTickLabel', actions, 'FontSize',fontsize);
-    ylabel('$P_{\rm{comb}}$', 'Interpreter','latex', 'FontSize',fontsize);
-
-    h2 = subplot(1,2,2);
-    set(h2, 'Visible','off');
-    b2 = bar([repmat([0 0 0],8,1)']);
-    %set(b2, 'Visible','off');
-    l = legend(b2, 'uniform (no evidence)', '[0.3 0.4 0.3]', '[0.25 0.5 0.25]', ...
-        '[0.2 0.6 0.2]', '[0.2 0.7 0.2]', '[0.1 0.8 0.1]', '[0.05 0.9 0.05]', ...
-        '[0 1 0] (hard evidence)');
-    set(l, 'Location','northeast');
-    set(l, 'FontSize',fontsize);
-
-    print('-depsc', 'impact_of_soft_evidence.eps');
+%     h1 = subplot(1,2,1);
+%     b = bar([pbn1 pbn2 pbn3 pbn4 pbn5 pbn6 pbn7 pbn8]);
+%     xlabel('Action', 'FontSize',fontsize);
+%     set(gca, 'XTickLabel', actions, 'FontSize',fontsize);
+%     ylabel('$P_{\rm{comb}}$', 'Interpreter','latex', 'FontSize',fontsize);
+% 
+%     h2 = subplot(1,2,2);
+%     set(h2, 'Visible','off');
+%     b2 = bar([repmat([0 0 0],8,1)']);
+%     %set(b2, 'Visible','off');
+%     l = legend(b2, 'uniform (no evidence)', '[0.3 0.4 0.3]', '[0.25 0.5 0.25]', ...
+%         '[0.2 0.6 0.2]', '[0.2 0.7 0.2]', '[0.1 0.8 0.1]', '[0.05 0.9 0.05]', ...
+%         '[0 1 0] (hard evidence)');
+%     set(l, 'Location','northeast');
+%     set(l, 'FontSize',fontsize);
+% 
+%     print('-depsc', 'impact_of_soft_evidence.eps');
 
     % giampiero: alternative figure
     figure
@@ -193,8 +193,12 @@ if create_figures
     set(gca, 'xticklabels', {'uniform', '[0.3 0.4 0.3]', '[0.25 0.5 0.25]', ...
         '[0.2 0.6 0.2]', '[0.2 0.7 0.2]', '[0.1 0.8 0.1]', '[0.05 0.9 0.05]', ...
         '[0 1 0]'});
-        xlabel('Evidence', 'FontSize',fontsize);
-    xtickangle(90);
+    xlabel('Action Evidence [grasp tap touch]', 'FontSize',fontsize);
+    xtickangle(45);
+    ylabel('$P_{\rm{comb}}(\rm{Action} \mid \rm{Size=big, Shape=sphere})$', 'Interpreter','latex', 'FontSize',fontsize);
+    ylim([0, 1.0]);
     l = legend(b3, 'grasp', 'tap', 'touch');
     set(l, 'Location','northwest');
+
+    print('-depsc', 'impact_of_evidence_on_Action.eps');
 end;
