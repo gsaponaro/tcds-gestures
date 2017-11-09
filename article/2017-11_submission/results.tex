@@ -172,14 +172,17 @@ For example, ``touch'' on an object yields no physical movement, but ``tap'' doe
 In the language description associated to an experiment, it makes sense to measure the conjunction chosen by the \acf{CFG} from the observed word probabilities.
 In particular, it would be desirable to separate two kinds of behaviors: one in which the action and effect are coherent~(expected conjunction: ``and''), and the other one in which they are contradictory (``but'').
 
-TODO COMPLETE FROM HERE
+Fig.~\ref{tab:conjunction} shows an example of this behavior of the model.
+We give the same action ``grasp'' to the model as evidence, but two values for the final object velocity.
+When the object velocity is medium (Fig.~\ref{tab:conjunction:and}), the model interprets this as a successful grasp and uses the conjunction ``and'' to separate the description of the action from the description of the effect.
+When the object velocity is slow (in the clustering procedure this was most often zero velocity), the model predicts this is an unsuccessful grasp and uses the conjunction ``but'', instead.
 
-Example in which the generated conjunction is ``and'' (because of consistency between nodes evidence):
-
-evidence:
-\begin{equation} \label{eq:evidence_producing_and}
-    \xobs^\prime = \{ \text{\evidenceProducingAnd} \}
-\end{equation}
+%Example in which the generated conjunction is ``and'' (because of consistency between nodes evidence):
+%
+%evidence:
+%\begin{equation} \label{eq:evidence_producing_and}
+%    \xobs^\prime = \{ \text{\evidenceProducingAnd} \}
+%\end{equation}
 
 %resulting word probabilities: Fig.~\ref{fig:conjunction_and:pw}
 
@@ -190,49 +193,49 @@ evidence:
 % \label{fig:conjunction_and:pw}
 % \end{figure}
 
-generated sentences in Fig.~\ref{tab:conjunction:and}
+%generated sentences in Fig.~\ref{tab:conjunction:and}
 
 \begin{figure*}
-    \centering
-    \subfloat[][Evidence: \evidenceProducingAnd.]{
-    \resizebox{!}{0.07\linewidth}{% https://tex.stackexchange.com/a/27105/18819
-    \begin{tabular}{ll}
-    \toprule
-    sentence & score \\
-    \midrule
-    baltazar is picking the sphere \textbf{and} the ball is rising & $-0.67394$ \\
-    baltazar grasps the ball \textbf{and} the green ball is moving & $-0.71435$ \\
-    he picked the sphere \textbf{and} the ball moves & $-0.71706$ \\
-    baltazar grasped the ball \textbf{and} the ball rises & $-0.73347$ \\
-    the robot is picking the blue sphere \textbf{and} the sphere is rising & $-0.80316$ \\
-    %the robot is picking the square \textbf{and} the sphere falls & $-0.81567$ \\
-    %the robot is picking the square \textbf{and} the sphere falls & $-0.81567$ \\
-    %the robot just picked the small sphere \textbf{and} the sphere is rising & $-0.82996$ \\
-    %the robot has grasped the green ball \textbf{and} the green ball falls & $-0.83028$ \\
-    %baltazar picks the square \textbf{and} the ball is rising & $-0.83326$ \\
-    \bottomrule
-    \end{tabular}%
+  \centering
+  \subfloat[][Evidence: \evidenceProducingAnd.]{
+    \resizebox{!}{0.11\linewidth}{% https://tex.stackexchange.com/a/27105/18819
+      \begin{tabular}{ll}
+        \toprule
+        sentence & score \\
+        \midrule
+        the robot is picking the sphere \textbf{and} the sphere is moving  & $-0.59328$ \\
+        the robot grasps the sphere \textbf{and} the ball is moving  & $-0.59507$ \\
+        the robot is picking the sphere \textbf{and} the sphere is rising  & $-0.60882$ \\
+        the robot grasped the sphere \textbf{and} the sphere is rising  & $-0.61842$ \\
+        the robot picked the ball \textbf{and} the ball is rising  & $-0.64052$ \\
+        baltazar grasps the sphere \textbf{and} the sphere is moving  & $-0.66182$ \\
+        the robot has grasped the ball \textbf{and} the ball is rising  & $-0.66398$ \\
+        the robot picked the ball \textbf{and} the green ball is moving  & $-0.67134$ \\
+        baltazar grasped the sphere \textbf{and} the ball is moving  & $-0.67283$ \\
+        baltazar is grasping the ball \textbf{and} the sphere is rising  & $-0.6787$ \\
+        \bottomrule
+      \end{tabular}%
     } % end resizebox
     \label{tab:conjunction:and}
   } % end subfloat
-    \subfloat[][Evidence: \evidenceProducingBut.]{
-    \resizebox{!}{0.07\linewidth}{% https://tex.stackexchange.com/a/27105/18819
-    \begin{tabular}{ll}
-    \toprule
-    sentence & score \\
-    \midrule
-    the robot grasped the box \textbf{but} the square is inert & $-0.54678$ \\
-    baltazar is picking the cube \textbf{but} the square is still & $-0.58073$ \\
-    he is picking the ball \textbf{but} the cube is inert & $-0.6081$ \\
-    baltazar is picking the cube \textbf{but} the sphere is inert & $-0.61193$ \\
-    he grasped the square \textbf{but} the cube is still & $-0.62721$ \\
-    %he is picking the sphere \textbf{but} the sphere is inert & $-0.63244$ \\
-    %baltazar is picking the green cube \textbf{but} the square is still & $-0.63252$ \\
-    %the robot picks the ball \textbf{but} the sphere is inert & $-0.64415$ \\
-    %the robot grasped the ball \textbf{but} the green ball is still & $-0.68684$ \\
-    %baltazar picks the cube \textbf{but} the sphere is still & $-0.70024$ \\
-    \bottomrule
-    \end{tabular}%
+  \subfloat[][Evidence: \evidenceProducingBut.]{
+    \resizebox{!}{0.11\linewidth}{% https://tex.stackexchange.com/a/27105/18819
+      \begin{tabular}{ll}
+        \toprule
+        sentence & score \\
+        \midrule
+        the robot is picking the cube \textbf{but} the square is still  & $-0.52575$ \\
+        the robot is grasping the sphere \textbf{but} the box is inert  & $-0.55$ \\
+        the robot is grasping the square \textbf{but} the sphere is still  & $-0.55388$ \\
+        the robot grasped the square \textbf{but} the cube is inert  & $-0.55608$ \\
+        baltazar is grasping the square \textbf{but} the square is inert  & $-0.5571$ \\
+        the robot is grasping the cube \textbf{but} the ball is inert  & $-0.56011$ \\
+        the robot picks the box \textbf{but} the square is inert  & $-0.56397$ \\
+        baltazar is picking the square \textbf{but} the square is still  & $-0.56402$ \\
+        he is grasping the square \textbf{but} the cube is inert  & $-0.56815$ \\
+        the robot grasps the square \textbf{but} the sphere is inert  & $-0.57417$ \\
+        \bottomrule
+      \end{tabular}%
     } % end resizebox
     \label{tab:conjunction:but}
   } % end subfloat
@@ -240,7 +243,7 @@ generated sentences in Fig.~\ref{tab:conjunction:and}
 %    \label{tab:conjunction:and}
 %
 %    \centering
-    \caption{5-best sentences generated given two different sets of evidence. In (a) the model interprets the object movement as indicating a succesfull grasp and uses the conjunction ``and''. In (b) the slow movement is interpreted as no movement at all, and, therefore, as an unsuccessfull grasp. The conjunction ``but'' is used consequently.}
+    \caption{10-best sentences generated given two different sets of evidence. In (a) the model interprets the object movement as indicating a succesfull grasp and uses the conjunction ``and''. In (b) the slow movement is interpreted as no movement at all, and, therefore, as an unsuccessfull grasp. The conjunction ``but'' is used consequently.}
     \label{tab:conjunction}
 \end{figure*}
 
