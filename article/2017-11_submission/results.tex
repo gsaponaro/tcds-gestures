@@ -165,6 +165,7 @@ In the most likely sentence of the list~(in bold), we note that (i)~the correct 
 \subsection{Choice of Correct Conjunction}
 
 \newcommand{\evidenceProducingAnd}{Action=grasp, ObjVel=medium}
+\newcommand{\evidenceProducingBut}{Action=grasp, ObjVel=slow}
 
 The manipulation experiments that we consider have the following structure: an agent~(human or robot) performs a physical action onto an object with certain properties, and this object will produce a certain physical effect as a result.
 For example, ``touch'' on an object yields no physical movement, but ``tap'' does~(especially if the object is spherical).
@@ -189,13 +190,12 @@ evidence:
 % \label{fig:conjunction_and:pw}
 % \end{figure}
 
-generated sentences in Tab.~\ref{tab:conjunction:and}
+generated sentences in Fig.~\ref{tab:conjunction:and}
 
-\begin{table}
+\begin{figure*}
     \centering
-    \caption{Top sentences generated from the evidence~~\eqref{eq:evidence_producing_and}. The ``and'' conjunction was chosen in all of them. Intuitively, the model has learned that a grasping action which produces a significant movement is successful.}
-    \label{tab:conjunction:and}
-    \resizebox{\linewidth}{!}{% https://tex.stackexchange.com/a/27105/18819
+    \subfloat[][Evidence: \evidenceProducingAnd.]{
+    \resizebox{!}{0.07\linewidth}{% https://tex.stackexchange.com/a/27105/18819
     \begin{tabular}{ll}
     \toprule
     sentence & score \\
@@ -205,19 +205,45 @@ generated sentences in Tab.~\ref{tab:conjunction:and}
     he picked the sphere \textbf{and} the ball moves & $-0.71706$ \\
     baltazar grasped the ball \textbf{and} the ball rises & $-0.73347$ \\
     the robot is picking the blue sphere \textbf{and} the sphere is rising & $-0.80316$ \\
-    the robot is picking the square \textbf{and} the sphere falls & $-0.81567$ \\
-    the robot is picking the square \textbf{and} the sphere falls & $-0.81567$ \\
-    the robot just picked the small sphere \textbf{and} the sphere is rising & $-0.82996$ \\
-    the robot has grasped the green ball \textbf{and} the green ball falls & $-0.83028$ \\
-    baltazar picks the square \textbf{and} the ball is rising & $-0.83326$ \\
+    %the robot is picking the square \textbf{and} the sphere falls & $-0.81567$ \\
+    %the robot is picking the square \textbf{and} the sphere falls & $-0.81567$ \\
+    %the robot just picked the small sphere \textbf{and} the sphere is rising & $-0.82996$ \\
+    %the robot has grasped the green ball \textbf{and} the green ball falls & $-0.83028$ \\
+    %baltazar picks the square \textbf{and} the ball is rising & $-0.83326$ \\
     \bottomrule
     \end{tabular}%
     } % end resizebox
-\end{table}
+    \label{tab:conjunction:and}
+  } % end subfloat
+    \subfloat[][Evidence: \evidenceProducingBut.]{
+    \resizebox{!}{0.07\linewidth}{% https://tex.stackexchange.com/a/27105/18819
+    \begin{tabular}{ll}
+    \toprule
+    sentence & score \\
+    \midrule
+    the robot grasped the box \textbf{but} the square is inert & $-0.54678$ \\
+    baltazar is picking the cube \textbf{but} the square is still & $-0.58073$ \\
+    he is picking the ball \textbf{but} the cube is inert & $-0.6081$ \\
+    baltazar is picking the cube \textbf{but} the sphere is inert & $-0.61193$ \\
+    he grasped the square \textbf{but} the cube is still & $-0.62721$ \\
+    %he is picking the sphere \textbf{but} the sphere is inert & $-0.63244$ \\
+    %baltazar is picking the green cube \textbf{but} the square is still & $-0.63252$ \\
+    %the robot picks the ball \textbf{but} the sphere is inert & $-0.64415$ \\
+    %the robot grasped the ball \textbf{but} the green ball is still & $-0.68684$ \\
+    %baltazar picks the cube \textbf{but} the sphere is still & $-0.70024$ \\
+    \bottomrule
+    \end{tabular}%
+    } % end resizebox
+    \label{tab:conjunction:but}
+  } % end subfloat
+%    \caption{Top sentences generated from the evidence~~\eqref{eq:evidence_producing_and}. The ``and'' conjunction was chosen in all of them. Intuitively, the model has learned that a grasping action which produces a significant movement is successful.}
+%    \label{tab:conjunction:and}
+%
+%    \centering
+    \caption{5-best sentences generated given two different sets of evidence. In (a) the model interprets the object movement as indicating a succesfull grasp and uses the conjunction ``and''. In (b) the slow movement is interpreted as no movement at all, and, therefore, as an unsuccessfull grasp. The conjunction ``but'' is used consequently.}
+    \label{tab:conjunction}
+\end{figure*}
 
-\bigskip
-
-\newcommand{\evidenceProducingBut}{Action=grasp, ObjVel=slow}
 
 Example in which the generated conjunction is ``but'' (because of no consistency):
 
@@ -235,31 +261,7 @@ evidence:
 % \label{fig:conjunction_but:pw}
 % \end{figure}
 
-generated sentences in Tab.~\ref{tab:conjunction:but}
-
-\begin{table}
-    \centering
-    \caption{Top sentences generated from the evidence~\eqref{eq:evidence_producing_but}. The ``but'' conjunction was chosen in all of them. Intuitively, the model has learned that a grasping action which produces no movement is a failure.}
-    \label{tab:conjunction:but}
-    \resizebox{\linewidth}{!}{% https://tex.stackexchange.com/a/27105/18819
-    \begin{tabular}{ll}
-    \toprule
-    sentence & score \\
-    \midrule
-    the robot grasped the box \textbf{but} the square is inert & $-0.54678$ \\
-    baltazar is picking the cube \textbf{but} the square is still & $-0.58073$ \\
-    he is picking the ball \textbf{but} the cube is inert & $-0.6081$ \\
-    baltazar is picking the cube \textbf{but} the sphere is inert & $-0.61193$ \\
-    he grasped the square \textbf{but} the cube is still & $-0.62721$ \\
-    he is picking the sphere \textbf{but} the sphere is inert & $-0.63244$ \\
-    baltazar is picking the green cube \textbf{but} the square is still & $-0.63252$ \\
-    the robot picks the ball \textbf{but} the sphere is inert & $-0.64415$ \\
-    the robot grasped the ball \textbf{but} the green ball is still & $-0.68684$ \\
-    baltazar picks the cube \textbf{but} the sphere is still & $-0.70024$ \\
-    \bottomrule
-    \end{tabular}%
-    } % end resizebox
-\end{table}
+generated sentences in Fig.~\ref{tab:conjunction:but}
 
 % A clarification is due: even though the conjunction ``and'' is still the most likely, the conjunction ``but'' has a comparable probability, given the observed evidence~(see Fig.~\ref{fig:conjunction_but:pw}).
 % Even so, ``but'' was chosen in the highest-ranked sentence and in two more of the top-ten sentences~(see Tab.~\ref{tab:conjunction:but}).
