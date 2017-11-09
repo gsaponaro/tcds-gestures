@@ -241,7 +241,7 @@ For example, if the robot is asked to make a spherical object roll, it will be a
 \begin{figure}
   \centering
   \modeltwo
-  \caption{Structure of the \acp{HMM} used for human gesture recognition, adapted from~\cite{saponaro:2013:crhri}. In this work, we consider three independent, multiple-state \acp{HMM}, each of them trained to recognize one of the considered manipulation gestures.}
+  \caption{Structure of the \acp{HMM} used for human gesture recognition, adapted from~\cite{saponaro:2013:crhri}. In this work, we consider three independent, multiple-state \acp{HMM}, each of them trained to recognize one of the considered manipulation gestures of Figs.~\ref{fig:action_examples:grasp}, \ref{fig:action_examples:tap}, \ref{fig:action_examples:touch} respectively.}
   \label{fig:hmms}
 \end{figure}
 
@@ -283,11 +283,11 @@ The goal during inference is to merge the information provided by both models an
 
 To simplify the notation, we call $X = \{A, F, E, W\}$ the set of affordance and word variables~$\{a, f_1, f_2, \dots, e_1, e_2, \dots, w_1, w_2, \dots\}$.
 During inference, we have a (possibly empty) set of observed variables~$\xobs \subseteq X$, and a set of variables $\xinf \subseteq X$ on which we wish to perform the inference.
-In order for the inference to be non-trivial it must be~$\xobs \cap \xinf = \varnothing$, that is, we should not observe any inference variable.
+In order for the inference to be non-trivial, it must be~$\xobs \cap \xinf = \varnothing$, that is, we should not observe any inference variable.
 According to the \ac{BN} alone, the inference will compute the probability distribution of the inference variables~$\xinf$ given the observed variables~$\xobs$ by marginalizing over all the other (latent) variables $\xlat = X \setminus (\xobs \cup \xinf)$, where~$\setminus$~is the set difference operation:
-\begin{eqnarray*}
+\begin{equation*}
  \pbn(\xinf \given \xobs) = \sum_{\xlat} \pbn(\xinf, \xlat \given \xobs).
-\end{eqnarray*}
+\end{equation*}
 
 If we want to combine the evidence brought by the \ac{BN} with the evidence brought by the hidden Markov model, there are two cases that can occur:
 \begin{enumerate}
