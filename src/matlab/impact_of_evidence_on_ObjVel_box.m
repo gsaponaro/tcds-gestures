@@ -62,6 +62,6 @@ if create_figures
     xtickangle(45);
     ylabel('$P_{\rm{comb}}(\rm{ObjVel} \mid \rm{Shape=box})$', 'Interpreter','latex', 'FontSize',fontsize);
     l = legend(b, 'slow', 'medium', 'fast');
-    set(l, 'Location','north');
+    set(l, 'Location','best');
     print('-depsc', 'impact_of_evidence_on_ObjVel_box.eps');
 end;
