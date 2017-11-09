@@ -2,12 +2,20 @@
 
 \section{Conclusions and Future Work}
 
-Future work:
-\begin{itemize}
-  \item possibility to add new vocabulary words to the system
-\end{itemize}
+We have presented a model that combines robot ego-centric learning about language and object affordances with the observation of external agents' gestures.
+We have illustrated a novel probabilistic method to fuse these two sources of information, and we have shown a number of experiments where the robotic model reasons over affordances and words when observing another agent.
+Interestingly, these predictions of words allow us create human-interpretable sentences~(from a pre-defined grammar) which highlight the emergence of language properties in the model, such as:
+congruent/incongruent conjunctions,
+repetition of subject words referring to the same entity in two consecutive sentences.
+We make our human action data and probabilistic reasoning code publicly available.
 
-Things we need to discuss:
+While our scenario and data are restricted to a particular scenario~(a human and a robot manipulating simple objects on a shared table), we believe that our approach TODO COMPLETE
+
+In the future, we wish to study the following aspects:
+possibility to add new vocabulary words to the system,
+\dots
+
+PERSONAL NOTES - Things we need to discuss:
 \begin{itemize}
 \item the effect variables in the BN include hand velocity. How does this relate to the gesture features in the HMM? Can we learn the connection?
 \item in order to achieve the ideal case in Figure~\ref{fig:model} we would need to learn the complex relationship between hand movements and affordance variables:
