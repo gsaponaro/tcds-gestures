@@ -13,7 +13,7 @@ fontsize = 20;
 % AffordanceAndSpeech/word2sent/grammar.grm (see Makefile for more
 % information)
 % if needed we can generate many more
-sentenceFilename = 'sentence_data/sentence_1000samples.txt';
+sentenceFilename = 'sentence_data/sentence_10000samples_uniq.txt';
 
 %% example counter
 e = 1;
@@ -92,6 +92,8 @@ for h=1:nbest
     disp([sentences{sortedidxs(h)} ' ' num2str(normlogprobs(sortedidxs(h)))]);
 end
 
+%%
+
 if create_figures
     figure;
     pand_evidenceand = pw_evidenceand(strcmp(netobj_lab.nodeNames(netobj_lab.WORDNODES), 'and'));
@@ -101,6 +103,7 @@ if create_figures
     pand_pbut = [pand_evidenceand pand_evidencebut; pbut_evidenceand pbut_evidencebut];
     bar(pand_pbut);
     set(gca, 'XTickLabel', {'and','but'}, 'FontSize',fontsize);
+    set(gca, 'Position', [0.1600 0.1100 0.7750 0.6150]);
     ylabel('$p(w_i)$', 'Interpreter','latex', 'FontSize',fontsize);
     l = legend('$X_{\rm{obs}}^\prime$', '$X_{\rm{obs}}^{\prime\prime}$');
     set(l, 'Location','north');
