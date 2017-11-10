@@ -29,16 +29,29 @@ In Fig.~\ref{fig:effect_pred}, we show the inferred posterior value of the Objec
 %Fig.~\ref{fig:effect_pred} shows the computed predictions in two cases.
 Fig.~\ref{fig:effect_pred:sphere} shows the anticipated object velocity when the human user performs the tapping action onto a small spherical object, whereas Fig.~\ref{fig:effect_pred:box} displays it when the target object is a big box. Indeed, given the same observed action prior~(lateral tap on the object), the expected movement is very different depending on the physical properties of the target object.
 
-\begin{figure}
+\begin{figure*}
     \centering
-    \subfloat[][Prediction of the movement effect on a small sphere.]
-    { \includegraphics[width=0.45\linewidth]{effectpred_sphere.eps} \label{fig:effect_pred:sphere} } \quad
-    %
-    \subfloat[][Prediction of the movement effect on a big box.]
-    { \includegraphics[width=0.45\linewidth]{effectpred_box.eps} \label{fig:effect_pred:box} }
+    \subfloat[][Prediction of the movement effect on a small sphere.]{
+      % here substitute with tap on sphere
+      \includegraphics[width=\myWidth\linewidth]{tap-00000109}
+      \includegraphics[width=\myWidth\linewidth]{tap-00000110}
+      \includegraphics[width=\myWidth\linewidth]{tap-00000112}
+      % here add evolution of action posterior
+      \includegraphics[width=0.20\linewidth]{effectpred_sphere.eps}
+      \label{fig:effect_pred:sphere}
+    }
+
+    \subfloat[][Prediction of the movement effect on a big box.]{
+      \includegraphics[width=\myWidth\linewidth]{tap-00000109}
+      \includegraphics[width=\myWidth\linewidth]{tap-00000110}
+      \includegraphics[width=\myWidth\linewidth]{tap-00000112}
+      % here add evolution of action posterior
+      \includegraphics[width=0.20\linewidth]{effectpred_box.eps}
+      \label{fig:effect_pred:box}
+    }
     \caption{Object velocity predictions, given prior information~(from Gesture \acp{HMM} \emph{hard decision}) that the human user performs a tapping action.}
     \label{fig:effect_pred}
-\end{figure}
+\end{figure*}
 
 NEW RESULT WITH SOFT EVIDENCE (Action)
 
