@@ -104,7 +104,7 @@ if create_figures
     bar(pand_pbut);
     set(gca, 'XTickLabel', {'and','but'}, 'FontSize',fontsize);
     set(gca, 'Position', [0.1600 0.1100 0.7750 0.6150]);
-    ylabel('$p(w_i)$', 'Interpreter','latex', 'FontSize',fontsize);
+    ylabel('$P(w_i)$', 'Interpreter','latex', 'FontSize',fontsize);
     l = legend('$X_{\rm{obs}}^\prime$', '$X_{\rm{obs}}^{\prime\prime}$');
     set(l, 'Location','north');
     set(l, 'Interpreter','latex');
