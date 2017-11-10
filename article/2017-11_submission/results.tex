@@ -75,7 +75,10 @@ RESULT FROM GLU WITH HARD EVIDENCE
 \begin{figure}
 \centering
 \includegraphics[width=0.9\columnwidth]{partialfig.eps}
-\caption{Variation of word occurrence probabilities: $\Delta p(w_i) = p(w_i \mid F, E, A=\text{tap}) - p(w_i \mid F,E)$, where $F = \{\text{Size=big, Shape=sphere}\}$, $E = \{\text{ObjVel=fast}\}$. This variation corresponds to the difference of word probability when we add the tap action evidence~(obtained from the Gesture \acp{HMM}) to the initial evidence about object features and effects. We have omitted words for which no significant variation was observed.}
+\caption{Variation of word occurrence probabilities:
+%$\Delta P(w_i) = P(w_i \mid \text{Size=big, Shape=sphere, ObjVel=fast, Action=tap}) - P(w_i \mid \text{Size=big, Shape=sphere,ObjVel=fast})$.
+$\Delta P(w_i) = P(w_i \mid \text{InitialEvidence, Action=tap}) - P(w_i \mid \text{InitialEvidence})$, where $\text{InitialEvidence} = \text{Size=big, Shape=sphere, ObjVel=fast}$.
+This variation corresponds to the difference of word probability when we add the tap action evidence~(obtained from the Gesture \acp{HMM}) to the initial evidence about object features and effects. We have omitted words for which no significant variation was observed.}
 \label{fig:probdiff}
 \end{figure}
 
