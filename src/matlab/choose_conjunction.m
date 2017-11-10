@@ -9,7 +9,7 @@ word_threshold = 0.2;
 create_figures = true;
 fontsize = 20;
 
-% 1000 sentences generated randomly accroding to the grammar in
+% 10000 sentences generated randomly accroding to the grammar in
 % AffordanceAndSpeech/word2sent/grammar.grm (see Makefile for more
 % information)
 % if needed we can generate many more

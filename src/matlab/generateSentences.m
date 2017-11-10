@@ -11,11 +11,11 @@ load('BN_lab.mat');
 word_threshold = 0.2;
 create_figures = true;
 
-% 1000 sentences generated randomly accroding to the grammar in
+% 10000 sentences generated randomly accroding to the grammar in
 % AffordanceAndSpeech/word2sent/grammar.grm (see Makefile for more
 % information)
 % if needed we can generate many more
-sentenceFilename = 'sentence_data/sentence_1000samples.txt'
+sentenceFilename = 'sentence_data/sentence_10000samples_uniq.txt';
 
 %% enter some evidence
 netobj_lab = BNEnterNodeEvidence(netobj_lab, {'Color', 'yellow', ...

@@ -20,7 +20,7 @@ Our combined model can make predictions over the elements that form our computat
 For example, we can reason about the effects that actions cause onto environment objects.
 %In this experiment, we assume that the Gesture \acp{HMM} provide the discrete value of the recognized action performed by a human agent~(i.e., we enforce a hard decision over the observed action).
 In this first experiment, for simplicity we assume that the Gesture \acp{HMM} provide a \emph{hard decision} over the discrete value of the recognized action performed by a human agent.
-%From our combined model of words, affordances and observed actions, 
+%From our combined model of words, affordances and observed actions,
 In Fig.~\ref{fig:effect_pred}, we show the inferred posterior value of the Object Velocity effect, given prior information about the action~(provided by the Gesture \acp{HMM}) and also about object features~(Shape and Size) for two types of objects.
 %Fig.~\ref{fig:effect_pred} shows the computed predictions in two cases.
 Fig.~\ref{fig:effect_pred:sphere} shows the anticipated object velocity when the human user performs the tapping action onto a small spherical object, whereas Fig.~\ref{fig:effect_pred:box} displays it when the target object is a big box. Indeed, given the same observed action prior~(lateral tap on the object), the expected movement is very different depending on the physical properties of the target object.
@@ -140,23 +140,23 @@ In the most likely sentence of the list~(in bold), we note that (i)~the correct 
 
 \begin{table}
     \centering
-    \caption{10-best sentences generated from the evidence~\eqref{eq:evidence_example}.}
+    \caption{$10$-best list of sentences generated from the evidence~\eqref{eq:evidence_example}.}
     \label{tab:example_generated_sentences}
     \resizebox{\linewidth}{!}{% https://tex.stackexchange.com/a/27105/18819
     \begin{tabular}{ll}
     \toprule
     sentence & score \\
     \midrule
-    \textbf{baltazar tapped the ball and the ball moves} & \bm{$-0.63813$} \\
-    baltazar taps the ball and the sphere is moving & $-0.64636$ \\
-    the robot touched the big sphere and the ball is rolling & $-0.64822$ \\
-    he taps the sphere and the sphere moves & $-0.65437$ \\
-    the robot has poked the ball and the sphere moves & $-0.67455$ \\
-    baltazar just tapped the sphere and the sphere is rolling & $-0.71942$ \\
-    baltazar taps the sphere and the big ball rolls & $-0.72702$ \\
-    baltazar taps the sphere and the yellow sphere rolls & $-0.73154$ \\
-    the robot just touched the sphere and the ball moves & $-0.79609$ \\
-    baltazar has poked the ball and the ball rolls & $-0.81551$ \\
+    the robot pushed the ball and the ball moves & $-0.54322$ \\ % not good to have push
+    the robot tapped the sphere and the sphere moves & $-0.5605$ \\
+    he is pushing the sphere and the sphere moves & $-0.57731$ \\
+    the robot is tapping the yellow ball and the big yellow sphere is moving & $-0.57932$ \\
+    he pushed the yellow ball and the sphere is rolling & $-0.58853$ \\
+    the robot is poking the ball and the sphere is rolling & $-0.58998$ \\
+    he is pushing the ball and the yellow ball moves & $-0.59728$ \\
+    he pushes the sphere and the ball is moving & $-0.60528$ \\
+    he is tapping the yellow ball and the ball is moving & $-0.60675$ \\
+    the robot pokes the sphere and the ball is rolling & $-0.60694$ \\
     \bottomrule
     \end{tabular}%
     } % end resizebox
@@ -243,7 +243,9 @@ When the object velocity is slow (in the clustering procedure this was most ofte
 %    \label{tab:conjunction:and}
 %
 %    \centering
-    \caption{10-best sentences generated given two different sets of evidence. In (a) the model interprets the object movement as indicating a succesfull grasp and uses the conjunction ``and''. In (b) the slow movement is interpreted as no movement at all, and, therefore, as an unsuccessfull grasp. The conjunction ``but'' is used consequently.}
+    \caption{$10$-best list of sentences generated given two different sets of evidence.
+    In~(a) the model interprets the object movement as indicating a succesfull grasp and uses the conjunction ``and''.
+    In~(b) the slow movement is interpreted as no movement at all, and, therefore, as an unsuccessfull grasp. The conjunction ``but'' is used consequently.}
     \label{tab:conjunction}
 \end{figure*}
 
