@@ -32,6 +32,12 @@
         </module>
 
         <module>
+                <name>yarpscope</name>
+                <parameters>--xml rgbd_yarpscope_config.xml</parameters>
+                <node>localhost</node>
+        </module>
+
+        <module>
                 <name>yarpdatadumper</name>
                 <parameters>--name robotView --type image --connect /icub/camcalib/left/out</parameters>
                 <node>localhost</node>
@@ -54,7 +60,6 @@
                 <parameters>--name humanHandCoords --connect /humanHandProcessor/hand:o</parameters>
                 <node>localhost</node>
         </module>
-
 
         <connection>
                 <from>/OpenNI2/userSkeleton:o</from>
