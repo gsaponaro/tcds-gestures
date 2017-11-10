@@ -1,6 +1,9 @@
 %% configure BNT and other paths
 configurePaths;
 
+%% load data
+load('BN_lab.mat');
+
 %% experiment 1: small sphere
 % enter node evidence for Action and Features (object) nodes
 nodevaluepairs = {'Action', 'tap', 'Shape', 'circle', 'Size', 'small'};
