@@ -81,7 +81,7 @@ if create_figures
     set(gca, 'xtick', 1:length(netobj_lab.WORDNODES(toplot)));
     set(gca, 'xticklabel', netobj_lab.nodeNames(netobj_lab.WORDNODES(toplot)));
     set(gca,'XTickLabelRotation',45);
-    ylabel('$p(w_i)$', 'Interpreter','latex', 'FontSize', 20);
+    ylabel('$P(w_i)$', 'Interpreter','latex', 'FontSize', 20);
     print('-depsc', 'after_softevidence_pw.eps');
 end;
 
@@ -94,5 +94,5 @@ end;
 %     bar(probdiff(toplot));
 %     set(gca, 'xtick', 1:length(netobj_lab.WORDNODES(toplot)))
 %     set(gca, 'xticklabel', netobj_lab.nodeNames(netobj_lab.WORDNODES(toplot)))
-%     ylabel('$\Delta p(w_i)$', 'Interpreter','latex', 'FontSize', 20);
+%     ylabel('$\Delta P(w_i)$', 'Interpreter','latex', 'FontSize', 20);
 % end;
