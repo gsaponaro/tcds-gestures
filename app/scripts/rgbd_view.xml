@@ -2,11 +2,13 @@
 <name>TCDS gestures, RGB-D view</name>
 
         <dependencies>
+                <port>/icub/camcalib/left/out</port>
         </dependencies>
 
         <module>
                 <!-- replace with full path of yarp openni2 driver files, http://wiki.icub.org/wiki/OpenNI2 -->
-                <workdir>/home/gsaponaro/software/yarp_openni2_root</workdir>
+                <!-- <workdir>/home/gsaponaro/software/yarp_openni2_root</workdir> -->
+                <workdir>/home/gsaponaro/yarp_openni2_root</workdir>
                 <name>yarpdev</name>
                 <parameters>--device OpenNI2DeviceServer --syncFrames --imageRegistration</parameters>
                 <node>localhost</node>
@@ -28,6 +30,31 @@
                 <parameters>--name /view/asus/depth --x 365 --y 0</parameters>
                 <node>localhost</node>
         </module>
+
+        <module>
+                <name>yarpdatadumper</name>
+                <parameters>--name robotView --type image --connect /icub/camcalib/left/out</parameters>
+                <node>localhost</node>
+        </module>
+
+        <module>
+                <name>yarpdatadumper</name>
+                <parameters>--name rgbdViewColor --type image --connect /OpenNI2/imageFrame:o</parameters>
+                <node>localhost</node>
+        </module>
+
+        <module>
+                <name>yarpdatadumper</name>
+                <parameters>--name rgbdViewDepth --type image --connect /OpenNI2/depthFrame:o</parameters>
+                <node>localhost</node>
+        </module>
+
+        <module>
+                <name>yarpdatadumper</name>
+                <parameters>--name humanHandCoords --connect /humanHandProcessor/hand:o</parameters>
+                <node>localhost</node>
+        </module>
+
 
         <connection>
                 <from>/OpenNI2/userSkeleton:o</from>
