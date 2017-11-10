@@ -51,7 +51,9 @@ for ex = 1:length(tap1_BNT)
     k = keys(scores_map)
     v = values(scores_map)
     v2 = cell2mat(v);
-    v_norm = normalise(1 - v2/sum(v2)) % TODO check
+    logsum = logsumexp(v2);
+    v_norm = exp(v2-logsum);
+    %v_norm = normalise(1 - v2/sum(v2)) % TODO check
     [m,i] = max(cell2mat(values(scores_map)));
     fprintf('winner: %d (%s)\n', i, k{i});
 end;
