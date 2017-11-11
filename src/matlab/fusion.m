@@ -39,7 +39,8 @@ if ~iscell(observed)
     error('fusion: observed argument must be a cell array.');
 end;
 
-if sum(hmm_ev) ~= 1
+% ensure unitary sum
+if abs(1-sum(hmm_ev)) > eps
     error('fusion: hmm_ev argument elements must sum to one.');
 end;
 
