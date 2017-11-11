@@ -52,7 +52,7 @@ shrink = 0;
 %human_endframe = 231;
 
 % tap_notable_seated_1
-human_startframe = 124;
+human_startframe = 121;
 human_endframe = 214;
 
 % tap_notable_seated_2
