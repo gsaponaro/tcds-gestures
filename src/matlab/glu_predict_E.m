@@ -1,6 +1,10 @@
 %% configure BNT and other paths
 configurePaths;
 
+%% user parameters
+fontsizex = 20;
+fontsizey = 20;
+
 %% load data
 load('BN_lab.mat');
 
@@ -15,12 +19,14 @@ posteriornodes = {'ObjVel'};
 pred_lab_circle = marginal_prob(netobj_lab, posteriornodes);
 figure;
 bar(pred_lab_circle.T);
-set(gca, 'FontSize', 20); % in order to have the desired yticks
+set(gca, 'FontSize', fontsizex); % in order to have the desired yticks
 set(gca, 'xticklabel', {'slow','medium','fast'});
 xtickangle(45);
 %ylabel('$p(E \mid A=\mathrm{tap}, F=\mathrm{sphere, small})$', 'Interpreter', 'latex');
-yl = ylabel({'$P(\rm{ObjVel} \mid \rm{Action=tap},$','$\rm{Shape=sphere, Size=small})$'});
+%yl = ylabel({'$P(\rm{ObjVel} \mid \rm{Action=tap},$','$\rm{Shape=sphere, Size=small})$'});
+yl = ylabel({'$P_{\rm{comb}}(\rm{ObjVel} \mid $','$\rm{Shape=sphere, Size=small})$'});
 set(yl, 'Interpreter','latex');
+set(yl, 'FontSize',fontsizey);
 ylim([0 1]);
 print('-depsc', 'effectpred_sphere.eps');
 
@@ -36,10 +42,13 @@ netobj_lab = BNEnterNodeEvidence(netobj_lab, nodevaluepairs);
 pred_lab_box = marginal_prob(netobj_lab, posteriornodes);
 figure;
 bar(pred_lab_box.T);
-set(gca, 'FontSize', 20);
+set(gca, 'FontSize', fontsizex);
 set(gca, 'xticklabel', {'slow','medium','fast'});
 xtickangle(45);
 %ylabel('$p(E \mid A=\mathrm{tap}, F=\mathrm{box, big})$', 'Interpreter', 'latex');
-yl = ylabel({'$P(\rm{ObjVel} \mid \rm{Action=tap},$','$\rm{Shape=box, Size=small})$'});
+%yl = ylabel({'$P(\rm{ObjVel} \mid \rm{Action=tap},$','$\rm{Shape=box, Size=small})$'});
+yl = ylabel({'$P_{\rm{comb}}(\rm{ObjVel} \mid $', '$\rm{Shape=box, Size=small})$'});
 set(yl, 'Interpreter','latex');
+set(yl, 'FontSize',fontsizey);
+ylim([0 1]);
 print('-depsc', 'effectpred_box.eps');

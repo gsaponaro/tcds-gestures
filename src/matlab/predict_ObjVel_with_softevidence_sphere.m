@@ -4,7 +4,7 @@ configurePaths;
 %% user parameters
 create_figures = true;
 %barwidth = 0.4;
-fontsize = 14;
+fontsize = 10;
 
 %% load HMM gesture models trained for CR-HRI 2013 article
 % hmm1: tap
@@ -184,12 +184,14 @@ end;
 if create_figures
 
 %     list_of_ev_as_strings = cell(1,num_iterations);
-%     list_of_real_frames = cell(1,num_iterations);
-%     for iter_ev = 1:num_iterations
+     list_of_real_frames = cell(1,1+num_iterations);
+     list_of_real_frames{1} = mat2str(1);
+     for iter_ev = 1:num_iterations
 %         list_of_ev_as_strings{iter_ev} = mat2str(ev{iter_ev});
-%         list_of_real_frames{iter_ev} = mat2str(iter_ev*interval);
-%     end;
-    
+         iter_ev;
+         list_of_real_frames{1+iter_ev} = mat2str(iter_ev*interval*2);
+     end;
+%     
 %     figure;
 %     b = bar(cell2mat(p)');
 %     xlabel('Action Evidence [grasp tap touch]', 'FontSize',fontsize);
@@ -200,6 +202,7 @@ if create_figures
 %     set(l, 'Location','north');
 
     figure;
+    subplot(3,1,1); % to reduce aspect ratio
     ev_all = cell2mat(ev');
     ev_grasp = ev_all(:,1);
     ev_tap = ev_all(:,2);
@@ -217,11 +220,14 @@ if create_figures
     hp(3).LineStyle = '-.';
     hp(3).LineWidth = 2;
     hp(3).Marker = 'x';
-    xlabel('frame', 'FontSize',fontsize);
-    %set(gca, 'xticklabels', list_of_real_frames);
-    set(gca, 'xticklabels',{[]});
-    ylabel('$P_{\rm{HMM}}(\rm{Action}=a_k)$', 'Interpreter','latex', 'FontSize',fontsize);
+    xlabel('$\rm{frame~N}~(\times~30~\rm{ms})$', 'Interpreter','latex', 'FontSize',fontsize);
+    set(gca, 'xticklabels', list_of_real_frames);
+    %set(gca, 'xticklabels',{[]});
+    set(gca, 'ylim', [-0.05 1.05]);
+    %ylabel('$P_{\rm{HMM}}(\rm{Action}=a_k \mid G_1^k)$', 'Interpreter','latex', 'FontSize',fontsize);
+    ylabel('$P_{\rm{HMM}}(A \mid G_1^N)$', 'Interpreter','latex', 'FontSize',fontsize);
     l2 = legend(hp, 'grasp', 'tap', 'touch');
-    l2.FontSize = fontsize;
-    %print('-depsc', 'fb_evolution.eps');
+    l2.FontSize = fontsize-1;
+    l2.Location = 'east';
+    print('-depsc', 'evolution_of_action_posterior_on_sphere.eps');
 end;

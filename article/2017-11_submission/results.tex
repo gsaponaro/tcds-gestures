@@ -20,41 +20,57 @@ RESULT FROM GLU WITH HARD EVIDENCE
 Giampiero: in this example we should: 1) not use hard evidence, but soft 2) base the evidence on some of the recorded examples of tap. I believe the same results would be obtained given that the ti evidence from the HMM is not completely random.
 }
 
-Our combined model can make predictions over the elements that form our computational concept of affordances, i.e., Action, Object Features, Effects in Fig.~\ref{fig:model}.
+OBSOLETE, WE NOW USE SOFT EVIDENCE - Our combined model can make predictions over the elements that form our computational concept of affordances, i.e., Action, Object Features, Effects in Fig.~\ref{fig:model}.
 For example, we can reason about the effects that actions cause onto environment objects.
 %In this experiment, we assume that the Gesture \acp{HMM} provide the discrete value of the recognized action performed by a human agent~(i.e., we enforce a hard decision over the observed action).
 In this first experiment, for simplicity we assume that the Gesture \acp{HMM} provide a \emph{hard decision} over the discrete value of the recognized action performed by a human agent.
 %From our combined model of words, affordances and observed actions,
-In Fig.~\ref{fig:effect_pred}, we show the inferred posterior value of the Object Velocity effect, given prior information about the action~(provided by the Gesture \acp{HMM}) and also about object features~(Shape and Size) for two types of objects.
+%In Fig.~\ref{fig:effect_pred}, we show the inferred posterior value of the Object Velocity effect, given prior information about the action~(provided by the Gesture \acp{HMM}) and also about object features~(Shape and Size) for two types of objects.
 %Fig.~\ref{fig:effect_pred} shows the computed predictions in two cases.
-Fig.~\ref{fig:effect_pred:sphere} shows the anticipated object velocity when the human user performs the tapping action onto a small spherical object, whereas Fig.~\ref{fig:effect_pred:box} displays it when the target object is a big box. Indeed, given the same observed action prior~(lateral tap on the object), the expected movement is very different depending on the physical properties of the target object.
+Fig.~\ref{fig:effect_pred_sphere} shows the anticipated object velocity when the human user performs the tapping action onto a small spherical object, whereas Fig.~\ref{fig:effect_pred_box} displays it when the target object is a big box. Indeed, given the same observed action prior~(lateral tap on the object), the expected movement is very different depending on the physical properties of the target object.
 
 \begin{figure*}
     \centering
-    \subfloat[][Evolution of the action posterior (small sphere sequence).]{
+    \subfloat[][Evolution of the action posterior in time, using~\eqref{eq:phmm_action}.]{
       \includegraphics[width=0.7\linewidth]{evolution_of_action_posterior_on_sphere.eps}
+      \label{fig:effect_pred_sphere:action_posterior_evolution}
     }
 
-    \subfloat[][Prediction of the movement effect on a small sphere.]{
-      % here substitute with tap on sphere
-      \includegraphics[width=\myWidth\linewidth]{tap-00000109}
-      \includegraphics[width=\myWidth\linewidth]{tap-00000110}
-      \includegraphics[width=\myWidth\linewidth]{tap-00000112}
-      % here add evolution of action posterior
+    \subfloat[][First three photos: observation of human agent performing the action. Right: prediction of the movement effect.]{
+      % TODO purge old pics from repo if not used
+      %\includegraphics[width=\myWidth\linewidth]{tap-00000109}
+      %\includegraphics[width=\myWidth\linewidth]{tap-00000110}
+      %\includegraphics[width=\myWidth\linewidth]{tap-00000112}
+      \includegraphics[width=\myWidth\linewidth]{tap-sphere-00000179}
+      \includegraphics[width=\myWidth\linewidth]{tap-sphere-00000183}
+      \includegraphics[width=\myWidth\linewidth]{tap-sphere-00000187}
+      \quad
       \includegraphics[width=0.20\linewidth]{effectpred_sphere.eps}
-      \label{fig:effect_pred:sphere}
+      \label{fig:effect_pred_sphere:observation_and_prediction}
     }
 
-    \subfloat[][Prediction of the movement effect on a big box.]{
+    \caption{Object velocity predictions on a small sphere, given probabilistic human action information from Gesture \acp{HMM}.}
+    \label{fig:effect_pred_sphere}
+\end{figure*}
+
+\begin{figure*}
+    \centering
+    \subfloat[][TODO Evolution of the action posterior in time, using~\eqref{eq:phmm_action}.]{
+      \includegraphics[width=0.7\linewidth]{evolution_of_action_posterior_on_sphere.eps} % TODO box
+      \label{fig:effect_pred_box:action_posterior_evolution}
+    }
+
+    \subfloat[][First three photos: observation of human agent performing the action. Right: prediction of the movement effect.]{
       \includegraphics[width=\myWidth\linewidth]{tap-00000109}
       \includegraphics[width=\myWidth\linewidth]{tap-00000110}
       \includegraphics[width=\myWidth\linewidth]{tap-00000112}
-      % here add evolution of action posterior
+      \quad
       \includegraphics[width=0.20\linewidth]{effectpred_box.eps}
-      \label{fig:effect_pred:box}
+      \label{fig:effect_pred_box:observation_and_prediction}
     }
-    \caption{Object velocity predictions, given prior information~(from Gesture \acp{HMM} \emph{hard decision}) that the human user performs a tapping action.}
-    \label{fig:effect_pred}
+
+    \caption{Object velocity predictions on a big box, given probabilistic human action information from Gesture \acp{HMM}.}
+    \label{fig:effect_pred_box}
 \end{figure*}
 
 NEW RESULT WITH SOFT EVIDENCE (Action)

@@ -241,9 +241,9 @@ At recognition~(testing) time, we can use the models to estimate the likelihood 
 %We can express this likelihood as $\mathcal{L}_\text{HMM}(G_1^N \given A)$, where $a$ is one of the possible actions.
 We can express this likelihood as $\mathcal{L}_\text{HMM}(G_1^N \given A=a_k)$, where $a_k$ is one of the possible actions.
 By normalizing the likelihoods, assuming that the gestures are equally likely \emph{a priori}, we can obtain the posterior probability of the action given the sequence of observations as
-\begin{equation*}
+\begin{equation} \label{eq:phmm_action}
   \phmm(A=a_k \given G_1^N) = \frac{\mathcal{L}_\text{HMM}(G_1^N \given A=a_k)}{\sum_h \mathcal{L}_\text{HMM}(G_1^N \given A=a_h)}.
-\end{equation*}
+\end{equation}
 
 \subsection{Combining the \acs{BN} with Gesture \acsp{HMM}}
 \label{sec:combination}
