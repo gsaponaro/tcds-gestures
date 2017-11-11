@@ -17,12 +17,12 @@ load('HMM_M3_Q6_mixsplit');
 %% load November 2017 human gesture data, removing first 2 columns
 %fid = fopen('./human_data/tap_table_sphere_1/data.log');
 %fid = fopen('./human_data/tap_table_sphere_2/data.log');
-fid = fopen('./human_data/tap_notable_seated_1/data.log'); % best
+%fid = fopen('./human_data/tap_notable_seated_1/data.log'); % best
 %fid = fopen('./human_data/tap_notable_seated_2/data.log');
 %fid = fopen('./human_data/tap_notable_standing_1/data.log');
 %fid = fopen('./human_data/tap_notable_standing_2/data.log');
 %fid = fopen('./human_data/norobotview_tap_notable_seated_1/data.log');
-%fid = fopen('./human_data/norobotview_tap_notable_seated_2/data.log'); %ok
+fid = fopen('./human_data/norobotview_tap_notable_seated_2/data.log'); %ok
 %fid = fopen('./human_data/norobotview_tap_notable_standing_1/data.log');
 %fid = fopen('./human_data/norobotview_tap_notable_standing_2/data.log');
 %fid = fopen('./human_data/shoulderheight_1/data.log');
@@ -52,8 +52,8 @@ shrink = 0;
 %human_endframe = 231;
 
 % tap_notable_seated_1
-human_startframe = 124;
-human_endframe = 214;
+%human_startframe = 124;
+%human_endframe = 214;
 
 % tap_notable_seated_2
 %human_startframe = 173;
@@ -72,8 +72,8 @@ human_endframe = 214;
 %human_endframe = 368;
 
 % norobotview_tap_notable_seated_2
-%human_startframe = 160;
-%human_endframe = 375;
+human_startframe = 160;
+human_endframe = 375;
 
 % norobotview_tap_notable_standing_1
 %human_startframe = 186;
@@ -166,18 +166,18 @@ end;
 load('BN_lab.mat');
 
 %% initial evidence
-obs_sphere = {'Shape', 'circle', 'Size', 'small'};
+obs_box = {'Shape', 'box', 'Size', 'big'};
 
 p = cell(1,num_iterations); % will store BN posteriors
 for iter_bn = 1:num_iterations
 
     %% reset BN to the initial evidence
     netobj_lab = BNResetEvidence(netobj_lab);
-    netobj_lab = BNEnterNodeEvidence(netobj_lab, obs_sphere);
+    netobj_lab = BNEnterNodeEvidence(netobj_lab, obs_box);
     
     %% extract predictions (posteriors) with the current HMM soft evidence
     inferred = {'ObjVel'};
-    [netobj_lab,p{iter_bn}] = fusion(netobj_lab, inferred, obs_sphere, ev{iter_bn});
+    [netobj_lab,p{iter_bn}] = fusion(netobj_lab, inferred, obs_box, ev{iter_bn});
 
 end;
 
@@ -229,5 +229,5 @@ if create_figures
     l2 = legend(hp, 'grasp', 'tap', 'touch');
     l2.FontSize = fontsize-1;
     l2.Location = 'east';
-    print('-depsc', 'evolution_of_action_posterior_on_sphere.eps');
+    print('-depsc', 'evolution_of_action_posterior_on_box.eps');
 end;
