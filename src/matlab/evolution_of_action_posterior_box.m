@@ -72,7 +72,9 @@ shrink = 0;
 %human_endframe = 368;
 
 % norobotview_tap_notable_seated_2
-human_startframe = 160;
+%human_startframe = 160;
+%human_endframe = 375;
+human_startframe = 230;
 human_endframe = 375;
 
 % norobotview_tap_notable_standing_1
@@ -216,12 +218,12 @@ if create_figures
     hp(3).LineStyle = '-.';
     hp(3).LineWidth = 1;
     %hp(3).Marker = 'x';
-    xlabel('$\rm{frame~k}~(\times~30~\rm{ms})$', 'Interpreter','latex', 'FontSize',fontsize);
+    xlabel('$\rm{frame~n}~(\times~30~\rm{ms})$', 'Interpreter','latex', 'FontSize',fontsize);
     %set(gca, 'xticklabels', list_of_real_frames);
     %set(gca, 'xticklabels',{[]});
     set(gca, 'ylim', [-0.05 1.05], 'xlim', [1 sequence_length]);
     %ylabel('$P_{\rm{HMM}}(\rm{Action}=a_k \mid G_1^k)$', 'Interpreter','latex', 'FontSize',fontsize);
-    ylabel('$P_{\rm{HMM}}(A \mid G_1^k)$', 'Interpreter','latex', 'FontSize',fontsize);
+    ylabel('$P_{\rm{HMM}}(A \mid G_1^n)$', 'Interpreter','latex', 'FontSize',fontsize);
     l2 = legend(hp, 'grasp', 'tap', 'touch');
     l2.FontSize = fontsize;
     l2.Location = 'east';
