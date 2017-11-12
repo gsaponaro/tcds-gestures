@@ -136,6 +136,15 @@ grasp_obslik = mixgauss_prob(human_data, hmm3_mu, hmm3_Sigma, hmm3_mixmat);
 push_obslik = mixgauss_prob(human_data, hmm4_mu, hmm4_Sigma, hmm4_mixmat);
 [push_alpha, ~, push_gamma, push_ll] = fwdback(hmm4_prior, hmm4_trans, push_obslik, 'fwd_only', 1, 'scaled', 0);
 
+% plot alphas
+figure
+subplot(3,1,1)
+imagesc(tap_alpha ./ (ones(6,1) * sum(tap_alpha)))
+subplot(3,1,2)
+imagesc(grasp_alpha ./ (ones(6,1) * sum(grasp_alpha)))
+subplot(3,1,3)
+imagesc(push_alpha ./ (ones(6,1) * sum(push_alpha)))
+
 % Turn alpha probabilities into likelihoods of each model. This is a
 % 3xN matrix where the row index corresponds to the models.
 liks = [sum(tap_alpha); sum(grasp_alpha); sum(push_alpha)];
