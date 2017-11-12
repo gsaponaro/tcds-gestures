@@ -125,10 +125,10 @@ human_BNT = transpose_cell_array(human_cell);
 human_data = human_BNT{1}; % get the matrix of coordinates
 
 %% Compute forward-backward returning details (alpha)
-% NOTE: we run with scaled=0 to get the real probabilities. However, this
-% may cause numerical problems. Should check.
 % In order to get the details we run for each model in two steps: first get
 % GMM posteriors, and then run forward backward
+% NOTE: we run with scaled=0 to get the real probabilities. However, this
+% may cause numerical problems. Should check.
 tap_obslik = mixgauss_prob(human_data, hmm1_mu, hmm1_Sigma, hmm1_mixmat);
 [tap_alpha, ~, tap_gamma, tap_ll] = fwdback(hmm1_prior, hmm1_trans, tap_obslik, 'fwd_only', 1, 'scaled', 0);
 grasp_obslik = mixgauss_prob(human_data, hmm3_mu, hmm3_Sigma, hmm3_mixmat);
