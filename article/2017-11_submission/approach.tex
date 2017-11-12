@@ -102,15 +102,15 @@ In addition, we assume that a depth sensor is available and positioned near the 
 Fig.~\ref{fig:model} illustrates the probabilistic dependencies in the complete model and will be detailed in the following subsections.
 The key to our approach is the existence of the discrete variable Action, the value of which is known to the robot in the ego-centric phase of learning, but must be inferred from observation in the social phase.
 In the social phase, this variable links all the other observable variables, that is, human gesture features, object properties, effect variables and words.
-It allows the robot to:
+This allows the robot to:
 \begin{itemize}
 \item use language in order to determine the mapping between human and own gestures/actions, and learn the corresponding perceptual models;
-\item in many cases, use the affordance variables to infer the above mapping even in the absence of a verbal descriptions;
+\item in many cases, use the affordance variables to infer the above mapping even in the absence of verbal descriptions;
 \item once the perceptual models for human gesture/actions are acquired, use the complete model to do inference on any variable given some evidence.
 \end{itemize}
-In the following sections we give first details on the probabilistic models enclosed in the \AffWords{} model box in Fig.~\ref{fig:model}.
-Then we describe the Gesture/Action recognition method.
-Finally, we describe the way we combine evidence from the two models.
+In the following sections, first we give details on the probabilistic models enclosed in the \AffWords{} model box in Fig.~\ref{fig:model}.
+Then, we describe the Gesture/Action recognition method.
+Finally, we describe the way in which we combine evidence from the two models.
 %We consider three \emph{manipulative gestures} corresponding to physical actions performed by agent(s) onto objects on a table~(see Fig.~\ref{fig:experimental_setup}): grasp, tap, and touch.
 %Our proposed model performs probabilistic reasoning on the effects of these actions onto the objects of the world, and on the co-occurring verbal description of the experiments.
 
