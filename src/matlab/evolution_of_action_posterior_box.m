@@ -140,10 +140,13 @@ push_obslik = mixgauss_prob(human_data, hmm4_mu, hmm4_Sigma, hmm4_mixmat);
 figure
 subplot(3,1,1)
 imagesc(tap_alpha ./ (ones(6,1) * sum(tap_alpha)))
+set(gca, 'ydir', 'normal')
 subplot(3,1,2)
 imagesc(grasp_alpha ./ (ones(6,1) * sum(grasp_alpha)))
+set(gca, 'ydir', 'normal')
 subplot(3,1,3)
 imagesc(push_alpha ./ (ones(6,1) * sum(push_alpha)))
+set(gca, 'ydir', 'normal')
 
 % Turn alpha probabilities into likelihoods of each model. This is a
 % 3xN matrix where the row index corresponds to the models.
