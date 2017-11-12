@@ -2,28 +2,26 @@
 
 \section{Experimental Results}
 
-In this section, we report the experimental findings obtained with our proposed model when using information originating from the observation of an external agent~(human).
+In this section, we report the experimental findings obtained with our proposed model.
+%when using information originating from the observation of an external agent~(human).
 We present the following types of results:
 \begin{itemize}
-  \item inferences over affordance information, such as actions, object features and effects;
+  \item inferences over affordance variables~(i.e., the entries of Table~\ref{tab:bnsymb} except the last row therein);
 
-  \item predictions over word probabilities;
+  \item predictions of word probabilities~(i.e., the last row of Table~\ref{tab:bnsymb});
 
-  \item generated verbal descriptions from word probabilities, which in turn give rise to language phenomena such as choice of most appropriate conjunction, choice of subject being repeated between two consecutive sentences.
+  \item generated verbal descriptions from the word probabilities of the previous point, according to a formal grammar. The descriptions, in turn, can be interpreted to observe the emergence of certain language phenomena~(e.g., choice of most appropriate conjunction word, choice of subject word being repeated between two consecutive sentences when they refer to the same object).
 \end{itemize}
 
-\subsection{Inference over Affordances}
+\subsection{Inference over Affordance Variables}
 
-RESULT FROM GLU WITH HARD EVIDENCE
+% RESULT FROM GLU WITH HARD EVIDENCE
+%
+% {\color{red}
+% Giampiero: in this example we should: 1) not use hard evidence, but soft 2) base the evidence on some of the recorded examples of tap. I believe the same results would be obtained given that the ti evidence from the HMM is not completely random.
+% }
 
-{\color{red}
-Giampiero: in this example we should: 1) not use hard evidence, but soft 2) base the evidence on some of the recorded examples of tap. I believe the same results would be obtained given that the ti evidence from the HMM is not completely random.
-}
-{\color{blue}
-Giovanni: done, now we need to decide which results to cut, which to include, and comment them
-}
-
-OBSOLETE, WE NOW USE SOFT EVIDENCE - Our combined model can make predictions over the elements that form our computational concept of affordances, i.e., Action, Object Features, Effects in Fig.~\ref{fig:model}.
+OBSOLETE PARAGRAPH, WE NOW USE SOFT EVIDENCE - Our combined model can make predictions over the elements that form our computational concept of affordances, i.e., Action, Object Features, Effects in Fig.~\ref{fig:model}.
 For example, we can reason about the effects that actions cause onto environment objects.
 %In this experiment, we assume that the Gesture \acp{HMM} provide the discrete value of the recognized action performed by a human agent~(i.e., we enforce a hard decision over the observed action).
 In this first experiment, for simplicity we assume that the Gesture \acp{HMM} provide a \emph{hard decision} over the discrete value of the recognized action performed by a human agent.
@@ -108,7 +106,7 @@ Next, we report a result that also uses the \emph{soft decision} over the Action
 Fig.~\ref{fig:impact_of_evidence_on_ObjVel} shows the inference in two cases: when the prior information says that the shape is spherical~(see Fig.~\ref{fig:impact_of_evidence_on_ObjVel_sphere}), and when it is cubic~(see Fig.~\ref{fig:impact_of_evidence_on_ObjVel_box}).
 TODO complete
 
-\subsection{Prediction of Words}
+\subsection{Prediction of Word Probabilities}
 
 RESULT FROM GLU WITH HARD EVIDENCE
 
@@ -139,7 +137,7 @@ In particular, we compare the \emph{probability of word occurrence} resulting fr
 Fig.~\ref{fig:probdiff} shows the variation in word occurrence probabilities between the two cases, where we have omitted words for which no significant variation was observed.
 We can interpret the difference in the predictions as follows: (i)~as expected, the probabilities of words related to tapping and pushing increase when a tapping action evidence from the Gestures \acp{HMM} is introduced; conversely, the probabilities of other action words~(touching and poking) decreases; (ii)~interestingly, the probability of the word \emph{rolling}~(which is an effect of an action onto an object) also increases when the tapping action evidence is entered. Even though the initial evidence of case~$1$ already included some effect information~(the velocity of the object), it is only now, when the robot perceives that the physical action was a tap, that the event rolling is associated.
 
-\subsection{Verbal Descriptions and Language Properties}
+\subsection{Verbal Descriptions}
 
 In TODO ADD REF, we have seen how our model is able to generate word probabilities after having received probabilistic observed evidence.
 In order to illustrate the capabilities of the model, we use the \ac{CFG} described in Appendix~\ref{appendix:grammar} to generate written descriptions of the robot observations on the basis of the probability distributions of the words inferred by the model.
@@ -205,7 +203,7 @@ In the most likely sentence of the list~(in bold), we note that (i)~the correct 
     } % end resizebox
 \end{table}
 
-\subsection{Choice of Correct Conjunction}
+\subsection{Language Phenomenon: Choice of Correct Conjunction}
 
 \newcommand{\evidenceProducingAnd}{Action=grasp, ObjVel=medium}
 \newcommand{\evidenceProducingBut}{Action=grasp, ObjVel=slow}
@@ -337,7 +335,7 @@ Fig.~\ref{fig:update_from_softevidence} shows the result of predictions over nod
     \label{fig:update_from_softevidence}
 \end{figure*}
 
-word probabilities: Fig.~\ref{fig:after_softevidence:pw} (in this case they are identical before and after incorporating the soft evidence)
+word probabilities: Fig.~\ref{fig:after_softevidence:pw} (in this case they are identical before and after incorporating the soft evidence) REMOVE THIS?
 
 \begin{figure}
 \centering
