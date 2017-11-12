@@ -21,14 +21,11 @@ We present the following types of results:
 % Giampiero: in this example we should: 1) not use hard evidence, but soft 2) base the evidence on some of the recorded examples of tap. I believe the same results would be obtained given that the ti evidence from the HMM is not completely random.
 % }
 
-OBSOLETE PARAGRAPH, WE NOW USE SOFT EVIDENCE - Our combined model can make predictions over the elements that form our computational concept of affordances, i.e., Action, Object Features, Effects in Fig.~\ref{fig:model}.
-For example, we can reason about the effects that actions cause onto environment objects.
-%In this experiment, we assume that the Gesture \acp{HMM} provide the discrete value of the recognized action performed by a human agent~(i.e., we enforce a hard decision over the observed action).
-In this first experiment, for simplicity we assume that the Gesture \acp{HMM} provide a \emph{hard decision} over the discrete value of the recognized action performed by a human agent.
-%From our combined model of words, affordances and observed actions,
-%In Fig.~\ref{fig:effect_pred}, we show the inferred posterior value of the Object Velocity effect, given prior information about the action~(provided by the Gesture \acp{HMM}) and also about object features~(Shape and Size) for two types of objects.
-%Fig.~\ref{fig:effect_pred} shows the computed predictions in two cases.
-Fig.~\ref{fig:effect_pred_sphere} shows the anticipated object velocity when the human user performs the tapping action onto a small spherical object, whereas Fig.~\ref{fig:effect_pred_box} displays it when the target object is a big box. Indeed, given the same observed action prior~(lateral tap on the object), the expected movement is very different depending on the physical properties of the target object.
+Because it is based on \ac{BN}, our model can make predictions over any set of its variables, given any other set of observed variables.
+In particular, the model can do reasoning on the elements that constitute our computational concept of affordances, i.e., Action, Object Features, Effects in Fig.~\ref{fig:model}.
+For example, we can reason about the expected object velocity effects that an action will cause onto environment objects, in an anticipatory fashion, thus computing~\eqref{eq:fusion_excluding_action}.
+Note that the estimation of the human action,~$P_\{HMM}(A \given G_1^N)$, is a probability distribution over the possible actions that can change with time.
+Fig.~\ref{fig:effect_pred_sphere} shows the experiment when the human performs an action onto a small spherical object, whereas Fig.~\ref{fig:effect_pred_box} displays it when the object is a big box.
 
 \begin{figure*}
     \centering
@@ -54,6 +51,12 @@ Fig.~\ref{fig:effect_pred_sphere} shows the anticipated object velocity when the
     \label{fig:effect_pred_sphere}
 \end{figure*}
 
+In~\ref{fig:effect_pred_sphere:action_posterior_evolution}, we visualize the temporal evolution of the human action posterior probability distribution, as computed by the Gesture/Action Recognition algorithm when the human is moving the hand, before the contact to the object is made~(see Fig.~\ref{fig:effect_pred_sphere:observation_and_prediction}, first three photos).
+After about two thirds of the human movement have been completed, the model guesses correctly that it is a tap movement.
+(Before that instant, the model makes takes wrong guesses, in addition it does it with certainty, due to the way that the individual gesture have been modeled by continuous mixtures of Gaussian values GIAMPIERO PLEASE CHECK THIS.)
+In Fig.~\ref{fig:effect_pred_sphere:observation_and_prediction}~(rightmost plot), we show the final prediction of the moment effect on the small sphere.
+In essence, the combined model has predicted that this target object will exhibit a medium or fast velocity after the human will touch it.
+
 \begin{figure*}
     \centering
     \subfloat[][Evolution of the action posterior in time, using~\eqref{eq:phmm_action}.]{
@@ -73,6 +76,14 @@ Fig.~\ref{fig:effect_pred_sphere} shows the anticipated object velocity when the
     \caption{Object velocity predictions on a big box, given probabilistic human action information from Gesture \acp{HMM}.}
     \label{fig:effect_pred_box}
 \end{figure*}
+
+As for the experiment with the big box, Fig.~\ref{fig:effect_pred_sphere:action_posterior_evolution} shows the temporal evolution of the human action posterior.
+Similar considerations to the previous example apply: after about~$60$\% of the sequence has been observed, the Gesture/Action Recognition block estimates the tap correctly.
+This time, when we fuse the human action estimation to the extracted Object Features, instants below the contact occurs~(Fig.~\ref{fig:effect_pred_box:observation_and_prediction}, first three photos), we get a different result than before, show in Fig.~\ref{fig:effect_pred_box:observation_and_prediction}~(rightmost plot): the combined model has predicted that the object will yield a movement of type ``slow'', meaning that it will not move at all, or move slowly.
+
+These two cases have shown that, given similar human action priors~(i.e., lateral taps on a target object), the expected movement returned by the model is very different depending on the physical properties of the object.
+
+
 
 NEW RESULT WITH SOFT EVIDENCE (Action)
 

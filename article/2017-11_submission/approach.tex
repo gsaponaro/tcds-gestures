@@ -281,26 +281,26 @@ secondly, this would make the evidence on the gesture features~$G_1^N$ irrelevan
 The two cases enumerated above can be addressed separately when we do inference.
 In the first case, we call~$\xinf^\prime$ the set of inference variables excluding the action~$A$, that is, $\xinf = \{\xinf^\prime, A\}$.
 We can write:
-\begin{align*}
-  & \pcomb(\xinf \given  \xobs, G_1^N) = \pcomb(A, \xinf^\prime \given  \xobs, G_1^N)= \\
-  &= \sum_{\xlat} \pcomb(A, \xinf^\prime, \xlat \given \xobs, G_1^N)=\\
-  &= \sum_{\xlat} \left[\pbn(A, \xinf^\prime, \xlat \given \xobs, G_1^N)\right. \\[-4mm]
-    & \mspace{80mu} \left.\phmm(A, \xinf^\prime, \xlat \given \xobs, G_1^N)\right]= \\
-  &= \left[\sum_{\xlat} \pbn(A, \xinf^\prime, \xlat \given \xobs)\right] \phmm(A \given G_1^N) \\
+\begin{align} \label{eq:fusion_excluding_action}
+  & \pcomb(\xinf \given  \xobs, G_1^N) = \pcomb(A, \xinf^\prime \given  \xobs, G_1^N)= \nonumber \\
+  &= \sum_{\xlat} \pcomb(A, \xinf^\prime, \xlat \given \xobs, G_1^N)= \nonumber\\
+  &= \sum_{\xlat} \left[\pbn(A, \xinf^\prime, \xlat \given \xobs, G_1^N)\right. \nonumber \\[-4mm]
+    & \mspace{80mu} \left.\phmm(A, \xinf^\prime, \xlat \given \xobs, G_1^N)\right]= \nonumber \\
+  &= \left[\sum_{\xlat} \pbn(A, \xinf^\prime, \xlat \given \xobs)\right] \phmm(A \given G_1^N) \nonumber \\
   &= \pbn(\xinf \given \xobs) \phmm(A \given G_1^N).
-\end{align*}
+\end{align}
 This means that we can evaluate the two models independently, then multiply the distribution that we obtain from the \ac{BN}~(over all the possible value of the inference variables) by the \ac{HMM} posterior for the corresponding value of the action.
 
 In the second case, where the action is among the latent variables, we define, similarly, $\xlat = \{A, \xlat^\prime\}$, and we have:
-\begin{align*}
-  & \pcomb(\xinf \given \xobs, G_1^N) = \\
-  &= \sum_{\{A,\xlat^\prime\}} \pcomb(\xinf, A, \xlat^\prime \given \xobs, G_1^N)=\\
-  &= \sum_{\{A,\xlat^\prime\}} \left[\pbn(\xinf, A, \xlat^\prime \given \xobs, G_1^N)\right. \\[-4mm]
-    & \mspace{100mu} \left.\phmm(\xinf, A, \xlat^\prime \given \xobs, G_1^N)\right]= \\[2mm]
-  &= \sum_{\{A,\xlat^\prime\}} \left[\pbn(\xinf, A, \xlat^\prime \given \xobs) \phmm(A \given G_1^N)\right] \\
-  &= \sum_{A}\left[\phmm(A \given G_1^N)\sum_{\xlat^\prime} \pbn(\xinf, A, \xlat^\prime \given \xobs)\right] \\
-  &= \sum_{A}\left[\phmm(A \given G_1^N) \pbn(\xinf, A \given \xobs)\right]. \\
-\end{align*}
+\begin{align} \label{eq:fusion_including_action}
+  & \pcomb(\xinf \given \xobs, G_1^N) = \nonumber \\
+  &= \sum_{\{A,\xlat^\prime\}} \pcomb(\xinf, A, \xlat^\prime \given \xobs, G_1^N)= \nonumber \\
+  &= \sum_{\{A,\xlat^\prime\}} \left[\pbn(\xinf, A, \xlat^\prime \given \xobs, G_1^N)\right. \nonumber \\[-4mm]
+    & \mspace{100mu} \left.\phmm(\xinf, A, \xlat^\prime \given \xobs, G_1^N)\right]= \nonumber \\[2mm]
+  &= \sum_{\{A,\xlat^\prime\}} \left[\pbn(\xinf, A, \xlat^\prime \given \xobs) \phmm(A \given G_1^N)\right] \nonumber \\
+  &= \sum_{A}\left[\phmm(A \given G_1^N)\sum_{\xlat^\prime} \pbn(\xinf, A, \xlat^\prime \given \xobs)\right] \nonumber \\
+  &= \sum_{A}\left[\phmm(A \given G_1^N) \pbn(\xinf, A \given \xobs)\right].
+\end{align}
 This time, we first need to use the \ac{BN} to do inference on the variables~$\xinf$ and~$A$, and then we marginalize out the action variable~$A$ after having multiplied the probabilities by the \ac{HMM} posterior.
 
 %GLU TEXT
