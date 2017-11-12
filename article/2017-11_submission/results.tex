@@ -13,7 +13,39 @@ We present the following types of results:
   \item generated verbal descriptions from the word probabilities of the previous point, according to a formal grammar. The descriptions, in turn, can be interpreted to observe the emergence of certain language phenomena~(e.g., choice of most appropriate conjunction word, choice of subject word being repeated between two consecutive sentences when they refer to the same object).
 \end{itemize}
 
-\subsection{Inference over Affordance Variables}
+\subsection{Inference over Affordance Variables (Including Action, Synthetic Values)}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.9\columnwidth]{impact_of_evidence_on_Action.eps}
+\caption{Predictions about the action over a big sphere, when given different probabilistic soft evidence about the action.}
+\label{fig:impact_of_evidence_on_Action}
+\end{figure}
+
+%We now report a result that uses the \emph{soft decision} from the Gesture \acp{HMM}, i.e., the probability distribution over the possible actions.
+In Fig.~\ref{fig:impact_of_evidence_on_Action} we show compactly the result of eight different queries~(each group of bars), corresponding to the same number of eight different soft evidences over the action, ranging from a non-informative, uniform distribution~(i.e.,~[1/3~1/3~1/3]), up to the maximum score being attributed to the ``tap'' action~(i.e.,~[0~1~0]), with intermediate distributions in between.
+The resulting posterior probability over the Action node is initially ambiguous between ``grasp'' and ``tap'', but then it becomes more and more polarized towards the ``tap'' action as our prior becomes more informative.
+This result is not surprising, because the Action node is used both as a prior and as a posterior.
+Nonetheless, it serves to validade our formulation for combining different sources of information~(see Sec.~\ref{sec:combination}).
+
+\subsection{Inference over Affordance Variables (Excluding Action, Synthetic Values)}
+
+\begin{figure*}
+\centering
+\subfloat[][Predictions about the object velocity of a sphere, when given different probabilistic soft evidence about the action.]
+{ \includegraphics[width=0.45\linewidth]{impact_of_evidence_on_ObjVel_sphere.eps} \label{fig:impact_of_evidence_on_ObjVel_sphere} } \quad
+%
+\subfloat[][Predictions about the object velocity of a box, when given different probabilistic soft evidence about the action.]
+{ \includegraphics[width=0.45\linewidth]{impact_of_evidence_on_ObjVel_box.eps} \label{fig:impact_of_evidence_on_ObjVel_box} }
+\caption{Predictions about the object velocity of different objects, when given probabilistic soft evidence about the action.}
+\label{fig:impact_of_evidence_on_ObjVel}
+\end{figure*}
+
+Next, we report a result that also uses the \emph{soft decision} over the Action node from the Gesture \acp{HMM}, but this time makes a prediction over a different node: object velocity~(which expresses an effect information).
+Fig.~\ref{fig:impact_of_evidence_on_ObjVel} shows the inference in two cases: when the prior information says that the shape is spherical~(see Fig.~\ref{fig:impact_of_evidence_on_ObjVel_sphere}), and when it is cubic~(see Fig.~\ref{fig:impact_of_evidence_on_ObjVel_box}).
+TODO complete
+
+\subsection{Inference over Affordance Variables (Excluding Action, Real Values)}
 
 % RESULT FROM GLU WITH HARD EVIDENCE
 %
@@ -24,7 +56,7 @@ We present the following types of results:
 Because it is based on \ac{BN}, our model can make predictions over any set of its variables, given any other set of observed variables.
 In particular, the model can do reasoning on the elements that constitute our computational concept of affordances, i.e., Action, Object Features, Effects in Fig.~\ref{fig:model}.
 For example, we can reason about the expected object velocity effects that an action will cause onto environment objects, in an anticipatory fashion, thus computing~\eqref{eq:fusion_excluding_action}.
-Note that the estimation of the human action,~$\phmm(A \given G_1^N)$, is a probability distribution over the possible actions that can change with time.
+Note that the estimation of the human action,~$\phmm(A \given G_1^N)$, is a \emph{soft decision}, meaning that it represents the~(time-evolving) probability distribution over the possible actions.
 Fig.~\ref{fig:effect_pred_sphere} shows the experiment when the human performs an action onto a small spherical object, whereas Fig.~\ref{fig:effect_pred_box} displays it when the object is a big box.
 
 \begin{figure*}
@@ -82,40 +114,6 @@ Similar considerations to the previous example apply: after about~$60$\% of the 
 This time, when we fuse the human action estimation to the extracted Object Features, instants below the contact occurs~(Fig.~\ref{fig:effect_pred_box:observation_and_prediction}, first three photos), we get a different result than before, show in Fig.~\ref{fig:effect_pred_box:observation_and_prediction}~(rightmost plot): the combined model has predicted that the object will yield a movement of type ``slow'', meaning that it will not move at all, or move slowly.
 
 These two cases have shown that, given similar human action priors~(i.e., lateral taps on a target object), the expected movement returned by the model is very different depending on the physical properties of the object.
-
-
-
-NEW RESULT WITH SOFT EVIDENCE (Action)
-
-\begin{figure}
-\centering
-\includegraphics[width=0.9\columnwidth]{impact_of_evidence_on_Action.eps}
-\caption{Predictions about the action over a big sphere, when given different probabilistic soft evidence about the action.}
-\label{fig:impact_of_evidence_on_Action}
-\end{figure}
-
-We now report a result that uses the \emph{soft decision} from the Gesture \acp{HMM}, i.e., the probability distribution over the possible actions.
-In Fig.~\ref{fig:impact_of_evidence_on_Action} we show compactly the result of eight different queries~(each group of bars), corresponding to the same number of eight different soft evidences over the action, ranging from a non-informative, uniform distribution~(i.e.,~[1/3~1/3~1/3]), up to the maximum score being attributed to the ``tap'' action~(i.e.,~[0~1~0]), with intermediate distributions in between.
-The resulting posterior probability over the Action node is initially ambiguous between ``grasp'' and ``tap'', but then it becomes more and more polarized towards the ``tap'' action as our prior becomes more informative.
-This result is not surprising, because the Action node is used both as a prior and as a posterior.
-Nonetheless, it serves to validade our formulation for combining different sources of information~(see Sec.~\ref{sec:combination}).
-
-NEW RESULT WITH SOFT EVIDENCE (ObjVel)
-
-\begin{figure*}
-\centering
-\subfloat[][Predictions about the object velocity of a sphere, when given different probabilistic soft evidence about the action.]
-{ \includegraphics[width=0.45\linewidth]{impact_of_evidence_on_ObjVel_sphere.eps} \label{fig:impact_of_evidence_on_ObjVel_sphere} } \quad
-%
-\subfloat[][Predictions about the object velocity of a box, when given different probabilistic soft evidence about the action.]
-{ \includegraphics[width=0.45\linewidth]{impact_of_evidence_on_ObjVel_box.eps} \label{fig:impact_of_evidence_on_ObjVel_box} }
-\caption{Predictions about the object velocity of different objects, when given probabilistic soft evidence about the action.}
-\label{fig:impact_of_evidence_on_ObjVel}
-\end{figure*}
-
-Next, we report a result that also uses the \emph{soft decision} over the Action node from the Gesture \acp{HMM}, but this time makes a prediction over a different node: object velocity~(which expresses an effect information).
-Fig.~\ref{fig:impact_of_evidence_on_ObjVel} shows the inference in two cases: when the prior information says that the shape is spherical~(see Fig.~\ref{fig:impact_of_evidence_on_ObjVel_sphere}), and when it is cubic~(see Fig.~\ref{fig:impact_of_evidence_on_ObjVel_box}).
-TODO complete
 
 \subsection{Prediction of Word Probabilities}
 
@@ -333,7 +331,9 @@ When the object velocity is slow (in the clustering procedure this was most ofte
 
 \subsection{Solving Ambiguities with the Combined Model}
 
-Fig.~\ref{fig:update_from_softevidence} shows the result of predictions over nodes given some (hard) evidence, before and after incorporating further soft evidence
+MOVE THIS RESULT EARLIER? (requires explanation of word probabilities, if we decide to include Fig.~\ref{fig:after_softevidence:pw})
+
+Fig.~\ref{fig:update_from_softevidence} shows the result of predictions over nodes given some initial evidence, before and after incorporating further soft evidence
 
 \begin{figure*}
     \centering
