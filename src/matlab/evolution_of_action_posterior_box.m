@@ -186,7 +186,7 @@ if create_figures
 
     figure;
     subplot(3,1,1); % to reduce aspect ratio
-    hp = plot(normliks);
+    hp = plot(normliks');
     hp(1).Color = 'g';
     hp(1).LineStyle = '--';
     hp(1).LineWidth = 1;
