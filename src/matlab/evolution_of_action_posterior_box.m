@@ -124,45 +124,53 @@ human_cell = separate_sequence(human, human_seglim);
 human_BNT = transpose_cell_array(human_cell);
 human_data = human_BNT{1}; % get the matrix of coordinates
 
-%% run Forward-Backward on increasingly complete data
-interval = 5;
-%sequence_length = human_endframe-human_startframe-shrink*2;
-sequence_length = size(human_data, 2);
-iteration_frames = interval:interval:sequence_length;
-num_iterations = length(iteration_frames);
-ev = cell(1,num_iterations); % will store HMM evidence in BNActionValue order: grasp,tap,touch
-for iter_fb = 1:num_iterations
-    frames_so_far = iteration_frames(iter_fb);
-    human_so_far = human_data(:, 1:frames_so_far);
+%% Compute forward-backward returning details (alpha)
+% In order to get the details we run for each model in two steps: first get
+% GMM posteriors, and then run forward backward
+% NOTE: we run with scaled=0 to get the real probabilities. However, this
+% may cause numerical problems. Should check.
+tap_obslik = mixgauss_prob(human_data, hmm1_mu, hmm1_Sigma, hmm1_mixmat);
+[tap_alpha, ~, tap_gamma, tap_ll] = fwdback(hmm1_prior, hmm1_trans, tap_obslik, 'fwd_only', 1, 'scaled', 0);
+grasp_obslik = mixgauss_prob(human_data, hmm3_mu, hmm3_Sigma, hmm3_mixmat);
+[grasp_alpha, ~, grasp_gamma, grasp_ll] = fwdback(hmm3_prior, hmm3_trans, grasp_obslik, 'fwd_only', 1, 'scaled', 0);
+push_obslik = mixgauss_prob(human_data, hmm4_mu, hmm4_Sigma, hmm4_mixmat);
+[push_alpha, ~, push_gamma, push_ll] = fwdback(hmm4_prior, hmm4_trans, push_obslik, 'fwd_only', 1, 'scaled', 0);
 
-    %scores_map = containers.Map;
-
-    %fprintf('===============================================================\n\n');
-    %fprintf('test data: human, subsequence: %d, ground truth: 1 (tap)\n', ex);
-    tap_score = mhmm_logprob(human_so_far, hmm1_prior, hmm1_trans, hmm1_mu, hmm1_Sigma, hmm1_mixmat);
-    grasp_score = mhmm_logprob(human_so_far, hmm3_prior, hmm3_trans, hmm3_mu, hmm3_Sigma, hmm3_mixmat);
-    push_score = mhmm_logprob(human_so_far, hmm4_prior, hmm4_trans, hmm4_mu, hmm4_Sigma, hmm4_mixmat);
-    %scores_map('garbage') = mhmm_logprob(human_so_far, hmm0_prior, hmm0_trans, hmm0_mu, hmm0_Sigma, hmm0_mixmat);
-    %k = keys(scores_map); % alphabetical order: grasp,push,tap
-    %v = values(scores_map);
-    k = {'grasp', 'tap', 'push'};
-    v2 = [grasp_score, tap_score, push_score];
-    v_norm = exp(v2-logsumexp(v2));
-    v_norm = v_norm/sum(v_norm); % this is just to eliminate numerical problems
-    
-    % save the evidence pdf for later plots
-    ev{iter_fb} = v_norm; % not sure if this is needed
-
-    [m,i] = max(v_norm);
-    fprintf('observing %d frames, pdf: [%s] -> winner %d (%s)\n', frames_so_far, num2str(v_norm), i, k{i});
-
+%% plot alphas
+if create_figures
+    figure;
+    subplot(3,1,1);
+    title('HMM tap states probability');
+    imagesc(tap_alpha ./ (ones(6,1) * sum(tap_alpha)));
+    set(gca, 'ydir', 'normal');
+    subplot(3,1,2);
+    title('HMM grasp states probability');
+    imagesc(grasp_alpha ./ (ones(6,1) * sum(grasp_alpha)));
+    set(gca, 'ydir', 'normal');
+    subplot(3,1,3);
+    title('HMM push/touch states probability');
+    imagesc(push_alpha ./ (ones(6,1) * sum(push_alpha)));
+    set(gca, 'ydir', 'normal');
 end;
+
+% Turn alpha probabilities into likelihoods of each model. This is a
+% 3xN matrix where the row index corresponds to the models.
+liks = [sum(tap_alpha); sum(grasp_alpha); sum(push_alpha)];
+
+% Normalize the likelihoods to get posteriors
+normliks = liks ./ (ones(3,1)*sum(liks));
 
 %% load Affordance-Words Bayesian Network data
 load('BN_lab.mat');
 
 %% initial evidence
 obs_box = {'Shape', 'box', 'Size', 'big'};
+
+%% variables used for repeated BN inference below
+interval = 5;
+sequence_length = length(normliks);
+iteration_frames = interval:interval:sequence_length;
+num_iterations = length(iteration_frames);
 
 p = cell(1,num_iterations); % will store BN posteriors
 for iter_bn = 1:num_iterations
@@ -171,9 +179,10 @@ for iter_bn = 1:num_iterations
     netobj_lab = BNResetEvidence(netobj_lab);
     netobj_lab = BNEnterNodeEvidence(netobj_lab, obs_box);
     
-    %% extract predictions (posteriors) with the current HMM soft evidence
+    %% extract predictions (posteriors) with the current HMM evidence
     inferred = {'ObjVel'};
-    [netobj_lab,p{iter_bn}] = fusion(netobj_lab, inferred, obs_box, ev{iter_bn});
+    ev = normliks(:,iteration_frames(iter_bn))';
+    [netobj_lab,p{iter_bn}] = fusion(netobj_lab, inferred, obs_box, ev);
 
 end;
 
@@ -201,11 +210,7 @@ if create_figures
 
     figure;
     subplot(3,1,1); % to reduce aspect ratio
-    ev_all = cell2mat(ev');
-    ev_grasp = ev_all(:,1);
-    ev_tap = ev_all(:,2);
-    ev_touch = ev_all(:,3);
-    hp = plot(iteration_frames, ev_grasp, iteration_frames,ev_tap, iteration_frames,ev_touch);
+    hp = plot(normliks');
     hp(1).Color = 'g';
     hp(1).LineStyle = '--';
     hp(1).LineWidth = 1;
@@ -221,7 +226,7 @@ if create_figures
     xlabel('$\rm{frame~n}~(\times~30~\rm{ms})$', 'Interpreter','latex', 'FontSize',fontsize);
     %set(gca, 'xticklabels', list_of_real_frames);
     %set(gca, 'xticklabels',{[]});
-    set(gca, 'ylim', [-0.05 1.05], 'xlim', [1 sequence_length]);
+    set(gca, 'ylim', [-0.05 1.05], 'xlim', [1 size(normliks, 2)]);
     %ylabel('$P_{\rm{HMM}}(\rm{Action}=a_k \mid G_1^k)$', 'Interpreter','latex', 'FontSize',fontsize);
     ylabel('$P_{\rm{HMM}}(A \mid G_1^n)$', 'Interpreter','latex', 'FontSize',fontsize);
     l2 = legend(hp, 'grasp', 'tap', 'touch');
