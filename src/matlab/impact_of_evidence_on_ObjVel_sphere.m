@@ -56,11 +56,12 @@ netobj_lab = BNEnterNodeEvidence(netobj_lab, obs_sphere);
 if create_figures
     figure;
     b = bar([p1 p2 p3 p4 p5]');
-    xlabel('Action Evidence [grasp tap touch]', 'FontSize',fontsize);
+    %xlabel('Action Evidence [grasp tap touch]', 'FontSize',fontsize);
+    xlabel('$P_{\rm{HMM}}(A \mid G_1^T)$ [grasp tap touch]', 'Interpreter','latex', 'FontSize',fontsize);
     set(gca, 'xticklabels', {mat2str(ev1), mat2str(ev2), mat2str(ev3), ...
         mat2str(ev4), mat2str(ev5)});
     xtickangle(45);
-    ylabel('$P_{\rm{comb}}(\rm{ObjVel} \mid \rm{Shape=sphere})$', 'Interpreter','latex', 'FontSize',fontsize);
+    ylabel('$P_{\rm{comb}}(\rm{ObjVel} \mid \rm{Shape=sphere}, G_1^T)$', 'Interpreter','latex', 'FontSize',fontsize);
     l = legend(b, 'slow', 'medium', 'fast');
     set(l, 'Location','north');
     print('-depsc', 'impact_of_evidence_on_ObjVel_sphere.eps');
