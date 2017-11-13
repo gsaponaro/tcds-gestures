@@ -10,18 +10,18 @@
 \usepackage[nounderscore]{syntax} % definition of the context-free grammar
 
 \usepackage[
-    backend=biber, % bibliography engine
-    style=ieee, % bibliography style .bbx and citation style .cbx
-    hyperref, % make citations and references clickable - requires hyperref pkg
-    maxbibnames=99, % 99 = display all authors of multi-author articles
-    doi=false, % do not display DOI
-    isbn=false, % do not display ISBN
-    ]
-        {biblatex} % note: incompatible with ucs (-> utf8x), natbib
+  backend=biber, % bibliography engine
+  style=ieee, % bibliography style .bbx and citation style .cbx
+  hyperref, % make citations and references clickable - requires hyperref pkg
+  maxbibnames=99, % 99 = display all authors of multi-author articles
+  doi=false, % do not display DOI
+  isbn=false, % do not display ISBN
+]{biblatex} % note: incompatible with ucs (-> utf8x), natbib
+\renewcommand{\bibfont}{\footnotesize}
 \usepackage[
-    autostyle] % adapt citation style to current document language
-        {csquotes} % Context Sensitive Quotations; provides biblatex \enquote{}
-
+  autostyle % adapt citation style to current document language
+]{csquotes} % Context Sensitive Quotations; provides biblatex \enquote{}
+           
 \usepackage[nolist]{acronym}
 \usepackage{amsmath}
 \usepackage{amssymb}
