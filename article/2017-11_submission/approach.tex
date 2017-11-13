@@ -311,9 +311,7 @@ Note that this grammar is defined here with the only purpose to interpret the pr
 The grammar was neither used in the speech recognition system, nor in learning the associations of the spoken utterances to the affordance variables.
 In the model described in~\cite{salvi:2012:smcb}, the speech recognizer used a free loop of words with uniform prior distribution over the words, and the Bayesian model used a bag-of-words assumption, thus disregarding any syntactic information about the spoken descriptions.
 
-During the self-centered learning phase, the verbal descriptions described the agent of the observed actions as either ``the~robot'', ``he'', or ``Baltazar''.
-Consequently, the \AffWords{} model learned by the robot includes those words.
-In the current study, by merging the \AffWords{} model and the gesture/action recognition model, we allow the robot to reinterpret the concepts it has learned in the self-centered phase, but we do not add any new words to the model.
+In the current study, by merging the \AffWords{} model and the gesture/action recognition model, we allow the robot to \emph{reinterpret} the concepts it has learned in the self-centered phase, but we do not add any new words to the model.
 Consequently, the descriptions that the model generates when observing humans use the same words to describe the agent.
 
 The textual descriptions are generated as follows: given some evidence~$\xobs$ that we provide to the model and some human observation features~$G_1^n$ extracted from frames~$1$ to~$n$, we extract the generated word probabilities
