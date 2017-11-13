@@ -18,17 +18,17 @@ probdiff = probs2-probs;
 figure;
 bar(probdiff)
 set(gca, 'xtick', 1:length(netobj_lab.WORDNODES))
-set(gca, 'xticklabel', netobj_lab.nodeNames(netobj_lab.WORDNODES))
+wordnameswithquotes = strcat('"', netobj_lab.nodeNames(netobj_lab.WORDNODES(toplot)), '"');
+set(gca, 'xticklabel', wordnameswithquotes);
 xtickangle(45);
-%print -dsvg fullfig
-print('-depsc', 'fullfig.eps');
+%print('-depsc', 'fullfig.eps');
 
 toplot = abs(probdiff)>0.02;
 figure;
 bar(probdiff(toplot));
 set(gca, 'xtick', 1:length(netobj_lab.WORDNODES(toplot)))
-set(gca, 'xticklabel', netobj_lab.nodeNames(netobj_lab.WORDNODES(toplot)))
-%ylabel('$\Delta p(w_i)$', 'Interpreter','latex', 'FontSize', 20);
+wordnameswithquotes = strcat('"', netobj_lab.nodeNames(netobj_lab.WORDNODES(toplot)), '"');
+set(gca, 'xticklabel', wordnameswithquotes);
 ylabel('$\Delta P(w_i)$', 'Interpreter','latex', 'FontSize', 20);
 xtickangle(45);
 print('-depsc', 'partialfig.eps');

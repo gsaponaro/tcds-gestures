@@ -44,7 +44,9 @@ if show_figures
     figure;
     bar(probdiff1(toplot1));
     set(gca, 'xtick', 1:length(netobj_lab.WORDNODES(toplot1)))
-    set(gca, 'xticklabel', netobj_lab.nodeNames(netobj_lab.WORDNODES(toplot1)))
+    wordnameswithquotes = strcat('"', netobj_lab.nodeNames(netobj_lab.WORDNODES(toplot)), '"');
+    set(gca, 'xticklabel', wordnameswithquotes);
+    xtickangle(45);
     ylabel('$\Delta p(w_i)$', 'Interpreter','latex', 'FontSize', 20);
 end;
     
@@ -73,6 +75,8 @@ if show_figures
     figure;
     bar(probdiff2(toplot2));
     set(gca, 'xtick', 1:length(netobj_lab.WORDNODES(toplot2)))
-    set(gca, 'xticklabel', netobj_lab.nodeNames(netobj_lab.WORDNODES(toplot2)))
+    wordnameswithquotes = strcat('"', netobj_lab.nodeNames(netobj_lab.WORDNODES(toplot)), '"');
+    set(gca, 'xticklabel', wordnameswithquotes);
+    xtickangle(45);
     ylabel('$\Delta p(w_i)$', 'Interpreter','latex', 'FontSize', 20);
 end;
