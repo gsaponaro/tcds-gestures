@@ -24,15 +24,15 @@ We present the following types of results:
 
 %We now report a result that uses the \emph{soft decision} from the Gesture \acp{HMM}, i.e., the probability distribution over the possible actions.
 In Fig.~\ref{fig:impact_of_evidence_on_Action} we show the interaction between the affordance-word model and the gesture/action recognition model when they bring conflicting information.
-In the scene we observe a small ball that after the action has a low velocity (that in terms of clusters of affordance variables often corresponds to zero velocity).
+In the scene, we observe a small ball that after the action has a low velocity (that in terms of clusters of affordance variables often corresponds to zero velocity).
 Based on the evidence, the affordance model gives the highest probability $\pbn(A\mid \xobs)$ to the action \emph{touch}, which usually does not result in any movement of the object.
-However, in this particular simulated situation, we assume that the action performed by the human was an (unsuccessful) \emph{tap}, that is a tap that does not result in any movement for the object.
+However, in this particular simulated situation, we assume that the action performed by the human was an (unsuccessful) \emph{tap}, that is, a tap that does not result in any movement for the object.
 In the simulation we show the effect of augmenting the inference with the gesture/action recognizer that is more or less confident on the classified action.
 A poor recognizer would give a uniform posterior $\phmm(A\mid G_1^N)$ of the action given the gesture features.
 A very confident recognizer would assign probability 1 to the correct action and 0 to the other actions.
 In the simulation we show the inference based on $\pcomb(A\mid \xobs,G_1^N)$ when we vary the degree of confidence of the recognizer.
 %compactly the result of eight different queries~(each group of bars), corresponding to the same number of eight different soft evidences over the action, ranging from a non-informative, uniform distribution~(i.e.,~[1/3~1/3~1/3]), up to the maximum score being attributed to the ``tap'' action~(i.e.,~[0~1~0]), with intermediate distributions in between.
-In order to win the belief of the affordance model, the action recognition needs to be very confident (in this case, $\phmm(A=\text{tap}\mid G_1^N) > 0.81 $).
+In this particular example, in order to win the belief of the affordance model, the action recognition needs to be very confident ($\phmm(A=\text{tap}\mid G_1^N) > 0.81 $).
 %The resulting posterior probability over the Action node is initially ambiguous between ``grasp'' and ``tap'', but then it becomes more and more polarized towards the ``tap'' action as our prior becomes more informative.
 %This result is not surprising, because the Action node is used both as a prior and as a posterior.
 %Nonetheless, it serves to validade our formulation for combining different sources of information~(see Sec.~\ref{sec:combination}).
