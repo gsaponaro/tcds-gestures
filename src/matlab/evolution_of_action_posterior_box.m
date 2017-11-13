@@ -166,6 +166,7 @@ normliks = liks ./ (ones(3,1)*sum(liks));
 % the advantage is to show the time evolution
 N = size(liks, 2);
 framenormlogliks = log(liks)./(ones(3,1)*1:size(liks,2));
+figure
 subplot(2,1,1)
 plot(framenormlogliks')
 set(gca, 'ylim', [-5, 0], 'xlim', [1, N])
@@ -175,6 +176,7 @@ text(N-15, framenormlogliks(2,N-15)+0.4, 'grasp')
 text(N-15, framenormlogliks(3,N-15)+0.4, 'touch')
 xlabel('frame $n$ ($\times$ 30 ms)', 'Interpreter','latex', 'FontSize',fontsize);
 ylabel('$\log\mathcal{L}_{\rm{HMM}}(A \mid G_1^n)$', 'Interpreter','latex', 'FontSize',fontsize);
+print('-depsc', 'evolution_of_action_posterior_box_log.eps');
 
 %% load Affordance-Words Bayesian Network data
 load('BN_lab.mat');
