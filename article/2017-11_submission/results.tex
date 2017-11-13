@@ -48,26 +48,14 @@ TODO complete
 
 \subsection{Inference over Affordance Variables (Excluding Action, Real Values)}
 
-% RESULT FROM GLU WITH HARD EVIDENCE
-%
-% {\color{red}
-% Giampiero: in this example we should: 1) not use hard evidence, but soft 2) base the evidence on some of the recorded examples of tap. I believe the same results would be obtained given that the ti evidence from the HMM is not completely random.
-% }
-
 Because it is based on \ac{BN}, our model can make predictions over any set of its variables, given any other set of observed variables.
 In particular, the model can do reasoning on the elements that constitute our computational concept of affordances, i.e., Action, Object Features, Effects in Fig.~\ref{fig:model}.
 For example, we can reason about the expected object velocity effects that an action will cause onto environment objects, in an anticipatory fashion, thus computing~\eqref{eq:fusion_excluding_action}.
 Note that the estimation of the human action,~$\phmm(A \given G_1^N)$, is a \emph{soft decision}, meaning that it represents the~(time-evolving) probability distribution over the possible actions.
 Fig.~\ref{fig:effect_pred_sphere} shows the experiment when the human performs an action onto a small spherical object, whereas Fig.~\ref{fig:effect_pred_box} displays it when the object is a big box.
 
-%\begin{figure*}
-%    \centering
-%    \subfloat[][Evolution of the action posterior in time, using~\eqref{eq:phmm_action}.]{
+%      % TODO purge old pics from repo if not used
 %      \includegraphics[width=0.7\linewidth]{evolution_of_action_posterior_on_sphere.eps}
-%      \label{fig:effect_pred_sphere:action_posterior_evolution}
-%    }
-%
-%    \subfloat[][First three photos: observation of human agent performing the action. Right: prediction of the movement effect.]{
 %      % TODO purge old pics from repo if not used
 %      %\includegraphics[width=\myWidth\linewidth]{tap-00000109}
 %      %\includegraphics[width=\myWidth\linewidth]{tap-00000110}
@@ -75,19 +63,28 @@ Fig.~\ref{fig:effect_pred_sphere} shows the experiment when the human performs a
 %      \includegraphics[width=\myWidth\linewidth]{tap-sphere-00000179}
 %      \includegraphics[width=\myWidth\linewidth]{tap-sphere-00000183}
 %      \includegraphics[width=\myWidth\linewidth]{tap-sphere-00000187}
-%      \quad
-%      \includegraphics[width=0.20\linewidth]{effectpred_sphere.eps}
-%      \label{fig:effect_pred_sphere:observation_and_prediction}
-%    }
-%
-%    \caption{Object velocity predictions on a small sphere, given probabilistic human action information from Gesture \acp{HMM}.}
-%    \label{fig:effect_pred_sphere}
-%\end{figure*}
+%      \includegraphics[width=0.7\linewidth]{evolution_of_action_posterior_on_box.eps}
+%      \includegraphics[width=\myWidth\linewidth]{tap-box-00000230}
+%      \includegraphics[width=\myWidth\linewidth]{tap-box-00000250}
+%      \includegraphics[width=\myWidth\linewidth]{tap-box-00000270}
 
-In~\ref{fig:effect_pred_sphere:action_posterior_evolution}, we visualize the temporal evolution of the human action posterior probability distribution, as computed by the Gesture/Action Recognition algorithm when the human is moving the hand, before the contact to the object is made~(see Fig.~\ref{fig:effect_pred_sphere:observation_and_prediction}, first three photos).
+\begin{figure*}
+  \begin{tikzpicture}
+    \node (lik) {\includegraphics[width=0.6\linewidth]{evolution_of_action_posterior_sphere_log.eps}};
+    \node at ([xshift=-90pt,yshift=30pt]lik.north) {\includegraphics[width=\myWidth\linewidth]{tap-sphere-00000179}};
+    \node at ([xshift=+10pt,yshift=30pt]lik.north) {\includegraphics[width=\myWidth\linewidth]{tap-sphere-00000183}};
+    \node at ([xshift=+110pt,yshift=30pt]lik.north) {\includegraphics[width=\myWidth\linewidth]{tap-sphere-00000187}};
+  \end{tikzpicture}
+  \quad
+  \includegraphics[width=0.35\linewidth]{effectpred_sphere.eps}
+  \caption{Object velocity predictions on a small sphere, given probabilistic human action information from Gesture \acp{HMM}.}
+  \label{fig:effect_pred_sphere}
+\end{figure*}
+
+In~\ref{fig:effect_pred_sphere}, we visualize the temporal evolution of the human action likelihoods, as computed by the Gesture/Action Recognition algorithm when the human is moving the hand towards a small sphere, before the contact to the object is made.
 After about two thirds of the human movement have been completed, the model guesses correctly that it is a tap movement.
-(Before that instant, the model guesses the wrong action, in addition doing it with certainty, due to the way that the individual gestures have been modeled by continuous mixtures of Gaussian values GIAMPIERO PLEASE CHECK THIS.)
-In Fig.~\ref{fig:effect_pred_sphere:observation_and_prediction}~(rightmost plot), we show the final prediction of the moment effect on the small sphere.
+%(Before that instant, the model guesses the wrong action, in addition doing it with certainty, due to the way that the individual gestures have been modeled by continuous mixtures of Gaussian values GIAMPIERO PLEASE CHECK THIS.)
+In Fig.~\ref{fig:effect_pred_sphere}~(right), we show the prediction of the movement effect on the small sphere, before the contact is made.
 In essence, the combined model has predicted that this target object will exhibit a medium or fast velocity after the human will touch it.
 
 \begin{figure*}
@@ -103,42 +100,9 @@ In essence, the combined model has predicted that this target object will exhibi
   \label{fig:effect_pred_box}
 \end{figure*}
 
-\begin{figure*}
-  \begin{tikzpicture}
-    \node (lik) {\includegraphics[width=0.6\linewidth]{evolution_of_action_posterior_sphere_log.eps}};
-    \node at ([xshift=-90pt,yshift=30pt]lik.north) {\includegraphics[width=\myWidth\linewidth]{tap-sphere-00000179}};
-    \node at ([xshift=+10pt,yshift=30pt]lik.north) {\includegraphics[width=\myWidth\linewidth]{tap-sphere-00000183}};
-    \node at ([xshift=+110pt,yshift=30pt]lik.north) {\includegraphics[width=\myWidth\linewidth]{tap-sphere-00000187}};
-  \end{tikzpicture}
-  \quad
-  \includegraphics[width=0.35\linewidth]{effectpred_sphere.eps}
-  \caption{Object velocity predictions on a small sphere, given probabilistic human action information from Gesture \acp{HMM}.}
-  \label{fig:effect_pred_sphere}
-\end{figure*}
-
-%\begin{figure*}
-%    \centering
-%    \subfloat[][Evolution of the action posterior in time, using~\eqref{eq:phmm_action}.]{
-%      \includegraphics[width=0.7\linewidth]{evolution_of_action_posterior_on_box.eps}
-%      \label{fig:effect_pred_box:action_posterior_evolution}
-%    }
-%
-%    \subfloat[][First three photos: observation of human agent performing the action. Right: prediction of the movement effect.]{
-%      \includegraphics[width=\myWidth\linewidth]{tap-box-00000230}
-%      \includegraphics[width=\myWidth\linewidth]{tap-box-00000250}
-%      \includegraphics[width=\myWidth\linewidth]{tap-box-00000270}
-%      \quad
-%      \includegraphics[width=0.20\linewidth]{effectpred_box.eps}
-%      \label{fig:effect_pred_box:observation_and_prediction}
-%    }
-%
-%    \caption{Object velocity predictions on a big box, given probabilistic human action information from Gesture \acp{HMM}.}
-%    \label{fig:effect_pred_box}
-%\end{figure*}
-
-As for the experiment with the big box, Fig.~\ref{fig:effect_pred_sphere:action_posterior_evolution} shows the temporal evolution of the human action posterior.
+As for the experiment with the big box, Fig.~\ref{fig:effect_pred_box} shows the temporal evolution of the human action likelihoods.
 Similar considerations to the previous example apply: after about~$60$\% of the sequence has been observed, the Gesture/Action Recognition block estimates the tap correctly.
-This time, when we fuse the human action estimation to the extracted Object Features, instants below the contact occurs~(Fig.~\ref{fig:effect_pred_box:observation_and_prediction}, first three photos), we get a different result than before, show in Fig.~\ref{fig:effect_pred_box:observation_and_prediction}~(rightmost plot): the combined model has predicted that the object will yield a movement of type ``slow'', meaning that it will not move at all, or move slowly.
+This time, when we fuse the human action estimation to the extracted Object Features, instants below the contact occurs, we get a different result than before, show in Fig.~\ref{fig:effect_pred_box}~(right): the combined model has predicted that the object will yield a movement of type ``slow'', meaning that it will not move at all, or move slowly.
 
 These two cases have shown that, given similar human action priors~(i.e., lateral taps on a target object), the expected movement returned by the model is very different depending on the physical properties of the object.
 
