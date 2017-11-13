@@ -28,11 +28,11 @@ In the scene, we observe a small ball that after the action has a low velocity (
 Based on the evidence, the affordance model gives the highest probability $\pbn(A\mid \xobs)$ to the action \emph{touch}, which usually does not result in any movement of the object.
 However, in this particular simulated situation, we assume that the action performed by the human was an (unsuccessful) \emph{tap}, that is, a tap that does not result in any movement for the object.
 In the simulation we show the effect of augmenting the inference with the gesture/action recognizer that is more or less confident on the classified action.
-A poor recognizer would give a uniform posterior $\phmm(A\mid G_1^N)$ of the action given the gesture features.
+A poor recognizer would give a uniform posterior $\phmm(A\mid G_1^T)$ of the action given the gesture features.
 A very confident recognizer would assign probability 1 to the correct action and 0 to the other actions.
-In the simulation we show the inference based on $\pcomb(A\mid \xobs,G_1^N)$ when we vary the degree of confidence of the recognizer.
+In the simulation we show the inference based on $\pcomb(A\mid \xobs,G_1^T)$ when we vary the degree of confidence of the recognizer.
 %compactly the result of eight different queries~(each group of bars), corresponding to the same number of eight different soft evidences over the action, ranging from a non-informative, uniform distribution~(i.e.,~[1/3~1/3~1/3]), up to the maximum score being attributed to the ``tap'' action~(i.e.,~[0~1~0]), with intermediate distributions in between.
-In this particular example, in order to win the belief of the affordance model, the action recognition needs to be very confident ($\phmm(A=\text{tap}\mid G_1^N) > 0.81 $).
+In this particular example, in order to win the belief of the affordance model, the action recognition needs to be very confident ($\phmm(A=\text{tap}\mid G_1^T) > 0.81$).
 %The resulting posterior probability over the Action node is initially ambiguous between ``grasp'' and ``tap'', but then it becomes more and more polarized towards the ``tap'' action as our prior becomes more informative.
 %This result is not surprising, because the Action node is used both as a prior and as a posterior.
 %Nonetheless, it serves to validade our formulation for combining different sources of information~(see Sec.~\ref{sec:combination}).
@@ -59,7 +59,7 @@ TODO complete
 Because it is based on \ac{BN}, our model can make predictions over any set of its variables, given any other set of observed variables.
 In particular, the model can do reasoning on the elements that constitute our computational concept of affordances, i.e., Action, Object Features, Effects in Fig.~\ref{fig:model}.
 For example, we can reason about the expected object velocity effects that an action will cause onto environment objects, in an anticipatory fashion, thus computing~\eqref{eq:fusion_excluding_action}.
-Note that the estimation of the human action,~$\phmm(A \given G_1^N)$, is a \emph{soft decision}, meaning that it represents the~(time-evolving) probability distribution over the possible actions.
+Note that the estimation of the human action,~$\phmm(A \given G_1^T)$, is a \emph{soft decision}, meaning that it represents the~(time-evolving) probability distribution over the possible actions.
 Fig.~\ref{fig:effect_pred_sphere} shows the experiment when the human performs an action onto a small spherical object, whereas Fig.~\ref{fig:effect_pred_box} displays it when the object is a big box.
 
 %      % TODO purge old pics from repo if not used
