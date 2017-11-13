@@ -162,7 +162,7 @@ liks = [sum(tap_alpha); sum(grasp_alpha); sum(push_alpha)];
 % Normalize the likelihoods to get posteriors
 normliks = liks ./ (ones(3,1)*sum(liks));
 
-%% plot the log likelihoods normalized by the lenght of the sequence
+%% plot the log likelihoods normalized by the length of the sequence
 % the advantage is to show the time evolution
 N = size(liks, 2);
 framenormlogliks = log(liks)./(ones(3,1)*1:size(liks,2));
