@@ -1,4 +1,5 @@
 %% configure BNT and other paths
+clear all;
 configurePaths;
 
 %% user parameters
@@ -153,12 +154,27 @@ if create_figures
     set(gca, 'ydir', 'normal');
 end;
 
-% Turn alpha probabilities into likelihoods of each model. This is a
-% 3xN matrix where the row index corresponds to the models.
+
+%% Turn alpha probabilities into likelihoods of each model.
+% This is a 3xN matrix where the row index corresponds to the models.
 liks = [sum(tap_alpha); sum(grasp_alpha); sum(push_alpha)];
 
 % Normalize the likelihoods to get posteriors
 normliks = liks ./ (ones(3,1)*sum(liks));
+
+%% plot the log likelihoods normalized by the lenght of the sequence
+% the advantage is to show the time evolution
+N = size(liks, 2);
+framenormlogliks = log(liks)./(ones(3,1)*1:size(liks,2));
+subplot(2,1,1)
+plot(framenormlogliks')
+set(gca, 'ylim', [-5, 0], 'xlim', [1, N])
+%legend('tap', 'grasp', 'touch', 'location', 'southwest')
+text(N-15, framenormlogliks(1,N-15)+0.4, 'tap')
+text(N-15, framenormlogliks(2,N-15)+0.4, 'grasp')
+text(N-15, framenormlogliks(3,N-15)+0.4, 'touch')
+xlabel('frame $n$ ($\times$ 30 ms)', 'Interpreter','latex', 'FontSize',fontsize);
+ylabel('$\log\mathcal{L}_{\rm{HMM}}(A \mid G_1^n)$', 'Interpreter','latex', 'FontSize',fontsize);
 
 %% load Affordance-Words Bayesian Network data
 load('BN_lab.mat');
