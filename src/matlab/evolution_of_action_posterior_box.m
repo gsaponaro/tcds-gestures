@@ -174,8 +174,8 @@ set(gca, 'ylim', [-5, 0], 'xlim', [1, N])
 text(N-15, framenormlogliks(1,N-15)+0.4, 'tap')
 text(N-15, framenormlogliks(2,N-15)+0.4, 'grasp')
 text(N-15, framenormlogliks(3,N-15)+0.4, 'touch')
-xlabel('frame $n$ ($\times$ 30 ms)', 'Interpreter','latex', 'FontSize',fontsize);
-ylabel('$\log\mathcal{L}_{\rm{HMM}}(A \mid G_1^n)$', 'Interpreter','latex', 'FontSize',fontsize);
+xlabel('frame $t$ ($\times$ 30 ms)', 'Interpreter','latex', 'FontSize',fontsize);
+ylabel('$\log\mathcal{L}_{\rm{HMM}}(A \mid G_1^t)$', 'Interpreter','latex', 'FontSize',fontsize);
 print('-depsc', 'evolution_of_action_posterior_box_log.eps');
 
 %% load Affordance-Words Bayesian Network data
@@ -232,23 +232,17 @@ if create_figures
     hp(1).Color = 'g';
     hp(1).LineStyle = '--';
     hp(1).LineWidth = 1;
-    %hp(1).Marker = '*';
     hp(2).Color = 'r';
     hp(2).LineStyle = '-';
     hp(2).LineWidth = 1;
-    %hp(2).Marker = '+';
     hp(3).Color = 'b';
     hp(3).LineStyle = '-.';
     hp(3).LineWidth = 1;
-    %hp(3).Marker = 'x';
-    xlabel('$\rm{frame~n}~(\times~30~\rm{ms})$', 'Interpreter','latex', 'FontSize',fontsize);
-    %set(gca, 'xticklabels', list_of_real_frames);
-    %set(gca, 'xticklabels',{[]});
+    xlabel('$\rm{frame~t}~(\times~30~\rm{ms})$', 'Interpreter','latex', 'FontSize',fontsize);
     set(gca, 'ylim', [-0.05 1.05], 'xlim', [1 size(normliks, 2)]);
-    %ylabel('$P_{\rm{HMM}}(\rm{Action}=a_k \mid G_1^k)$', 'Interpreter','latex', 'FontSize',fontsize);
-    ylabel('$P_{\rm{HMM}}(A \mid G_1^n)$', 'Interpreter','latex', 'FontSize',fontsize);
+    ylabel('$P_{\rm{HMM}}(A \mid G_1^t)$', 'Interpreter','latex', 'FontSize',fontsize);
     l2 = legend(hp, 'grasp', 'tap', 'touch');
     l2.FontSize = fontsize;
     l2.Location = 'east';
-    print('-depsc', 'evolution_of_action_posterior_on_box.eps');
+    %print('-depsc', 'evolution_of_action_posterior_on_box.eps');
 end;
