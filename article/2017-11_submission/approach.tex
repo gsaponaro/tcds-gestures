@@ -303,6 +303,29 @@ In the second case, where the action is among the latent variables, we define, s
 \end{align}
 This time, we first need to use the \ac{BN} to do inference on the variables~$\xinf$ and~$A$, and then we marginalize out the action variable~$A$ after having multiplied the probabilities by the \ac{HMM} posterior.
 
+\subsection{Generation and Scoring of Verbal Descriptions}
+\label{sec:approach:verbal}
+
+In order to illustrate the language capabilities of the model, we use the \ac{CFG} described in Appendix~\ref{appendix:grammar} to generate written descriptions of the robot observations on the basis of the probability distributions of the words inferred by the model.
+Note that this grammar is defined here with the only purpose to interpret the probability distributions over the words.
+The grammar was neither used in the speech recognition system, nor in learning the associations of the spoken utterances to the affordance variables.
+In the model described in~\cite{salvi:2012:smcb}, the speech recognizer used a free loop of words with uniform prior distribution over the words, and the Bayesian model used a bag-of-words assumption, thus disregarding any syntactic information about the spoken descriptions.
+
+During the self-centered learning phase, the verbal descriptions described the agent of the observed actions as either ``the~robot'', ``he'', or ``Baltazar''.
+Consequently, the \AffWords{} model learned by the robot includes those words.
+In the current study, by merging the \AffWords{} model and the gesture/action recognition model, we allow the robot to reinterpret the concepts it has learned in the self-centered phase, but we do not add any new words to the model.
+Consequently, the descriptions that the model generates when observing humans use the same words to describe the agent.
+
+The textual descriptions are generated as follows: given some evidence~$\xobs$ that we provide to the model and some human observation features~$G_1^n$ extracted from frames~$1$ to~$n$, we extract the generated word probabilities
+$P(w_i \given \xobs, G_1^n)$.
+We generate~$N$ sentences randomly from the \ac{CFG} using the \texttt{HSGen} tool from HTK~\cite{young:htkbook}.
+Then, the sentences are re-scored according to the log-likelihood of each word in the sentence, normalized by the length of the sentence:
+\begin{equation} \label{eq:sentence_score}
+  \text{score}(s_j \given \xobs, G_1^n) = \frac{1}{L_j} \sum_{k=1}^{L_j} \log P(w_{jk} \given \xobs, G_1^n),
+\end{equation}
+where~$s_j$ is the~$j$th sentence,~$L_j$ is the number of words in the sentence~$s_j$, and~$w_{jk}$ is the~$k$th word in the sentence~$s_j$.
+Finally, an $N$-best list of possible descriptions is produced by sorting the scores.
+
 %GLU TEXT
 %
 %In this study we wish to generalize the model of~\cite{salvi:2012:smcb} by observing external~(human) agents, as shown in Fig.~\ref{fig:experimental_setup}. For this reason, the full model is now extended with a perception module capable of inferring the action of the agent from visual inputs. This corresponds to the Gesture \acp{HMM} block in Fig.~\ref{fig:model}. The \AffWords{} \acf{BN} model and the Gestures \acp{HMM} may be combined in different ways~\cite{pan:2006:ictai}:
@@ -317,4 +340,8 @@ This time, we first need to use the \ac{BN} to do inference on the variables~$\x
 %\end{equation*}
 %\end{enumerate}
 %
+
+\bigskip
+
 In the experimental section, we will show that what the robot has learned subjectively or alone~(by self-exploration, knowing the action identity as a prior~\cite{salvi:2012:smcb}), can subsequently be used when observing a new agent~(human), provided that the actions can be estimated with Gesture \acp{HMM} as in~\cite{saponaro:2013:crhri}.
+In addition, we will show the emergence of language phenomena within the generated verbal descriptions.
