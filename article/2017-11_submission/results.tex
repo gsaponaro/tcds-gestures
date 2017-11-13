@@ -85,7 +85,7 @@ Fig.~\ref{fig:effect_pred_sphere} shows the experiment when the human performs a
 
 In~\ref{fig:effect_pred_sphere:action_posterior_evolution}, we visualize the temporal evolution of the human action posterior probability distribution, as computed by the Gesture/Action Recognition algorithm when the human is moving the hand, before the contact to the object is made~(see Fig.~\ref{fig:effect_pred_sphere:observation_and_prediction}, first three photos).
 After about two thirds of the human movement have been completed, the model guesses correctly that it is a tap movement.
-(Before that instant, the model makes takes wrong guesses, in addition it does it with certainty, due to the way that the individual gesture have been modeled by continuous mixtures of Gaussian values GIAMPIERO PLEASE CHECK THIS.)
+(Before that instant, the model guesses the wrong action, in addition doing it with certainty, due to the way that the individual gestures have been modeled by continuous mixtures of Gaussian values GIAMPIERO PLEASE CHECK THIS.)
 In Fig.~\ref{fig:effect_pred_sphere:observation_and_prediction}~(rightmost plot), we show the final prediction of the moment effect on the small sphere.
 In essence, the combined model has predicted that this target object will exhibit a medium or fast velocity after the human will touch it.
 
@@ -332,6 +332,7 @@ When the object velocity is slow (in the clustering procedure this was most ofte
 \subsection{Solving Ambiguities with the Combined Model}
 
 MOVE THIS RESULT EARLIER? (requires explanation of word probabilities, if we decide to include Fig.~\ref{fig:after_softevidence:pw})
+
 
 Fig.~\ref{fig:update_from_softevidence} shows the result of predictions over nodes given some initial evidence, before and after incorporating further soft evidence
 
