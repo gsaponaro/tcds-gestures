@@ -186,16 +186,14 @@ Consequently, the \AffWords{} model learned by the robot includes those words.
 In the current study, by merging the \AffWords{} model and the gesture/action recognition model, we allow the robot to reinterpret the concepts it has learned in the self-centered phase, but we do not add any new words to the model.
 Consequently, the descriptions that the model generates when observing humans use the same words to describe the agent.
 
-The textual descriptions are generated as follows: given some observed evidence~$\xobs$ that we provide to the model~(hard or soft evidence), we extract the generated word probabilities
-%$P(w_i\given \text{evidence})$.
-$P(w_i \given \xobs)$.
+The textual descriptions are generated as follows: given some evidence~$\xobs$ that we provide to the model and some human observation features~$G_1^n$ extracted from frames~$1$ to~$n$, we extract the generated word probabilities
+$P(w_i \given \xobs, G_1^n)$.
 We generate~$N$ sentences randomly from the \ac{CFG} using the \texttt{HSGen} tool from HTK~\cite{young:htkbook}.
 Then, the sentences are re-scored according to the log-likelihood of each word in the sentence, normalized by the length of the sentence:
 \begin{equation} \label{eq:sentence_score}
-  %\text{score}(s_j\given \text{evidence}) = \frac{1}{n_j} \sum_{k=1}^{n_j} \log P(w_{jk}\given \text{evidence}),
-  \text{score}(s_j \given \xobs) = \frac{1}{n_j} \sum_{k=1}^{n_j} \log P(w_{jk} \given \xobs),
+  \text{score}(s_j \given \xobs, G_1^n) = \frac{1}{L_j} \sum_{k=1}^{L_j} \log P(w_{jk} \given \xobs, G_1^n),
 \end{equation}
-where~$s_j$ is the~$j$th sentence,~$n_j$ is the number of words in the sentence~$s_j$, and~$w_{jk}$ is the~$k$th word in the sentence~$s_j$.
+where~$s_j$ is the~$j$th sentence,~$L_j$ is the number of words in the sentence~$s_j$, and~$w_{jk}$ is the~$k$th word in the sentence~$s_j$.
 Finally, an $N$-best list of possible descriptions is produced by sorting the scores.
 
 For example, if we provide the following evidence to the model:
