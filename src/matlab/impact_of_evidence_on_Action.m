@@ -194,7 +194,7 @@ if create_figures
     set(gca, 'xticklabels', {'uniform', '[0.3 0.4 0.3]', '[0.25 0.5 0.25]', ...
         '[0.2 0.6 0.2]', '[0.2 0.7 0.2]', '[0.1 0.8 0.1]', '[0.05 0.9 0.05]', ...
         '[0 1 0]'});
-    xlabel('Action Evidence [grasp tap touch]', 'FontSize',fontsize);
+    xlabel('$P_{\rm{HMM}}(A \mid G_1^N)$ [grasp tap touch]', 'Interpreter','latex', 'FontSize',fontsize);
     xtickangle(45);
     ylabel('$P_{\rm{comb}}(A \mid X_{\rm{obs}}, G_1^N)$', 'Interpreter','latex', 'FontSize',fontsize);
     ylim([0, 1.0]);
