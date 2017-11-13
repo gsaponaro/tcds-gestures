@@ -160,7 +160,7 @@ liks = [sum(tap_alpha); sum(grasp_alpha); sum(push_alpha)];
 % Normalize the likelihoods to get posteriors
 normliks = liks ./ (ones(3,1)*sum(liks));
 
-%% plot the log likelihoods normalized by the lenght of the sequence
+%% plot the log likelihoods normalized by the length of the sequence
 % the advantage is to show the time evolution
 N = size(liks, 2);
 framenormlogliks = log(liks)./(ones(3,1)*1:size(liks,2));
@@ -182,6 +182,12 @@ load('BN_lab.mat');
 %% initial evidence
 obs_sphere = {'Shape', 'circle', 'Size', 'small'};
 
+%% variables used for repeated BN inference below
+interval = 5;
+sequence_length = length(normliks);
+iteration_frames = interval:interval:sequence_length;
+num_iterations = length(iteration_frames);
+
 p = cell(1,num_iterations); % will store BN posteriors
 for iter_bn = 1:num_iterations
 
@@ -191,7 +197,8 @@ for iter_bn = 1:num_iterations
     
     %% extract predictions (posteriors) with the current HMM soft evidence
     inferred = {'ObjVel'};
-    [netobj_lab,p{iter_bn}] = fusion(netobj_lab, inferred, obs_sphere, ev{iter_bn});
+    ev = normliks(:,iteration_frames(iter_bn))';
+    [netobj_lab,p{iter_bn}] = fusion(netobj_lab, inferred, obs_sphere, ev);
 
 end;
 
@@ -219,11 +226,7 @@ if create_figures
 
     figure;
     subplot(3,1,1); % to reduce aspect ratio
-    ev_all = cell2mat(ev');
-    ev_grasp = ev_all(:,1);
-    ev_tap = ev_all(:,2);
-    ev_touch = ev_all(:,3);
-    hp = plot(iteration_frames, ev_grasp, iteration_frames,ev_tap, iteration_frames,ev_touch);
+    hp = plot(normliks');
     hp(1).Color = 'g';
     hp(1).LineStyle = '--';
     hp(1).LineWidth = 1;
@@ -239,12 +242,11 @@ if create_figures
     xlabel('$\rm{frame~n}~(\times~30~\rm{ms})$', 'Interpreter','latex', 'FontSize',fontsize);
     %set(gca, 'xticklabels', list_of_real_frames);
     %set(gca, 'xticklabels',{[]});
-    set(gca, 'ylim', [-0.05 1.05], 'xlim', [1 sequence_length]);
+    set(gca, 'ylim', [-0.05 1.05], 'xlim', [1 size(normliks, 2)]);
     %ylabel('$P_{\rm{HMM}}(\rm{Action}=a_k \mid G_1^k)$', 'Interpreter','latex', 'FontSize',fontsize);
     ylabel('$P_{\rm{HMM}}(A \mid G_1^n)$', 'Interpreter','latex', 'FontSize',fontsize);
     l2 = legend(hp, 'grasp', 'tap', 'touch');
     l2.FontSize = fontsize;
     l2.Location = 'east';
     print('-depsc', 'evolution_of_action_posterior_on_sphere.eps');
-
 end;
