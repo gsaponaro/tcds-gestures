@@ -136,17 +136,22 @@ grasp_obslik = mixgauss_prob(human_data, hmm3_mu, hmm3_Sigma, hmm3_mixmat);
 push_obslik = mixgauss_prob(human_data, hmm4_mu, hmm4_Sigma, hmm4_mixmat);
 [push_alpha, ~, push_gamma, push_ll] = fwdback(hmm4_prior, hmm4_trans, push_obslik, 'fwd_only', 1, 'scaled', 0);
 
-% plot alphas
-figure
-subplot(3,1,1)
-imagesc(tap_alpha ./ (ones(6,1) * sum(tap_alpha)))
-set(gca, 'ydir', 'normal')
-subplot(3,1,2)
-imagesc(grasp_alpha ./ (ones(6,1) * sum(grasp_alpha)))
-set(gca, 'ydir', 'normal')
-subplot(3,1,3)
-imagesc(push_alpha ./ (ones(6,1) * sum(push_alpha)))
-set(gca, 'ydir', 'normal')
+%% plot alphas
+if create_figures
+    figure;
+    subplot(3,1,1);
+    title('HMM tap states probability');
+    imagesc(tap_alpha ./ (ones(6,1) * sum(tap_alpha)));
+    set(gca, 'ydir', 'normal');
+    subplot(3,1,2);
+    title('HMM grasp states probability');
+    imagesc(grasp_alpha ./ (ones(6,1) * sum(grasp_alpha)));
+    set(gca, 'ydir', 'normal');
+    subplot(3,1,3);
+    title('HMM push/touch states probability');
+    imagesc(push_alpha ./ (ones(6,1) * sum(push_alpha)));
+    set(gca, 'ydir', 'normal');
+end;
 
 % Turn alpha probabilities into likelihoods of each model. This is a
 % 3xN matrix where the row index corresponds to the models.
@@ -158,8 +163,14 @@ normliks = liks ./ (ones(3,1)*sum(liks));
 %% load Affordance-Words Bayesian Network data
 load('BN_lab.mat');
 
-%% initial evidence (NOT WORKING AT THE MOMENT: needs num_iterations and ev)
+%% initial evidence
 obs_box = {'Shape', 'box', 'Size', 'big'};
+
+%% variables used for repeated BN inference below
+interval = 5;
+sequence_length = length(normliks);
+iteration_frames = interval:interval:sequence_length;
+num_iterations = length(iteration_frames);
 
 p = cell(1,num_iterations); % will store BN posteriors
 for iter_bn = 1:num_iterations
@@ -168,9 +179,10 @@ for iter_bn = 1:num_iterations
     netobj_lab = BNResetEvidence(netobj_lab);
     netobj_lab = BNEnterNodeEvidence(netobj_lab, obs_box);
     
-    %% extract predictions (posteriors) with the current HMM soft evidence
+    %% extract predictions (posteriors) with the current HMM evidence
     inferred = {'ObjVel'};
-    [netobj_lab,p{iter_bn}] = fusion(netobj_lab, inferred, obs_box, ev{iter_bn});
+    ev = normliks(:,iteration_frames(iter_bn))';
+    [netobj_lab,p{iter_bn}] = fusion(netobj_lab, inferred, obs_box, ev);
 
 end;
 
