@@ -60,29 +60,29 @@ For example, we can reason about the expected object velocity effects that an ac
 Note that the estimation of the human action,~$\phmm(A \given G_1^N)$, is a \emph{soft decision}, meaning that it represents the~(time-evolving) probability distribution over the possible actions.
 Fig.~\ref{fig:effect_pred_sphere} shows the experiment when the human performs an action onto a small spherical object, whereas Fig.~\ref{fig:effect_pred_box} displays it when the object is a big box.
 
-\begin{figure*}
-    \centering
-    \subfloat[][Evolution of the action posterior in time, using~\eqref{eq:phmm_action}.]{
-      \includegraphics[width=0.7\linewidth]{evolution_of_action_posterior_on_sphere.eps}
-      \label{fig:effect_pred_sphere:action_posterior_evolution}
-    }
-
-    \subfloat[][First three photos: observation of human agent performing the action. Right: prediction of the movement effect.]{
-      % TODO purge old pics from repo if not used
-      %\includegraphics[width=\myWidth\linewidth]{tap-00000109}
-      %\includegraphics[width=\myWidth\linewidth]{tap-00000110}
-      %\includegraphics[width=\myWidth\linewidth]{tap-00000112}
-      \includegraphics[width=\myWidth\linewidth]{tap-sphere-00000179}
-      \includegraphics[width=\myWidth\linewidth]{tap-sphere-00000183}
-      \includegraphics[width=\myWidth\linewidth]{tap-sphere-00000187}
-      \quad
-      \includegraphics[width=0.20\linewidth]{effectpred_sphere.eps}
-      \label{fig:effect_pred_sphere:observation_and_prediction}
-    }
-
-    \caption{Object velocity predictions on a small sphere, given probabilistic human action information from Gesture \acp{HMM}.}
-    \label{fig:effect_pred_sphere}
-\end{figure*}
+%\begin{figure*}
+%    \centering
+%    \subfloat[][Evolution of the action posterior in time, using~\eqref{eq:phmm_action}.]{
+%      \includegraphics[width=0.7\linewidth]{evolution_of_action_posterior_on_sphere.eps}
+%      \label{fig:effect_pred_sphere:action_posterior_evolution}
+%    }
+%
+%    \subfloat[][First three photos: observation of human agent performing the action. Right: prediction of the movement effect.]{
+%      % TODO purge old pics from repo if not used
+%      %\includegraphics[width=\myWidth\linewidth]{tap-00000109}
+%      %\includegraphics[width=\myWidth\linewidth]{tap-00000110}
+%      %\includegraphics[width=\myWidth\linewidth]{tap-00000112}
+%      \includegraphics[width=\myWidth\linewidth]{tap-sphere-00000179}
+%      \includegraphics[width=\myWidth\linewidth]{tap-sphere-00000183}
+%      \includegraphics[width=\myWidth\linewidth]{tap-sphere-00000187}
+%      \quad
+%      \includegraphics[width=0.20\linewidth]{effectpred_sphere.eps}
+%      \label{fig:effect_pred_sphere:observation_and_prediction}
+%    }
+%
+%    \caption{Object velocity predictions on a small sphere, given probabilistic human action information from Gesture \acp{HMM}.}
+%    \label{fig:effect_pred_sphere}
+%\end{figure*}
 
 In~\ref{fig:effect_pred_sphere:action_posterior_evolution}, we visualize the temporal evolution of the human action posterior probability distribution, as computed by the Gesture/Action Recognition algorithm when the human is moving the hand, before the contact to the object is made~(see Fig.~\ref{fig:effect_pred_sphere:observation_and_prediction}, first three photos).
 After about two thirds of the human movement have been completed, the model guesses correctly that it is a tap movement.
@@ -101,6 +101,19 @@ In essence, the combined model has predicted that this target object will exhibi
   \includegraphics[width=0.35\linewidth]{effectpred_box.eps}
   \caption{Object velocity predictions on a big box, given probabilistic human action information from Gesture \acp{HMM}.}
   \label{fig:effect_pred_box}
+\end{figure*}
+
+\begin{figure*}
+  \begin{tikzpicture}
+    \node (lik) {\includegraphics[width=0.6\linewidth]{evolution_of_action_posterior_sphere_log.eps}};
+    \node at ([xshift=-90pt,yshift=30pt]lik.north) {\includegraphics[width=\myWidth\linewidth]{tap-sphere-00000179}};
+    \node at ([xshift=+10pt,yshift=30pt]lik.north) {\includegraphics[width=\myWidth\linewidth]{tap-sphere-00000183}};
+    \node at ([xshift=+110pt,yshift=30pt]lik.north) {\includegraphics[width=\myWidth\linewidth]{tap-sphere-00000187}};
+  \end{tikzpicture}
+  \quad
+  \includegraphics[width=0.35\linewidth]{effectpred_sphere.eps}
+  \caption{Object velocity predictions on a small sphere, given probabilistic human action information from Gesture \acp{HMM}.}
+  \label{fig:effect_pred_sphere}
 \end{figure*}
 
 %\begin{figure*}
