@@ -13,21 +13,29 @@ We present the following types of results:
   \item generated verbal descriptions from the word probabilities of the previous point, according to a formal grammar. The descriptions, in turn, can be interpreted to observe the emergence of certain language phenomena~(e.g., choice of most appropriate conjunction word, choice of synonym words between two consecutive sentences when they refer to the same object).
 \end{itemize}
 
-% Giampiero: I would remove this because it not surprising and a bit confusing. We would need to explain for example why touch has so low probability in the absence of any evidence (this is actually surpising to me). It might make more sense if we gave evidence to the BN that is contrary to the HMM evidence.
 \subsection{Inference over Affordance Variables (Including Action, Synthetic Values)}
 
 \begin{figure}
 \centering
 \includegraphics[width=0.9\columnwidth]{impact_of_evidence_on_Action.eps}
-\caption{Predictions about the action over a big sphere, when given different probabilistic soft evidence about the action.}
+\caption{Predictions about the action given the evidence $\xobs =\{\text{Size}=\text{small}, \text{Shape}=\text{circle}, \text{ObjVel}=\text{slow}\}$, when given different probabilistic soft evidence about the action.}
 \label{fig:impact_of_evidence_on_Action}
 \end{figure}
 
 %We now report a result that uses the \emph{soft decision} from the Gesture \acp{HMM}, i.e., the probability distribution over the possible actions.
-In Fig.~\ref{fig:impact_of_evidence_on_Action} we show compactly the result of eight different queries~(each group of bars), corresponding to the same number of eight different soft evidences over the action, ranging from a non-informative, uniform distribution~(i.e.,~[1/3~1/3~1/3]), up to the maximum score being attributed to the ``tap'' action~(i.e.,~[0~1~0]), with intermediate distributions in between.
-The resulting posterior probability over the Action node is initially ambiguous between ``grasp'' and ``tap'', but then it becomes more and more polarized towards the ``tap'' action as our prior becomes more informative.
-This result is not surprising, because the Action node is used both as a prior and as a posterior.
-Nonetheless, it serves to validade our formulation for combining different sources of information~(see Sec.~\ref{sec:combination}).
+In Fig.~\ref{fig:impact_of_evidence_on_Action} we show the interaction between the affordance-word model and the gesture/action recognition model when they bring conflicting information.
+In the scene we observe a small ball that after the action has a low velocity (that in terms clusters of affordance variables often corresponds to zero velocity).
+Based on the evidence, the affordance model gives the highest probability $\pbn(A\mid \xobs)$ to the action \emph{touch}, which usually does not result in any movement of the object.
+However, in this paricular simulated situation, we assume that the action performed by the human was an (unsuccesfull) \emph{tap}, that is a tap that does not result in any movement for the object.
+In the simulation we show the effect of augmenting the inference with the gesture/action recognizer that is more or less confident on the classified action.
+A poor recognizer would give a uniform posterior $\phmm(A\mid G_1^N)$ of the action given the gesture features.
+A very confident recognizer would assign probability 1 to the correct action and 0 to the other actions.
+In the simulation we show the inference based on $\pcomb(A\mid \xobs,G_1^N)$ wehn we vary the degree of confidence of the recognizer.
+%compactly the result of eight different queries~(each group of bars), corresponding to the same number of eight different soft evidences over the action, ranging from a non-informative, uniform distribution~(i.e.,~[1/3~1/3~1/3]), up to the maximum score being attributed to the ``tap'' action~(i.e.,~[0~1~0]), with intermediate distributions in between.
+In order to win the belief of the affordance model, the action recognition needs to be very confident (in this case, $\phmm(A=\text{tap}\mid G_1^N) > 0.81 $).
+%The resulting posterior probability over the Action node is initially ambiguous between ``grasp'' and ``tap'', but then it becomes more and more polarized towards the ``tap'' action as our prior becomes more informative.
+%This result is not surprising, because the Action node is used both as a prior and as a posterior.
+%Nonetheless, it serves to validade our formulation for combining different sources of information~(see Sec.~\ref{sec:combination}).
 
 \subsection{Inference over Affordance Variables (Excluding Action, Synthetic Values)}
 

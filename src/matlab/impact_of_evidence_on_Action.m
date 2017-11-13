@@ -1,4 +1,5 @@
 %% configure BNT and other paths
+clear all;
 configurePaths;
 
 %% user parameters
@@ -17,7 +18,8 @@ load('BN_lab.mat');
 % GLU
 %observed = {'Color', 'yellow', 'Size', 'big', 'Shape', 'circle', 'ObjVel', 'fast'};
 
-observed = {'Size', 'big', 'Shape', 'circle'};
+observed = {'Size', 'small', 'Shape', 'circle', 'ObjVel', 'slow'};
+%observed = {'Size', 'big', 'Shape', 'circle'};
 netobj_lab = BNEnterNodeEvidence(netobj_lab, observed);
 
 %% extract predictions (posteriors) so far
@@ -166,8 +168,7 @@ pbn8 = [0; 1; 0];
 % I want to have the figure (currently subplot 1) as well as the legend
 % (currently subplot 2) visible, outside of the figure! Giovanni
 if create_figures
-    figure;
-
+%    figure;
 %     h1 = subplot(1,2,1);
 %     b = bar([pbn1 pbn2 pbn3 pbn4 pbn5 pbn6 pbn7 pbn8]);
 %     xlabel('Action', 'FontSize',fontsize);
@@ -195,7 +196,7 @@ if create_figures
         '[0 1 0]'});
     xlabel('Action Evidence [grasp tap touch]', 'FontSize',fontsize);
     xtickangle(45);
-    ylabel('$P_{\rm{comb}}(\rm{Action} \mid \rm{Size=big, Shape=sphere})$', 'Interpreter','latex', 'FontSize',fontsize);
+    ylabel('$P_{\rm{comb}}(A \mid X_{\rm{obs}}, G_1^N)$', 'Interpreter','latex', 'FontSize',fontsize);
     ylim([0, 1.0]);
     l = legend(b3, 'grasp', 'tap', 'touch');
     set(l, 'Location','northwest');
