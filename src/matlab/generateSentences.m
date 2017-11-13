@@ -29,14 +29,18 @@ if create_figures
     figure;
     bar(pw(toplot));
     set(gca, 'xtick', 1:length(netobj_lab.WORDNODES(toplot)));
-    set(gca, 'xticklabel', netobj_lab.nodeNames(netobj_lab.WORDNODES(toplot)));
+    wordnameswithquotes = strcat('"', netobj_lab.nodeNames(netobj_lab.WORDNODES(toplot)), '"');
+    set(gca, 'xticklabel', wordnameswithquotes);
     set(gca,'XTickLabelRotation',45);
-    ylabel('$p(w_i)$', 'Interpreter','latex', 'FontSize', 20);
-    print('-depsc', 'example_pw.eps');
+    ylabel('$P(w_i)$', 'Interpreter','latex', 'FontSize', 20);
+    %print('-depsc', 'example_pw.eps');
 end;
 
 %% rescore sentences with word probabilities and pick best sentence
 [sentences, normlogprobs] = BNScoreSentences(netobj_lab, sentenceFilename);
+
+%% add quotation marks around all sentences
+sentences = strcat('"', sentences, '"');
 
 % find the best sentence
 [bestprob, bestsentidx] = max(normlogprobs);
