@@ -3,7 +3,6 @@
 \section{Experimental Results}
 
 In this section, we report the experimental findings obtained with our proposed model.
-%when using information originating from the observation of an external agent~(human).
 We present the following types of results:
 \begin{itemize}
   \item inferences over affordance variables~(i.e., the entries of Table~\ref{tab:bnsymb} except the last row therein);
@@ -22,20 +21,15 @@ We present the following types of results:
 \label{fig:impact_of_evidence_on_Action}
 \end{figure}
 
-%We now report a result that uses the \emph{soft decision} from the Gesture \acp{HMM}, i.e., the probability distribution over the possible actions.
-In Fig.~\ref{fig:impact_of_evidence_on_Action} we show the interaction between the affordance-word model and the gesture/action recognition model when they bring conflicting information.
+In Fig.~\ref{fig:impact_of_evidence_on_Action} we show the interaction between the \AffWords{} model and the gesture/action recognition model when they bring conflicting information.
 In the scene, we observe a small ball that after the action has a low velocity (that in terms of clusters of affordance variables often corresponds to zero velocity).
-Based on the evidence, the affordance model gives the highest probability $\pbn(A\mid \xobs)$ to the action \emph{touch}, which usually does not result in any movement of the object.
+Based on the evidence, the affordance model gives the highest probability $\pbn(A \given \xobs)$ to the action \emph{touch}, which usually does not result in any movement of the object.
 However, in this particular simulated situation, we assume that the action performed by the human was an (unsuccessful) \emph{tap}, that is, a tap that does not result in any movement for the object.
 In the simulation we show the effect of augmenting the inference with the gesture/action recognizer that is more or less confident on the classified action.
-A poor recognizer would give a uniform posterior $\phmm(A\mid G_1^T)$ of the action given the gesture features.
+A poor recognizer would give a uniform posterior $\phmm(A \given G_1^T)$ of the action given the gesture features.
 A very confident recognizer would assign probability 1 to the correct action and 0 to the other actions.
-In the simulation we show the inference based on $\pcomb(A\mid \xobs,G_1^T)$ when we vary the degree of confidence of the recognizer.
-%compactly the result of eight different queries~(each group of bars), corresponding to the same number of eight different soft evidences over the action, ranging from a non-informative, uniform distribution~(i.e.,~[1/3~1/3~1/3]), up to the maximum score being attributed to the ``tap'' action~(i.e.,~[0~1~0]), with intermediate distributions in between.
-In this particular example, in order to win the belief of the affordance model, the action recognition needs to be very confident ($\phmm(A=\text{tap}\mid G_1^T) > 0.81$).
-%The resulting posterior probability over the Action node is initially ambiguous between ``grasp'' and ``tap'', but then it becomes more and more polarized towards the ``tap'' action as our prior becomes more informative.
-%This result is not surprising, because the Action node is used both as a prior and as a posterior.
-%Nonetheless, it serves to validade our formulation for combining different sources of information~(see Sec.~\ref{sec:combination}).
+In the simulation we show the inference based on $\pcomb(A \given \xobs,G_1^T)$ when we vary the degree of confidence of the recognizer.
+In this particular example, in order to win the belief of the affordance model, the action recognition needs to be very confident ($\phmm(A=\text{tap} \given G_1^T) > 0.81$).
 
 \subsection{Inference over Affordance Variables (Excluding Action, Synthetic Values)}
 
@@ -119,19 +113,15 @@ RESULT FROM GLU WITH HARD EVIDENCE
 \centering
 \includegraphics[width=0.9\columnwidth]{partialfig.eps}
 \caption{Variation of word occurrence probabilities:
-%$\Delta P(w_i) = P(w_i \mid \text{Size=big, Shape=sphere, ObjVel=fast, Action=tap}) - P(w_i \mid \text{Size=big, Shape=sphere,ObjVel=fast})$.
 $\Delta P(w_i) = P(w_i \mid \text{InitialEvidence, Action=tap}) - P(w_i \mid \text{InitialEvidence})$, where $\text{InitialEvidence} = \{ \text{Size=big, Shape=sphere, ObjVel=fast} \}$.
 This variation corresponds to the difference of word probability when we add the tap action evidence~(obtained from the Gesture \acp{HMM}) to the initial evidence about object features and effects. We have omitted words for which no significant variation was observed.}
 \label{fig:probdiff}
 \end{figure}
 
 Our model permits to make predictions over the associated word descriptions in the presence or absence of an action prior.
-%As in the previous experiment, we assume that the Gesture \acp{HMM} provide the discrete value of the recognized action performed by a human agent~(i.e., we enforce a hard decision over the observed action).
 We compare the associated \emph{verbal description} obtained by the \acl{BN} in the absence of an action prior, with the ones obtained in the presence of one.
 In particular, we compare the \emph{probability of word occurrence} resulting from the following two situations:
 \begin{enumerate}
-%\item when the robot prior knowledge~(evidence in the \ac{BN}) includes information about object features and effects only: \emph{Size=big, Shape=sphere, ObjVel=fast};
-%\item when the robot prior knowledge includes, in addition to the above, evidence about the action as observed from the Gestures \acp{HMM}: \emph{Action=tap}.
 \item robot prior knowledge evidence consisting of information about object features and effects only: %$\xobs^{\text{before}} = \{ \text{Size=big, Shape=sphere, ObjVel=fast} \}$;
 \{Size=big, Shape=sphere, ObjVel=fast\};
 
@@ -207,24 +197,6 @@ We give the same action ``grasp'' to the model as evidence, but two values for t
 When the object velocity is medium (Fig.~\ref{tab:conjunction:and}), the model interprets this as a successful grasp and uses the conjunction ``and'' to separate the description of the action from the description of the effect.
 When the object velocity is slow (in the clustering procedure this was most often zero velocity), the model predicts this is an unsuccessful grasp and uses the conjunction ``but'', instead.
 
-%Example in which the generated conjunction is ``and'' (because of consistency between nodes evidence):
-%
-%evidence:
-%\begin{equation} \label{eq:evidence_producing_and}
-%    \xobs^\prime = \{ \text{\evidenceProducingAnd} \}
-%\end{equation}
-
-%resulting word probabilities: Fig.~\ref{fig:conjunction_and:pw}
-
-% \begin{figure}
-% \centering
-% \includegraphics[width=0.9\columnwidth]{and_pw.eps}
-% \caption{Word occurrence probabilities given the evidence \emph{\{\evidenceProducingAnd\}}. The ``and'' conjunction has a much higher probability than ``but''. See also Tab.~\ref{tab:conjunction:and}. We have omitted words for which no significant probability was observed.}
-% \label{fig:conjunction_and:pw}
-% \end{figure}
-
-%generated sentences in Fig.~\ref{tab:conjunction:and}
-
 \begin{figure*}
   \centering
   \subfloat[][Evidence: \{ \evidenceProducingAnd \}.]{
@@ -269,34 +241,11 @@ When the object velocity is slow (in the clustering procedure this was most ofte
     } % end resizebox
     \label{tab:conjunction:but}
   } % end subfloat
-%    \caption{Top sentences generated from the evidence~~\eqref{eq:evidence_producing_and}. The ``and'' conjunction was chosen in all of them. Intuitively, the model has learned that a grasping action which produces a significant movement is successful.}
-%    \label{tab:conjunction:and}
-%
-%    \centering
     \caption{$10$-best list of sentences generated given two different sets of evidence.
     In~(a) the model interprets the object movement as indicating a succesful grasp and uses the conjunction ``and''.
     In~(b) the slow movement is interpreted as no movement at all, and, therefore, as an unsuccessful grasp: as a result, the conjunction ``but'' is used.}
     \label{tab:conjunction}
 \end{figure*}
-
-
-%Example in which the generated conjunction is ``but'' (because of no consistency):
-%
-%evidence:
-%\begin{equation} \label{eq:evidence_producing_but}
-%    \xobs'' = \{ \text{\evidenceProducingBut} \}
-%\end{equation}
-
-%resulting word probabilities: Fig.~\ref{fig:conjunction_but:pw}
-
-% \begin{figure}
-% \centering
-% \includegraphics[width=0.9\columnwidth]{but_pw.eps}
-% \caption{Word occurrence probabilities given the evidence \emph{\{\evidenceProducingBut\}}. The conjunctions ``and'' and ``but'' have comparable probabilities, with the former being slightly higher. See also Tab.~\ref{tab:conjunction:but}. We have omitted words for which no significant probability was observed.}
-% \label{fig:conjunction_but:pw}
-% \end{figure}
-
-%generated sentences in Fig.~\ref{tab:conjunction:but}
 
 % A clarification is due: even though the conjunction ``and'' is still the most likely, the conjunction ``but'' has a comparable probability, given the observed evidence~(see Fig.~\ref{fig:conjunction_but:pw}).
 % Even so, ``but'' was chosen in the highest-ranked sentence and in two more of the top-ten sentences~(see Tab.~\ref{tab:conjunction:but}).
