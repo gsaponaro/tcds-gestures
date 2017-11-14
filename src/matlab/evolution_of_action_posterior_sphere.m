@@ -175,7 +175,7 @@ if create_figures
     text(N-15, framenormlogliks(2,N-15)+0.4, 'tap')
     text(N-15, framenormlogliks(3,N-15)-0.7, 'touch')
     xlabel('frame $t$ ($\times$ 30 ms)', 'Interpreter','latex', 'FontSize',fontsize);
-    ylabel('$\log\mathcal{L}_{\rm{HMM}}(G_1^t \mid A)$', 'Interpreter','latex', 'FontSize',fontsize);
+    ylabel('$\frac{1}{t}\log\mathcal{L}_{\rm{HMM}}(G_1^t \mid A)$', 'Interpreter','latex', 'FontSize',fontsize);
     print('-depsc', 'evolution_of_action_posterior_sphere_log.eps');
 end
     
