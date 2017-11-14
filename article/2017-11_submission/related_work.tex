@@ -3,34 +3,35 @@
 \section{Related Work}
 \label{sec:related_work}
 
-NEW PARAGRAPH FOLLOWING THE ORDER OF THE INTRODUCTION -
+% collaboration and language
 Human cooperation is a phenomenon that we often take for granted~(at least in adults), possibly because it is widespread and intimately embedded into human societies.
-It is reasonable to say that this skill is greatly facilitated, and influenced, by human language~(i.e., a highly elaborated, complex yet efficient communication system) TODO ADD REF. cite work on robotics, language and gestures~\cite{matuszek:2014:aaai}).
-TODO literature about children, adults, neuroscience of collaboration.
-Educational research has shown that, when language is used as a cultural tool for intellectual tasks in preteen students, discursive interaction enables collective thinking to become more effective, also fostering individual reasoning and faster learning~\cite{rojas:2003:ijer}. % related: leman:2000 (age 7--9)
-as well as the    the need to ground~\cite{harnad:1990} spoken language to environment elements, which is useful both for receiving human commands or for describing what is happening in natural language~\cite{steels:2003:trendscogsci}.
-% dev rob
-In this line of research, which we follow, robots are experimental platforms.
-They are used to verify theoretical models of emergence and development of cognition.
-The rationale is the following: if a model is instantiated inside a system physically embedded in the real world, many things can be learned about its strengths and limitations.
-This is often accompanied by probabilistic and statistical methods~\cite{pearl:2014:probabilistic}.
+However, this non-trivial skill is greatly facilitated, and influenced, by human language~\cite{mueller:2000:psych}.
+For instance, educational research has shown that, when language is used as a cultural tool for intellectual tasks in preteen students, discursive interaction enables collective thinking to become more effective, also fostering individual reasoning and faster learning~\cite{rojas:2003:ijer}. % related: leman:2000 (age 7--9)
+%~(i.e., a highly elaborated, complex yet efficient communication system)
 
-% HRC, mirror/correspondence
-The ability to understand and interpret our peers has also been studied in neuroscience research, focusing on visuomotor neurons~\cite{rizzolatti:2001:nrn}: neurons that are activated by visual stimuli.
-Mirror neurons are one class of such neurons that responds to action and object interaction, both when the agent acts and when it observes the same action performed by others, hence the name ``mirror''.
-Applying the mirror neuron theory in robotics, as we and others do TODO ADD REFS, an agent can first acquire knowledge by sensing and self-exploring its surrounding environment, %~(e.g., by interacting with available objects and building up an affordance representation of the interactions and their outcomes)
+% mirror neurons, link to robotics, correspondence problems
+The ability to understand and interpret our peers has also been studied in neuroscience and psychology, focusing on visuomotor neurons~\cite{rizzolatti:2001:nrn}, i.e., neurons that are activated by visual stimuli.
+Mirror neurons respond to action and object interaction, both when the agent acts and when it observes the same action performed by others, hence the name ``mirror''.
+They are based on the principle that perceptual input can be linked with the human action system for predicting future outcomes of actions, i.e., the effect of actions, particularly when the person possesses concrete prior personal experience of the actions being observed in others~\cite{aglioti:2008:basketball,knoblich:2001:psychsci}.
+Applying the mirror neuron theory in robotics, as we and others do~\cite{gazzola:2007:neuroimage,lopes:2009:ab}, an agent can first acquire knowledge by sensing and self-exploring its surrounding environment, %~(e.g., by interacting with available objects and building up an affordance representation of the interactions and their outcomes)
 afterwards it can employ that learned knowledge to novel observations of another agent~(e.g., a human person) who performs similar physical actions to the ones executed during prior training.
-This tackles the so-called correspondence problem~\cite{nehaniv:2002:correspondence} in a simple collaboration scenario, assuming that the two agents have a similar body~(i.e., a humanoid robot and a human) and operate on a shared space~(i.e., a table accessible by both agents' arms).
-
-A large body of neuroscience and psychology studies build upon this theory, based on the principle that perceptual input can be linked with the human action system for predicting future outcomes of actions, i.e., the effect of actions, particularly when the person possesses concrete prior personal experience of the actions being observed in others~\cite{aglioti:2008:basketball,knoblich:2001:psychsci}.
-This has also been exploited under the deep learning paradigm~\cite{kim:2017:nn}, by using a \ac{MTRNN} to have an artificial simulated agent infer human intention from joint information about object affordances and human actions.
-One difference between this line of research and ours is that we use real, noisy data acquired from robots and sensors to test our models~(we also make the data publicly available), instead of virtual simulations which, by nature, cannot model all the physical events and unpredictability of the real world.
+This tackles the so-called correspondence problem~\cite{nehaniv:2002:correspondence}, in our case in a simple collaboration scenario, assuming that the two agents have a similar body~(i.e., a humanoid robot and a human) and operate on a shared space~(i.e., a table accessible by both agents' arms).
+Some authors have studied this concept under the deep learning paradigm~\cite{kim:2017:nn}, by using a \ac{MTRNN} to have an artificial simulated agent infer human intention from joint information about object, their potential opportunities~(i.e., their affordances) and human actions.
+However, in that work a virtual simulation able to produce large quantities of data was used, but a simulator, by nature, cannot model all the physical events and unpredictability of the real world.
+In contrast, we use real, noisy data acquired from robots and sensors to validate our model~(we also make the data and implementation publicly available).
 
 % robot affordances
-In robotics literature, a growing interest is devoted to robots that learn new cognitive skills and improve their capabilities by interacting autonomously with the surrounding environment.
+In robotics and cognitive systems research, both object-directed action recognition in external agents~\cite{koppula:2013:ijrr} and the incorporation of language in \hr{} systems~\cite{harnad:1990,matuszek:2014:aaai} have received ample attention.
+A growing interest is devoted to robots that learn new cognitive skills and improve their capabilities by interacting autonomously with the surrounding environment.
 Robots operating in the unstructured world may understand available opportunities conditioned on their body, perception and sensorimotor experiences: the intersection of these elements gives rise to object \emph{affordances}~(action possibilities), as they are called in psychology~\cite{gibson:2014}.
 The advantage of robot affordances lies in the ability to capture essential functional properties of environment objects in terms of the actions that the agent is able to perform with them, allowing to generalize knowledge to never-before-seen scenarios, thus exhibiting learning~\cite{montesano:2008,jamone:2016:tcds}.
-Some authors have suggested a computational model called \acp{OAC}~\cite{kruger:2011:ras}, which links low-level sensorimotor knowledge with high-level symbolic reasoning and planning in autonomous robots.
+%Some authors have suggested a computational model called \acp{OAC}~\cite{kruger:2011:ras}, which links low-level sensorimotor knowledge with high-level symbolic reasoning and planning in autonomous robots.
+
+% developmental robotics
+% In this line of research, which we follow, robots are experimental platforms.
+% They are used to verify theoretical models of emergence and development of cognition.
+% The rationale is the following: if a model is instantiated inside a system physically embedded in the real world, many things can be learned about its strengths and limitations.
+% This is often accompanied by probabilistic and statistical methods~\cite{pearl:2014:probabilistic}.
 
 % robot affordances + language
 Several works have studied the potential coupling between learning robot affordances and \emph{language grounding}.
