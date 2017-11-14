@@ -202,6 +202,14 @@ for iter_bn = 1:num_iterations
     p{iter_bn} = BNMarginalProb(netobj_lab, {'ObjVel'});
 end
 
+%% generate description of the situation given the last evidence
+sentenceFilename = 'sentence_data/sentence_10000samples_uniq.txt';
+pw = BNGetWordProbs(netobj_lab);
+[sentences, normlogprobs] = BNScoreSentences(netobj_lab, sentenceFilename);
+sentences = strcat('"', sentences, '"');
+[bestprob, bestsentidx] = max(normlogprobs);
+sentences{bestsentidx}
+
 %% plot the probability distribution for the last prediction
 if create_figures
     figure
