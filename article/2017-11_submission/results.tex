@@ -194,8 +194,8 @@ In many of these sentences, we note that (i)~the correct action-related verb ``t
 
 \subsection{Language Phenomenon: Choice of Correct Conjunction}
 
-\newcommand{\evidenceProducingAnd}{Action=grasp, ObjVel=medium}
-\newcommand{\evidenceProducingBut}{Action=grasp, ObjVel=slow}
+\newcommand{\evidenceProducingAnd}{$\xobs=$\{ Action=grasp, ObjVel=medium \}}
+\newcommand{\evidenceProducingBut}{$\xobs=$\{ Action=grasp, ObjVel=slow \}}
 
 The manipulation experiments that we consider have the following structure: an agent~(human or robot) performs a physical action onto an object with certain properties, and this object will produce a certain physical effect as a result.
 For example, ``touch'' on an object yields no physical movement, but ``tap'' does~(especially if the object is spherical).
@@ -209,8 +209,11 @@ When the object velocity is slow (in the clustering procedure this was most ofte
 
 \begin{figure*}
   \centering
-  \subfloat[][Evidence: \{ \evidenceProducingAnd \}.]{
-    \resizebox{!}{0.11\linewidth}{% https://tex.stackexchange.com/a/27105/18819
+  \subfloat[][Evidence: \evidenceProducingAnd.]{
+    \begin{tabular}[b]{c}   
+    \includegraphics[width=0.4\linewidth]{p_conjunctions_and_evidence.eps}\\
+    
+    \resizebox{!}{0.1\linewidth}{% https://tex.stackexchange.com/a/27105/18819
       \begin{tabular}{ll}
         \toprule
         sentence & score \\
@@ -228,10 +231,14 @@ When the object velocity is slow (in the clustering procedure this was most ofte
         \bottomrule
       \end{tabular}%
     } % end resizebox
+    \end{tabular}
     \label{tab:conjunction:and}
   } % end subfloat
-  \subfloat[][Evidence: \{ \evidenceProducingBut \}.]{
-    \resizebox{!}{0.11\linewidth}{% https://tex.stackexchange.com/a/27105/18819
+  \subfloat[][Evidence: \evidenceProducingBut.]{
+    \begin{tabular}[b]{c}   
+    \includegraphics[width=0.4\linewidth]{p_conjunctions_and_evidence.eps}\\
+    
+    \resizebox{!}{0.1\linewidth}{% https://tex.stackexchange.com/a/27105/18819
       \begin{tabular}{ll}
         \toprule
         sentence & score \\
@@ -249,6 +256,7 @@ When the object velocity is slow (in the clustering procedure this was most ofte
         \bottomrule
       \end{tabular}%
     } % end resizebox
+    \end{tabular}
     \label{tab:conjunction:but}
   } % end subfloat
     \caption{$10$-best list of sentences generated given two different sets of evidence.
@@ -261,12 +269,12 @@ When the object velocity is slow (in the clustering procedure this was most ofte
 % Even so, ``but'' was chosen in the highest-ranked sentence and in two more of the top-ten sentences~(see Tab.~\ref{tab:conjunction:but}).
 % This result can be loosely interpreted as TODO
 
-\begin{figure}
-\centering
-\includegraphics[width=0.9\columnwidth]{p_conjunctions.eps}
-\caption{Word occurrence probabilities of the conjunctions ``and'' and ``but'' obtained when entering a consistent \actioneffect{} evidence vs when entering an inconsistent \actioneffect{} evidence. See Fig.~\ref{tab:conjunction} for details.}
-\label{fig:p_conjunctions}
-\end{figure}
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.9\columnwidth]{p_conjunctions.eps}
+%\caption{Word occurrence probabilities of the conjunctions ``and'' and ``but'' obtained when entering a consistent \actioneffect{} evidence vs when entering an inconsistent \actioneffect{} evidence. See Fig.~\ref{tab:conjunction} for details.}
+%\label{fig:p_conjunctions}
+%\end{figure}
 
 \subsection{Solving Ambiguities with the Combined Model}
 

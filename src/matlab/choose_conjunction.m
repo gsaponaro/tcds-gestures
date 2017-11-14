@@ -1,4 +1,5 @@
 %% configure BNT and other paths
+clear;
 configurePaths;
 
 %% load data
@@ -7,7 +8,7 @@ load('BN_lab.mat');
 %% user parameters
 word_threshold = 0.2;
 create_figures = true;
-fontsize = 20;
+fontsize = 16;
 
 % 10000 sentences generated randomly accroding to the grammar in
 % AffordanceAndSpeech/word2sent/grammar.grm (see Makefile for more
@@ -95,21 +96,24 @@ for h=1:nbest
 end
 
 %%
+pand_evidenceand = pw_evidenceand(strcmp(netobj_lab.nodeNames(netobj_lab.WORDNODES), 'and'));
+pand_evidencebut = pw_evidencebut(strcmp(netobj_lab.nodeNames(netobj_lab.WORDNODES), 'and'));
+pbut_evidenceand = pw_evidenceand(strcmp(netobj_lab.nodeNames(netobj_lab.WORDNODES), 'but'));
+pbut_evidencebut = pw_evidencebut(strcmp(netobj_lab.nodeNames(netobj_lab.WORDNODES), 'but'));
+pand_pbut = [pand_evidenceand pand_evidencebut; pbut_evidenceand pbut_evidencebut];
 
 if create_figures
     figure;
-    pand_evidenceand = pw_evidenceand(strcmp(netobj_lab.nodeNames(netobj_lab.WORDNODES), 'and'));
-    pand_evidencebut = pw_evidencebut(strcmp(netobj_lab.nodeNames(netobj_lab.WORDNODES), 'and'));
-    pbut_evidenceand = pw_evidenceand(strcmp(netobj_lab.nodeNames(netobj_lab.WORDNODES), 'but'));
-    pbut_evidencebut = pw_evidencebut(strcmp(netobj_lab.nodeNames(netobj_lab.WORDNODES), 'but'));
-    pand_pbut = [pand_evidenceand pand_evidencebut; pbut_evidenceand pbut_evidencebut];
-    bar(pand_pbut);
-    set(gca, 'XTickLabel', {'"and"','"but"'}, 'FontSize',fontsize);
-    set(gca, 'Position', [0.1600 0.1100 0.7750 0.6150]);
-    ylabel('$P(w_i)$', 'Interpreter','latex', 'FontSize',fontsize);
-    l = legend('$X_{\rm{obs}}^\prime$', '$X_{\rm{obs}}^{\prime\prime}$');
-    set(l, 'Location','north');
-    set(l, 'Interpreter','latex');
-    set(l, 'FontSize',fontsize);
-    print('-depsc', 'p_conjunctions.eps');
-end;
+    barh([pand_evidenceand, pbut_evidenceand])
+    set(gca, 'YTickLabel', {'"and"', '"but"'}, 'FontSize',fontsize)%, 'xlim', [0.2, 2.8])
+    set(gca, 'Position', [0.1300 0.1298 0.7750 0.3]);
+    title('$P_{\rm{comb}}(w_i\mid X_{\rm{obs}}, G_1^T)$', 'Interpreter','latex', 'FontSize',fontsize);
+    print('-depsc', 'p_conjunctions_and_evidence.eps');
+
+    figure;
+    barh([pand_evidencebut, pbut_evidencebut])
+    set(gca, 'YTickLabel', {'"and"', '"but"'}, 'FontSize',fontsize)%, 'xlim', [0.2, 2.8])
+    set(gca, 'Position', [0.1300 0.1298 0.7750 0.3]);
+    title('$P_{\rm{comb}}(w_i\mid X_{\rm{obs}}, G_1^T)$', 'Interpreter','latex', 'FontSize',fontsize);
+    print('-depsc', 'p_conjunctions_but_evidence.eps');
+end
