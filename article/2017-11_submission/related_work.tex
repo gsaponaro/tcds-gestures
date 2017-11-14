@@ -9,8 +9,12 @@ TODO literature about children, adults, neuroscience of collaboration.
 Educational research has shown that, when language is used as a cultural tool for intellectual tasks in preteen students, discursive interaction enables collective thinking to become more effective, also fostering individual reasoning and faster learning~\cite{rojas:2003:ijer}. % related: leman:2000 (age 7--9)
 
 % HRC, mirror/correspondence
+The ability to understand and interpret our peers has also been studied in neuroscience research, focusing on visuomotor neurons~\cite{rizzolatti:2001:nrn}: neurons that are activated by visual stimuli.
+Mirror neurons are one class of such neurons that responds to action and object interaction, both when the agent acts and when it observes the same action performed by others, hence the name ``mirror''.
+Applying the mirror neuron theory in robotics, as we and others do TODO ADD REFS, an agent can first acquire knowledge by sensing and self-exploring its surrounding environment, %~(e.g., by interacting with available objects and building up an affordance representation of the interactions and their outcomes)
+afterwards it can employ that learned knowledge to novel observations of another agent~(e.g., a human person) who performs similar physical actions to the ones executed during prior training.
+This tackles the so-called correspondence problem~\cite{nehaniv:2002:correspondence} in a simple collaboration scenario, assuming that the two agents have a similar body~(i.e., a humanoid robot and a human) and operate on a shared space~(i.e., a table accessible by both agents' arms).
 
-The ability to understand and interpret our peers is related to the theory of mirror neurons which we brought up in Sec.~\ref{sec:intro}. 
 A large body of neuroscience and psychology studies build upon this theory, based on the principle that perceptual input can be linked with the human action system for predicting future outcomes of actions, i.e., the effect of actions, particularly when the person possesses concrete prior personal experience of the actions being observed in others~\cite{aglioti:2008:basketball,knoblich:2001:psychsci}.
 This has also been exploited under the deep learning paradigm~\cite{kim:2017:nn}, by using a \ac{MTRNN} to have an artificial simulated agent infer human intention from joint information about object affordances and human actions.
 One difference between this line of research and ours is that we use real, noisy data acquired from robots and sensors to test our models~(we also make the data publicly available), instead of virtual simulations which, by nature, cannot model all the physical events and unpredictability of the real world.
