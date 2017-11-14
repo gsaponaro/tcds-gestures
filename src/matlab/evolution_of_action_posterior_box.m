@@ -152,7 +152,7 @@ if create_figures
     title('HMM push/touch states probability');
     imagesc(push_alpha ./ (ones(6,1) * sum(push_alpha)));
     set(gca, 'ydir', 'normal');
-end;
+end
 
 
 %% Turn alpha probabilities into likelihoods of each model.
@@ -167,18 +167,20 @@ normliks = liks ./ (ones(3,1)*sum(liks));
 % the advantage is to show the time evolution
 N = size(liks, 2);
 framenormlogliks = log(liks)./(ones(3,1)*1:size(liks,2));
-figure
-subplot(2,1,1)
-plot(framenormlogliks')
-set(gca, 'ylim', [-5, 0], 'xlim', [1, N])
-%legend('tap', 'grasp', 'touch', 'location', 'southwest')
-text(N-15, framenormlogliks(1,N-15)+0.4, 'grasp')
-text(N-15, framenormlogliks(2,N-15)+0.4, 'tap')
-text(N-15, framenormlogliks(3,N-15)+0.4, 'touch')
-xlabel('frame $t$ ($\times$ 30 ms)', 'Interpreter','latex', 'FontSize',fontsize);
-ylabel('$\log\mathcal{L}_{\rm{HMM}}(A \mid G_1^t)$', 'Interpreter','latex', 'FontSize',fontsize);
-print('-depsc', 'evolution_of_action_posterior_box_log.eps');
-
+if create_figures
+    figure
+    subplot(2,1,1)
+    plot(framenormlogliks')
+    set(gca, 'ylim', [-5, 0], 'xlim', [1, N])
+    %legend('tap', 'grasp', 'touch', 'location', 'southwest')
+    text(N-15, framenormlogliks(1,N-15)+0.4, 'grasp')
+    text(N-15, framenormlogliks(2,N-15)+0.4, 'tap')
+    text(N-15, framenormlogliks(3,N-15)+0.4, 'touch')
+    xlabel('frame $t$ ($\times$ 30 ms)', 'Interpreter','latex', 'FontSize',fontsize);
+    ylabel('$\log\mathcal{L}_{\rm{HMM}}(G_1^t \mid A)$', 'Interpreter','latex', 'FontSize',fontsize);
+    print('-depsc', 'evolution_of_action_posterior_box_log.eps');
+end
+    
 %% load Affordance-Words Bayesian Network data
 load('BN_lab.mat');
 
