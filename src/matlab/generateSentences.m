@@ -2,6 +2,7 @@
 % probabilities:
 
 %% configure BNT and other paths
+close;
 configurePaths;
 
 %% load data
