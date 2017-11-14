@@ -279,29 +279,29 @@ When the object velocity is slow (in the clustering procedure this was most ofte
 %\label{fig:p_conjunctions}
 %\end{figure}
 
-\subsection{Solving Ambiguities with the Combined Model}
+%\subsection{Solving Ambiguities with the Combined Model}
+%
+%MOVE THIS RESULT EARLIER? (requires explanation of word probabilities, if we decide to include Fig.~\ref{fig:after_softevidence:pw})
 
-MOVE THIS RESULT EARLIER? (requires explanation of word probabilities, if we decide to include Fig.~\ref{fig:after_softevidence:pw})
 
+%Fig.~\ref{fig:update_from_softevidence} shows the result of predictions over nodes given some initial evidence, before and after incorporating further soft evidence
+%
+%\begin{figure*}
+%    \centering
+%    \subfloat[][Prediction of the model given the initial (hard) evidence. The prediction is ambiguous.]
+%    { \includegraphics[width=0.45\linewidth]{before_softevidence_prediction.eps} \label{fig:before_softevidence:pred} } \quad
+%    %
+%    \subfloat[][Updated prediction of the model after having incorporated the Action soft evidence (grasp tap touch)=(0.8 0.1 0.1) TODO IMPROVE NOTATION. The prediction is now unambiguous.]
+%    { \includegraphics[width=0.45\linewidth]{after_softevidence_prediction.eps} \label{fig:after_softevidence:pred} }
+%    \caption{Predictions about the action and hand velocity on a box object, before and after incorporating Action soft evidence from Gesture \acp{HMM}.}
+%    \label{fig:update_from_softevidence}
+%\end{figure*}
+%
+%word probabilities: Fig.~\ref{fig:after_softevidence:pw} (in this case they are identical before and after incorporating the soft evidence) REMOVE THIS?
 
-Fig.~\ref{fig:update_from_softevidence} shows the result of predictions over nodes given some initial evidence, before and after incorporating further soft evidence
-
-\begin{figure*}
-    \centering
-    \subfloat[][Prediction of the model given the initial (hard) evidence. The prediction is ambiguous.]
-    { \includegraphics[width=0.45\linewidth]{before_softevidence_prediction.eps} \label{fig:before_softevidence:pred} } \quad
-    %
-    \subfloat[][Updated prediction of the model after having incorporated the Action soft evidence (grasp tap touch)=(0.8 0.1 0.1) TODO IMPROVE NOTATION. The prediction is now unambiguous.]
-    { \includegraphics[width=0.45\linewidth]{after_softevidence_prediction.eps} \label{fig:after_softevidence:pred} }
-    \caption{Predictions about the action and hand velocity on a box object, before and after incorporating Action soft evidence from Gesture \acp{HMM}.}
-    \label{fig:update_from_softevidence}
-\end{figure*}
-
-word probabilities: Fig.~\ref{fig:after_softevidence:pw} (in this case they are identical before and after incorporating the soft evidence) REMOVE THIS?
-
-\begin{figure}
-\centering
-\includegraphics[width=0.9\columnwidth]{after_softevidence_pw.eps}
-\caption{Word occurrence probabilities given the evidence \{Shape=box, ObjVel=fast\}. We have omitted words for which no significant probability was observed.}
-\label{fig:after_softevidence:pw}
-\end{figure}
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.9\columnwidth]{after_softevidence_pw.eps}
+%\caption{Word occurrence probabilities given the evidence \{Shape=box, ObjVel=fast\}. We have omitted words for which no significant probability was observed.}
+%\label{fig:after_softevidence:pw}
+%\end{figure}
