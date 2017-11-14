@@ -38,4 +38,5 @@ netobj_lab = BNEnterNodeEvidence(netobj_lab, {'Shape', 'box'}, true, {'Action', 
 marg3 = marginal_nodes(netobj_lab.engine, BNWhichNode(netobj_lab, 'ObjVel'));
 
 %% test 4: give hard evidence through distribution (fusion)
+netobj_lab = BNResetEvidence(netobj_lab);
 [netobj_lab, marg4T] = fusion(netobj_lab, {'ObjVel'}, {'Shape', 'box'}, [0, 0, 1]);

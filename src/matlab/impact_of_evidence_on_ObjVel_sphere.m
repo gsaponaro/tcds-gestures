@@ -1,4 +1,5 @@
 %% configure BNT and other paths
+clear;
 configurePaths;
 
 %% user parameters
@@ -8,11 +9,11 @@ fontsize = 14;
 
 %% soft evidence over Action, for various experiments to visualize together
 % BNActionValue order: grasp,tap,touch
-ev1 = [0 0 1];
-ev2 = [0 0.25 0.75];
-ev3 = [0 0.5 0.5];
-ev4 = [0 0.75 0.25];
-ev5 = [0 1 0];
+ev = [0 0 1
+    0 0.25 0.75
+    0 0.5 0.5
+    0 0.75 0.25
+    0 1 0];
 
 %% load data
 load('BN_lab.mat');
@@ -23,46 +24,31 @@ netobj_lab = BNEnterNodeEvidence(netobj_lab, obs_sphere);
 
 %% experiment 1, extract predictions (posteriors)
 inferred = {'ObjVel'};
-[netobj_lab,p1] = fusion(netobj_lab, inferred, obs_sphere, ev1);
+nexamples = size(ev, 1);
+% this only works for single inference node
+node_size = netobj_lab.node_sizes(BNWhichNode(netobj_lab, inferred{1}));
+p = zeros(node_size, nexamples+1);
+% posterior without evidence on action
+p(:, 1) = BNMarginalProb(netobj_lab, inferred);
 
-%% reset BN to the initial evidence
-netobj_lab = BNResetEvidence(netobj_lab);
-netobj_lab = BNEnterNodeEvidence(netobj_lab, obs_sphere);
+for ex = 1:nexamples
+    netobj_lab = BNResetEvidence(netobj_lab);
+    netobj_lab = BNEnterNodeEvidence(netobj_lab, obs_sphere, true, {'Action', ev(ex,:)});
+    p(:, ex+1) = BNMarginalProb(netobj_lab, inferred);
+end
 
-%% experiment 2, extract predictions (posteriors)
-[netobj_lab,p2] = fusion(netobj_lab, inferred, obs_sphere, ev2);
-
-%% reset BN to the initial evidence
-netobj_lab = BNResetEvidence(netobj_lab);
-netobj_lab = BNEnterNodeEvidence(netobj_lab, obs_sphere);
-
-%% experiment 3, extract predictions (posteriors)
-[netobj_lab,p3] = fusion(netobj_lab, inferred, obs_sphere, ev3);
-
-%% reset BN to the initial evidence
-netobj_lab = BNResetEvidence(netobj_lab);
-netobj_lab = BNEnterNodeEvidence(netobj_lab, obs_sphere);
-
-%% experiment 4, extract predictions (posteriors)
-[netobj_lab,p4] = fusion(netobj_lab, inferred, obs_sphere, ev4);
-
-%% reset BN to the initial evidence
-netobj_lab = BNResetEvidence(netobj_lab);
-netobj_lab = BNEnterNodeEvidence(netobj_lab, obs_sphere);
-
-%% experiment 5, extract predictions (posteriors)
-[netobj_lab,p5] = fusion(netobj_lab, inferred, obs_sphere, ev5);
-
+%% create figure
 if create_figures
     figure;
-    b = bar([p1 p2 p3 p4 p5]');
+    b = bar(p');
     %xlabel('Action Evidence [grasp tap touch]', 'FontSize',fontsize);
     xlabel('$P_{\rm{HMM}}(A \mid G_1^T)$ [grasp tap touch]', 'Interpreter','latex', 'FontSize',fontsize);
-    set(gca, 'xticklabels', {mat2str(ev1), mat2str(ev2), mat2str(ev3), ...
-        mat2str(ev4), mat2str(ev5)});
+    set(gca, 'xticklabels', {'none', mat2str(ev(1,:)), mat2str(ev(2,:)), mat2str(ev(3,:)), ...
+        mat2str(ev(4,:)), mat2str(ev(5,:))});
     xtickangle(45);
     ylabel('$P_{\rm{comb}}(\rm{ObjVel} \mid \rm{Shape=sphere}, G_1^T)$', 'Interpreter','latex', 'FontSize',fontsize);
+    ylim([0, 1.0]);
     l = legend(b, 'slow', 'medium', 'fast');
-    set(l, 'Location','north');
+    set(l, 'Location','best');
     print('-depsc', 'impact_of_evidence_on_ObjVel_sphere.eps');
 end;
