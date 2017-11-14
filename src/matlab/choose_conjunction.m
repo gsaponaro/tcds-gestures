@@ -106,14 +106,14 @@ if create_figures
     figure;
     barh([pand_evidenceand, pbut_evidenceand])
     set(gca, 'YTickLabel', {'"and"', '"but"'}, 'FontSize',fontsize)%, 'xlim', [0.2, 2.8])
-    set(gca, 'Position', [0.1300 0.1298 0.7750 0.3]);
+    set(gca, 'Position', [0.1300 0.1298 0.7750 0.2], 'ylim', [0.2 2.8]);
     title('$P_{\rm{comb}}(w_i\mid X_{\rm{obs}}, G_1^T)$', 'Interpreter','latex', 'FontSize',fontsize);
     print('-depsc', 'p_conjunctions_and_evidence.eps');
 
     figure;
     barh([pand_evidencebut, pbut_evidencebut])
     set(gca, 'YTickLabel', {'"and"', '"but"'}, 'FontSize',fontsize)%, 'xlim', [0.2, 2.8])
-    set(gca, 'Position', [0.1300 0.1298 0.7750 0.3]);
+    set(gca, 'Position', [0.1300 0.1298 0.7750 0.2], 'ylim', [0.2 2.8]);
     title('$P_{\rm{comb}}(w_i\mid X_{\rm{obs}}, G_1^T)$', 'Interpreter','latex', 'FontSize',fontsize);
     print('-depsc', 'p_conjunctions_but_evidence.eps');
 end
