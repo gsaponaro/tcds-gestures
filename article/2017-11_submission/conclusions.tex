@@ -16,15 +16,28 @@ In the future, we wish to study the following aspects:
 possibility to add new vocabulary words to the system,
 \dots
 
-PERSONAL NOTES - Things we need to discuss:
+\subsection{Assumptions and Future Work}
+The model presented in this study was created following a number of assumptions:
+% Giampiero: I write this here in items, but it should be turned into text
+% we should also discuss how much to say explicitely
 \begin{itemize}
-\item the effect variables in the BN include hand velocity. How does this relate to the gesture features in the HMM? Can we learn the connection?
-\item in order to achieve the ideal case in Figure~\ref{fig:model} we would need to learn the complex relationship between hand movements and affordance variables:
-  \begin{itemize}
-  \item how can this be achieved in the ego-centric learning? Mixture of HMMs and BN? Would it be possible to learn the dependency structure in this complex model?
-  \item assuming it is possible to learn in the ego-centric way, how can this be extended to the other agent? Coordinates will definitely be different. In the current study we could directly map the two because we were using the categorical variable ``action''.
-  \end{itemize}
+\item gesture recognition based on Kinect: does not work with table, record same gesture without the table $\rightarrow$ use pose estimator such as openpose (would it work in 2D?)
+\item the model does not learn the grammar
+\item not adding new words (refer to )
+\item besides the gesture recognizer, the rest of the model has no time evolution $\rightarrow$ try dynamic Bayesian networks?
+\item multiple object? multiple interlocutors?
 \end{itemize}
+
+% Giampiero: not that relevant any longer
+%PERSONAL NOTES - Things we need to discuss:
+%\begin{itemize}
+%\item the effect variables in the BN include hand velocity. How does this relate to the gesture features in the HMM? Can we learn the connection?
+%\item in order to achieve the ideal case in Figure~\ref{fig:model} we would need to learn the complex relationship between hand movements and affordance variables:
+%  \begin{itemize}
+%  \item how can this be achieved in the ego-centric learning? Mixture of HMMs and BN? Would it be possible to learn the dependency structure in this complex model?
+%  \item assuming it is possible to learn in the ego-centric way, how can this be extended to the other agent? Coordinates will definitely be different. In the current study we could directly map the two because we were using the categorical variable ``action''.
+%  \end{itemize}
+%\end{itemize}
 
 BELOW IS THE GLU TEXT
 
