@@ -72,12 +72,15 @@ Fig.~\ref{fig:effect_pred_sphere} shows the experiment when the human performs a
 %      \includegraphics[width=\myWidth\linewidth]{tap-box-00000270}
 
 \begin{figure*}
+  \centering
+  \resizebox{0.55\linewidth}{!}{
   \begin{tikzpicture}
     \node (lik) {\includegraphics[width=0.6\linewidth]{evolution_of_action_posterior_sphere_log.eps}};
     \node at ([xshift=-90pt,yshift=30pt]lik.north) {\includegraphics[width=\myWidth\linewidth]{tap-sphere-00000179}};
     \node at ([xshift=+10pt,yshift=30pt]lik.north) {\includegraphics[width=\myWidth\linewidth]{tap-sphere-00000183}};
     \node at ([xshift=+110pt,yshift=30pt]lik.north) {\includegraphics[width=\myWidth\linewidth]{tap-sphere-00000187}};
   \end{tikzpicture}
+  } % end resizebox
   \quad
   \includegraphics[width=0.35\linewidth]{effectpred_sphere.eps}
   \caption{Object velocity predictions on a small sphere, given probabilistic human action information from Gesture \acp{HMM}.}
@@ -91,12 +94,15 @@ In Fig.~\ref{fig:effect_pred_sphere}~(right), we show the prediction of the move
 In essence, the combined model has predicted that this target object will exhibit a medium or fast velocity after the human will touch it.
 
 \begin{figure*}
+  \centering
+  \resizebox{0.55\linewidth}{!}{
   \begin{tikzpicture}
     \node (lik) {\includegraphics[width=0.6\linewidth]{evolution_of_action_posterior_box_log.eps}};
     \node at ([xshift=-90pt,yshift=30pt]lik.north) {\includegraphics[width=\myWidth\linewidth]{tap-box-00000230}};
     \node at ([xshift=+10pt,yshift=30pt]lik.north) {\includegraphics[width=\myWidth\linewidth]{tap-box-00000250}};
     \node at ([xshift=+110pt,yshift=30pt]lik.north) {\includegraphics[width=\myWidth\linewidth]{tap-box-00000270}};
   \end{tikzpicture}
+  } % end resizebox
   \quad
   \includegraphics[width=0.35\linewidth]{effectpred_box.eps}
   \caption{Object velocity predictions on a big box, given probabilistic human action information from Gesture \acp{HMM}.}
