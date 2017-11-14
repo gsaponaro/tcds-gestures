@@ -1,5 +1,12 @@
 %!TEX encoding = UTF-8 Unicode
 
+\begin{figure}
+\centering
+\includegraphics[width=0.9\columnwidth]{impact_of_evidence_on_Action.eps}
+\caption{Predictions about the action given the evidence $\xobs =\{\text{Size}=\text{small}, \text{Shape}=\text{sphere}, \text{ObjVel}=\text{slow}\}$, when given different probabilistic soft evidence about the action.}
+\label{fig:impact_of_evidence_on_Action}
+\end{figure}
+
 \section{Experimental Results}
 
 In this section, we report the experimental findings obtained with our proposed model.
@@ -13,13 +20,6 @@ We present the following types of results:
 \end{itemize}
 
 \subsection{Inference over Affordance Variables (Including Action, Synthetic Values)}
-
-\begin{figure}
-\centering
-\includegraphics[width=0.9\columnwidth]{impact_of_evidence_on_Action.eps}
-\caption{Predictions about the action given the evidence $\xobs =\{\text{Size}=\text{small}, \text{Shape}=\text{sphere}, \text{ObjVel}=\text{slow}\}$, when given different probabilistic soft evidence about the action.}
-\label{fig:impact_of_evidence_on_Action}
-\end{figure}
 
 In Fig.~\ref{fig:impact_of_evidence_on_Action} we show the interaction between the \AffWords{} model and the gesture/action recognition model when they bring conflicting information.
 In the scene, we observe a small ball that after the action has a low velocity (that in terms of clusters of affordance variables often corresponds to zero velocity).
@@ -43,16 +43,21 @@ In this particular example, in order to win the belief of the affordance model, 
 \label{fig:impact_of_evidence_on_ObjVel}
 \end{figure*}
 
-Next, we report a result that also uses the \emph{soft decision} over the Action node from the Gesture \acp{HMM}, but this time makes a prediction over a different node: object velocity~(which expresses an effect information).
+Next, we report a result that also uses the \emph{soft evidence} over the Action node from the Gesture \acp{HMM}, but this time makes a prediction over a different node: object velocity~(which expresses an effect information).
 Fig.~\ref{fig:impact_of_evidence_on_ObjVel} shows the inference in two cases: when the prior information says that the shape is spherical~(see Fig.~\ref{fig:impact_of_evidence_on_ObjVel_sphere}), and when it is cubic~(see Fig.~\ref{fig:impact_of_evidence_on_ObjVel_box}).
-TODO complete
+
+The first distribution to the left in both figures shows the prediction of object velocity from the \AffWords{} model alone, without any additional information.
+When the shape is spherical, the model is not sure about the velocity, whereas if the shape is cubic, the model does not expect high velocities.
+If we add clear evidence on the action \emph{touch} from the action recognition model, suddenly the combined model predicts slow velocities in both cases, as expected.
+However, if the action recognition evidence is gradually changed from \emph{touch} to \emph{tap} the predictions of the model depend on the shape of the object.
+Higher velocities are expected for spherical objects that can roll, compared to cubic objects.
 
 \subsection{Inference over Affordance Variables (Excluding Action, Real Values)}
 
 Because it is based on \aclp{BN}, our model can make predictions over any set of its variables, given any other set of observed variables.
 In particular, the model can do reasoning on the elements that constitute our computational concept of affordances, i.e., Action, Object Features, Effects in Fig.~\ref{fig:model}.
 For example, we can reason about the expected object velocity effects that an action will cause onto environment objects, in an anticipatory fashion, thus computing~\eqref{eq:fusion_excluding_action}.
-Note that the estimation of the human action,~$\phmm(A \given G_1^T)$, is a \emph{soft decision}, meaning that it represents the~(time-evolving) probability distribution over the possible actions.
+Note that the estimation of the human action,~$\phmm(A \given G_1^T)$, is a \emph{soft evidence}, meaning that it represents the~(time-evolving) probability distribution over the possible actions.
 Fig.~\ref{fig:effect_pred_sphere} shows the experiment when the human performs an action onto a small spherical object, whereas Fig.~\ref{fig:effect_pred_box} displays it when the object is a big box.
 
 %      % TODO purge old pics from repo if not used
