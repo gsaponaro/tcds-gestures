@@ -74,16 +74,17 @@ Fig.~\ref{fig:effect_pred_sphere} shows the experiment when the human performs a
 
 \begin{figure*}
   \centering
-  \resizebox{0.55\linewidth}{!}{
+  \resizebox{0.9\linewidth}{!}{
   \begin{tikzpicture}
     \node (lik) {\includegraphics[width=0.6\linewidth]{evolution_of_action_posterior_sphere_log.eps}};
     \node at ([xshift=-90pt,yshift=30pt]lik.north) {\includegraphics[width=\myWidth\linewidth]{tap-sphere-00000179}};
     \node at ([xshift=+10pt,yshift=30pt]lik.north) {\includegraphics[width=\myWidth\linewidth]{tap-sphere-00000183}};
     \node at ([xshift=+110pt,yshift=30pt]lik.north) {\includegraphics[width=\myWidth\linewidth]{tap-sphere-00000187}};
+    \node at ([xshift=100pt,yshift=30pt]lik.east) {\includegraphics[width=0.35\linewidth]{evolution_of_action_posterior_sphere_effect_pred.eps}};
   \end{tikzpicture}
   } % end resizebox
-  \quad
-  \includegraphics[width=0.35\linewidth]{effectpred_sphere.eps}
+  %\quad
+  %\includegraphics[width=0.35\linewidth]{evolution_of_action_posterior_sphere_effect_pred.eps}
   \caption{Object velocity predictions on a small sphere, given probabilistic human action information from Gesture \acp{HMM}.}
   \label{fig:effect_pred_sphere}
 \end{figure*}
@@ -96,16 +97,17 @@ In essence, the combined model has predicted that this target object will exhibi
 
 \begin{figure*}
   \centering
-  \resizebox{0.55\linewidth}{!}{
+  \resizebox{0.9\linewidth}{!}{
   \begin{tikzpicture}
     \node (lik) {\includegraphics[width=0.6\linewidth]{evolution_of_action_posterior_box_log.eps}};
     \node at ([xshift=-90pt,yshift=30pt]lik.north) {\includegraphics[width=\myWidth\linewidth]{tap-box-00000230}};
     \node at ([xshift=+10pt,yshift=30pt]lik.north) {\includegraphics[width=\myWidth\linewidth]{tap-box-00000250}};
     \node at ([xshift=+110pt,yshift=30pt]lik.north) {\includegraphics[width=\myWidth\linewidth]{tap-box-00000270}};
+    \node at ([xshift=100pt,yshift=30pt]lik.east) {\includegraphics[width=0.35\linewidth]{evolution_of_action_posterior_box_effect_pred.eps}};
   \end{tikzpicture}
   } % end resizebox
-  \quad
-  \includegraphics[width=0.35\linewidth]{effectpred_box.eps}
+  %\quad
+  %\includegraphics[width=0.35\linewidth]{evolution_of_action_posterior_box_effect_pred.eps}
   \caption{Object velocity predictions on a big box, given probabilistic human action information from Gesture \acp{HMM}.}
   \label{fig:effect_pred_box}
 \end{figure*}
@@ -200,7 +202,7 @@ In many of these sentences, we note that (i)~the correct action-related verb ``t
 
 The manipulation experiments that we consider have the following structure: an agent~(human or robot) performs a physical action onto an object with certain properties, and this object will produce a certain physical effect as a result.
 For example, ``touch'' on an object yields no physical movement, but ``tap'' does~(especially if the object is spherical).
-In the language description associated to an experiment, it makes sense to measure the conjunction chosen by the \acf{CFG} from the observed word probabilities.
+In the language description associated to an experiment, it makes sense to measure the conjunction chosen by the model given specific evidence.
 In particular, it would be desirable to separate two kinds of behaviors: one in which the action and effect are coherent~(expected conjunction: ``and''), and the other one in which they are contradictory (``but'').
 
 Fig.~\ref{tab:conjunction} shows an example of this behavior of the model.

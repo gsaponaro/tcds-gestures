@@ -155,7 +155,8 @@ end;
 
 %% Turn alpha probabilities into likelihoods of each model.
 % This is a 3xN matrix where the row index corresponds to the models.
-liks = [sum(tap_alpha); sum(grasp_alpha); sum(push_alpha)];
+% NOTE: the order is based on the Bayesian network!!!
+liks = [sum(grasp_alpha); sum(tap_alpha); sum(push_alpha)];
 
 % Normalize the likelihoods to get posteriors
 normliks = liks ./ (ones(3,1)*sum(liks));
@@ -169,8 +170,8 @@ subplot(2,1,1)
 plot(framenormlogliks')
 set(gca, 'ylim', [-3, 1.1], 'xlim', [1, N])
 %legend('tap', 'grasp', 'touch', 'location', 'southwest')
-text(N-15, framenormlogliks(1,N-15)+0.4, 'tap')
-text(N-15, framenormlogliks(2,N-15)+0.4, 'grasp')
+text(N-15, framenormlogliks(1,N-15)+0.4, 'grasp')
+text(N-15, framenormlogliks(2,N-15)+0.4, 'tap')
 text(N-15, framenormlogliks(3,N-15)-0.7, 'touch')
 xlabel('frame $t$ ($\times$ 30 ms)', 'Interpreter','latex', 'FontSize',fontsize);
 ylabel('$\log\mathcal{L}_{\rm{HMM}}(A \mid G_1^t)$', 'Interpreter','latex', 'FontSize',fontsize);
@@ -190,19 +191,29 @@ num_iterations = length(iteration_frames);
 
 p = cell(1,num_iterations); % will store BN posteriors
 for iter_bn = 1:num_iterations
-
-    %% reset BN to the initial evidence
+    % reset BN to the initial evidence
     netobj_lab = BNResetEvidence(netobj_lab);
-    netobj_lab = BNEnterNodeEvidence(netobj_lab, obs_sphere);
-    
-    %% extract predictions (posteriors) with the current HMM soft evidence
-    inferred = {'ObjVel'};
+    % define action evidence from HMM
     ev = normliks(:,iteration_frames(iter_bn))';
-    [netobj_lab,p{iter_bn}] = fusion(netobj_lab, inferred, obs_sphere, ev);
+    % enter both hard and soft evidence
+    netobj_lab = BNEnterNodeEvidence(netobj_lab, obs_sphere, true, {'Action', ev});
+    
+    % extract predictions (posteriors) with the current HMM evidence
+    p{iter_bn} = BNMarginalProb(netobj_lab, {'ObjVel'});
+end
 
-end;
+%% plot the probability distribution for the last prediction
+if create_figures
+    figure
+    subplot(2,2,1)
+    barh(p{num_iterations})
+    title('$P_{\rm{comb}}(\rm{ObjVel} \mid X_{\rm{obs}}, G_1^t)$', 'Interpreter','latex', 'FontSize',fontsize);
+    set(gca, 'yticklabels', netobj_lab.nodeValueNames{BNWhichNode(netobj_lab, 'ObjVel')}, 'FontSize',fontsize);
+    set(gca, 'xlim', [0 1.05])
+    print('-depsc', 'evolution_of_action_posterior_sphere_effect_pred.eps');
+end
 
-%%
+%% NOT USED: evolution of probabilities in linear domain
 
 if create_figures
 
