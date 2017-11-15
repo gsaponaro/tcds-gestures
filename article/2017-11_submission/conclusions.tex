@@ -3,7 +3,7 @@
 \section{Conclusions and Future Work}
 \label{sec:conclusions}
 
-We have presented a model that combines robot ego-centric learning about language and object affordances with the observation of external agents' gestures.
+We presented a model that allows a robot to reuse the knowledge acquired by exploration of its environment when observing the actions of external agents.
 We have illustrated a novel probabilistic method to fuse these two sources of information, and we have shown a number of experiments where the robotic model reasons over affordances and words when observing another agent.
 Interestingly, these predictions of words allow us to create human-interpretable sentences~(from a pre-defined grammar) which highlight the emergence of language properties in the model, such as:
 congruent/incongruent conjunctions,
@@ -13,17 +13,18 @@ We make our human action data and probabilistic reasoning code publicly availabl
 We believe that our study has merit because it spans different fields such as robot learning, language grounding, and object affordances, and it does that with real robotic data, as opposed to learning images-to-text mappings~(like many works in computer vision) or using robot simulations~(like many works in robotics).
 However, we reiterate that our scenario and data are restricted to a particular scenario~(see Sec.~\ref{sec:assumptions}), i.e., one human and one robot manipulating simple objects on a shared table, a pre-defined number of motor actions and effects, and a vocabulary of approximately~$50$ words to describe the experiments verbally.
 
-In terms of future work,
+As future work, we wish to investigate how the model can extract syntactic information from the observed data autonomously
+% this is really confusing: it seems that we use the grammar in learning!!
+~(instead of using a manually-specified grammar like the one that generated the verbal descriptions of this paper).
+Also, we want to add the possibility of adding new words to the vocabulary.
+This involves both creating the auditory perception of new acoustic patterns (\textit{e.g.} \cite{falstrom:2017:glu, vanhainen2014:icassp, vanhainen:2012:interspeech}) and incorporating the new symbols into our \AffWords{} model.
+In the gesture recognition part, we plan to overcome the limitation of enforcing the human to be fully visible~(we currently remove the tabletop to prevent occlusions and performance drops in the hand joint~3D estimation, see Sec.~\ref{sec:assumptions}).
+One avenue for this is to run the robust~2D human joint estimator OpenPose with the color cameras of the robot~\cite{cao:2017:openpose-cpvr}, transform the hand coordinates to~3D with existing robot vision software~\cite{roncone:2016:rss}, then feed the resulting gesture features to the recognizer as before.
 
-The model presented in this study was created following a number of assumptions, which can be relaxed in future work (TODO turn into text, discuss how much to say here):
-\begin{itemize}
-\item the gesture recognition part relies on depth sensor hardware~(e.g., Kinect) and human skeleton tracking software. In our experience, the hand tracking is not reliable in the presence of a tabletop~(i.e., partially occluded human) as in Fig.~\ref{fig:action_examples}, so we had to record the same gestures without the table. We plan to incorporate a robust color camera-based human joint estimator such as OpenPose~\cite{cao:2017:openpose-cpvr};
-\item the model does not learn the grammar to generate verbal descriptions from word probabilities, but it is specified manually;
-\item the model does not permit to add new words to its vocabulary (refer to TODO) \cite{falstrom:2017:glu, vanhainen2014:icassp, vanhainen:2012:interspeech}
-\item except for the gesture/action recognizer, the rest of our model has no time evolution $\rightarrow$ try dynamic Bayesian networks?
-\item multiple object or multiple interlocutors are not possible;
-\item results were qualitative, rather than having a numerical evaluation.
-\end{itemize}
+% \item the model does not learn the grammar to generate verbal descriptions from word probabilities, but it is specified manually;
+% \item except for the gesture/action recognizer, the rest of our model has no time evolution $\rightarrow$ try dynamic Bayesian networks?
+% \item multiple object or multiple interlocutors are not possible REF PLINIO
+% \item results were qualitative, rather than having a numerical evaluation.
 
 % OLD PERSONAL NOTES
 % - the effect variables in the BN include hand velocity. How does this relate to the gesture features in the HMM? Can we learn the connection?
