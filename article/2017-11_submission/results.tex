@@ -13,15 +13,17 @@
 In this section, we report the experimental findings obtained with our proposed model.
 We present the following types of results:
 \begin{itemize}
-  \item inferences over affordance variables~(i.e., the entries of Table~\ref{tab:bnsymb} except the last row therein);
+  \item inferences over affordance variables~(i.e., the entries of Table~\ref{tab:bnsymb} except the last row therein) in Sec.~\ref{sec:results:inference_actions}, \ref{sec:results:inference_effects}, \ref{sec:results:anticipation_effects};
 
-  \item predictions of word probabilities~(i.e., the last row of Table~\ref{tab:bnsymb});
+  \item predictions of word probabilities~(i.e., the last row of Table~\ref{tab:bnsymb}) in Sec.~\ref{sec:results:prediction_words};
 
-  \item generated verbal descriptions from the word probabilities of the previous point, according to a formal grammar. The descriptions, in turn, can be interpreted to observe the emergence of certain language phenomena.%~(e.g., choice of most appropriate conjunction word, choice of synonym words between two consecutive sentences when they refer to the same object).
+  \item verbal descriptions generated from the word probabilities of the previous point, according to a formal grammar. The descriptions, in turn, can be interpreted to observe the emergence of certain language phenomena: Sec.~\ref{sec:results:verbal_descriptions}, ~\ref{sec:results:conjunction}, \ref{sec:results:description_objects}.
+  %~(e.g., choice of most appropriate conjunction word, choice of synonym words between two consecutive sentences when they refer to the same object).
 \end{itemize}
 
 % Inference over Affordance Variables (Including Action, Synthetic Values)
 \subsection{Inference over Action}
+\label{sec:results:inference_actions}
 
 In Fig.~\ref{fig:impact_of_evidence_on_Action} we show the interaction between the \AffWords{} model and the gesture/action recognition model when they bring conflicting information.
 In the scene, we observe a small ball that after the action has a low velocity (that in terms of clusters of affordance variables often corresponds to zero velocity).
@@ -34,6 +36,7 @@ In this particular example, in order to win the belief of the affordance model, 
 
 % Inference over Affordance Variables (Excluding Action, Synthetic Values)
 \subsection{Inference over Effects}
+\label{sec:results:inference_effects}
 
 \begin{figure*}
 \centering
@@ -87,8 +90,9 @@ Higher velocities are expected for spherical objects that can roll, compared to 
 \end{figure*}
 
 % Inference and Prediction over Affordance Variables (Excluding Action, Real Values)
-% Effect Anticipation
-\subsection{Early Effect Detection}
+% Early Effect Detection
+\subsection{Effect Anticipation}
+\label{sec:results:anticipation_effects}
 
 Because it is based on \aclp{BN}, our model can make predictions over any set of its variables, given any other set of observed variables.
 In particular, the model can do reasoning on the elements that constitute our computational concept of affordances, \textit{i.e.}, Action, Object Features, Effects in Fig.~\ref{fig:model}.
@@ -130,6 +134,7 @@ Finally, the captions in the figure also show the verbal description generated b
 %These two cases have shown that, given similar human action priors~(i.e., lateral taps on a target object), the expected movement returned by the model is very different depending on the physical properties of the object.
 
 \subsection{Prediction of Word Probabilities}
+\label{sec:results:prediction_words}
 
 \begin{figure}
 \centering
@@ -152,6 +157,7 @@ In Fig.~\ref{fig:probdiff} we show the variation in word occurrence probabilitie
 In this result, we notice two facts: (i)~the probabilities of words related to tapping and pushing increase when a tapping action evidence from the Gestures \acp{HMM} is introduced; conversely, the probabilities of other action words~(touching and poking) decreases; (ii)~the probability of the word ``rolling''~(which is an effect of an action onto an object) also increases when the tap action evidence is entered. Even though the initial evidence of case~$1$ already included some effect information~(i.e., the velocity of the object), it is only now, when the robot model observes that the physical action was a tap, that the rolling event is associated.
 
 \subsection{Verbal Descriptions and Choice of Synonyms}
+\label{sec:results:verbal_descriptions}
 
 By generating and scoring natural language descriptions of what the robot observes~(see Sec.~\ref{sec:approach:verbal}), we can provide evidence to the model and interpret the verbal results.
 Recall that with our method we do not add new words to the model, but merely generate human-readable descriptions using the same words that were present in the \AffWords{} network in the first place.
@@ -194,6 +200,7 @@ In many of these sentences, we note that (i)~the correct verb related to the tap
 \end{table}
 
 \subsection{Language Phenomenon: Choice of Correct Conjunction}
+\label{sec:results:conjunction}
 
 \newcommand{\evidenceProducingAnd}{$\xobs=$\{ Action=grasp, ObjVel=medium \}}
 \newcommand{\evidenceProducingBut}{$\xobs=$\{ Action=grasp, ObjVel=slow \}}
@@ -267,6 +274,7 @@ When the object velocity is slow (in the clustering procedure of~\cite{salvi:201
 \end{figure*}
 
 \subsection{Language Phenomenon: Description of Object Features}
+\label{sec:results:description_objects}
 
 \newcommand{\graspBoxGreenOne}{``the robot is grasping the box and the green box is moving''}
 \newcommand{\touchBoxGreenOne}{``the robot is poking the green square and the cube is inert''}
