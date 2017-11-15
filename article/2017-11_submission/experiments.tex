@@ -27,21 +27,13 @@ In this section we provide experimental details and key assumptions in the metho
     \end{tabular}
 \end{table}
 
+\subsection{\AffWords{} Model}
+\label{sec:notation}
 Table~\ref{tab:bnsymb} presents a list of variables and the corresponding values used in the \AffWords{} model.
 Note that the name of the values have been assigned by us arbitrarily to the clusters, for the sake of making the results more human-interpretable.
 However, the robot has no prior knowledge about the meaning of these clusters nor their order in case they correspond to ordered quantities.
 In order to extract object features and effects from the sensory data we assume that the robot possesses visual segmentation and geometric reasoning capabilities, meaning that it is able to segment the~(potentially multiple) regions of interest corresponding to the physical objects of the world from the background~(e.g., a planar surface such as a table) and to determine their positions.
 
-The 3D coordinates of the human limbs and torso used to extract the input to the gesture recognizer are obtained with a commodity depth sensor~(Kinect).
-Currently, our gesture recognition algorithm relies on human skeleton tracking software from a depth stream.
-In our experience, the hand tracking is not reliable in the presence of a tabletop~(i.e., partially occluded human) as in Fig.~\ref{fig:action_examples}, so we record the same gestures twice, with and without the table: the latter is used for ensuring the robustness of the estimated hand coordinate, the former is used throughout the rest of our model and experiments.
-We plan to overcome this limitation in future work~(see Sec.~\ref{sec:conclusions}).
-
-%e experimental section, we will show that what the robot has learned subjectively or alone~(by self-exploration, knowing the action identity as a prior~\cite{salvi:2012:smcb}), can subsequently be used when observing a new agent~(human), provided that the actions can be estimated with Gesture \acp{HMM} as in~\cite{saponaro:2013:crhri}.
-%In addition, we will show the emergence of language phenomena within the generated verbal descriptions.
-
-\subsection{Notation}
-\label{sec:notation}
 We use the following notation in order to distinguish between the values of the affordance nodes~(all but the last row in Table~\ref{tab:bnsymb}) and the words~(last row in the table).
 Words and sentences are always enclosed in quotation marks.
 For example, ``sphere'' will refer to the spoken word, whereas sphere will refer to the value of the Shape variable corresponding to the specific cluster.
@@ -51,3 +43,12 @@ Situations are described by humans with variability:
 (i)~there are many synonyms for the same concept: for instance, cubic object are called ``box'', ``square'' or ``cube'';
 (ii)~different node values may have the same associated verbal description, e.g., two color clusters corresponding to different shades of green are both referred to as ``green'';
 (iii)~finally, many affordance node values have no direct description: for example, the object velocity and \objecthand{} velocity~(slow, medium, fast), or the \objecthand{} contact~(short, long) are never described directly, and need to be inferred from the situation.
+
+\subsection{Gesture Recognition Model}
+The 3D coordinates of the human limbs and torso used to extract the input to the gesture recognizer are obtained with a commodity depth sensor~(Kinect).
+Currently, our gesture recognition algorithm relies on human skeleton tracking software from a depth stream.
+In our experience, the hand tracking is not reliable in the presence of a tabletop~(i.e., partially occluded human) as in Fig.~\ref{fig:action_examples}, so we record the same gestures twice, with and without the table: the latter is used for ensuring the robustness of the estimated hand coordinate, the former is used throughout the rest of our model and experiments.
+We plan to overcome this limitation in future work~(see Sec.~\ref{sec:conclusions}).
+
+%e experimental section, we will show that what the robot has learned subjectively or alone~(by self-exploration, knowing the action identity as a prior~\cite{salvi:2012:smcb}), can subsequently be used when observing a new agent~(human), provided that the actions can be estimated with Gesture \acp{HMM} as in~\cite{saponaro:2013:crhri}.
+%In addition, we will show the emergence of language phenomena within the generated verbal descriptions.
