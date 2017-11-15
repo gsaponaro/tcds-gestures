@@ -20,7 +20,8 @@ We present the following types of results:
   \item generated verbal descriptions from the word probabilities of the previous point, according to a formal grammar. The descriptions, in turn, can be interpreted to observe the emergence of certain language phenomena.%~(e.g., choice of most appropriate conjunction word, choice of synonym words between two consecutive sentences when they refer to the same object).
 \end{itemize}
 
-\subsection{Inference over Affordance Variables (Including Action, Synthetic Values)}
+% Inference over Affordance Variables (Including Action, Synthetic Values)
+\subsection{Inference over Action}
 
 In Fig.~\ref{fig:impact_of_evidence_on_Action} we show the interaction between the \AffWords{} model and the gesture/action recognition model when they bring conflicting information.
 In the scene, we observe a small ball that after the action has a low velocity (that in terms of clusters of affordance variables often corresponds to zero velocity).
@@ -31,7 +32,8 @@ We analyze the effect of varying the degree of confidence of the classifier.
 We start from a uniform posterior $\phmm(A \given G_1^T)$, corresponding to a poor classifier, and gradually increase the probability of the correct action until it reaches 1.
 In this particular example, in order to win the belief of the affordance model, the action recognition needs to be very confident ($\phmm(A=\text{tap} \given G_1^T) > 0.81$).
 
-\subsection{Inference over Affordance Variables (Excluding Action, Synthetic Values)}
+% Inference over Affordance Variables (Excluding Action, Synthetic Values)
+\subsection{Inference over Effects}
 
 \begin{figure*}
 \centering
@@ -84,7 +86,9 @@ Higher velocities are expected for spherical objects that can roll, compared to 
   \label{fig:effect_pred}
 \end{figure*}
 
-\subsection{Inference and Prediction over Affordance Variables (Excluding Action, Real Values)}
+% Inference and Prediction over Affordance Variables (Excluding Action, Real Values)
+% Effect Anticipation
+\subsection{Early Effect Detection}
 
 Because it is based on \aclp{BN}, our model can make predictions over any set of its variables, given any other set of observed variables.
 In particular, the model can do reasoning on the elements that constitute our computational concept of affordances, \textit{i.e.}, Action, Object Features, Effects in Fig.~\ref{fig:model}.
@@ -262,7 +266,7 @@ When the object velocity is slow (in the clustering procedure of~\cite{salvi:201
     \label{tab:conjunction}
 \end{figure*}
 
-\subsection{Language Phenomenon: Verbal Description of Object Features}
+\subsection{Language Phenomenon: Description of Object Features}
 
 \newcommand{\graspBoxGreenOne}{``the robot is grasping the box and the green box is moving''}
 \newcommand{\touchBoxGreenOne}{``the robot is poking the green square and the cube is inert''}
