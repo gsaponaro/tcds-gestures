@@ -52,7 +52,7 @@ In this particular example, in order to win the belief of the affordance model, 
 \label{fig:impact_of_evidence_on_ObjVel}
 \end{figure*}
 
-Next, we report a result that also uses the \emph{soft evidence} over the Action node from the Gesture \acp{HMM}, but this time makes a prediction over a different node: object velocity~(which expresses an effect information).
+Next, we report a result that also uses the \emph{soft evidence} over the Action node from the gesture recognizer, but this time makes a prediction over a different node: object velocity~(which expresses an effect information).
 Fig.~\ref{fig:impact_of_evidence_on_ObjVel} shows the inference in two cases: when the prior information says that the shape is spherical~(see Fig.~\ref{fig:impact_of_evidence_on_ObjVel_sphere}), and when it is cubic~(see Fig.~\ref{fig:impact_of_evidence_on_ObjVel_box}).
 
 The first distribution to the left in both figures shows the prediction of object velocity from the \AffWords{} model alone, without any additional information.
@@ -142,7 +142,7 @@ Finally, the captions in the figure also show the verbal description~(see Sec.~\
 \includegraphics[width=0.9\columnwidth]{partialfig.eps}
 \caption{Variation of word occurrence probabilities:
 $\Delta P(w_i) = \pcomb(w_i \given \xobs, \text{Action=tap}) - \pbn(w_i \given \xobs)$, where $\xobs = \{ \text{Size=big, Shape=sphere, ObjVel=fast} \}$.
-This variation corresponds to the difference of word probability when we add the tap action evidence~(obtained from the Gesture \acp{HMM}) to the initial evidence about object features and effects. We have omitted words for which no significant variation was observed.}
+This variation corresponds to the difference of word probability when we add the tap action evidence~(obtained from gesture recognition) to the initial evidence about object features and effects. We have omitted words for which no significant variation was observed.}
 \label{fig:probdiff}
 \end{figure}
 
