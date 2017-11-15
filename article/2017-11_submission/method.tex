@@ -77,13 +77,14 @@ Finally, in Sec.~\ref{sec:combination} we describe the way in which we combine e
 
 \subsection{\AffWords{} Model}
 \label{sec:bn}
-Following the method adopted in~\cite{salvi:2012:smcb}, we use a Bayesian probabilistic framework to allow a robot to ground the basic world behavior and verbal descriptions associated to it.
+%Following the method adopted in~\cite{salvi:2012:smcb},
+We use a Bayesian probabilistic framework to allow a robot to ground the basic world behavior and verbal descriptions associated to it.
 All variables in the model are discrete or are discretized from continuous sensory variables through clustering in a preliminary learning phase.
 The variables can be divided according to their use: action variable~$A = \{a\}$, object feature variables~$F=\{f_1, f_2, \dots\}$, effect variables~$E=\{e_1, e_2, \dots\}$ and word variables~$W = \{w_1, w_2, \dots\}$.
 Details on the specific variables used in this study are given in Sec.~\ref{sec:experimental_settings}.
 
 The \ac{BN} model relates all these variables by means of the joint probability distribution~$\pbn(A, F, E, W)$, sketched by the \AffWords{} model box in Fig.~\ref{fig:model}.
-The dependency structure and the model parameters are estimated by the robot in an ego-centric way through interaction with the environment, as in~\cite{salvi:2012:smcb}.
+The dependency structure and the model parameters are estimated by the robot in an ego-centric way through interaction with the environment.
 As a consequence, during learning, the robot knows what action it is performing with certainty, and the variable~$A$ assumes a deterministic value.
 During inference, the probability distribution on the variable~$A$ can be inferred from evidence on the other nodes.
 For example, if the robot is asked to make a spherical object roll, it will be able to select the action tap as most likely to obtain the desired effect, based on previous experience.
@@ -217,7 +218,7 @@ This time, we first need to use the \ac{BN} to do inference on the variables~$\x
 
 In order to illustrate the language capabilities of the model, we use the \ac{CFG} described in Appendix~\ref{appendix:grammar} to generate written descriptions of the robot observations on the basis of the probability distributions of the words inferred by the model.
 Note that this grammar is defined here with the only purpose to interpret the probability distributions over the words.
-In the \AffWords{} model we use here~\cite{salvi:2012:smcb}, the speech recognizer is based on a free loop of words with uniform prior, and the Bayesian model relies on a bag-of-words assumption.
+In the \AffWords{} model that we use, the speech recognizer is based on a free loop of words with uniform prior, and the Bayesian model relies on a bag-of-words assumption.
 No grammatical (syntactic) information about the spoken descriptions was, therefore, used during learning.
 %The grammar was neither used in the speech recognition system, nor in learning the associations of the spoken utterances to the affordance variables.
 
