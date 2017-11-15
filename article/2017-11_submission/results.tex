@@ -17,7 +17,7 @@ We present the following types of results:
 
   \item predictions of word probabilities~(i.e., the last row of Table~\ref{tab:bnsymb});
 
-  \item generated verbal descriptions from the word probabilities of the previous point, according to a formal grammar. The descriptions, in turn, can be interpreted to observe the emergence of certain language phenomena~(e.g., choice of most appropriate conjunction word, choice of synonym words between two consecutive sentences when they refer to the same object).
+  \item generated verbal descriptions from the word probabilities of the previous point, according to a formal grammar. The descriptions, in turn, can be interpreted to observe the emergence of certain language phenomena.%~(e.g., choice of most appropriate conjunction word, choice of synonym words between two consecutive sentences when they refer to the same object).
 \end{itemize}
 
 \subsection{Inference over Affordance Variables (Including Action, Synthetic Values)}
@@ -136,21 +136,16 @@ This variation corresponds to the difference of word probability when we add the
 \label{fig:probdiff}
 \end{figure}
 
-TODO: UPDATE THE TEXT BELOW, FROM GLU
-
-Our model permits to make predictions over the associated word descriptions in the presence or absence of an action prior.
-We compare the associated \emph{verbal description} obtained by the \acl{BN} in the absence of an action prior, with the ones obtained in the presence of one.
-In particular, we compare the \emph{probability of word occurrence} resulting from the following two situations:
+Our model permits to make predictions over the word nodes associated to affordance evidence (see Table~\ref{tab:bnsymb}, last row).
+In Fig.~\ref{fig:probdiff} we show the variation in word occurrence probabilities between two cases:
 \begin{enumerate}
-\item robot prior knowledge evidence consisting of information about object features and effects only: %$\xobs^{\text{before}} = \{ \text{Size=big, Shape=sphere, ObjVel=fast} \}$;
-\{Size=big, Shape=sphere, ObjVel=fast\};
+\item when the robot prior knowledge evidence consists of information about object features and effects only: \{Size=big, Shape=sphere, ObjVel=fast\};
 
-\item prior evidence as in the previous situation, with the addition of the action observed from the Gestures \acp{HMM}: %$\xobs^{\text{after}} = \{ \text{Size=big, Shape=sphere, ObjVel=fast, Action=tap} \}$.
-\{Size=big, Shape=sphere, ObjVel=fast, Action=tap\}.
+\item when the evidence corresponds to the one of the previous point, with the addition of the \emph{tap} action observed from the Gestures \acp{HMM} (hard evidence).
+%\{Size=big, Shape=sphere, ObjVel=fast, Action=tap\}.
 \end{enumerate}
 
-Fig.~\ref{fig:probdiff} shows the variation in word occurrence probabilities between the two cases, where we have omitted words for which no significant variation was observed.
-We can interpret the difference in the predictions as follows: (i)~as expected, the probabilities of words related to tapping and pushing increase when a tapping action evidence from the Gestures \acp{HMM} is introduced; conversely, the probabilities of other action words~(touching and poking) decreases; (ii)~interestingly, the probability of the word \emph{rolling}~(which is an effect of an action onto an object) also increases when the tapping action evidence is entered. Even though the initial evidence of case~$1$ already included some effect information~(the velocity of the object), it is only now, when the robot perceives that the physical action was a tap, that the event rolling is associated.
+In this result, we notice two facts: (i)~the probabilities of words related to tapping and pushing increase when a tapping action evidence from the Gestures \acp{HMM} is introduced; conversely, the probabilities of other action words~(touching and poking) decreases; (ii)~the probability of the word ``rolling''~(which is an effect of an action onto an object) also increases when the tap action evidence is entered. Even though the initial evidence of case~$1$ already included some effect information~(i.e., the velocity of the object), it is only now, when the robot model observes that the physical action was a tap, that the rolling event is associated.
 
 \subsection{Verbal Descriptions}
 
