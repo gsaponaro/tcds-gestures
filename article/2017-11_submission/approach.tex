@@ -88,7 +88,7 @@
     \label{fig:model}
 \end{figure}
 
-\section{Proposed Approach}
+\section{Method}
 \label{sec:approach}
 
 The purpose of
@@ -97,22 +97,9 @@ our work
 is to model the development of language learning from a first, self-centered, individualistic phase to a second, socially aware phase.
 In the first phase the system learns by manipulating objects in its environment in a similar way as in~\cite{salvi:2012:smcb}.
 In this phase, it learns to associate spoken descriptions to the combination of its actions, object properties and effects, thus grounding the meaning of words in what we call affordances.
-In the second phase, the system turns to observing human actions of a similar nature as the ones explored in the first phase. Some examples are shown in Fig.~\ref{fig:action_examples}.
+In the second phase, the system turns to observing human actions of a similar nature as the ones explored in the first phase (see examples in Fig.~\ref{fig:action_examples}).
 The robot reuses the experience acquired in the first phase to interpret the new observations and to address the correspondence problem between its own actions and the actions performed by the human.
 In this phase human movements are interpreted and classified with similar methods as in~\cite{saponaro:2013:crhri}.
-
-\subsection{Assumptions}
-\label{sec:assumptions}
-
-Our assumptions are the following:
-we assume that the robot possesses visual segmentation and geometric reasoning capabilities, meaning that it is able to segment the~(potentially multiple) regions of interest corresponding to the physical objects of the world from the background~(e.g., a planar surface such as a table) and to determine their positions.
-In addition, we assume that a depth sensor~(e.g., Kinect) is available and positioned near the robot, in order to estimate the~3D coordinates of the limbs of the human, used to infer the action.
-Currently, our gesture recognition algorithm relies on human skeleton tracking software from a depth stream.
-In our experience, the hand tracking is not reliable in the presence of a tabletop~(i.e., partially occluded human) as in Fig.~\ref{fig:action_examples}, so we record the same gestures twice, with and without the table: the latter is used for ensuring the robustness of the estimated hand coordinate, the former is used throughout the rest of our model and experiments.
-We plan to overcome this limitation in future work~(see Sec.~\ref{sec:conclusions}).
-
-%\subsection{Description}
-\bigskip
 
 Fig.~\ref{fig:model} illustrates the probabilistic dependencies in the complete model and will be detailed in the following subsections.
 The key to our approach is the existence of the discrete variable Action, the value of which is known to the robot in the ego-centric phase of learning, but must be inferred from observation in the social phase.
@@ -127,41 +114,15 @@ This allows the robot to:
 \end{itemize}
 In the remainder of this section, first we provide details, in Sec.~\ref{sec:bn}, about the probabilistic models enclosed in the \emph{\AffWords{} model} box of Fig.~\ref{fig:model}.
 Then, in Sec.~\ref{sec:gesture_recognition} we describe the gesture recognition method.
-Finally, in Sec.~\ref{sec:combination} we describe the way in which we combine evidence from the two models, which is a novel contribution of this paper.
+Finally, in Sec.~\ref{sec:combination} we describe the way in which we combine evidence from the two models. %, which is a novel contribution of this paper.
 
 \subsection{\AffWords{} Modeling}
 \label{sec:bn}
 Following the method adopted in~\cite{salvi:2012:smcb}, we use a Bayesian probabilistic framework to allow a robot to ground the basic world behavior and verbal descriptions associated to it.
 All variables in the model are discrete or are discretized from continuous sensory variables through clustering in a preliminary learning phase.
-Details on the variable definition and possible values are given in Table~\ref{tab:bnsymb}.
-Note that the name of the values have been assigned by us arbitrarily to the clusters, for the sake of making the results more human-interpretable.
-However, the robot has no prior knowledge about the meaning of these clusters.
+The variables can be divided according to their use: action variable~$A = \{a\}$, object feature variables~$F=\{f_1, f_2, \dots\}$, effect variables~$E=\{e_1, e_2, \dots\}$ and word variables~$W = \{w_1, w_2, \dots\}$.
+Details on the specific variables used in this study are given in Sec.~\ref{sec:experiments}.
 
-\begin{table}
-    \centering
-    \caption{The symbolic variables of the \acl{BN} (from~\cite{salvi:2012:smcb}), with the corresponding discrete values obtained from clustering during robot exploration of the environment.}
-    \label{tab:bnsymb}
-    \begin{tabular}{cp{3.3cm}l}
-    \toprule
-    symbol & name: description     & values \\
-    \midrule
-    $a$ & Action: motor action          & grasp, tap, touch \\
-    \midrule
-    $f_1$ & Color: object color   & blue, yellow, green1, green2 \\
-    $f_2$ & Size: object size     & small, medium, big \\
-    $f_3$ & Shape: object shape    & sphere, box \\ % in the implementation the value is called circle, but sphere is more clear
-    \midrule
-    $e_1$ & ObjVel: object velocity & slow, medium, fast \\
-    $e_2$ & HandVel: robot hand velocity & slow, fast \\
-    $e_3$ & ObjHandVel: relative \objecthand{} velocity & slow, medium, fast \\
-    $e_4$ & Contact: object hand contact & short, long \\
-    \midrule
-    $w_1$--$w_{49}$ & presence of each word in the verbal description & true, false \\
-    \bottomrule
-    \end{tabular}
-\end{table}
-
-To simplify the notation, we can group the affordance and word variables according to their use for the following descriptions: action variable~$A = \{a\}$, object feature variables~$F=\{f_1, f_2, \dots\}$, effect variables~$E=\{e_1, e_2, \dots\}$ and word variables~$W = \{w_1, w_2, \dots\}$.
 The \ac{BN} model relates all these variables by means of the joint probability distribution~$\pbn(A, F, E, W)$, sketched by the \AffWords{} model box in Fig.~\ref{fig:model}.
 The dependency structure and the model parameters are estimated by the robot in an ego-centric way through interaction with the environment, as in~\cite{salvi:2012:smcb}.
 As a consequence, during learning, the robot knows what action it is performing with certainty, and the variable~$A$ assumes a deterministic value.
@@ -222,7 +183,7 @@ If the human performs an unknown action on a spherical object and obtains a high
 This information can be used to train a \emph{gesture recognition system} similar to the one in~\cite{saponaro:2013:crhri}.
 The system, depicted in Fig.~\ref{fig:hmms}, recognizes actions~(from gesture features) and corresponds to the Gesture/Action recognition block in Fig.~\ref{fig:model}, is based on \acp{HMM} with Gaussian mixture models as emitting probability distributions. % here we specify that "gesture recognition" outputs actions
 Our input features are the~3D coordinates of the tracked human hand indicated by the~$g_i$ variables in Fig.~\ref{fig:model}.
-The coordinates are obtained with a commodity depth sensor, then transformed to be centered on the person torso~(to be invariant to the distance between the user and the sensor) and normalized to account for variability in amplitude~(to be invariant to wide/emphatic vs narrow/subtle executions of the same action).
+The coordinates are transformed to be centered on the person torso~(to be invariant to the distance between the user and the sensor) and normalized to account for variability in amplitude~(to be invariant to wide/emphatic vs narrow/subtle executions of the same action).
 
 The model for each action is a
 %so-called
@@ -294,8 +255,9 @@ This time, we first need to use the \ac{BN} to do inference on the variables~$\x
 
 In order to illustrate the language capabilities of the model, we use the \ac{CFG} described in Appendix~\ref{appendix:grammar} to generate written descriptions of the robot observations on the basis of the probability distributions of the words inferred by the model.
 Note that this grammar is defined here with the only purpose to interpret the probability distributions over the words.
-The grammar was neither used in the speech recognition system, nor in learning the associations of the spoken utterances to the affordance variables.
-In the model described in~\cite{salvi:2012:smcb}, the speech recognizer used a free loop of words with uniform prior distribution over the words, and the Bayesian model relied a bag-of-words assumption, thus disregarding any syntactic information about the spoken descriptions.
+In the \AffWords{} model we use here~\cite{salvi:2012:smcb}, the speech recognizer is based on a free loop of words with uniform prior, and the Bayesian model relies on a bag-of-words assumption.
+No grammatical (syntactic) information about the spoken descriptions was, therefore, used during learning.
+%The grammar was neither used in the speech recognition system, nor in learning the associations of the spoken utterances to the affordance variables.
 
 In the current study, by merging the \AffWords{} model and the gesture recognition model, we allow the robot to \emph{reinterpret} the concepts it has learned in the self-centered phase, but we do not add any new words to the model.
 Consequently, the descriptions that the model generates when observing humans use the same words to describe the agent.
@@ -310,19 +272,3 @@ Then, the sentences are re-scored according to the log-likelihood of each word i
 where~$s_j$ is the~$j$th sentence,~$L_j$ is the number of words in the sentence~$s_j$, and~$w_{jk}$ is the~$k$th word in the sentence~$s_j$.
 Finally, an $N$-best list of possible descriptions is produced by sorting the scores.
 
-\subsection{Notation}
-\label{sec:notation}
-We use the following notation in order to distinguish between the values of the affordance nodes~(all but the last row in Table~\ref{tab:bnsymb}) and the words~(last row in the table).
-Words and sentences are always enclosed in quotation marks.
-For example, ``sphere'' will refer to the spoken word, whereas sphere will refer to the value of the Shape variable corresponding to the specific cluster.
-Similarly, ``grasp'' will correspond to a spoken word, whereas grasp correponds to a value of the Action variable.
-There is no one-to-one correspondence between affordance nodes and words.
-Situations are described by humans with variability:
-(i)~there are many synonyms for the same concept: for instance, cubic object are called ``box'', ``square'' or ``cube'';
-(ii)~different node values may have the same associated verbal description, e.g., two color clusters corresponding to different shades of green are both referred to as ``green'';
-(iii)~finally, many affordance node values have no direct description: for example, the object velocity and \objecthand{} velocity~(slow, medium, fast), or the \objecthand{} contact~(short, long) are never described directly, and need to be inferred from the situation.
-
-\bigskip
-
-In the experimental section, we will show that what the robot has learned subjectively or alone~(by self-exploration, knowing the action identity as a prior~\cite{salvi:2012:smcb}), can subsequently be used when observing a new agent~(human), provided that the actions can be estimated with Gesture \acp{HMM} as in~\cite{saponaro:2013:crhri}.
-In addition, we will show the emergence of language phenomena within the generated verbal descriptions.
