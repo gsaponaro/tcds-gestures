@@ -45,12 +45,15 @@
 \end{figure}
 
 \section{Method}
-\label{sec:approach}
+\label{sec:method}
 
-The purpose of
-%the proposed approach
-our work
-is to model the development of language learning from a first, self-centered, individualistic phase to a second, socially aware phase.
+In this section, we will describe our proposed method and its components:
+in Sec.~\ref{sec:bn} the \AffWords{} model through which the robot associates words and object affordances,
+in Sec.~\ref{sec:gesture_recognition} the gesture recognition system to estimate the human agent's movements,
+in Sec.~\ref{sec:combination} the probabilistic combination of the two previous components, and
+in Sec.~\ref{sec:method:verbal} the generation and ranking of human-interpretable sentences describing the scene, according to a pre-defined grammar.
+
+The purpose of our work is to model the development of language learning from a first, self-centered, individualistic phase to a second, socially aware phase.
 In the first phase the system learns by manipulating objects in its environment in a similar way as in~\cite{salvi:2012:smcb}.
 In this phase, it learns to associate spoken descriptions to the combination of its actions, object properties and effects, thus grounding the meaning of words in what we call affordances.
 In the second phase, the system turns to observing human actions of a similar nature as the ones explored in the first phase (see examples in Fig.~\ref{fig:action_examples}).
@@ -77,7 +80,7 @@ Finally, in Sec.~\ref{sec:combination} we describe the way in which we combine e
 Following the method adopted in~\cite{salvi:2012:smcb}, we use a Bayesian probabilistic framework to allow a robot to ground the basic world behavior and verbal descriptions associated to it.
 All variables in the model are discrete or are discretized from continuous sensory variables through clustering in a preliminary learning phase.
 The variables can be divided according to their use: action variable~$A = \{a\}$, object feature variables~$F=\{f_1, f_2, \dots\}$, effect variables~$E=\{e_1, e_2, \dots\}$ and word variables~$W = \{w_1, w_2, \dots\}$.
-Details on the specific variables used in this study are given in Sec.~\ref{sec:experiments}.
+Details on the specific variables used in this study are given in Sec.~\ref{sec:experimental_settings}.
 
 The \ac{BN} model relates all these variables by means of the joint probability distribution~$\pbn(A, F, E, W)$, sketched by the \AffWords{} model box in Fig.~\ref{fig:model}.
 The dependency structure and the model parameters are estimated by the robot in an ego-centric way through interaction with the environment, as in~\cite{salvi:2012:smcb}.
@@ -209,7 +212,7 @@ In the second case, where the action is among the latent variables, we define, s
 This time, we first need to use the \ac{BN} to do inference on the variables~$\xinf$ and~$A$, and then we marginalize out the action variable~$A$ after having multiplied the probabilities by the \ac{HMM} posterior.
 
 \subsection{Generation and Scoring of Verbal Descriptions}
-\label{sec:approach:verbal}
+\label{sec:method:verbal}
 
 In order to illustrate the language capabilities of the model, we use the \ac{CFG} described in Appendix~\ref{appendix:grammar} to generate written descriptions of the robot observations on the basis of the probability distributions of the words inferred by the model.
 Note that this grammar is defined here with the only purpose to interpret the probability distributions over the words.
@@ -229,4 +232,3 @@ Then, the sentences are re-scored according to the log-likelihood of each word i
 \end{equation}
 where~$s_j$ is the~$j$th sentence,~$L_j$ is the number of words in the sentence~$s_j$, and~$w_{jk}$ is the~$k$th word in the sentence~$s_j$.
 Finally, an $N$-best list of possible descriptions is produced by sorting the scores.
-
