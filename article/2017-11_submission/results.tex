@@ -147,24 +147,16 @@ In Fig.~\ref{fig:probdiff} we show the variation in word occurrence probabilitie
 
 In this result, we notice two facts: (i)~the probabilities of words related to tapping and pushing increase when a tapping action evidence from the Gestures \acp{HMM} is introduced; conversely, the probabilities of other action words~(touching and poking) decreases; (ii)~the probability of the word ``rolling''~(which is an effect of an action onto an object) also increases when the tap action evidence is entered. Even though the initial evidence of case~$1$ already included some effect information~(i.e., the velocity of the object), it is only now, when the robot model observes that the physical action was a tap, that the rolling event is associated.
 
-\subsection{Verbal Descriptions}
-
-%In TODO ADD REF, we have seen how our model is able to generate word probabilities after having received probabilistic observed evidence.
+\subsection{Verbal Descriptions and Choice of Synonyms}
 
 By generating and scoring natural language descriptions of what the robot observes~(see Sec.~\ref{sec:approach:verbal}), we can provide evidence to the model and interpret the verbal results.
 Recall that with our method we do not add new words to the model, but merely generate human-readable descriptions using the same words that were present in the \AffWords{} network in the first place.
 During the self-centered learning phase, the verbal descriptions of~\cite{salvi:2012:smcb} described the agent of the observed actions as either ``the~robot'', ``he'', or ``Baltazar''.
 Consequently, the \AffWords{} model learned by the robot includes those words as the initial subject.
 
-As an example, by providing the following evidence to the model:
-\begin{equation} \label{eq:evidence_example}
-    \xobs = \{\text{Color=yellow, Size=big, Shape=sphere, ObjVel=fast}\},
-\end{equation}
-we obtain
-%the word probabilities of Fig.~\ref{fig:example_pw} and
-the sentences reported in Table~\ref{tab:example_generated_sentences}.
+As an example, by providing the evidence \{Color=yellow, Size=big, Shape=sphere, ObjVel=fast\} to the model, we obtain the sentences reported in Table~\ref{tab:example_generated_sentences}.
 The higher the score, the better.
-In many of these sentences, we note that (i)~the correct action-related verb ``taps'' is generated (in the initial evidence, no action information was present, only object features and effects information were), and (ii)~the object term ``ball'' or synonyms thereof~(e.g., ``sphere'') are used coherently, both in the first part of the sentence describing the action and in the second part describing the effect.
+In many of these sentences, we note that (i)~the correct verb related to the tap action is generated (in the initial evidence, no action information was present, only object features and effects information were), and (ii)~the object term ``ball'' or synonyms thereof~(e.g., ``sphere'', see Sec.~\ref{sec:notation}) are used coherently, both in the first part of the sentence describing the action and in the second part describing the effect.
 
 % \begin{figure}
 % \centering
@@ -175,7 +167,7 @@ In many of these sentences, we note that (i)~the correct action-related verb ``t
 
 \begin{table}
     \centering
-    \caption{$10$-best list of sentences generated from the evidence~\eqref{eq:evidence_example}.}
+    \caption{$10$-best list of sentences generated from the evidence $\xobs = \{ \text{Color=yellow, Size=big, Shape=sphere, ObjVel=fast} \}$.}
     \label{tab:example_generated_sentences}
     \resizebox{\linewidth}{!}{% https://tex.stackexchange.com/a/27105/18819
     \begin{tabular}{ll}
@@ -208,9 +200,9 @@ In the language description associated to an experiment, it makes sense to measu
 In particular, it would be desirable to separate two kinds of behaviors: one in which the action and effect are coherent~(expected conjunction: ``and''), and the other one in which they are contradictory (``but'').
 
 Fig.~\ref{tab:conjunction} shows an example of this behavior of the model.
-We give the same action ``grasp'' to the model as evidence, but two values for the final object velocity.
+We give the same action ``grasp'' to the model as evidence, but two different values for the final object velocity.
 When the object velocity is medium (Fig.~\ref{tab:conjunction:and}), the model interprets this as a successful grasp and uses the conjunction ``and'' to separate the description of the action from the description of the effect.
-When the object velocity is slow (in the clustering procedure this was most often zero velocity), the model predicts this is an unsuccessful grasp and uses the conjunction ``but'', instead.
+When the object velocity is slow (in the clustering procedure of~\cite{salvi:2012:smcb}, this was most often zero velocity), the model predicts that this is an unsuccessful grasp and uses the conjunction ``but'', instead.
 
 \begin{figure*}
   \centering
@@ -292,7 +284,7 @@ In Fig.~\ref{fig:descriptions}, we show examples of verbal descriptions generate
 
 \item \evidenceProducingTouchSphereGreenTwo (\ref{fig:descriptions:touchSphereGreenTwo}).
 \end{itemize}
-Note that box object in the two first examples has a dark shade of green~(affordance node Color value of Table~\ref{tab:bnsymb}:~green1), whereas the spherical one in the two last examples has a lighter shade~(Color value:~green2).
+Note that the box object in the two first examples has a dark shade of green~(affordance node Color value of Table~\ref{tab:bnsymb} clustered as:~green1), whereas the spherical one in the two last examples has a lighter shade~(Color value:~green2).
 However, the verbal descriptions reported in Fig.~\ref{fig:descriptions} all use the adjective ``green''.
 While this is the expected behaviour by taking into account the definition of the \ac{CFG} in Appendix~\ref{appendix:grammar}, we believe that this phenomenon is practical and potentially useful~(i.e., the possibility that a low-level fine-grained robot representation can be abstracted into a high-level language description, which bundles the two shades of green under the same word).
 
