@@ -294,11 +294,6 @@ Then, the sentences are re-scored according to the log-likelihood of each word i
 where~$s_j$ is the~$j$th sentence,~$L_j$ is the number of words in the sentence~$s_j$, and~$w_{jk}$ is the~$k$th word in the sentence~$s_j$.
 Finally, an $N$-best list of possible descriptions is produced by sorting the scores.
 
-\bigskip
-
-In the experimental section, we will show that what the robot has learned subjectively or alone~(by self-exploration, knowing the action identity as a prior~\cite{salvi:2012:smcb}), can subsequently be used when observing a new agent~(human), provided that the actions can be estimated with Gesture \acp{HMM} as in~\cite{saponaro:2013:crhri}.
-In addition, we will show the emergence of language phenomena within the generated verbal descriptions.
-
 \subsection{Notation}
 We use the following notation in order to distinguish between the values of the affordance nodes~(all but the last row in Table~\ref{tab:bnsymb}) and the words~(last row in the table).
 Words and sentences are always enclosed in quotation marks.
@@ -309,3 +304,8 @@ Situations are described by humans with variability:
 (i)~there are many synonyms for the same concept: for instance, cubic object are called ``box'', ``square'' or ``cube'';
 (ii)~different node values may have the same associated verbal description, e.g., two color clusters corresponding to different shades of green are both referred to as ``green'';
 (iii)~finally, many affordance node values have no direct description: for example, the object velocity and \objecthand{} velocity~(slow, medium, fast), or the \objecthand{} contact~(short, long) are never described directly, and need to be inferred from the situation.
+
+\bigskip
+
+In the experimental section, we will show that what the robot has learned subjectively or alone~(by self-exploration, knowing the action identity as a prior~\cite{salvi:2012:smcb}), can subsequently be used when observing a new agent~(human), provided that the actions can be estimated with Gesture \acp{HMM} as in~\cite{saponaro:2013:crhri}.
+In addition, we will show the emergence of language phenomena within the generated verbal descriptions.
