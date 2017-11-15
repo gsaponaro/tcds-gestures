@@ -3,19 +3,25 @@
 \section{Conclusions and Future Work}
 \label{sec:conclusions}
 
-We presented a model that allows a robot to reuse the knowledge acquired by exploration of its environment when observing the actions of external agents.
-We have illustrated a novel probabilistic method to fuse these two sources of information, and we have shown a number of experiments where the robotic model reasons over affordances and words when observing another agent.
-Interestingly, these predictions of words allow us to create human-interpretable sentences~(from a pre-defined grammar) which highlight the emergence of language properties in the model, such as:
+We presented a model that allows a robot to interpret and describe the actions of external agents by reusing the knowledge previously acquired in a ego-centric manner.
+In a developmental settings, the robot first learns the link between words and object affordances by exploring its environment.
+% the following in the assumption that we use the best action inference from the BN in order to train the HMM.
+Then, it uses this information to learn to classify the gestures and actions of another agent.
+Finally, by fusing the information from the two probabilistic models, we show in our experiments that the robot can reason over affordances and words when observing the other agent.
+Although the complete model only estimates probabilities of single words given the evidence, we showed that feeding these probabilities into a pre-defined grammar produces human-interpretable sentences that correctly describe the situation.
+We also highlighted some interesting language related properties of the model, such as:
 congruent/incongruent conjunctions,
 choice of appropriate synonym words. % when referring to the same entity in two consecutive sentences.
+% Is this necessary here?
 We make our human action data and probabilistic reasoning code publicly available.
 
-We believe that our study has merit because it spans different fields such as robot learning, language grounding, and object affordances, and it does that with real robotic data, as opposed to learning images-to-text mappings~(like many works in computer vision) or using robot simulations~(like many works in robotics).
-However, we reiterate that our scenario and data are restricted to a particular scenario~(see Sec.~\ref{sec:assumptions}), i.e., one human and one robot manipulating simple objects on a shared table, a pre-defined number of motor actions and effects, and a vocabulary of approximately~$50$ words to describe the experiments verbally.
+Our demonstrations are based on a restricted scenario~(see Sec.~\ref{sec:assumptions}), \textit{i.e.}, one human and one robot manipulating simple objects on a shared table, a pre-defined number of motor actions and effects, and a vocabulary of approximately~$50$ words to describe the experiments verbally.
+However, one of the main contributions of our study is spanning different fields such as robot learning, language grounding, and object affordances.
+We also work with real robotic data, as opposed to learning images-to-text mappings~(as in many works in computer vision) or using robot simulations~(as in many works in robotics).
 
-As future work, we wish to investigate how the model can extract syntactic information from the observed data autonomously
+As future work, we wish to investigate how the model can extract syntactic information from the observed data autonomously, thus releasing the bag-of-word assumption in the current model.
 % this is really confusing: it seems that we use the grammar in learning!!
-~(instead of using a manually-specified grammar like the one that generated the verbal descriptions of this paper).
+%~(instead of using a manually-specified grammar like the one that generated the verbal descriptions of this paper).
 Also, we want to add the possibility of adding new words to the vocabulary.
 This involves both creating the auditory perception of new acoustic patterns (\textit{e.g.} \cite{falstrom:2017:glu, vanhainen2014:icassp, vanhainen:2012:interspeech}) and incorporating the new symbols into our \AffWords{} model.
 In the gesture recognition part, we plan to overcome the limitation of enforcing the human to be fully visible~(we currently remove the tabletop to prevent occlusions and performance drops in the hand joint~3D estimation, see Sec.~\ref{sec:assumptions}).
