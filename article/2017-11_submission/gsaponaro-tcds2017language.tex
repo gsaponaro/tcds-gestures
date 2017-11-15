@@ -8,7 +8,6 @@
 \usepackage[english]{babel} % internationalization - hyphenation, typographic rules for one or more languages
 
 \usepackage[nounderscore]{syntax} % definition of the context-free grammar
-\usepackage[multiple]{footmisc} % multiple footnote at the same point
 
 \usepackage[
   backend=biber, % bibliography engine
@@ -30,6 +29,7 @@
 \usepackage{booktabs}
 \usepackage{graphicx}
 \newcommand{\myWidth}{0.16} % used in various figures involving photos
+\usepackage[multiple]{footmisc} % multiple footnote at the same point
 \usepackage{hyperref}
 \usepackage{siunitx}
 \usepackage{subfig}
@@ -45,7 +45,7 @@
 \tikzstyle{every path}=[very thick]
 \usetikzlibrary{arrows}
 
-\usepackage{hyperref}
+%\usepackage{hyperref}
 \usepackage[update,prepend]{epstopdf}
 \graphicspath{{figures/}{bios/}}
 
@@ -100,16 +100,14 @@
           Manuscript received November 15, 2017; revised xxx mm, yyyy. This research was supported by the FCT project~UID/EEA/50009/2013 and by the CHIST-ERA project IGLU.}
 \thanks{G.~Saponaro and A.~Bernardino are with the
 Institute for Systems and Robotics, Instituto Superior Técnico,
-Universidade de Lisboa, Lisbon, Portugal, e-mail: \{gsaponaro,alex\}@isr.tecnico.ulisboa.pt.
-
-L.~Jamone is with ARQ~(Advanced Robotics at Queen Mary), School of Electronic Engineering and Computer Science, Queen Mary University of London, United Kingdom
+Universidade de Lisboa, Lisbon, Portugal, e-mail: \{gsaponaro,alex\}@isr.tecnico.ulisboa.pt.}
+\thanks{L.~Jamone is with ARQ~(Advanced Robotics at Queen Mary), School of Electronic Engineering and Computer Science, Queen Mary University of London, United Kingdom
 and with the
 Institute for Systems and Robotics, Instituto Superior Técnico, Universidade de Lisboa, Lisbon, Portugal,
-e-mail: l.jamone@qmul.ac.uk.
-
-G.~Salvi is with KTH Royal Institute of Technology, Stockholm, Sweden,
-e-mail: giampi@kth.se.
-}}
+e-mail: l.jamone@qmul.ac.uk.}
+\thanks{G.~Salvi is with KTH Royal Institute of Technology, Stockholm, Sweden,
+  e-mail: giampi@kth.se.}
+}
 
 % make the title area
 \maketitle

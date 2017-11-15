@@ -1,49 +1,5 @@
 %!TEX encoding = UTF-8 Unicode
 
-% this figure should come before the proposed approach section.
-% It might happen automatically if we shorten the introduction.
-% Otherwise move back in the files.
-\begin{figure*}
-  \centering
-  \subfloat[][Grasp: the human moves the hand towards an object vertically, then grasps and lifts it.]{
-    \resizebox{\linewidth}{!}{
-      \includegraphics{grasp-00000169}
-      \includegraphics{grasp-00000170}
-      \includegraphics{grasp-00000171}
-      \includegraphics{grasp-00000173}
-      \includegraphics{grasp-00000177}
-      \includegraphics{grasp-00000180}
-    } % end resizebox
-    \label{fig:action_examples:grasp}
-  } % end subfloat
-
-  \subfloat[][Tap: the human moves the hand towards an object laterally and touches it, causing a motion effect.]{
-    \resizebox{\linewidth}{!}{
-      \includegraphics{tap-00000109}
-      \includegraphics{tap-00000110}
-      \includegraphics{tap-00000112}
-      \includegraphics{tap-00000114}
-      \includegraphics{tap-00000116}
-      \includegraphics{tap-00000117}
-    } % end resizebox
-    \label{fig:action_examples:tap}
-  } % end subfloat
-
-  \subfloat[][Touch: the human moves the hand towards an object vertically, then touches it~(without grasping), then retracts the hand.]{
-    \resizebox{\linewidth}{!}{
-      \includegraphics{touch-00000196}
-      \includegraphics{touch-00000197}
-      \includegraphics{touch-00000198}
-      \includegraphics{touch-00000200}
-      \includegraphics{touch-00000202}
-      \includegraphics{touch-00000203}
-    } % end resizebox
-    \label{fig:action_examples:touch}
-  } % end subfloat
-  \caption{Examples of human actions from the point of view of the robot.}
-  \label{fig:action_examples}
-\end{figure*}
-
 \begin{figure}
   \tikzstyle{affnode} = [ellipse, draw, thick]%fill=gray!20, thick]%node distance=1cm, text width=6em, text centered, minimum height=4em, thick]
   \tikzstyle{wordnode} = [ellipse, draw, thick]
@@ -164,12 +120,12 @@ For example, if the robot is asked to make a spherical object roll, it will be a
   \end{tikzpicture}
 }
 
-\begin{figure}
-  \centering
-  \modeltwo
-  \caption{Structure of the \acp{HMM} used for human gesture recognition, adapted from~\cite{saponaro:2013:crhri}. In this work, we consider three independent, multiple-state \acp{HMM}, each of them trained to recognize one of the considered manipulation gestures of Figs.~\ref{fig:action_examples:grasp}, \ref{fig:action_examples:tap}, \ref{fig:action_examples:touch} respectively.}
-  \label{fig:hmms}
-\end{figure}
+%\begin{figure}
+%  \centering
+%  \modeltwo
+%  \caption{Structure of the \acp{HMM} used for human gesture recognition, adapted from~\cite{saponaro:2013:crhri}. In this work, we consider three independent, multiple-state \acp{HMM}, each of them trained to recognize one of the considered manipulation gestures of Figs.~\ref{fig:action_examples:grasp}, \ref{fig:action_examples:tap}, \ref{fig:action_examples:touch} respectively.}
+%  \label{fig:hmms}
+%\end{figure}
 
 \subsection{Gesture Recognition}
 \label{sec:gesture_recognition}
@@ -181,7 +137,9 @@ For example, similarly to Sec.~\ref{sec:bn}, the \AffWords{} model predicts that
 If the human performs an unknown action on a spherical object and obtains a high velocity, the robot will be able to infer that the action is most probably a tap, although it was not able to recognize the gesture associated with this action.
 
 This information can be used to train a \emph{gesture recognition system} similar to the one in~\cite{saponaro:2013:crhri}.
-The system, depicted in Fig.~\ref{fig:hmms}, recognizes actions~(from gesture features) and corresponds to the Gesture/Action recognition block in Fig.~\ref{fig:model}, is based on \acp{HMM} with Gaussian mixture models as emitting probability distributions. % here we specify that "gesture recognition" outputs actions
+The system, %depicted in Fig.~\ref{fig:hmms},
+recognizes actions~(from gesture features) and corresponds to the Gesture/Action recognition block in Fig.~\ref{fig:model}.
+It is based on \acp{HMM} with Gaussian mixture models as emission probability distributions. % here we specify that "gesture recognition" outputs actions
 Our input features are the~3D coordinates of the tracked human hand indicated by the~$g_i$ variables in Fig.~\ref{fig:model}.
 The coordinates are transformed to be centered on the person torso~(to be invariant to the distance between the user and the sensor) and normalized to account for variability in amplitude~(to be invariant to wide/emphatic vs narrow/subtle executions of the same action).
 
