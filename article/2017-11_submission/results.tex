@@ -11,6 +11,9 @@
 \label{sec:results}
 
 In this section, we report the experimental findings obtained with our proposed model.
+Because it is based on \aclp{BN}, the model can make predictions over any set of its variables, given any other set of observed variables.
+In particular, the model can do reasoning on the elements that constitute our computational concept of affordances, i.e., Action, Object Features, Effects in Fig.~\ref{fig:model}.
+Furthermore, it can do reasoning over word nodes.
 We present the following types of results:
 \begin{itemize}
   \item inferences over affordance variables~(i.e., the entries of Table~\ref{tab:bnsymb} except the last row therein) in Sec.~\ref{sec:results:inference_actions}, \ref{sec:results:inference_effects}, \ref{sec:results:anticipation_effects};
@@ -94,9 +97,7 @@ Higher velocities are expected for spherical objects that can roll, compared to 
 \subsection{Effect Anticipation}
 \label{sec:results:anticipation_effects}
 
-Because it is based on \aclp{BN}, our model can make predictions over any set of its variables, given any other set of observed variables.
-In particular, the model can do reasoning on the elements that constitute our computational concept of affordances, \textit{i.e.}, Action, Object Features, Effects in Fig.~\ref{fig:model}.
-Furthermore, because the gesture/action recognition method interprets sequences of human motions, we can test this predictive ability of the complete model when we observe an incomplete action.
+Since the gesture/action recognition method interprets sequences of human motions, we can test this predictive ability of the complete model when we observe an incomplete action.
 Fig.~\ref{fig:effect_pred} shows an example of this where we reason about the expected object velocity caused by a tap action.
 Fig.~\ref{fig:effect_pred_sphere} shows the action performed on a spherical object, whereas Fig.~\ref{fig:effect_pred_box} on a cubic one.
 The graphs on the left side show the time evolution of the evidence $\phmm(A \given G_1^t)$ from the gesture/action recognition model.
