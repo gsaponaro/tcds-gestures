@@ -134,6 +134,7 @@ Finally, the captions in the figure also show the verbal description~(see Sec.~\
 %
 %These two cases have shown that, given similar human action priors~(i.e., lateral taps on a target object), the expected movement returned by the model is very different depending on the physical properties of the object.
 
+% TODO remove?
 \subsection{Prediction of Word Probabilities}
 \label{sec:results:prediction_words}
 
@@ -155,19 +156,20 @@ In Fig.~\ref{fig:probdiff} we show the variation in word occurrence probabilitie
 %\{Size=big, Shape=sphere, ObjVel=fast, Action=tap\}.
 \end{enumerate}
 
-In this result, we notice two facts: (i)~the probabilities of words related to tapping and pushing increase when a tapping action evidence from gesture recognition is introduced; conversely, the probabilities of other action words~(touching and poking) decreases; (ii)~the probability of the word ``rolling''~(which is an effect of an action onto an object) also increases when the tap action evidence is entered. Even though the initial evidence of case~$1$ already included some effect information~(i.e., the velocity of the object), it is only now, when the robot model observes that the physical action was a tap, that the rolling event is associated.
+In this result, we notice two facts: (i)~the probabilities of words related to tapping and pushing increase when a tapping action evidence from gesture recognition is introduced; conversely, the probabilities of other action words~(touching and poking) decreases; (ii)~the probability of the word ``rolling''~(which is an effect of an action onto an object) also increases when the tap action evidence is entered.
+%Even though the initial evidence of case~$1$ already included some effect information~(i.e., the velocity of the object), it is only now, when the robot model observes that the physical action was a tap, that the rolling event is associated.
 
 \subsection{Verbal Descriptions and Choice of Synonyms}
 \label{sec:results:verbal_descriptions}
 
 By generating and scoring natural language descriptions of what the robot observes~(see Sec.~\ref{sec:method:verbal}), we can provide evidence to the model and interpret the verbal results.
-Recall that with our method we do not add new words to the model, but merely generate human-readable descriptions using the same words that were present in the \AffWords{} network in the first place.
+Recall that with our method we do not add new words to the model, but merely generate human-readable descriptions using the same words that were present in the original descriptions.
 During the self-centered learning phase, the verbal descriptions of~\cite{salvi:2012:smcb} described the agent of the observed actions as either ``the~robot'', ``he'', or ``Baltazar''~(the name of the robot in~\cite{salvi:2012:smcb}).
 Consequently, the \AffWords{} model learned by the robot includes those words as the initial subject.
 
 As an example, by providing the evidence \{Color=yellow, Size=big, Shape=sphere, ObjVel=fast\} to the model, we obtain the sentences reported in Table~\ref{tab:example_generated_sentences}.
 The higher the score, the better.
-In many of these sentences, we note that (i)~the correct verb related to the tap action is generated (in the initial evidence, no action information was present, only object features and effects information were), and (ii)~the object term ``ball'' or synonyms thereof~(e.g., ``sphere'', see Sec.~\ref{sec:notation}) are used coherently, both in the first part of the sentence describing the action and in the second part describing the effect.
+In many of these sentences, we note that (i)~the correct verb related to the tap action is generated (in the initial evidence, no action information was present, only object features and effects information were), and (ii)~the object term ``ball'' or synonyms thereof~(e.g., ``sphere'', see Sec.~\ref{sec:notation}) are used coherently, both in the first part of the sentence describing the action and in the second part describing the effect. % note: this comes from model, not grammar
 
 % \begin{figure}
 % \centering
@@ -299,7 +301,8 @@ In Fig.~\ref{fig:descriptions}, we show examples of verbal descriptions generate
 \end{itemize}
 Note that the box object in the two first examples has a dark shade of green~(affordance node Color value of Table~\ref{tab:bnsymb} clustered as:~green1), whereas the spherical one in the two last examples has a lighter shade~(Color value:~green2).
 However, the verbal descriptions reported in Fig.~\ref{fig:descriptions} all use the adjective ``green''.
-While this is the expected behavior by taking into account the definition of the \acl{CFG} in Appendix~\ref{appendix:grammar}, we believe that this phenomenon is practical and potentially useful~(i.e., the possibility that a low-level fine-grained robot representation can be abstracted into a high-level language description, which bundles the two shades of green under the same word).
+This behavior emerges from the fact that the robot associated its clustered perception values with the human vocabulary. TODO GIAMPIERO FIX
+While this is the expected behavior by taking into account the vocabulary, we believe that this phenomenon is practical and potentially useful~(i.e., the possibility that a low-level fine-grained robot representation can be abstracted into a high-level language description, which bundles the two shades of green under the same word).
 
 \begin{figure}
   \centering

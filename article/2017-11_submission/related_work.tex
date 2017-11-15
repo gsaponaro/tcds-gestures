@@ -18,7 +18,7 @@ In applying the mirror neuron theory in robotics, as we and others do~\cite{gazz
 Afterwards, it can employ that learned knowledge to novel observations of another agent~(e.g., a human person) who performs similar physical actions to the ones executed during prior training.
 This tackles the so-called correspondence problem~\cite{nehaniv:2002:correspondence}, in our case in a simple collaboration scenario, assuming that the two agents have a similar body~(i.e., a humanoid robot and a human) and operate on a shared space~(i.e., a table accessible by both agents' arms).
 
-Some authors have studied the ability to interpret under the deep learning paradigm.
+Some authors have studied the ability to interpret under the deep learning paradigm. % TODO
 In~\cite{kim:2017:nn}, a \ac{MTRNN} is proposed to have an artificial simulated agent infer human intention from joint information about object, their potential opportunities~(i.e., their affordances) and human actions.
 However, in that work a virtual simulation able to produce large quantities of data was used.
 This is both unrealistic when trying to explain human cognition, and limited, because a simulator cannot model all the physical events and unpredictability of the real world.
@@ -46,6 +46,7 @@ A few works have studied the potential coupling between learning robot affordanc
 The union of these two elements can give new skills to cognitive robots, such as learning the association of spoken words with sensorimotor experience~\cite{salvi:2012:smcb,morse:2016:cogsci}, linking language with sensorimotor representations~\cite{stramandinoli:2016:icdl}, or carrying out complex %manipulation
 tasks~(which require planning of a sequence of actions) expressed in natural language instructions to a robot~\cite{antunes:2016:icra}.
 
+% TODO: too much info, reduce
 In particular~\cite{salvi:2012:smcb}, which this paper extends, proposes a joint model to learn robot affordances~(i.e., relationships between actions, objects and resulting effects) together with word meanings.
 The data used for learning such a model is from robot manipulation experiments, acquired from an ego-centric perspective.
 Each experiment is associated with a number of alternative verbal descriptions uttered by two human speakers, for a total of \SI{1270}~recordings.

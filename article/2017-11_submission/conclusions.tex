@@ -11,17 +11,18 @@ Finally, by fusing the information from the two probabilistic models, we show in
 Although the complete model only estimates probabilities of single words given the evidence, we showed that feeding these probabilities into a pre-defined grammar produces human-interpretable sentences that correctly describe the situation.
 We also highlighted some interesting language-related properties of the model, such as:
 congruent/incongruent conjunctions,
-choice of appropriate synonym words.
+choice of appropriate synonym words,
+TODO ADD GREEN EXP SUMMARY.
 % We make our human action data and probabilistic reasoning code publicly available. % not necessary here?
 
 Our demonstrations are based on a restricted scenario~(see Sec.~\ref{sec:experimental_settings}), i.e., one human and one robot manipulating simple objects on a shared table, a pre-defined number of motor actions and effects, and a vocabulary of approximately~$50$ words to describe the experiments verbally.
-However, one of the main contributions of our study is that it spans different fields such as robot learning, language grounding, and object affordances.
+However, one of the main strengths of our study is that it spans different fields such as robot learning, language grounding, and object affordances.
 We also work with real robotic data, as opposed to learning images-to-text mappings~(as in many works in computer vision) or using robot simulations~(as in many works in robotics).
 
-As future work, we wish to investigate how the model can extract syntactic information from the observed data autonomously, thus relaxing the bag-of-word assumption in the current model.
+As future work, it would be useful to investigate how the model can extract syntactic information from the observed data autonomously, thus relaxing the bag-of-word assumption in the current model.
 % this is really confusing: it seems that we use the grammar in learning!!
 %~(instead of using a manually-specified grammar like the one that generated the verbal descriptions of this paper).
-Also, we want to add the possibility of adding new words to the vocabulary.
+Also, TODO the possibility of adding new words to the vocabulary.
 This involves both creating the auditory perception of new acoustic patterns~(e.g., \cite{falstrom:2017:glu, vanhainen2014:icassp, vanhainen:2012:interspeech}) and incorporating the new symbols into our \AffWords{} model.
 In the gesture recognition part, we plan to overcome the limitation of enforcing the human to be fully visible~(we currently remove the tabletop to prevent occlusions and performance drops in the human hand~3D estimation, see Sec.~\ref{sec:experimental_settings:gesture_recognition}).
 One avenue for this is to run the robust~2D human joint estimator OpenPose with the color cameras of the robot~\cite{cao:2017:openpose-cpvr}, transform the hand coordinates to~3D with existing robot vision software~\cite{roncone:2016:rss}, then feed the resulting gesture features to the recognizer.
