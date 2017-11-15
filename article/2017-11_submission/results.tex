@@ -11,7 +11,7 @@
 \label{sec:results}
 
 In this section, we report the experimental findings obtained with our proposed model.
-Because it is based on \aclp{BN}, the model can make predictions over any set of its variables, given any other set of observed variables.
+Because it is based on \aclp{BN}, the model can make inferences over any set of its variables~$\xinf$, given any other set of observed variables~$\xobs$.
 In particular, the model can do reasoning on the elements that constitute our computational concept of affordances, i.e., Action, Object Features, Effects in Fig.~\ref{fig:model}.
 Furthermore, it can do reasoning over word nodes.
 We present the following types of results:
@@ -29,7 +29,7 @@ We present the following types of results:
 \label{sec:results:inference_actions}
 
 In Fig.~\ref{fig:impact_of_evidence_on_Action} we show the interaction between the \AffWords{} model and the gesture recognition model when they bring conflicting information.
-In the scene, we observe a small ball that after the action has a low velocity (that in terms of clusters of affordance variables often corresponds to zero velocity).
+In the scene, we observe a small ball that after the action has a low velocity~(which, in terms of clusters of affordance variables, often corresponds to zero velocity).
 Based on the evidence, the affordance model gives the highest probability $\pbn(A \given \xobs)$ to the action \emph{touch}, which usually does not result in any movement of the object.
 However, in this particular simulated situation, we assume that the action performed by the human was an (unsuccessful) \emph{tap}, that is, a tap that does not result in any movement for the object.
 In the simulation we show the effect of augmenting the inference with information from a gesture recognizer, that is, computing $\pcomb(A \given \xobs,G_1^T)$.
@@ -151,11 +151,11 @@ In Fig.~\ref{fig:probdiff} we show the variation in word occurrence probabilitie
 \begin{enumerate}
 \item when the robot prior knowledge evidence consists of information about object features and effects only: \{Size=big, Shape=sphere, ObjVel=fast\};
 
-\item when the evidence corresponds to the one of the previous point, with the addition of the \emph{tap} action observed from the Gestures \acp{HMM} (hard evidence).
+\item when the evidence corresponds to the one of the previous point, with the addition of the \emph{tap} action observed from the gesture recognizer (hard evidence).
 %\{Size=big, Shape=sphere, ObjVel=fast, Action=tap\}.
 \end{enumerate}
 
-In this result, we notice two facts: (i)~the probabilities of words related to tapping and pushing increase when a tapping action evidence from the Gestures \acp{HMM} is introduced; conversely, the probabilities of other action words~(touching and poking) decreases; (ii)~the probability of the word ``rolling''~(which is an effect of an action onto an object) also increases when the tap action evidence is entered. Even though the initial evidence of case~$1$ already included some effect information~(i.e., the velocity of the object), it is only now, when the robot model observes that the physical action was a tap, that the rolling event is associated.
+In this result, we notice two facts: (i)~the probabilities of words related to tapping and pushing increase when a tapping action evidence from gesture recognition is introduced; conversely, the probabilities of other action words~(touching and poking) decreases; (ii)~the probability of the word ``rolling''~(which is an effect of an action onto an object) also increases when the tap action evidence is entered. Even though the initial evidence of case~$1$ already included some effect information~(i.e., the velocity of the object), it is only now, when the robot model observes that the physical action was a tap, that the rolling event is associated.
 
 \subsection{Verbal Descriptions and Choice of Synonyms}
 \label{sec:results:verbal_descriptions}
