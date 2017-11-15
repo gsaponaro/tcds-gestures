@@ -115,12 +115,14 @@ The key to our approach is the existence of the discrete variable Action, the va
 In the social phase, this variable links all the other observable variables, that is, human gesture features, object properties, effect variables and words.
 This allows the robot to:
 \begin{itemize}
-\item use language in order to determine the mapping between human and own gestures/actions, and learn the corresponding perceptual models;
+\item use language in order to determine the mapping between human and own actions, and learn the corresponding perceptual models;
+
 \item in many cases, use the affordance variables to infer the above mapping even in the absence of verbal descriptions;
-\item once the perceptual models for human gesture/actions are acquired, use the complete model to do inference on any variable given some evidence.
+
+\item once the perceptual models for human actions are acquired, use the complete model to do inference on any variable given some evidence.
 \end{itemize}
 In the remainder of this section, first we provide details, in Sec.~\ref{sec:bn}, about the probabilistic models enclosed in the \emph{\AffWords{} model} box of Fig.~\ref{fig:model}.
-Then, in Sec.~\ref{sec:gesture_hmm} we describe the Gesture/Action recognition method.
+Then, in Sec.~\ref{sec:gesture_recognition} we describe the gesture recognition method.
 Finally, in Sec.~\ref{sec:combination} we describe the way in which we combine evidence from the two models, which is a novel contribution of this paper.
 
 \subsection{\AffWords{} Modeling}
@@ -204,8 +206,8 @@ For example, if the robot is asked to make a spherical object roll, it will be a
   \label{fig:hmms}
 \end{figure}
 
-\subsection{Gesture/Action Recognition}
-\label{sec:gesture_hmm}
+\subsection{Gesture Recognition}
+\label{sec:gesture_recognition}
 When observing a human performing actions, the value of the action variable~$A$ is not known to the robot neither during learning nor during inference.
 During learning, we assume that the robot has not yet acquired a perceptual model of the gestures associated to the human actions.
 The value of~$A$ can, however, be inferred either from a verbal description of the scene or from the other affordance nodes through the \AffWords{} model described earlier.
@@ -213,12 +215,12 @@ The value of~$A$ can, however, be inferred either from a verbal description of t
 For example, similarly to Sec.~\ref{sec:bn}, the \AffWords{} model predicts that performing a tap action on a spherical object will result in high velocity of the object.
 If the human performs an unknown action on a spherical object and obtains a high velocity, the robot will be able to infer that the action is most probably a tap, although it was not able to recognize the gesture associated with this action.
 
-This information can be used to train a gesture/action recognition system similar to the one in~\cite{saponaro:2013:crhri}.
-The system, depicted in Fig.~\ref{fig:hmms} and corresponding to the Gesture/Action recognition block in Fig.~\ref{fig:model}, is based on \acp{HMM} with Gaussian mixture models as emitting probability distributions.
+This information can be used to train a \emph{gesture recognition system} similar to the one in~\cite{saponaro:2013:crhri}.
+The system, depicted in Fig.~\ref{fig:hmms}, recognizes actions~(from gesture features) and corresponds to the Gesture/Action recognition block in Fig.~\ref{fig:model}, is based on \acp{HMM} with Gaussian mixture models as emitting probability distributions. % here we specify that "gesture recognition" outputs actions
 Our input features are the~3D coordinates of the tracked human hand indicated by the~$g_i$ variables in Fig.~\ref{fig:model}.
 The coordinates are obtained with a commodity depth sensor, then transformed to be centered on the person torso~(to be invariant to the distance between the user and the sensor) and normalized to account for variability in amplitude~(to be invariant to wide/emphatic vs narrow/subtle executions of the same action).
 
-The model for each gesture/action is a
+The model for each action is a
 %so-called
 left-to-right \ac{HMM}, where the transition model between the discrete states~$\mathcal{S} = \{s_1, \dots, s_Q\}$ is structured so that states with lower index represent events that occur earlier in time.
 %set of (hidden) discrete states~$\mathcal{S} = \{s_1, \dots, s_Q\}$ which model the temporal phases comprising the dynamic execution of the gesture, and by a set of parameters~$\lambda = \{ A, B, \Pi \}$, where~$A = \{ a_{ij} \}$ is the transition probability matrix, $a_{ij}$ is the transition probability from state~$s_i$ at time~$t$ to state~$s_j$ at time~$t+1$, $B = \{ f_i \}$ is the set of $Q$~observation probability functions~(one per state~$i$) with continuous mixtures of Gaussian values, and~$\Pi$ is the initial probability distribution for the states.
@@ -227,7 +229,7 @@ Although not expressed so far in the notation, the continuous variables~$g_i$ ar
 At a certain time step~$t$, the feature vector can be expressed as~$\bm{g}[t] = \{g_1[t], \dots, g_D[t]\}$.
 The input to the model is a sequence of~$T$ such feature vectors~$\bm{g}[1], \dots, \bm{g}[T]$ that we call for simplicity~$G_1^T$, where~$T$ can vary for every recording.
 
-At recognition~(testing) time, we can use the models to estimate the likelihood of a new sequence of observations~$G_1^T$, given each possible gesture/action by means of the \FB{} inference algorithm.
+At recognition~(testing) time, we can use the models to estimate the likelihood of a new sequence of observations~$G_1^T$, given each possible action by means of the \FB{} inference algorithm.
 We can express this likelihood as $\mathcal{L}_\text{HMM}(G_1^T \given A=a_k)$, where $a_k$ is one of the possible actions.
 By normalizing the likelihoods, assuming that the gestures are equally likely \emph{a~priori}, we can obtain the posterior probability of the action given the sequence of observations as
 \begin{equation} \label{eq:phmm_action}
@@ -238,7 +240,7 @@ By normalizing the likelihoods, assuming that the gestures are equally likely \e
 \label{sec:combination}
 Once learned, the two models described above define two probability distributions over the relevant variables for the problem:
 $\pbn(A, F, E, W)$ and~$\phmm(A \given G_1^T)$.
-The goal during inference is to merge the information provided by both models and estimate~$\pcomb(A, F, E, W \given G_1^T)$, that is, the joint probability of all the affordance and word variables, given that we observe a certain gesture/action performed by the human.
+The goal during inference is to merge the information provided by both models and estimate~$\pcomb(A, F, E, W \given G_1^T)$, that is, the joint probability of all the affordance and word variables, given that we observe a certain action performed by the human.
 
 To simplify the notation, we call $X = \{A, F, E, W\}$ the set of affordance and word variables~$\{a, f_1, f_2, \dots, e_1, e_2, \dots, w_1, w_2, \dots\}$.
 During inference, we have a (possibly empty) set of observed variables~$\xobs \subseteq X$, and a set of variables $\xinf \subseteq X$ on which we wish to perform the inference.
@@ -291,7 +293,7 @@ Note that this grammar is defined here with the only purpose to interpret the pr
 The grammar was neither used in the speech recognition system, nor in learning the associations of the spoken utterances to the affordance variables.
 In the model described in~\cite{salvi:2012:smcb}, the speech recognizer used a free loop of words with uniform prior distribution over the words, and the Bayesian model relied a bag-of-words assumption, thus disregarding any syntactic information about the spoken descriptions.
 
-In the current study, by merging the \AffWords{} model and the gesture/action recognition model, we allow the robot to \emph{reinterpret} the concepts it has learned in the self-centered phase, but we do not add any new words to the model.
+In the current study, by merging the \AffWords{} model and the gesture recognition model, we allow the robot to \emph{reinterpret} the concepts it has learned in the self-centered phase, but we do not add any new words to the model.
 Consequently, the descriptions that the model generates when observing humans use the same words to describe the agent.
 
 The textual descriptions are generated as follows: given some evidence~$\xobs$ that we provide to the model and some human observation features~$G_1^t$ extracted from frames~$1$ to~$t$, we extract the generated word probabilities

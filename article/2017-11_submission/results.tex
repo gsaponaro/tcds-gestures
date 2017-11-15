@@ -3,7 +3,7 @@
 \begin{figure}
 \centering
 \includegraphics[width=0.9\columnwidth]{impact_of_evidence_on_Action.eps}
-\caption{Predictions about the action given the evidence $\xobs =\{\text{Size}=\text{small}, \text{Shape}=\text{sphere}, \text{ObjVel}=\text{slow}\}$, combined with different probabilistic soft evidence about the action.} % TODO change to "Inference over action...", to reflect the name of the subsection?
+\caption{Inference over action given the evidence $\xobs =\{\text{Size}=\text{small}, \text{Shape}=\text{sphere}, \text{ObjVel}=\text{slow}\}$, combined with different probabilistic soft evidence about the action.}
 \label{fig:impact_of_evidence_on_Action}
 \end{figure}
 
@@ -43,12 +43,12 @@ In this particular example, in order to win the belief of the affordance model, 
 
 \begin{figure*}
 \centering
-\subfloat[][Predictions about the object velocity of a sphere, when given different probabilistic soft evidence about the action.]
+\subfloat[][Predictions with a sphere object.]
 { \includegraphics[width=0.45\linewidth]{impact_of_evidence_on_ObjVel_sphere.eps} \label{fig:impact_of_evidence_on_ObjVel_sphere} } \quad
 %
-\subfloat[][Predictions about the object velocity of a box, when given different probabilistic soft evidence about the action.]
+\subfloat[][Predictions with a box object.]
 { \includegraphics[width=0.45\linewidth]{impact_of_evidence_on_ObjVel_box.eps} \label{fig:impact_of_evidence_on_ObjVel_box} }
-\caption{Predictions about the object velocity of different objects, when given probabilistic soft evidence about the action.} % TODO change to "Inference over the object velocity effect...", to reflect the name of the subsection?
+\caption{Inference over the object velocity effect of different objects, when given probabilistic soft evidence about the action.}
 \label{fig:impact_of_evidence_on_ObjVel}
 \end{figure*}
 
@@ -88,7 +88,7 @@ Higher velocities are expected for spherical objects that can roll, compared to 
     } % end resizebox
   \label{fig:effect_pred_box}
   } % end subfloat
-  \caption{Object velocity predictions before impact. The evidence from the action recognizer~(left) is fed into the \AffWords{} model before the end of the action. The combined model predicts the effect~(right) and describes it in words.} % TODO change to "Object velocity effect anticipation...", to reflect the name of the subsection?
+  \caption{Object velocity effect anticipation before impact. The evidence from the gesture recognizer~(left) is fed into the \AffWords{} model before the end of the execution. The combined model predicts the effect~(right) and describes it in words.}
   \label{fig:effect_pred}
 \end{figure*}
 
