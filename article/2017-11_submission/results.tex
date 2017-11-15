@@ -55,7 +55,7 @@ Higher velocities are expected for spherical objects that can roll, compared to 
 
 \begin{figure*}
   \centering
-  \subfloat[][Action perfomed on small sphere. Description: ``the robot pushed the ball and the ball moves'']{
+  \subfloat[][Action perfomed on small sphere. Description: ``the robot pushed the ball and the ball moves''.]{
     \resizebox{0.9\linewidth}{!}{
       \begin{tikzpicture}
         \node (lik) {\includegraphics[width=0.6\linewidth]{evolution_of_action_posterior_sphere_log.eps}};
@@ -67,8 +67,8 @@ Higher velocities are expected for spherical objects that can roll, compared to 
     } % end resizebox
     \label{fig:effect_pred_sphere}
   } % end subfloat
-  
-  \subfloat[][Action perfomed on big box. Description: ``the robot is pushing the big square but the box is inert'']{
+
+  \subfloat[][Action perfomed on big box. Description: ``the robot is pushing the big square but the box is inert''.]{
     \resizebox{0.9\linewidth}{!}{
       \begin{tikzpicture}
         \node (lik) {\includegraphics[width=0.6\linewidth]{evolution_of_action_posterior_box_log.eps}};
@@ -80,7 +80,7 @@ Higher velocities are expected for spherical objects that can roll, compared to 
     } % end resizebox
   \label{fig:effect_pred_box}
   } % end subfloat
-  \caption{Object velocity predictions before impact. The evidence from the action recognizer (left) is fed into the affodance-word model before the end of the action. The combined model predicts the effect (right) and describes it in words.}
+  \caption{Object velocity predictions before impact. The evidence from the action recognizer~(left) is fed into the \AffWords{} model before the end of the action. The combined model predicts the effect~(right) and describes it in words.}
   \label{fig:effect_pred}
 \end{figure*}
 
@@ -90,9 +90,9 @@ Because it is based on \aclp{BN}, our model can make predictions over any set of
 In particular, the model can do reasoning on the elements that constitute our computational concept of affordances, \textit{i.e.}, Action, Object Features, Effects in Fig.~\ref{fig:model}.
 Furthermore, because the gesture/action recognition method interprets sequences of human motions, we can test this predictive ability of the complete model when we observe an incomplete action.
 Fig.~\ref{fig:effect_pred} shows an example of this where we reason about the expected object velocity caused by a tap action.
-Fig.~\ref{fig:effect_pred_sphere} shows the action performed on a spherical object whereas Fig.~\ref{fig:effect_pred_box} on a cubic object.
+Fig.~\ref{fig:effect_pred_sphere} shows the action performed on a spherical object, whereas Fig.~\ref{fig:effect_pred_box} on a cubic one.
 The graphs on the left side show the time evolution of the evidence $\phmm(A \given G_1^t)$ from the gesture/action recognition model.
-In order to make the variations emerge more clearly, instead of the posterior, we show $\frac{1}{t}\log\mathcal{L}_\text{HMM}(G_1^t \given A)$: the log likelihood normalized by the length of the sequence.
+In order to make the variations emerge more clearly, instead of the posterior, we show $\frac{1}{t}\log\mathcal{L}_\text{HMM}(G_1^t \given A)$: the log-likelihood normalized by the length of the sequence.
 Note how, in both cases, the correct action is recognized by the model given enough evidence, although the observation sequence is not complete.
 The right side of the plot shows the prediction of the object velocity, given the incomplete observation of the action and the object properties.
 Note how the model correctly predicts that the sphere will probably move but the box is unlikely do so.
@@ -220,9 +220,9 @@ When the object velocity is slow (in the clustering procedure this was most ofte
 \begin{figure*}
   \centering
   \subfloat[][Evidence: \evidenceProducingAnd.]{
-    \begin{tabular}[b]{c}   
+    \begin{tabular}[b]{c}
     \includegraphics[width=0.4\linewidth]{p_conjunctions_and_evidence.eps}\\
-    
+
     \resizebox{!}{0.1\linewidth}{% https://tex.stackexchange.com/a/27105/18819
       \begin{tabular}{ll}
         \toprule
@@ -245,9 +245,9 @@ When the object velocity is slow (in the clustering procedure this was most ofte
     \label{tab:conjunction:and}
   } % end subfloat
   \subfloat[][Evidence: \evidenceProducingBut.]{
-    \begin{tabular}[b]{c}   
+    \begin{tabular}[b]{c}
     \includegraphics[width=0.4\linewidth]{p_conjunctions_but_evidence.eps}\\
-    
+
     \resizebox{!}{0.1\linewidth}{% https://tex.stackexchange.com/a/27105/18819
       \begin{tabular}{ll}
         \toprule
@@ -271,7 +271,7 @@ When the object velocity is slow (in the clustering procedure this was most ofte
   } % end subfloat
     \caption{$10$-best list of sentences generated given two different sets of evidence.
     In~(a) the model interprets the object movement as indicating a succesful grasp and uses the conjunction ``and''.
-    In~(b) the slow movement is interpreted as no movement at all, and, therefore, as an unsuccessful grasp: as a result, the conjunction ``but'' is used.}
+    In~(b) the slow movement is interpreted as no movement at all and, therefore, as an unsuccessful grasp: for that reason, the conjunction ``but'' is used.}
     \label{tab:conjunction}
 \end{figure*}
 
@@ -284,7 +284,7 @@ When the object velocity is slow (in the clustering procedure this was most ofte
 
 \begin{figure}
   \centering
-  \subfloat[][\graspBoxGreenOne]{
+  \subfloat[][\graspBoxGreenOne.]{
     \resizebox{\linewidth}{!}{
       \includegraphics{graspBoxGreen1-00000007}
       \includegraphics{graspBoxGreen1-00000008}
@@ -295,7 +295,7 @@ When the object velocity is slow (in the clustering procedure this was most ofte
     } % end resizebox
   } % end subfloat
 
-  \subfloat[][\touchBoxGreenOne]{
+  \subfloat[][\touchBoxGreenOne.]{
     \resizebox{\linewidth}{!}{
       \includegraphics{touchBoxGreen1-00000008}
       \includegraphics{touchBoxGreen1-00000009}
@@ -306,7 +306,7 @@ When the object velocity is slow (in the clustering procedure this was most ofte
     } % end resizebox
   } % end subfloat
 
-  \subfloat[][\graspSphereGreenTwo]{
+  \subfloat[][\graspSphereGreenTwo.]{
     \resizebox{\linewidth}{!}{
       \includegraphics{graspSphereGreen2-00000007}
       \includegraphics{graspSphereGreen2-00000008}
@@ -317,7 +317,7 @@ When the object velocity is slow (in the clustering procedure this was most ofte
     } % end resizebox
   } % end subfloat
 
-  \subfloat[][\touchSphereGreenTwo]{
+  \subfloat[][\touchSphereGreenTwo.]{
     \resizebox{\linewidth}{!}{
       \includegraphics{touchSphereGreen2-00000006}
       \includegraphics{touchSphereGreen2-00000007}
