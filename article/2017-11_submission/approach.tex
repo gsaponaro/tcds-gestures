@@ -102,7 +102,10 @@ In this phase human movements are interpreted and classified with similar method
 
 Our assumptions are the following:
 we assume that the robot possesses visual segmentation and geometric reasoning capabilities, meaning that it is able to segment the~(potentially multiple) regions of interest corresponding to the physical objects of the world from the background~(e.g., a planar surface such as a table) and to determine their positions.
-In addition, we assume that a depth sensor is available and positioned near the robot, in order to estimate the~3D coordinates of the limbs of the human, used to infer the action.
+In addition, we assume that a depth sensor~(e.g., Kinect) is available and positioned near the robot, in order to estimate the~3D coordinates of the limbs of the human, used to infer the action.
+Currently, our gesture recognition algorithm relies on human skeleton tracking software from a depth stream.
+In our experience, the hand tracking is not reliable in the presence of a tabletop~(i.e., partially occluded human) as in Fig.~\ref{fig:action_examples}, so we record the same gestures twice, with and without the table: the latter is used for ensuring the robustness of the estimated hand coordinate, the former is used throughout the rest of our model and experiments.
+We plan to overcome this limitation in future work~(see Sec.~\ref{sec:conclusions}).
 
 %\subsection{Description}
 \bigskip
@@ -286,7 +289,7 @@ This time, we first need to use the \ac{BN} to do inference on the variables~$\x
 In order to illustrate the language capabilities of the model, we use the \ac{CFG} described in Appendix~\ref{appendix:grammar} to generate written descriptions of the robot observations on the basis of the probability distributions of the words inferred by the model.
 Note that this grammar is defined here with the only purpose to interpret the probability distributions over the words.
 The grammar was neither used in the speech recognition system, nor in learning the associations of the spoken utterances to the affordance variables.
-In the model described in~\cite{salvi:2012:smcb}, the speech recognizer used a free loop of words with uniform prior distribution over the words, and the Bayesian model used a bag-of-words assumption, thus disregarding any syntactic information about the spoken descriptions.
+In the model described in~\cite{salvi:2012:smcb}, the speech recognizer used a free loop of words with uniform prior distribution over the words, and the Bayesian model relied a bag-of-words assumption, thus disregarding any syntactic information about the spoken descriptions.
 
 In the current study, by merging the \AffWords{} model and the gesture/action recognition model, we allow the robot to \emph{reinterpret} the concepts it has learned in the self-centered phase, but we do not add any new words to the model.
 Consequently, the descriptions that the model generates when observing humans use the same words to describe the agent.
