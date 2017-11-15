@@ -28,11 +28,11 @@ We present the following types of results:
 \subsection{Inference over Action}
 \label{sec:results:inference_actions}
 
-In Fig.~\ref{fig:impact_of_evidence_on_Action} we show the interaction between the \AffWords{} model and the gesture/action recognition model when they bring conflicting information.
+In Fig.~\ref{fig:impact_of_evidence_on_Action} we show the interaction between the \AffWords{} model and the gesture recognition model when they bring conflicting information.
 In the scene, we observe a small ball that after the action has a low velocity (that in terms of clusters of affordance variables often corresponds to zero velocity).
 Based on the evidence, the affordance model gives the highest probability $\pbn(A \given \xobs)$ to the action \emph{touch}, which usually does not result in any movement of the object.
 However, in this particular simulated situation, we assume that the action performed by the human was an (unsuccessful) \emph{tap}, that is, a tap that does not result in any movement for the object.
-In the simulation we show the effect of augmenting the inference with information from a gesture/action recognizer, that is, computing $\pcomb(A \given \xobs,G_1^T)$.
+In the simulation we show the effect of augmenting the inference with information from a gesture recognizer, that is, computing $\pcomb(A \given \xobs,G_1^T)$.
 We analyze the effect of varying the degree of confidence of the classifier.
 We start from a uniform posterior $\phmm(A \given G_1^T)$, corresponding to a poor classifier, and gradually increase the probability of the correct action until it reaches 1.
 In this particular example, in order to win the belief of the affordance model, the action recognition needs to be very confident ($\phmm(A=\text{tap} \given G_1^T) > 0.81$).
@@ -97,10 +97,10 @@ Higher velocities are expected for spherical objects that can roll, compared to 
 \subsection{Effect Anticipation}
 \label{sec:results:anticipation_effects}
 
-Since the gesture/action recognition method interprets sequences of human motions, we can test this predictive ability of the complete model when we observe an incomplete action.
+Since the gesture recognition method interprets sequences of human motions, we can test this predictive ability of the complete model when we observe an incomplete action.
 Fig.~\ref{fig:effect_pred} shows an example of this where we reason about the expected object velocity caused by a tap action.
 Fig.~\ref{fig:effect_pred_sphere} shows the action performed on a spherical object, whereas Fig.~\ref{fig:effect_pred_box} on a cubic one.
-The graphs on the left side show the time evolution of the evidence $\phmm(A \given G_1^t)$ from the gesture/action recognition model.
+The graphs on the left side show the time evolution of the evidence $\phmm(A \given G_1^t)$ from the gesture recognition model.
 In order to make the variations emerge more clearly, instead of the posterior, we show $\frac{1}{t} \log \mathcal{L}_\text{HMM} (G_1^t \given A)$: the log-likelihood normalized by the length of the sequence.
 Note how, in both cases, the correct action is recognized by the model given enough evidence, although the observation sequence is not complete.
 The right side of the plot shows the prediction of the object velocity, given the incomplete observation of the action and the object properties.
