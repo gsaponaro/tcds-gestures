@@ -50,7 +50,7 @@ In particular~\cite{salvi:2012:smcb}, which this paper extends, proposes a joint
 The data used for learning such a model is from robot manipulation experiments, acquired from an ego-centric perspective.
 Each experiment is associated with a number of alternative verbal descriptions uttered by two human speakers, for a total of \SI{1270}~recordings.
 That framework assumes that the robot action is known \emph{a~priori} during the training phase~(e.g., during a grasping action the robot knows with certainty that it is performing a grasping action), and the resulting model can be used at testing to make inferences about the environment, including estimating the most likely action, based on evidence from other pieces of information.
-In a recent work~\cite{saponaro:2017:glu} we have relaxed the assumption of knowing the action.
+In a recent work~\cite{saponaro:2017:glu} we relaxed the assumption of knowing the action.
 We did this by merging the action estimation obtained from an external gesture recognizer~\cite{saponaro:2013:crhri} as a \emph{hard evidence}~(i.e., discrete and certain evidence) to the full model, meaning that the action was deterministic.
 By contrast, in this paper we propose a theoretical way to fuse the two sources of information~(about the self and about others) in a fully probabilistic manner, therefore introducing the \emph{soft evidence}.
 This addition allows to perform more fine-grained types of inferences and reasoning than before.
