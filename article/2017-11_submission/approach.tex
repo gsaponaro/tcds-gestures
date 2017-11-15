@@ -97,9 +97,15 @@ In the second phase, the system turns to observing human actions of a similar na
 The robot reuses the experience acquired in the first phase to interpret the new observations and to address the correspondence problem between its own actions and the actions performed by the human.
 In this phase human movements are interpreted and classified with similar methods as in~\cite{saponaro:2013:crhri}.
 
+\subsection{Assumptions}
+\label{sec:assumptions}
+
 Our assumptions are the following:
 we assume that the robot possesses visual segmentation and geometric reasoning capabilities, meaning that it is able to segment the~(potentially multiple) regions of interest corresponding to the physical objects of the world from the background~(e.g., a planar surface such as a table) and to determine their positions.
 In addition, we assume that a depth sensor is available and positioned near the robot, in order to estimate the~3D coordinates of the limbs of the human, used to infer the action.
+
+%\subsection{Description}
+\bigskip
 
 Fig.~\ref{fig:model} illustrates the probabilistic dependencies in the complete model and will be detailed in the following subsections.
 The key to our approach is the existence of the discrete variable Action, the value of which is known to the robot in the ego-centric phase of learning, but must be inferred from observation in the social phase.
@@ -110,9 +116,9 @@ This allows the robot to:
 \item in many cases, use the affordance variables to infer the above mapping even in the absence of verbal descriptions;
 \item once the perceptual models for human gesture/actions are acquired, use the complete model to do inference on any variable given some evidence.
 \end{itemize}
-In the following sections, first we give details on the probabilistic models enclosed in the \AffWords{} model box in Fig.~\ref{fig:model}.
-Then, we describe the Gesture/Action recognition method.
-Finally, we describe the way in which we combine evidence from the two models.
+In the remainder of this section, first we provide details, in Sec.~\ref{sec:bn}, about the probabilistic models enclosed in the \emph{\AffWords{} model} box of Fig.~\ref{fig:model}.
+Then, in Sec.~\ref{sec:gesture_hmm} we describe the Gesture/Action recognition method.
+Finally, in Sec.~\ref{sec:combination} we describe the way in which we combine evidence from the two models, which is a novel contribution of this paper.
 
 \subsection{\AffWords{} Modeling}
 \label{sec:bn}
@@ -196,6 +202,7 @@ For example, if the robot is asked to make a spherical object roll, it will be a
 \end{figure}
 
 \subsection{Gesture/Action Recognition}
+\label{sec:gesture_hmm}
 When observing a human performing actions, the value of the action variable~$A$ is not known to the robot neither during learning nor during inference.
 During learning, we assume that the robot has not yet acquired a perceptual model of the gestures associated to the human actions.
 The value of~$A$ can, however, be inferred either from a verbal description of the scene or from the other affordance nodes through the \AffWords{} model described earlier.

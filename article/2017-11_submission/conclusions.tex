@@ -10,12 +10,12 @@ congruent/incongruent conjunctions,
 choice of appropriate synonym words. % when referring to the same entity in two consecutive sentences.
 We make our human action data and probabilistic reasoning code publicly available.
 
-While our scenario and data are restricted to a particular scenario~(a human and a robot manipulating simple objects on a shared table, a limited number of motor actions and effects, and a vocabulary of approximately~$50$ words to describe the experiments verbally), we believe that our study has merit because it spans different fields such as robot learning, language grounding, and object affordances.
+We believe that our study has merit because it spans different fields such as robot learning, language grounding, and object affordances, and it does that with real robotic data, as opposed to learning images-to-text mappings~(like many works in computer vision) or using robot simulations~(like many works in robotics).
+However, we reiterate that our scenario and data are restricted to a particular scenario~(see Sec.~\ref{sec:assumptions}), i.e., one human and one robot manipulating simple objects on a shared table, a pre-defined number of motor actions and effects, and a vocabulary of approximately~$50$ words to describe the experiments verbally.
 
-%\subsection{Assumptions and Future Work}
+In terms of future work,
+
 The model presented in this study was created following a number of assumptions, which can be relaxed in future work (TODO turn into text, discuss how much to say here):
-% Giampiero: I write this here in items, but it should be turned into text
-% we should also discuss how much to say explicitely
 \begin{itemize}
 \item the gesture recognition part relies on depth sensor hardware~(e.g., Kinect) and human skeleton tracking software. In our experience, the hand tracking is not reliable in the presence of a tabletop~(i.e., partially occluded human) as in Fig.~\ref{fig:action_examples}, so we had to record the same gestures without the table. We plan to incorporate a robust color camera-based human joint estimator such as OpenPose~\cite{cao:2017:openpose-cpvr};
 \item the model does not learn the grammar to generate verbal descriptions from word probabilities, but it is specified manually;
@@ -25,19 +25,8 @@ The model presented in this study was created following a number of assumptions,
 \item results were qualitative, rather than having a numerical evaluation.
 \end{itemize}
 
-% Giampiero: not that relevant any longer
-%PERSONAL NOTES - Things we need to discuss:
-%\begin{itemize}
-%\item the effect variables in the BN include hand velocity. How does this relate to the gesture features in the HMM? Can we learn the connection?
-%\item in order to achieve the ideal case in Figure~\ref{fig:model} we would need to learn the complex relationship between hand movements and affordance variables:
-%  \begin{itemize}
-%  \item how can this be achieved in the ego-centric learning? Mixture of HMMs and BN? Would it be possible to learn the dependency structure in this complex model?
-%  \item assuming it is possible to learn in the ego-centric way, how can this be extended to the other agent? Coordinates will definitely be different. In the current study we could directly map the two because we were using the categorical variable ``action''.
-%  \end{itemize}
-%\end{itemize}
-
-% BELOW IS THE GLU TEXT
-%
-% Within the scope of cognitive robots that operate in unstructured environments, we have discussed a model that combines word affordance learning with body gesture recognition. We have proposed such an approach, based on the intuition that a robot can generalize its previously-acquired knowledge of the world~(objects, actions, effects, verbal descriptions) to the cases when it observes a human agent performing familiar actions in a shared \hr{} environment. We have shown promising preliminary results that indicate that a robot's ability to predict the future can benefit from incorporate the knowledge of a partner's action, facilitating scene interpretation and, as a result, teamwork.
-%
-% In terms of future work, there are several avenues to explore. The main ones are (i)~the implementation of a fully probabilistic fusion between the affordance and the gesture components~(e.g., the soft decision discussed in Sec.~\ref{sec:combination}); (ii)~to run quantitative tests on larger corpora of \hr{} data; (iii)~to explicitly address the correspondence problem of actions between two agents operating on the same world objects~(e.g., a pulling action from the perspective of the human corresponds to a pushing action from the perspective of the robot, generating specular effects).
+% OLD PERSONAL NOTES
+% - the effect variables in the BN include hand velocity. How does this relate to the gesture features in the HMM? Can we learn the connection?
+% - learn the complex relationship between hand movements and affordance variables:
+%   - how can this be achieved in the ego-centric learning? Mixture of HMMs and BN? Would it be possible to learn the dependency structure in this complex model?
+%   - assuming it is possible to learn in the ego-centric way, how can this be extended to the other agent? Coordinates will definitely be different. In the current study we could directly map the two because we were using the categorical variable Action.
