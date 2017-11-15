@@ -36,7 +36,7 @@
     \includegraphics[width=\myWidth\linewidth]{touch-00000203}
     \label{fig:action_examples:touch}
   } % end subfloat
-  \caption{Examples of human actions from the point of view of the robot}
+  \caption{Examples of human actions from the point of view of the robot.}
   \label{fig:action_examples}
 \end{figure*}
 
@@ -253,7 +253,7 @@ If we want to combine the evidence brought by the \ac{BN} with the evidence brou
 \end{enumerate}
 
 Here, we are excluding the case where we observe the action directly~($A \in \xobs$) for two reasons: firstly, this would correspond to the robot performing the action itself, whereas we are interested in interpreting other people's actions;
-secondly, this would make the evidence on the gesture features~$G_1^T$ irrelevant, because in the model in Fig.~\ref{fig:model}, there is a tail-to-tail connection from~$G_1^T$ to the rest of the variables through the action variable, which means that, given the action, all dependencies to the gesture features are dropped.
+secondly, this would make the evidence on the gesture features~$G_1^T$ irrelevant, because in the model in Fig.~\ref{fig:model}, there is a tail-to-tail connection~\cite{pearl:2014:probabilistic} from~$G_1^T$ to the rest of the variables through the action variable, which means that, given the action, all dependencies to the gesture features are dropped.
 
 The two cases enumerated above can be addressed separately when we do inference.
 In the first case, we call~$\xinf^\prime$ the set of inference variables excluding the action~$A$, that is, $\xinf = \{\xinf^\prime, A\}$.
