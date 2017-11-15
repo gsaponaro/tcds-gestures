@@ -164,7 +164,7 @@ In this result, we notice two facts: (i)~the probabilities of words related to t
 
 By generating and scoring natural language descriptions of what the robot observes~(see Sec.~\ref{sec:method:verbal}), we can provide evidence to the model and interpret the verbal results.
 Recall that with our method we do not add new words to the model, but merely generate human-readable descriptions using the same words that were present in the original descriptions.
-During the self-centered learning phase, the verbal descriptions of~\cite{salvi:2012:smcb} described the agent of the observed actions as either ``the~robot'', ``he'', or ``Baltazar''~(the name of the robot in~\cite{salvi:2012:smcb}).
+During the self-centered learning phase, the verbal descriptions of~\cite{salvi:2012:smcb} described the agent of the observed actions as either ``the~robot'', ``he'', or ``Baltazar''~(the name of the robot).
 Consequently, the \AffWords{} model learned by the robot includes those words as the initial subject.
 
 As an example, by providing the evidence \{Color=yellow, Size=big, Shape=sphere, ObjVel=fast\} to the model, we obtain the sentences reported in Table~\ref{tab:example_generated_sentences}.
@@ -216,7 +216,7 @@ In particular, it would be desirable to separate two kinds of behaviors: one in 
 Fig.~\ref{tab:conjunction} shows an example of this behavior of the model.
 We give the same action value \emph{grasp} to the model as evidence, but two different values for the final object velocity.
 When the object velocity is medium~(Fig.~\ref{tab:conjunction:and}), the model interprets this as a successful grasp and uses the conjunction ``and'' to separate the description of the action from the description of the effect.
-When the object velocity is slow~(in the clustering procedure of~\cite{salvi:2012:smcb}, this was most often zero velocity), the model predicts that this is an unsuccessful grasp and uses the conjunction ``but'', instead.
+When the object velocity is slow~(in the clustering procedure, this was most often zero velocity), the model predicts that this is an unsuccessful grasp and uses the conjunction ``but'', instead.
 
 \begin{figure*}
   \centering
