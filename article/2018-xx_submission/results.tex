@@ -1,0 +1,318 @@
+%!TEX encoding = UTF-8 Unicode
+
+\begin{figure}
+\centering
+\includegraphics[width=0.9\columnwidth]{impact_of_evidence_on_Action.eps}
+\caption{Inference over action given the evidence $\xobs =\{\text{Size}=\text{small}, \text{Shape}=\text{sphere}, \text{ObjVel}=\text{slow}\}$, combined with different probabilistic soft evidence about the action.}
+\label{fig:impact_of_evidence_on_Action}
+\end{figure}
+
+\section{Results}
+\label{sec:results}
+
+In this section, we report the experimental findings obtained with our proposed model.
+Because it is based on \aclp{BN}, the model can make inferences over any set of its variables~$\xinf$, given any other set of observed variables~$\xobs$.
+In particular, the model can do reasoning on the elements that constitute our computational concept of affordances, i.e., Action, Object Features, Effects in Fig.~\ref{fig:model}.
+Furthermore, it can do reasoning over word nodes.
+We present the following types of results:
+\begin{itemize}
+  \item inferences over affordance variables~(i.e., the entries of Table~\ref{tab:bnsymb} except the last row therein) in Sec.~\ref{sec:results:inference_actions}, \ref{sec:results:inference_effects}, \ref{sec:results:anticipation_effects};
+
+  \item predictions of word probabilities~(i.e., the last row of Table~\ref{tab:bnsymb}) in Sec.~\ref{sec:results:prediction_words};
+
+  \item verbal descriptions generated from the word probabilities of the previous point, according to a formal grammar. The descriptions, in turn, can be interpreted to observe the emergence of certain language phenomena: Sec.~\ref{sec:results:verbal_descriptions}, \ref{sec:results:conjunction}, \ref{sec:results:description_objects}.
+\end{itemize}
+
+\begin{figure*}
+\centering
+\subfloat[][Predictions with a sphere object.]
+{ \includegraphics[width=0.45\linewidth]{impact_of_evidence_on_ObjVel_sphere.eps} \label{fig:impact_of_evidence_on_ObjVel_sphere} } \quad
+%
+\subfloat[][Predictions with a box object.]
+{ \includegraphics[width=0.45\linewidth]{impact_of_evidence_on_ObjVel_box.eps} \label{fig:impact_of_evidence_on_ObjVel_box} }
+\caption{Inference over the object velocity effect of different objects, when given probabilistic soft evidence about the action.}
+\label{fig:impact_of_evidence_on_ObjVel}
+\end{figure*}
+
+\begin{figure*}
+  \centering
+  \subfloat[][Action performed on small sphere. Description: ``the robot pushed the ball and the ball moves''.]{
+    \resizebox{0.9\linewidth}{!}{
+      \begin{tikzpicture}
+        \node (lik) {\includegraphics[width=0.6\linewidth]{evolution_of_action_posterior_sphere_log.eps}};
+        \node at ([xshift=-90pt,yshift=30pt]lik.north) {\includegraphics[width=\myWidth\linewidth]{tap-sphere-00000179}};
+        \node at ([xshift=+10pt,yshift=30pt]lik.north) {\includegraphics[width=\myWidth\linewidth]{tap-sphere-00000183}};
+        \node at ([xshift=+110pt,yshift=30pt]lik.north) {\includegraphics[width=\myWidth\linewidth]{tap-sphere-00000187}};
+        \node at ([xshift=100pt,yshift=30pt]lik.east) {\includegraphics[width=0.35\linewidth]{evolution_of_action_posterior_sphere_effect_pred.eps}};
+      \end{tikzpicture}
+    } % end resizebox
+    \label{fig:effect_pred_sphere}
+  } % end subfloat
+
+  \subfloat[][Action performed on big box. Description: ``the robot is pushing the big square but the box is inert''.]{
+    \resizebox{0.9\linewidth}{!}{
+      \begin{tikzpicture}
+        \node (lik) {\includegraphics[width=0.6\linewidth]{evolution_of_action_posterior_box_log.eps}};
+        \node at ([xshift=-90pt,yshift=30pt]lik.north) {\includegraphics[width=\myWidth\linewidth]{tap-box-00000230}};
+        \node at ([xshift=+10pt,yshift=30pt]lik.north) {\includegraphics[width=\myWidth\linewidth]{tap-box-00000250}};
+        \node at ([xshift=+110pt,yshift=30pt]lik.north) {\includegraphics[width=\myWidth\linewidth]{tap-box-00000270}};
+        \node at ([xshift=100pt,yshift=30pt]lik.east) {\includegraphics[width=0.35\linewidth]{evolution_of_action_posterior_box_effect_pred.eps}};
+      \end{tikzpicture}
+    } % end resizebox
+  \label{fig:effect_pred_box}
+  } % end subfloat
+  \caption{Object velocity effect anticipation before impact. The evidence from the gesture recognizer~(left) is fed into the \AffWords{} model before the end of the execution. The combined model predicts the effect~(right) and describes it in words.}
+  \label{fig:effect_pred}
+\end{figure*}
+
+\subsection{Inference over Action}
+\label{sec:results:inference_actions}
+
+In Fig.~\ref{fig:impact_of_evidence_on_Action} we show the interaction between the \AffWords{} model and the gesture recognition model when they bring conflicting information.
+In the scene, we observe a small ball that after the action has a low velocity~(which, in terms of clusters of affordance variables, often corresponds to zero velocity).
+Based on the evidence, the affordance model gives the highest probability $\pbn(A \given \xobs)$ to the action \emph{touch}, which usually does not result in any movement of the object.
+However, in this particular simulated situation, we assume that the action performed by the human was an (unsuccessful) \emph{tap}, that is, a tap that does not result in any movement for the object.
+In the simulation we show the effect of augmenting the inference with information from a gesture recognizer, that is, computing $\pcomb(A \given \xobs,G_1^T)$.
+We analyze the effect of varying the degree of confidence of the classifier.
+We start from a uniform posterior $\phmm(A \given G_1^T)$, corresponding to a poor classifier, and gradually increase the probability of the correct action until it reaches 1.
+In this particular example, in order to win the belief of the affordance model, the action recognition needs to be very confident ($\phmm(A=\text{tap} \given G_1^T) > 0.81$).
+
+\begin{figure}
+\centering
+\includegraphics[width=0.9\columnwidth]{partialfig.eps}
+\caption{Variation of word occurrence probabilities:
+$\Delta P(w_i) = \pcomb(w_i \given \xobs, \text{Action=tap}) - \pbn(w_i \given \xobs)$, where $\xobs = \{ \text{Size=big, Shape=sphere, ObjVel=fast} \}$.
+This variation corresponds to the difference of word probability when we add the tap action evidence~(obtained from gesture recognition) to the initial evidence about object features and effects. We have omitted words for which no significant variation was observed.}
+\label{fig:probdiff}
+\end{figure}
+
+\subsection{Inference over Effects}
+\label{sec:results:inference_effects}
+
+Next, we report a result that also uses the \emph{soft evidence} over the Action node from the gesture recognizer, but this time makes a prediction over a different node: object velocity~(which expresses an effect information).
+Fig.~\ref{fig:impact_of_evidence_on_ObjVel} shows the inference in two cases: when the prior information says that the shape is spherical~(see Fig.~\ref{fig:impact_of_evidence_on_ObjVel_sphere}), and when it is cubic~(see Fig.~\ref{fig:impact_of_evidence_on_ObjVel_box}).
+
+The first distribution to the left in both figures shows the prediction of object velocity from the \AffWords{} model alone, without any additional information.
+When the shape is spherical, the model is not sure about the velocity, whereas if the shape is cubic, the model does not expect high velocities.
+If we add clear evidence on the action \emph{touch} from the action recognition model, suddenly the combined model predicts slow velocities in both cases, as expected.
+However, if the action recognition evidence is gradually changed from \emph{touch} to \emph{tap} the predictions of the model depend on the shape of the object.
+Higher velocities are expected for spherical objects that can roll, compared to cubic objects.
+
+\subsection{Effect Anticipation}
+\label{sec:results:anticipation_effects}
+
+Since the gesture recognition method interprets sequences of human motions, we can test this predictive ability of the complete model when we observe an incomplete action.
+Fig.~\ref{fig:effect_pred} shows an example of this where we reason about the expected object velocity caused by a tap action.
+Fig.~\ref{fig:effect_pred_sphere} shows the action performed on a spherical object, whereas Fig.~\ref{fig:effect_pred_box} on a cubic one.
+The graphs on the left side show the time evolution of the evidence $\phmm(A \given G_1^t)$ from the gesture recognition model.
+In order to make the variations emerge more clearly, instead of the posterior, we show $\frac{1}{t} \log \mathcal{L}_\text{HMM} (G_1^t \given A)$: the log-likelihood normalized by the length of the sequence.
+Note how, in both cases, the correct action is recognized by the model given enough evidence, although the observation sequence is not complete.
+The right side of the plot shows the prediction of the object velocity, given the incomplete observation of the action and the object properties.
+The model correctly predicts that the sphere will probably move but the box is unlikely do so.
+Finally, the captions in the figure also show the verbal description~(see Sec.~\ref{sec:method:verbal}) generated by feeding the probability distribution of the words estimated by the model given the evidence into the \acl{CFG}.
+
+\begin{table}
+    \centering
+    \caption{$10$-best list of sentences generated from the evidence $\xobs = \{ \text{Color=yellow, Size=big, Shape=sphere, ObjVel=fast} \}$.}
+    \label{tab:example_generated_sentences}
+    \resizebox{\linewidth}{!}{% https://tex.stackexchange.com/a/27105
+    \begin{tabular}{ll}
+    \toprule
+    sentence & score \\
+    \midrule
+    ``the robot pushed the ball and the ball moves'' & $-0.54322$ \\ % not good to have push
+    ``the robot tapped the sphere and the sphere moves'' & $-0.5605$ \\
+    ``he is pushing the sphere and the sphere moves'' & $-0.57731$ \\
+    ``the robot is tapping the yellow ball and the big yellow sphere is moving'' & $-0.57932$ \\
+    ``he pushed the yellow ball and the sphere is rolling'' & $-0.58853$ \\
+    ``the robot is poking the ball and the sphere is rolling'' & $-0.58998$ \\
+    ``he is pushing the ball and the yellow ball moves'' & $-0.59728$ \\
+    ``he pushes the sphere and the ball is moving'' & $-0.60528$ \\
+    ``he is tapping the yellow ball and the ball is moving'' & $-0.60675$ \\
+    ``the robot pokes the sphere and the ball is rolling'' & $-0.60694$ \\
+    \bottomrule
+    \end{tabular}%
+    } % end resizebox
+\end{table}
+
+\subsection{Prediction of Word Probabilities}
+\label{sec:results:prediction_words}
+
+Our model permits to make predictions over the word nodes associated to affordance evidence (see Table~\ref{tab:bnsymb}, last row).
+In Fig.~\ref{fig:probdiff} we show the variation in word occurrence probabilities between two cases:
+\begin{enumerate}
+\item when the robot prior knowledge evidence consists of information about object features and effects only: \{Size=big, Shape=sphere, ObjVel=fast\};
+
+\item when the evidence corresponds to the one of the previous point, with the addition of the \emph{tap} action observed from the gesture recognizer (hard evidence).
+\end{enumerate}
+
+In this result, we notice two facts: (i)~the probabilities of words related to tapping and pushing increase when a tapping action evidence from gesture recognition is introduced; conversely, the probabilities of other action words~(touching and poking) decreases; (ii)~the probability of the word ``rolling''~(which is an effect of an action onto an object) also increases when the tap action evidence is entered.
+
+\newcommand{\evidenceProducingAnd}{$\xobs=$\{ Action=grasp, ObjVel=medium \}}
+\newcommand{\evidenceProducingBut}{$\xobs=$\{ Action=grasp, ObjVel=slow \}}
+
+\begin{figure*}
+  \centering
+  \subfloat[][Evidence: \evidenceProducingAnd.]{
+    \begin{tabular}[b]{c}
+    \includegraphics[width=0.4\linewidth]{p_conjunctions_and_evidence.eps}\\
+
+    \resizebox{!}{0.1\linewidth}{% https://tex.stackexchange.com/a/27105
+      \begin{tabular}{ll}
+        \toprule
+        sentence & score \\
+        \midrule
+        ``the robot is picking the sphere \textbf{and} the sphere is moving''  & $-0.59328$ \\
+        ``the robot grasps the sphere \textbf{and} the ball is moving''  & $-0.59507$ \\
+        ``the robot is picking the sphere \textbf{and} the sphere is rising''  & $-0.60882$ \\
+        ``the robot grasped the sphere \textbf{and} the sphere is rising''  & $-0.61842$ \\
+        ``the robot picked the ball \textbf{and} the ball is rising''  & $-0.64052$ \\
+        ``baltazar grasps the sphere \textbf{and} the sphere is moving''  & $-0.66182$ \\
+        ``the robot has grasped the ball \textbf{and} the ball is rising''  & $-0.66398$ \\
+        ``the robot picked the ball \textbf{and} the green ball is moving''  & $-0.67134$ \\
+        ``baltazar grasped the sphere \textbf{and} the ball is moving''  & $-0.67283$ \\
+        ``baltazar is grasping the ball \textbf{and} the sphere is rising''  & $-0.6787$ \\
+        \bottomrule
+      \end{tabular}%
+    } % end resizebox
+    \end{tabular}
+    \label{tab:conjunction:and}
+  } % end subfloat
+  \subfloat[][Evidence: \evidenceProducingBut.]{
+    \begin{tabular}[b]{c}
+    \includegraphics[width=0.4\linewidth]{p_conjunctions_but_evidence.eps}\\
+
+    \resizebox{!}{0.1\linewidth}{% https://tex.stackexchange.com/a/27105
+      \begin{tabular}{ll}
+        \toprule
+        sentence & score \\
+        \midrule
+        ``the robot is picking the cube \textbf{but} the square is still''  & $-0.52575$ \\
+        ``the robot is grasping the sphere \textbf{but} the box is inert''  & $-0.55$ \\
+        ``the robot is grasping the square \textbf{but} the sphere is still''  & $-0.55388$ \\
+        ``the robot grasped the square \textbf{but} the cube is inert''  & $-0.55608$ \\
+        ``baltazar is grasping the square \textbf{but} the square is inert''  & $-0.5571$ \\
+        ``the robot is grasping the cube \textbf{but} the ball is inert''  & $-0.56011$ \\
+        ``the robot picks the box \textbf{but} the square is inert''  & $-0.56397$ \\
+        ``baltazar is picking the square \textbf{but} the square is still''  & $-0.56402$ \\
+        ``he is grasping the square \textbf{but} the cube is inert''  & $-0.56815$ \\
+        ``the robot grasps the square \textbf{but} the sphere is inert''  & $-0.57417$ \\
+        \bottomrule
+      \end{tabular}%
+    } % end resizebox
+    \end{tabular}
+    \label{tab:conjunction:but}
+  } % end subfloat
+    \caption{$10$-best list of sentences generated given two different sets of evidence.
+    In~(a) the model interprets the object movement as indicating a succesful grasp and uses the conjunction ``and''.
+    In~(b) the slow movement is interpreted as no movement at all and, therefore, as an unsuccessful grasp: for that reason, the conjunction ``but'' is used.}
+    \label{tab:conjunction}
+\end{figure*}
+
+
+\newcommand{\graspBoxGreenOne}{``the robot is grasping the box and the green box is moving''}
+\newcommand{\touchBoxGreenOne}{``the robot is poking the green square and the cube is inert''}
+\newcommand{\graspSphereGreenTwo}{``the robot picked the ball and the green ball is moving''}
+\newcommand{\touchSphereGreenTwo}{``baltazar is poking the green sphere and the sphere is still''}
+
+\newcommand{\evidenceProducingGraspBoxGreenOne}{$\xobs = \{ \text{Action=grasp, Color=green1, Shape=box} \}$}
+\newcommand{\evidenceProducingTouchBoxGreenOne}{$\xobs = \{ \text{Action=touch, Color=green1, Shape=box} \}$}
+\newcommand{\evidenceProducingGraspSphereGreenTwo}{$\xobs = \{ \text{Action=grasp, Color=green2, Shape=sphere} \}$}
+\newcommand{\evidenceProducingTouchSphereGreenTwo}{$\xobs = \{ \text{Action=touch, Color=green2, Shape=sphere} \}$}
+
+\begin{figure}
+  \centering
+  \subfloat[][\graspBoxGreenOne.]{
+    \resizebox{\linewidth}{!}{
+      \includegraphics{graspBoxGreen1-00000007}
+      \includegraphics{graspBoxGreen1-00000008}
+      \includegraphics{graspBoxGreen1-00000009}
+      \includegraphics{graspBoxGreen1-00000010}
+      \includegraphics{graspBoxGreen1-00000013}
+      \includegraphics{graspBoxGreen1-00000016}
+    } % end resizebox
+    \label{fig:descriptions:graspBoxGreenOne}
+  } % end subfloat
+
+  \subfloat[][\touchBoxGreenOne.]{
+    \resizebox{\linewidth}{!}{
+      \includegraphics{touchBoxGreen1-00000008}
+      \includegraphics{touchBoxGreen1-00000009}
+      \includegraphics{touchBoxGreen1-00000010}
+      \includegraphics{touchBoxGreen1-00000011}
+      \includegraphics{touchBoxGreen1-00000013}
+      \includegraphics{touchBoxGreen1-00000015}
+    } % end resizebox
+    \label{fig:descriptions:touchBoxGreenOne}
+  } % end subfloat
+
+  \subfloat[][\graspSphereGreenTwo.]{
+    \resizebox{\linewidth}{!}{
+      \includegraphics{graspSphereGreen2-00000007}
+      \includegraphics{graspSphereGreen2-00000008}
+      \includegraphics{graspSphereGreen2-00000009}
+      \includegraphics{graspSphereGreen2-00000011}
+      \includegraphics{graspSphereGreen2-00000013}
+      \includegraphics{graspSphereGreen2-00000015}
+    } % end resizebox
+    \label{fig:descriptions:graspSphereGreenTwo}
+  } % end subfloat
+
+  \subfloat[][\touchSphereGreenTwo.]{
+    \resizebox{\linewidth}{!}{
+      \includegraphics{touchSphereGreen2-00000006}
+      \includegraphics{touchSphereGreen2-00000007}
+      \includegraphics{touchSphereGreen2-00000008}
+      \includegraphics{touchSphereGreen2-00000010}
+      \includegraphics{touchSphereGreen2-00000011}
+      \includegraphics{touchSphereGreen2-00000012}
+    } % end resizebox
+    \label{fig:descriptions:touchSphereGreenTwo}
+  } % end subfloat
+
+  \caption{Example of descriptions generated by the model.}
+  \label{fig:descriptions}
+\end{figure}
+
+\subsection{Verbal Descriptions and Choice of Synonyms}
+\label{sec:results:verbal_descriptions}
+
+By generating and scoring natural language descriptions of what the robot observes~(see Sec.~\ref{sec:method:verbal}), we can provide evidence to the model and interpret the verbal results.
+Recall that with our method we do not add new words to the model, but merely generate human-readable descriptions using the same words that were present in the original descriptions.
+During the self-centered learning phase, the verbal descriptions of~\cite{salvi:2012:smcb} described the agent of the observed actions as either ``the~robot'', ``he'', or ``Baltazar''~(the name of the robot).
+Consequently, the \AffWords{} model learned by the robot includes those words as the initial subject.
+
+As an example, by providing the evidence \{Color=yellow, Size=big, Shape=sphere, ObjVel=fast\} to the model, we obtain the sentences reported in Table~\ref{tab:example_generated_sentences}.
+The higher the score, the better.
+In many of these sentences, we note that (i)~the correct verb related to the tap action is generated (in the initial evidence, no action information was present, only object features and effects information were), and (ii)~the object term ``ball'' or synonyms thereof~(e.g., ``sphere'') are used coherently, both in the first part of the sentence describing the action and in the second part describing the effect.
+
+\subsection{Language Phenomenon: Choice of Correct Conjunction}
+\label{sec:results:conjunction}
+
+The manipulation experiments that we consider have the following structure: an agent~(human or robot) performs a physical action onto an object with certain properties, and this object will produce a certain physical effect as a result.
+For example, a touch action on an object yields no physical movement, but a tap does~(especially if the object is spherical).
+In the language description associated to an experiment, it makes sense to measure the conjunction chosen by the model given specific evidence.
+In particular, it would be desirable to separate two kinds of behaviors: one in which the action and effect are coherent~(expected conjunction: ``and''), and the other one in which they are contradictory (``but'').
+
+Fig.~\ref{tab:conjunction} shows an example of this behavior of the model.
+We give the same action value \emph{grasp} to the model as evidence, but two different values for the final object velocity.
+When the object velocity is medium~(Fig.~\ref{tab:conjunction:and}), the model interprets this as a successful grasp and uses the conjunction ``and'' to separate the description of the action from the description of the effect.
+When the object velocity is slow~(in the clustering procedure, this was most often zero velocity), the model predicts that this is an unsuccessful grasp and uses the conjunction ``but'', instead.
+
+\subsection{Language Phenomenon: Description of Object Features}
+\label{sec:results:description_objects}
+
+In Fig.~\ref{fig:descriptions}, we show examples of verbal descriptions generated by the model given different values of observed evidence:
+\begin{itemize}
+\item \small \evidenceProducingGraspBoxGreenOne \normalsize (\ref{fig:descriptions:graspBoxGreenOne});
+
+\item \small \evidenceProducingTouchBoxGreenOne \normalsize (\ref{fig:descriptions:touchBoxGreenOne});
+
+\item \small \evidenceProducingGraspSphereGreenTwo \normalsize (\ref{fig:descriptions:graspSphereGreenTwo});
+
+\item \small \evidenceProducingTouchSphereGreenTwo \normalsize (\ref{fig:descriptions:touchSphereGreenTwo}).
+\end{itemize}
+Note that the box object in the two first examples has a dark shade of green~(affordance node Color value of Table~\ref{tab:bnsymb} clustered as:~green1), whereas the spherical one in the two last examples has a lighter shade~(Color value:~green2).
+However, the verbal descriptions reported in Fig.~\ref{fig:descriptions} all use the adjective ``green''.
+This behavior emerges from fact that the robot develops its perceptual symbols (clusters) in an early phase, and only subsequently associates them with the human vocabulary.
+We believe that this phenomenon is practical and potentially useful~(i.e., the possibility that a low-level fine-grained robot representation can be abstracted into a high-level language description, which bundles the two shades of green under the same word).
