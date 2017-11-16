@@ -22,6 +22,16 @@
   autostyle % adapt citation style to current document language
 ]{csquotes} % Context Sensitive Quotations; provides biblatex \enquote{}
 
+% fix conflict between hyperref and footmisc
+% https://tex.stackexchange.com/a/62091
+\usepackage{hyperref}
+\let\oldFootnote\footnote
+\newcommand\nextToken\relax
+\renewcommand\footnote[1]{%
+    \oldFootnote{#1}\futurelet\nextToken\isFootnote}
+\newcommand\isFootnote{%
+    \ifx\footnote\nextToken\textsuperscript{,}\fi}
+
 \usepackage[nolist]{acronym}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -30,7 +40,6 @@
 \usepackage{graphicx}
 \newcommand{\myWidth}{0.16} % used in various figures involving photos
 \usepackage[multiple]{footmisc} % multiple footnote at the same point
-\usepackage{hyperref}
 \usepackage{siunitx}
 \usepackage{subfig}
 \usepackage{tabularx}
@@ -45,7 +54,6 @@
 \tikzstyle{every path}=[very thick]
 \usetikzlibrary{arrows}
 
-%\usepackage{hyperref}
 \usepackage[update,prepend]{epstopdf}
 \graphicspath{{figures/}{bios/}}
 
