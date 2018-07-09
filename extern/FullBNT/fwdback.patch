@@ -1,0 +1,20 @@
+--- fwdback.m.bak	2018-07-09 18:46:04.869918155 +0100
++++ fwdback.m	2018-07-09 18:46:46.225545454 +0100
+@@ -102,7 +102,7 @@
+  %[alpha(:,t), scale(t)] = normaliseC(alpha(:,t));
+  [alpha(:,t), scale(t)] = normalise(alpha(:,t));
+ end
+-assert(approxeq(sum(alpha(:,t)),1))
++%assert(approxeq(sum(alpha(:,t)),1))
+ for t=2:T
+  %trans = transmat(:,:,act(t-1))';
+  trans = transmat{act(t-1)};
+@@ -122,7 +122,7 @@
+    %xi(:,:,t-1) = normaliseC((alpha(:,t-1) * obslik(:,t)') .* trans);
+    xi_summed = xi_summed + normalise((alpha(:,t-1) * obslik(:,t)') .* trans);
+  end
+- assert(approxeq(sum(alpha(:,t)),1))
++ %assert(approxeq(sum(alpha(:,t)),1))
+ end
+ if scaled
+  if any(scale==0)
