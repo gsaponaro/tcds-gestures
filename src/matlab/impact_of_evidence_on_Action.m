@@ -188,18 +188,29 @@ if create_figures
 %     print('-depsc', 'impact_of_soft_evidence.eps');
 
     % giampiero: alternative figure
-    figure
+    figure;
     b3 = bar([pbn1 pbn2 pbn3 pbn4 pbn5 pbn6 pbn7 pbn8]');
+
+    hold on;
+    
+    color1 = [0.21 0.17 0.53]; % dark blue
+    color2 = [0.2  0.72 0.63]; % greenish blue
+    color3 = [0.98 0.98 0.05]; % yellowish
+    b3(1).FaceColor = color1;
+    b3(2).FaceColor = color2;
+    b3(3).FaceColor = color3;
     xlabel('Evidence', 'FontSize',fontsize);
     set(gca, 'xticklabels', {'uniform', '[0.3 0.4 0.3]', '[0.25 0.5 0.25]', ...
-        '[0.2 0.6 0.2]', '[0.2 0.7 0.2]', '[0.1 0.8 0.1]', '[0.05 0.9 0.05]', ...
+        '[0.2 0.6 0.2]', '[0.15 0.7 0.15]', '[0.1 0.8 0.1]', '[0.05 0.9 0.05]', ...
         '[0 1 0]'});
     xlabel('$P_{\rm{HMM}}(A \mid G_1^T)$ [grasp tap touch]', 'Interpreter','latex', 'FontSize',fontsize);
     xtickangle(45);
     ylabel('$P_{\rm{comb}}(A \mid X_{\rm{obs}}, G_1^T)$', 'Interpreter','latex', 'FontSize',fontsize);
     ylim([0, 1.0]);
     l = legend(b3, 'grasp', 'tap', 'touch');
+    %l = legend('grasp', 'tap', 'touch');
+    %legend('show');
     set(l, 'Location','northwest');
 
     print('-depsc', 'impact_of_evidence_on_Action.eps');
-end;
+end
