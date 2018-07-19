@@ -20,6 +20,7 @@ gsaponaro*.log
 *.fot
 *.cb
 *.cb2
+gsaponaro-diff.*
 
 ## Intermediate documents:
 *.dvi
