@@ -48,8 +48,6 @@ Situations are described by humans with variability:
 \subsection{Gesture Recognition}
 \label{sec:experimental_settings:gesture_recognition}
 In this work, we consider three independent, multiple-state \aclp{HMM}, each of them trained to recognize one of the considered manipulation gestures of  Fig.~\ref{fig:action_examples}.
-The 3D coordinates of the human limbs and torso used to extract the input to the gesture recognizer are obtained with a commodity depth sensor~(Kinect).
-
-Currently, our gesture recognition algorithm relies on human skeleton tracking software from a depth stream.
+The 3D coordinates of the human limbs and torso used to extract the input to the gesture recognizer are obtained with a commodity depth sensor~(Kinect)\footnote{Currently, our gesture recognition algorithm relies on human skeleton tracking software from a depth stream.
 In our experience, the hand tracking is not reliable in the presence of a tabletop~(i.e., partially occluded human) as in Fig.~\ref{fig:action_examples}, so we record the same gestures twice, with and without the table: the latter is used for ensuring the robustness of the estimated hand coordinate, the former is used throughout the rest of our model and experiments.
-We plan to overcome this limitation in future work.
+We plan to overcome this limitation in future work.}.
