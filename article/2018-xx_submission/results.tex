@@ -69,7 +69,7 @@ We present the following types of results:
 \label{sec:results:inference_actions}
 
 In Fig.~\ref{fig:impact_of_evidence_on_Action} we show the interaction between the \AffWords{} model and the gesture recognition model when they bring conflicting information.
-In the scene, we observe a small ball that after the action has a low velocity~(which, in terms of clusters of affordance variables, often corresponds to zero velocity).
+In the scene, we observe a small ball which, after the manipulative action, shows a low velocity.
 Based on the evidence, the affordance model gives the highest probability $\pbn(A \given \xobs)$ to the action \emph{touch}, which usually does not result in any movement of the object.
 However, in this particular simulated situation, we assume that the action performed by the human was an (unsuccessful) \emph{tap}, that is, a tap that does not result in any movement for the object.
 In the simulation we show the effect of augmenting the inference with information from a gesture recognizer, that is, computing $\pcomb(A \given \xobs,G_1^T)$.
@@ -297,7 +297,7 @@ In particular, it would be desirable to separate two kinds of behaviors: one in 
 Fig.~\ref{tab:conjunction} shows an example of this behavior of the model.
 We give the same action value \emph{grasp} to the model as evidence, but two different values for the final object velocity.
 When the object velocity is medium~(Fig.~\ref{tab:conjunction:and}), the model interprets this as a successful grasp and uses the conjunction ``and'' to separate the description of the action from the description of the effect.
-When the object velocity is slow~(in the clustering procedure, this was most often zero velocity), the model predicts that this is an unsuccessful grasp and uses the conjunction ``but'', instead.
+When the object velocity is slow~(in the clustering procedure, the velocity was most often zero in those cases), the model predicts that this is an unsuccessful grasp and uses the conjunction ``but'', instead.
 
 \subsection{Language Phenomenon: Description of Object Features}
 \label{sec:results:description_objects}
