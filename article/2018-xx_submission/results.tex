@@ -13,12 +13,12 @@
 In this section, we report the experimental findings obtained with our proposed model.
 Because it is based on \aclp{BN}, the model can make inferences over any set of its variables~$\xinf$, given any other set of observed variables~$\xobs$.
 In particular, the model can do reasoning on the elements that constitute our computational concept of affordances, i.e., Action, Object Features, Effects in Fig.~\ref{fig:model}.
-Furthermore, it can do reasoning over word nodes.
+Furthermore, it can do reasoning over words.
 We present the following types of results:
 \begin{itemize}
-  \item inferences over affordance variables~(i.e., the entries of Table~\ref{tab:bnsymb} except the last row therein) in Sec.~\ref{sec:results:inference_actions}, \ref{sec:results:inference_effects}, \ref{sec:results:anticipation_effects};
+  \item inferences over affordance variables~(see Table~\ref{tab:bnsymb}) in Sec.~\ref{sec:results:inference_actions}, \ref{sec:results:inference_effects}, \ref{sec:results:anticipation_effects};
 
-  \item predictions of word probabilities~(i.e., the last row of Table~\ref{tab:bnsymb}) in Sec.~\ref{sec:results:prediction_words};
+  \item predictions of word probabilities in Sec.~\ref{sec:results:prediction_words};
 
   \item verbal descriptions generated from the word probabilities of the previous point, according to a formal grammar. The descriptions, in turn, can be interpreted to observe the emergence of certain language phenomena: Sec.~\ref{sec:results:verbal_descriptions}, \ref{sec:results:conjunction}, \ref{sec:results:description_objects}.
 \end{itemize}
@@ -138,7 +138,7 @@ Finally, the captions in the figure also show the verbal description~(see Sec.~\
 \subsection{Prediction of Word Probabilities}
 \label{sec:results:prediction_words}
 
-Our model permits to make predictions over the word nodes associated to affordance evidence (see Table~\ref{tab:bnsymb}, last row).
+Our model permits to make predictions over the word variables associated to affordance evidence.
 In Fig.~\ref{fig:probdiff} we show the variation in word occurrence probabilities between two cases:
 \begin{enumerate}
 \item when the robot's prior knowledge evidence consists of information about object features and effects only: \{Size=big, Shape=sphere, ObjVel=fast\};

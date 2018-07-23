@@ -80,7 +80,7 @@ Details on the specific variables used in this study are given in Sec.~\ref{sec:
 The \ac{BN} model relates all these variables by means of the joint probability distribution~$\pbn(A, F, E, W)$, sketched by the \AffWords{} model box in Fig.~\ref{fig:model}.
 The dependency structure and the model parameters are estimated by the robot in an ego-centric way through interaction with the environment.
 As a consequence, during learning, the robot knows what action it is performing with certainty, and the variable~$A$ assumes a deterministic value.
-During inference, the probability distribution on the variable~$A$ can be inferred from evidence on the other nodes.
+During inference, the probability distribution on the variable~$A$ can be inferred from evidence on the other variables.
 For example, if the robot is asked to make a spherical object roll, it will be able to select the action tap as most likely to obtain the desired effect, based on previous experience.
 
 \newcommand{\myscalefactor}{0.8}
@@ -127,7 +127,7 @@ For example, if the robot is asked to make a spherical object roll, it will be a
 \label{sec:gesture_recognition}
 When observing a human performing actions, the value of the action variable~$A$ is not known to the robot neither during learning nor during inference.
 During learning, we assume that the robot has not yet acquired a perceptual model of the gestures associated to the human actions.
-The value of~$A$ can, however, be inferred either from a verbal description of the scene or from the other affordance nodes through the \AffWords{} model described earlier.
+The value of~$A$ can, however, be inferred either from a verbal description of the scene or from the other affordance variables through the \AffWords{} model described earlier.
 
 For example the \AffWords{} model predicts that performing a tap action on a spherical object will result in high velocity of the object.
 If the human performs an unknown action on a spherical object and obtains a high velocity, the robot will be able to infer that the action is most probably a tap, although it was not able to recognize the gesture associated with this action.
