@@ -49,11 +49,11 @@
 \label{sec:method}
 
 The purpose of our work is to model the development of language learning from a first, self-centered, individualistic phase to a second, socially aware phase.
-In the first phase the system learns by manipulating objects in its environment in a similar way as in~\cite{salvi:2012:smcb}.
+In the first phase the system learns by manipulating objects in its environment~\cite{salvi:2012:smcb}.
 In this phase, it learns to associate spoken descriptions to the combination of its actions, object properties and effects, thus grounding the meaning of words in what we call affordances.
 In the second phase, the system turns to observing human actions of a similar nature as the ones explored in the first phase (see examples in Fig.~\ref{fig:action_examples}).
 The robot reuses the experience acquired in the first phase to interpret the new observations and to address the correspondence problem between its own actions and the actions performed by the human.
-In this phase human movements are interpreted and classified with similar methods as in~\cite{saponaro:2013:crhri}.
+In this phase human movements are interpreted and classified according to our statistical gesture recognizer~\cite{saponaro:2013:crhri}.
 
 Fig.~\ref{fig:model} illustrates the probabilistic dependencies in the complete model and will be detailed in the following subsections.
 The key to our approach is the existence of the discrete variable Action, the value of which is known to the robot in the ego-centric phase of learning, but must be inferred from observation in the social phase.
@@ -132,7 +132,7 @@ The value of~$A$ can, however, be inferred either from a verbal description of t
 For example the \AffWords{} model predicts that performing a tap action on a spherical object will result in high velocity of the object.
 If the human performs an unknown action on a spherical object and obtains a high velocity, the robot will be able to infer that the action is most probably a tap, although it was not able to recognize the gesture associated with this action.
 
-This information can be used to train a \emph{gesture recognition system} similar to the one in~\cite{saponaro:2013:crhri}.
+This information can be used to train our statistical \emph{gesture recognition system}~\cite{saponaro:2013:crhri}.
 The system recognizes actions~(from gesture features) and corresponds to the Gesture/Action recognition block in Fig.~\ref{fig:model}.
 It is based on \acp{HMM} with Gaussian mixture models as emission probability distributions.
 Our input features are the~3D coordinates of the tracked human hand indicated by the~$g_i$ variables in Fig.~\ref{fig:model}.
