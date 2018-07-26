@@ -203,13 +203,13 @@ This time, we first need to use the \ac{BN} to do inference on the variables~$\x
 \subsection{Generation and Scoring of Verbal Descriptions}
 \label{sec:method:verbal}
 
-In order to illustrate the language capabilities of the model, rather than displying the probability distribution of the words inferred by the model, we use the \ac{CFG} described in Appendix~\ref{appendix:grammar} to generate written descriptions of the robot observations on the basis of those probabilities.
+In order to illustrate the language capabilities of the model, rather than displaying the probability distribution of the words inferred by the model, we use the \ac{CFG} described in Appendix~\ref{appendix:grammar} to generate written descriptions of the robot observations on the basis of those probabilities.
 Note that this grammar is defined here with the only purpose to interpret the probability distributions over the words.
 In the \AffWords{} model that we use, the speech recognizer is based on a free loop of words with uniform prior, and the Bayesian model relies on a bag-of-words assumption.
 No grammatical (syntactic) information about the spoken descriptions was, therefore, used during learning.
 
 In the current study, by merging the \AffWords{} model and the gesture recognition model, we allow the robot to \emph{reinterpret} the concepts it has learned in the self-centered phase, but we do not add any new words to the model.
-Consequently, the descriptions that the model generates when observing humans use the same words to describe the agent (See also Section~\ref{sec:results:verbal_descriptions}).
+Consequently, the descriptions that the model generates when observing humans use the same words to describe the agent (see also Sec.~\ref{sec:results:verbal_descriptions}).
 
 The textual descriptions are generated as follows: given some evidence~$\xobs$ that we provide to the model and some human observation features~$G_1^t$ extracted from frames~$1$ to~$t$, we extract the generated word probabilities
 $P(w_i \given \xobs, G_1^t)$.

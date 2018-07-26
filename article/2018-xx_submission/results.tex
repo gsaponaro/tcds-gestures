@@ -278,15 +278,15 @@ In this result, we notice two facts: (i)~the probabilities of words related to t
 \label{sec:results:verbal_descriptions}
 
 By generating and scoring natural language descriptions of what the robot observes~(see Sec.~\ref{sec:method:verbal}), we can provide evidence to the model and interpret the verbal results.
-Recall that with our method we do not add new words to the model, when we observe the human perform actions.
-Rather, the human-readable descriptions we generate, are based on the same words that were present in the self-centered learning phase.
-In this phase, the verbal descriptions described the agent of the observed actions as either ``the~robot'', ``he'', or ``Baltazar''~(the name of the robot).
+Recall that, with our method, we do not add new words to the model when we observe the human performing actions.
+Rather, the human-readable descriptions that we generate are based on the same words that were present in the self-centered learning phase.
+In this phase, the verbal descriptions described the agent of the observed actions is either ``the~robot'', ``he'', or ``Baltazar''~(the name of the robot).
 Consequently, the \AffWords{} model learned by the robot includes those words as the subject of the action.
 
 As an example, by providing the evidence \{Color=yellow, Size=big, Shape=sphere, ObjVel=fast\} to the model, we obtain the sentences reported in Table~\ref{tab:example_generated_sentences}.
 The higher the score, the better.
 In many of these sentences, we note that (i)~the correct verb related to the tap action is generated (in the initial evidence, no action information was present, only object features and effects information were), and (ii)~the object term ``ball'' or synonyms thereof~(e.g., ``sphere'') are used coherently, both in the first part of the sentence describing the action and in the second part describing the effect.
-The fact that different synonyms may be used in the same sentence, is simply a consequence of the random generation of sentences described in Section~\ref{sec:method:verbal}, and of the fact that usually synonyms are assigned similar (but not necessarily equal) probabilities by the model, given the same evidence.
+The fact that different synonyms may be used in the same sentence is simply a consequence of the random generation of sentences, described in Sec.~\ref{sec:method:verbal}, and of the fact that usually synonyms are assigned similar (but not necessarily equal) probabilities by the model, given the same evidence.
 
 \subsection{Language Phenomenon: Choice of Correct Conjunction}
 \label{sec:results:conjunction}
