@@ -56,7 +56,7 @@ The robot reuses the experience acquired in the first phase to interpret the new
 In this phase human movements are interpreted and classified according to our statistical gesture recognizer~\cite{saponaro:2013:crhri}.
 
 Fig.~\ref{fig:model} illustrates the probabilistic dependencies in the complete model and will be detailed in the following subsections.
-The key to our approach is the existence of the discrete variable Action, the value of which is known to the robot in the ego-centric phase of learning, but must be inferred from observation in the social phase.
+In our implementation, we hinge on the existence of the discrete variable Action, the value of which is known to the robot in the ego-centric phase of learning, but must be inferred from observation in the social phase.
 In the social phase, this variable links all the other observable variables, that is, human gesture features, object properties, effect variables and words.
 This allows the robot to:
 \begin{itemize}
