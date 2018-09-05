@@ -87,12 +87,6 @@ As a consequence, during learning, the robot knows what action it is performing 
 During inference, the probability distribution on the variable~$A$ can be inferred from evidence on the other variables.
 For example, if the robot is asked to make a spherical object roll, it will be able to select the action tap as most likely to obtain the desired effect, based on previous experience.
 
-In terms of \emph{scalability}, note that our \ac{BN} model is data-driven.
-In particular, the method that estimates the dependency structure is sensitive to biases in the data.
-In order to avoid misconceptions, the robot needs to explore any possible situation that may occur.
-For example, if the robot only observes blue spheres rolling, it might infer that it is the color that makes the object roll rather than the shape.
-Then, in order to scale the method, it would be necessary to scale the amount of data considerably, similarly to what is typically used in deep learning, however this is usually not possible in robotic applications.
-
 \newcommand{\myscalefactor}{0.8}
 
 \newcommand{\shapeOfHmmState}{circle} % CR-HRI style
