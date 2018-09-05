@@ -68,8 +68,10 @@ We present the following types of results:
 \subsection{Action Recognition}
 \label{sec:results:inference_actions}
 
-In this experiment, we show how our approach permits to do inference over the Action information.
-Particularly, because both the \AffWords{} model and the gesture recognition model can each contribute to the inference under consideration, we show how it is possible to perform it in a joint way, including dealing with information with different degrees of confidence, or conflicting information.
+In this experiment, we test the ability of our approach to recognize actions.
+Both the \AffWords{} model and the gesture recognition model can each perform inference of the Action variable individually: the former by using the variables of Tab.~\ref{tab:bnsymb}, the latter by using human gesture features.
+We show how our method performs the inference over Action in a joint way.
+This includes dealing with information with different degrees of confidence, or conflicting information.
 
 The scene of Fig.~\ref{fig:impact_of_evidence_on_Action} contains a small ball which, after the manipulative action, exhibits a low velocity.
 Based on the evidence, the affordance model gives the highest probability $\pbn(A \given \xobs)$ to the action \emph{touch}, which usually does not result in any movement of the object.
