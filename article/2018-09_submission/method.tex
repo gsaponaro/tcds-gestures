@@ -48,16 +48,20 @@
 \section{Method}
 \label{sec:method}
 
-The purpose of our work is to model the development of language learning from a first, self-centered, individualistic phase to a second, socially aware phase.
-In the first phase the system learns by manipulating objects in its environment~\cite{salvi:2012:smcb}.
-In this phase, it learns to associate spoken descriptions to the combination of its actions, object properties and effects, thus grounding the meaning of words in what we call affordances.
-In the second phase, the system turns to observing human actions of a similar nature as the ones explored in the first phase (see examples in Fig.~\ref{fig:action_examples}).
-The robot reuses the experience acquired in the first phase to interpret the new observations and to address the correspondence problem between its own actions and the actions performed by the human.
-In this phase human movements are interpreted and classified according to our statistical gesture recognizer~\cite{saponaro:2013:crhri}.
+The purpose of our work is to model the development of language learning from self-centered, individualistic learning to socially aware learning.
+This transition happens gradually in subsequent phases.
+In the first phase the system engages in manipulation activities with objects in its environment~\cite{montesano:2008}.
+The robot learns object affordances by associating object properties, actions and the corresponding effects.
+In a second phase, the robot interacts with a human who uses spoken language to describe the robot's activities~\cite{salvi:2012:smcb}.
+Here the robot interprets the meaning of the words, grounding them in the action/perception experience acquired so far.
+Although this phase can already be considered \emph{social} for the presence of a human \emph{narrator}, it is still self-centered, because the robot is still learning how to interpret its own actions.
+In the last phase, which is the contribution of this work, the system turns to observing human actions of a similar nature as the ones explored in the first phases (see examples in Fig.~\ref{fig:action_examples}).
+The robot reuses the experience acquired in the first phases to interpret the new observations and to address the correspondence problem between its own actions and the actions performed by the human.
+In this phase human movements are interpreted using the experience acquired so far, and incorporated into the model using a statistical gesture recognizer similar to~\cite{saponaro:2013:crhri}.
 
 Fig.~\ref{fig:model} illustrates the probabilistic dependencies in the complete model and will be detailed in the following subsections.
-In our implementation, we hinge on the existence of the discrete variable Action, the value of which is known to the robot in the ego-centric phase of learning, but must be inferred from observation in the social phase.
-In the social phase, this variable links all the other observable variables, that is, human gesture features, object properties, effect variables and words.
+In our implementation, we hinge on the existence of the discrete variable Action, the value of which is known to the robot in the ego-centric phase of learning, but must be inferred when observing humans actions.
+This variable links all the other observable variables in the model, that is, human gesture features, object properties, effect variables and words.
 This allows the robot to:
 \begin{itemize}
 \item use language in order to determine the mapping between human and own actions, and learn the corresponding perceptual models;
