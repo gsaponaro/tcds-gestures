@@ -60,7 +60,7 @@ The robot reuses the experience acquired in the first phases to interpret the ne
 In this phase human movements are interpreted using the experience acquired so far, and incorporated into the model using a statistical gesture recognizer similar to~\cite{saponaro:2013:crhri}.
 
 Fig.~\ref{fig:model} illustrates the probabilistic dependencies in the complete model and will be detailed in the following subsections.
-In our implementation, we hinge on the existence of the discrete variable Action, the value of which is known to the robot in the ego-centric phase of learning, but must be inferred when observing humans actions.
+In our implementation, we hinge on the existence of the discrete variable Action, the value of which is known to the robot in the ego-centric phase of learning, but must be inferred when observing human actions.
 This variable links all the other observable variables in the model, that is, human gesture features, object properties, effect variables and words.
 This allows the robot to:
 \begin{itemize}
