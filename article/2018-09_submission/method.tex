@@ -57,7 +57,7 @@ Here the robot interprets the meaning of the words, grounding them in the action
 Although this phase can already be considered \emph{social} for the presence of a human \emph{narrator}, it is still self-centered, because the robot is still learning how to interpret its own actions.
 In the last phase, which is the contribution of this work, the system turns to observing human actions of a similar nature as the ones explored in the first phases (see examples in Fig.~\ref{fig:action_examples}).
 The robot reuses the experience acquired in the first phases to interpret the new observations and to address the correspondence problem between its own actions and the actions performed by the human.
-In this phase human movements are interpreted using the experience acquired so far, and incorporated into the model using a statistical gesture recognizer similar to~\cite{saponaro:2013:crhri}.
+In this phase human movements are interpreted using the experience acquired so far, and incorporated into the model using a statistical gesture recognizer~\cite{saponaro:2013:crhri}.
 
 Fig.~\ref{fig:model} illustrates the probabilistic dependencies in the complete model and will be detailed in the following subsections.
 In our implementation, we hinge on the existence of the discrete variable Action, the value of which is known to the robot in the ego-centric phase of learning, but must be inferred when observing human actions.
