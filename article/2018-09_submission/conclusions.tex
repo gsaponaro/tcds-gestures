@@ -24,9 +24,6 @@ For example, if the robot only observes blue spheres rolling, it might infer tha
 In order to scale the method to larger number of concepts, it would be necessary to scale the amount of data considerably, similarly to what is typically done in deep learning.
 In models of developmental robotics, where this is neither practically feasible, nor desirable, we would need to devise methods that can generalize more efficiently from very few observations.
 
-
 As future work, it would be useful to investigate how the model can extract syntactic information from the observed data autonomously, thus relaxing the bag-of-words assumption in the current model.
 Another line of research would be to study how the model can guide the discovery of new acoustic patterns~(e.g., \cite{falstrom:2017:glu, vanhainen2014:icassp, vanhainen:2012:interspeech}), and how to incorporate the newly discovered symbols into our \AffWords{} model.
 This would release our current assumption of a pre-defined set of words.
-% In the gesture recognition part, we plan to overcome the limitation of enforcing the human to be fully visible~(we currently remove the tabletop to prevent occlusions and performance drops in the human hand~3D estimation, see Sec.~\ref{sec:experimental_settings:gesture_recognition}).
-% One avenue for this is to run the robust~2D human joint estimator OpenPose with the color cameras of the robot~\cite{cao:2017:openpose-cpvr}, transform the hand coordinates to~3D with existing robot vision software~\cite{roncone:2016:rss}, then feed the resulting gesture features to the recognizer.

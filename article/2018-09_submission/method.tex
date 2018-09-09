@@ -93,8 +93,7 @@ For example, if the robot is asked to make a spherical object roll, it will be a
 
 \newcommand{\myscalefactor}{0.8}
 
-\newcommand{\shapeOfHmmState}{circle} % CR-HRI style
-%\newcommand{\shapeOfHmmState}{rectangle} % Bishop style?
+\newcommand{\shapeOfHmmState}{circle}
 
 \newcommand{\standardhmm}[1]{
     \node[draw,\shapeOfHmmState] (hmm#1s1) {$s_1$};
@@ -123,13 +122,6 @@ For example, if the robot is asked to make a spherical object roll, it will be a
   };
   \end{tikzpicture}
 }
-
-%\begin{figure}
-%  \centering
-%  \modeltwo
-%  \caption{Structure of the \acp{HMM} used for human gesture recognition, adapted from~\cite{saponaro:2013:crhri}. In this work, we consider three independent, multiple-state \acp{HMM}, each of them trained to recognize one of the considered manipulation gestures of Figs.~\ref{fig:action_examples:grasp}, \ref{fig:action_examples:tap}, \ref{fig:action_examples:touch} respectively.}
-%  \label{fig:hmms}
-%\end{figure}
 
 \subsection{Gesture Recognition}
 \label{sec:gesture_recognition}
