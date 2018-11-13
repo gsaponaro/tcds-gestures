@@ -13,7 +13,11 @@ load('BN_lab.mat');
 
 %% user parameters
 create_figures = true;
+
 fontsize = 14;
+color1 = [0.21 0.17 0.53]; % dark blue
+color2 = [0.2  0.72 0.63]; % greenish blue
+color3 = [0.98 0.98 0.05]; % yellowish
 
 %% Figure 3
 % Inference over action given the evidence
@@ -125,9 +129,6 @@ if create_figures
 
     hold on;
     
-    color1 = [0.21 0.17 0.53]; % dark blue
-    color2 = [0.2  0.72 0.63]; % greenish blue
-    color3 = [0.98 0.98 0.05]; % yellowish
     b3(1).FaceColor = color1;
     b3(2).FaceColor = color2;
     b3(3).FaceColor = color3;
@@ -185,6 +186,9 @@ end
 if create_figures
     figure;
     b = bar(p');
+    b(1).FaceColor = color1;
+    b(2).FaceColor = color2;
+    b(3).FaceColor = color3;
     xlabel('$P_{\rm{HMM}}(A \mid G_1^T)$ [grasp tap touch]', 'Interpreter','latex', 'FontSize',fontsize);
     set(gca, 'xticklabels', {'none', mat2str(ev(1,:)), mat2str(ev(2,:)), mat2str(ev(3,:)), ...
         mat2str(ev(4,:)), mat2str(ev(5,:))});
@@ -224,6 +228,9 @@ end
 if create_figures
     figure;
     b = bar(p');
+    b(1).FaceColor = color1;
+    b(2).FaceColor = color2;
+    b(3).FaceColor = color3;
     %xlabel('Action Evidence [grasp tap touch]', 'FontSize',fontsize);
     xlabel('$P_{\rm{HMM}}(A \mid G_1^T)$ [grasp tap touch]', 'Interpreter','latex', 'FontSize',fontsize);
     set(gca, 'xticklabels', {'none', mat2str(ev(1,:)), mat2str(ev(2,:)), mat2str(ev(3,:)), mat2str(ev(4,:)), ...
