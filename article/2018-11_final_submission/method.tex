@@ -1,0 +1,222 @@
+%!TEX encoding = UTF-8 Unicode
+
+\begin{figure}
+  \tikzstyle{affnode} = [ellipse, draw, thick]
+  \tikzstyle{wordnode} = [ellipse, draw, thick]
+  \tikzstyle{group} = [rectangle, draw, black, thick]
+  \tikzstyle{dashedgroup} = [rectangle, draw, inner sep=0.6cm, dashed, rounded corners, black]
+  \tikzstyle{dottedgrouptrapezium} = [trapezium, draw, dotted, rounded corners, black]
+  \tikzstyle{affarrow} = [->, thick, >=stealth']
+    \centering
+    \begin{tikzpicture}
+      % single nodes
+      \node[affnode] (g1) {$g_1$};
+      \node[affnode, right of=g1] (g2) {$g_2$};
+      \node[right of=g2] (gdots) {$\dots$};
+      \node[group, fit=(g1) (g2) (gdots),label=above:Gesture Features] (gestures) {};
+      \node[affnode, below of=gestures] (actions) [below=1cm] {Actions};
+      \node[affnode, right of=actions] (f1) [right=1.6cm] {$f_1$};
+      \node[affnode, right of=f1] (f2) {$f_2$};
+      \node[right of=f2] (fdots) {$\dots$};
+      \node[affnode, below of=f1] (e2) [below=0.7cm] {$e_2$};
+      \node[affnode, left of=e2] (e1) {$e_1$};
+      \node[right of=e2] (edots) {$\dots$};
+      \node[wordnode, below of=e1] (w1)  [below=0.7cm] {$w_1$};
+      \node[wordnode, right of=w1] (w2) {$w_2$};
+      \node[right of=w2] (wdots) {$\dots$};
+      % groups
+      \node[group, fit=(f1) (f2) (fdots),label=above:Object Features] (features) {};
+      \node[group, fit=(e1) (e2) (edots),label=above:Effects] (effects) {};
+      \node[group, fit=(w1) (w2) (wdots),label=above:Words] (words) {};
+      \node[dashedgroup, fit=(actions) (features) (effects) (words),label={[shift={(0:2.2)}]above:\AffWords{} model}]{};
+      % arrows
+      \draw[affarrow] (actions) -- ([xshift=-30pt]effects.north);
+      \draw[affarrow] (actions) to [out=260,in=150] (words.west);
+      \draw[affarrow] (features) -- ([xshift=20pt]effects.north);
+      \draw[affarrow] ([xshift=20pt]features.south) to [out=280,in=30] (words.east);
+      \draw[affarrow] ([xshift=30pt]effects.south) -- ([xshift=30pt]words.north);
+      % extra
+      \draw[affarrow] (actions) -- (gestures);
+      \node[dashedgroup, fit=(actions) (gestures),label=above:Gesture/Action recognition]{};
+    \end{tikzpicture}
+  \caption{Abstract representation of the probabilistic dependencies in the model.}
+    \label{fig:model}
+\end{figure}
+
+\vspace{-3mm}
+
+\section{Method}
+\label{sec:method}
+
+The purpose of our work is to model the development of language learning from self-centered, individualistic learning to socially aware learning.
+This transition happens gradually in subsequent phases.
+In the first phase the system engages in manipulation activities with objects in its environment~\cite{montesano:2008}.
+The robot learns object affordances by associating object properties, actions and the corresponding effects.
+In a second phase, the robot interacts with a human who uses spoken language to describe the robot's activities~\cite{salvi:2012:smcb}.
+Here the robot interprets the meaning of the words, grounding them in the action/perception experience acquired so far.
+Although this phase can already be considered \emph{social} for the presence of a human \emph{narrator}, it is still self-centered, because the robot is still learning how to interpret its own actions.
+In the last phase, which is the contribution of this work, the system turns to observing human actions of a similar nature as the ones explored in the first phases (see examples in Fig.~\ref{fig:action_examples}).
+The robot reuses the experience acquired in the first phases to interpret the new observations and to address the correspondence problem between its own actions and the actions performed by the human.
+In this phase human movements are interpreted using the experience acquired so far, and incorporated into the model using a statistical gesture recognizer~\cite{saponaro:2013:crhri}.
+
+Fig.~\ref{fig:model} illustrates the probabilistic dependencies in the complete model and will be detailed in the following subsections.
+
+To permit the transfer from robot self-centered knowledge to human knowledge to work, we assume that the \emph{same actions}, performed on objects with the \emph{same properties}, cause the \emph{same effects} and are described by the \emph{same words}.
+In other terms, all of the variables under consideration~(which will be described in Sec.~\ref{sec:experimental_settings}) are the link between robot and human.
+
+In our theoretical formulation and in our implementation, we will hinge on the existence of the discrete Action variable, the value of which is known to the robot in the ego-centric phase of learning, but must be inferred when observing human actions.
+This variable connects all the other observable variables in the model, that is, human gesture features, object properties, effect variables and words.
+This allows the robot to:
+\begin{itemize}
+\item use language in order to determine the mapping between human and own actions, and learn the corresponding perceptual models;
+
+\item in many cases, use the affordance variables to infer the above mapping even in the absence of verbal descriptions;
+
+\item once the perceptual models for human actions are acquired, use the complete model to do inference on any variable given some evidence.
+\end{itemize}
+In the remainder of this section, first we provide details, in Sec.~\ref{sec:bn}, about the probabilistic models enclosed in the \emph{\AffWords{} model} box of Fig.~\ref{fig:model}.
+Then, in Sec.~\ref{sec:gesture_recognition} we describe the gesture recognition method.
+Finally, in Sec.~\ref{sec:combination} we describe the way in which we combine evidence from the two models.
+
+\subsection{\AffWords{} Model}
+\label{sec:bn}
+We use a Bayesian probabilistic framework to allow a robot to ground the basic world behavior and verbal descriptions associated to it.
+All variables in the model are discrete or are discretized from continuous sensory variables through clustering in a preliminary learning phase.
+The variables can be divided according to their use: action variable~$A = \{a\}$, object feature variables~$F=\{f_1, f_2, \dots\}$, effect variables~$E=\{e_1, e_2, \dots\}$ and word variables~$W = \{w_1, w_2, \dots\}$.
+Details on the specific variables used in this study are given in Sec.~\ref{sec:experimental_settings}.
+
+The \ac{BN} model relates all these variables by means of the joint probability distribution~$\pbn(A, F, E, W)$, sketched by the \AffWords{} model box in Fig.~\ref{fig:model}.
+The dependency structure and the model parameters are estimated by the robot in an ego-centric way through interaction with the environment.
+As a consequence, during learning, the robot knows what action it is performing with certainty, and the variable~$A$ assumes a deterministic value.
+During inference, the probability distribution on the variable~$A$ can be inferred from evidence on the other variables.
+For example, if the robot is asked to make a spherical object roll, it will be able to select the action tap as most likely to obtain the desired effect, based on previous experience.
+
+\newcommand{\myscalefactor}{0.8}
+
+\newcommand{\shapeOfHmmState}{circle}
+
+\newcommand{\standardhmm}[1]{
+    \node[draw,\shapeOfHmmState] (hmm#1s1) {$s_1$};
+    \node[draw,\shapeOfHmmState, right of=hmm#1s1] (hmm#1s2) {$s_2$};
+    \node[\shapeOfHmmState, right of=hmm#1s2] (hmm#1s3) {\dots};
+    \node[draw,\shapeOfHmmState, right of=hmm#1s3] (hmm#1s4) {$s_Q$};
+    \node[left of=hmm#1s1]  (invisible1) {};
+    \node[right of=hmm#1s4] (invisible2) {};
+    \path[->] (hmm#1s1) edge (hmm#1s2);
+    \path[loop above] (hmm#1s1) edge (hmm#1s1);
+    \path[->] (hmm#1s2) edge (hmm#1s3);
+    \path[loop above] (hmm#1s2) edge (hmm#1s2);
+    \path[dashed] (hmm#1s2) -- (hmm#1s3);
+    \path[->] (hmm#1s3) edge (hmm#1s4);
+    \path[loop above] (hmm#1s4) edge (hmm#1s4);
+    \path[->] (invisible1) edge (hmm#1s1);
+    \path[->] (hmm#1s4) edge (invisible2);
+}
+
+\newcommand{\modeltwo}{
+  \begin{tikzpicture}[scale=\myscalefactor, every node/.style={scale=\myscalefactor}]
+  \matrix (M) [matrix of nodes, ampersand replacement=\&] {%
+    grasp gesture HMM \& \standardhmm{1} \\
+    tap gesture HMM \& \standardhmm{2} \\
+    touch gesture HMM \& \standardhmm{3} \\
+  };
+  \end{tikzpicture}
+}
+
+\subsection{Gesture Recognition}
+\label{sec:gesture_recognition}
+When observing a human performing actions, the value of the action variable~$A$ is not known to the robot neither during learning nor during inference.
+During learning, we assume that the robot has not yet acquired a perceptual model of the gestures associated to the human actions.
+The value of~$A$ can, however, be inferred either from a verbal description of the scene or from the other affordance variables through the \AffWords{} model described earlier.
+
+For example the \AffWords{} model predicts that performing a tap action on a spherical object will result in high velocity of the object.
+If the human performs an unknown action on a spherical object and obtains a high velocity, the robot will be able to infer that the action is most probably a tap, although it was not able to recognize the gesture associated with this action.
+
+This information can be used to train our statistical \emph{gesture recognition system}~\cite{saponaro:2013:crhri}.
+The system recognizes actions~(from gesture features) and corresponds to the Gesture/Action recognition block in Fig.~\ref{fig:model}.
+It is based on \acp{HMM} with Gaussian mixture models as emission probability distributions.
+Our input features are the~3D coordinates of the tracked human hand indicated by the~$g_i$ variables in Fig.~\ref{fig:model}.
+The coordinates are transformed to be centered on the person torso~(to be invariant to the distance between the user and the sensor) and normalized to account for variability in amplitude~(to be invariant to wide/emphatic vs narrow/subtle executions of the same action).
+
+The model for each action is a left-to-right \ac{HMM}, where the transition model between the discrete states~$\mathcal{S} = \{s_1, \dots, s_Q\}$ is structured so that states with lower index represent events that occur earlier in time.
+
+Although not expressed so far in the notation, the continuous variables~$g_i$ are measured at regular time intervals.
+At a certain time step~$t$, the feature vector can be expressed as~$\bm{g}[t] = \{g_1[t], \dots, g_D[t]\}$.
+The input to the model is a sequence of~$T$ such feature vectors~$\bm{g}[1], \dots, \bm{g}[T]$ that we call for simplicity~$G_1^T$, where~$T$ can vary for every recording.
+
+At recognition~(testing) time, we can use the models to estimate the likelihood of a new sequence of observations~$G_1^T$, given each possible action by means of the \FB{} inference algorithm.
+We can express this likelihood as $\mathcal{L}_\text{HMM}(G_1^T \given A=a_k)$, where $a_k$ is one of the possible actions.
+By normalizing the likelihoods, assuming that the gestures are equally likely \emph{a~priori}, we can obtain the posterior probability of the action given the sequence of observations as
+\begin{equation} \label{eq:phmm_action}
+  \phmm(A=a_k \given G_1^T) = \frac{\mathcal{L}_\text{HMM}(G_1^T \given A=a_k)}{\sum_h \mathcal{L}_\text{HMM}(G_1^T \given A=a_h)}.
+\end{equation}
+
+\subsection{Combining the \acs{BN} with Gesture \acsp{HMM}}
+\label{sec:combination}
+Once learned, the two models described above define two probability distributions over the relevant variables for the problem:
+$\pbn(A, F, E, W)$ and~$\phmm(A \given G_1^T)$.
+The goal during inference is to merge the information provided by both models and estimate~$\pcomb(A, F, E, W \given G_1^T)$, that is, the joint probability of all the affordance and word variables, given that we observe a certain action performed by the human.
+
+To simplify the notation, we call $X = \{A, F, E, W\}$ the set of affordance and word variables~$\{a, f_1, f_2, \dots, e_1, e_2, \dots, w_1, w_2, \dots\}$.
+During inference, we have a (possibly empty) set of observed variables~$\xobs \subseteq X$, and a set of variables $\xinf \subseteq X$ on which we wish to perform the inference.
+In order for the inference to be non-trivial, it must be~$\xobs \cap \xinf = \varnothing$, that is, we should not observe any inference variable.
+According to the \ac{BN} alone, the inference will compute the probability distribution of the inference variables~$\xinf$ given the observed variables~$\xobs$ by marginalizing over all the other (latent) variables $\xlat = X \setminus (\xobs \cup \xinf)$, where~$\setminus$~is the set difference operation:
+\begin{equation*}
+ \pbn(\xinf \given \xobs) = \sum_{\xlat} \pbn(\xinf, \xlat \given \xobs).
+\end{equation*}
+
+If we want to combine the evidence brought by the \ac{BN} with the evidence brought by the \ac{HMM}, there are two cases that can occur:
+\begin{enumerate}
+\item the action variable is included among the inference variables: $A \in \xinf$, or
+
+\item the action variable is not included among the inference variables: $A \in \xlat$.
+\end{enumerate}
+
+Here, we are excluding the case where we observe the action directly~($A \in \xobs$) for two reasons: firstly, this would correspond to the robot performing it by itself, whereas we are interested in interpreting other people's actions, which is a necessary skill to engage in social collaboration with humans;
+secondly, this would make the evidence on the gesture features~$G_1^T$ irrelevant, because in the model in Fig.~\ref{fig:model}, there is a tail-to-tail connection~\cite{pearl:2014:probabilistic} from~$G_1^T$ to the rest of the variables through the action variable, which means that, given the action, all dependencies to the gesture features are dropped.
+
+The two cases enumerated above can be addressed separately when we do inference.
+In the first case, we call~$\xinf^\prime$ the set of inference variables excluding the action~$A$, that is, $\xinf = \{\xinf^\prime, A\}$.
+We can write:
+\begin{align} \label{eq:fusion_excluding_action}
+  & \pcomb(\xinf \given  \xobs, G_1^T) = \pcomb(A, \xinf^\prime \given  \xobs, G_1^T)= \nonumber \\
+  &= \sum_{\xlat} \pcomb(A, \xinf^\prime, \xlat \given \xobs, G_1^T)= \nonumber\\
+  &= \sum_{\xlat} \left[\pbn(A, \xinf^\prime, \xlat \given \xobs, G_1^T)\right. \nonumber \\[-4mm]
+    & \mspace{80mu} \left.\phmm(A, \xinf^\prime, \xlat \given \xobs, G_1^T)\right]= \nonumber \\
+  &= \left[\sum_{\xlat} \pbn(A, \xinf^\prime, \xlat \given \xobs)\right] \phmm(A \given G_1^T) \nonumber \\
+  &= \pbn(\xinf \given \xobs) \phmm(A \given G_1^T).
+\end{align}
+This means that we can evaluate the two models independently, then multiply the distribution that we obtain from the \ac{BN}~(over all the possible value of the inference variables) by the \ac{HMM} posterior for the corresponding value of the action.
+
+In the second case, where the action is among the latent variables, we define, similarly, $\xlat = \{A, \xlat^\prime\}$, and we have:
+\begin{align} \label{eq:fusion_including_action}
+  & \pcomb(\xinf \given \xobs, G_1^T) = \nonumber \\
+  &= \sum_{\{A,\xlat^\prime\}} \pcomb(\xinf, A, \xlat^\prime \given \xobs, G_1^T)= \nonumber \\
+  &= \sum_{\{A,\xlat^\prime\}} \left[\pbn(\xinf, A, \xlat^\prime \given \xobs, G_1^T)\right. \nonumber \\[-4mm]
+    & \mspace{100mu} \left.\phmm(\xinf, A, \xlat^\prime \given \xobs, G_1^T)\right]= \nonumber \\[2mm]
+  &= \sum_{\{A,\xlat^\prime\}} \left[\pbn(\xinf, A, \xlat^\prime \given \xobs) \phmm(A \given G_1^T)\right] \nonumber \\
+  &= \sum_{A}\left[\phmm(A \given G_1^T)\sum_{\xlat^\prime} \pbn(\xinf, A, \xlat^\prime \given \xobs)\right] \nonumber \\
+  &= \sum_{A}\left[\phmm(A \given G_1^T) \pbn(\xinf, A \given \xobs)\right].
+\end{align}
+This time, we first need to use the \ac{BN} to do inference on the variables~$\xinf$ and~$A$, and then we marginalize out the action variable~$A$ after having multiplied the probabilities by the \ac{HMM} posterior.
+
+\subsection{Generation and Scoring of Verbal Descriptions}
+\label{sec:method:verbal}
+
+In order to illustrate the language capabilities of the model, rather than displaying the probability distribution of the words inferred by the model, we use the \ac{CFG} described in Appendix~\ref{appendix:grammar} to generate written descriptions of the robot observations on the basis of those probabilities.
+Note that this grammar is defined here with the only purpose to interpret the probability distributions over the words.
+In the \AffWords{} model that we use, the speech recognizer is based on a free loop of words with uniform prior, and the Bayesian model relies on a bag-of-words assumption.
+No grammatical (syntactic) information about the spoken descriptions was, therefore, used during learning.
+
+In the current study, by merging the \AffWords{} model and the gesture recognition model, we allow the robot to \emph{reinterpret} the concepts it has learned in the self-centered phase, but we do not add any new words to the model.
+Consequently, the descriptions that the model generates when observing humans use the same words to describe the agent (see also Sec.~\ref{sec:results:verbal_descriptions}).
+
+The textual descriptions are generated as follows: given some evidence~$\xobs$ that we provide to the model and some human observation features~$G_1^t$ extracted from frames~$1$ to~$t$, we extract the generated word probabilities
+$P(w_i \given \xobs, G_1^t)$.
+We generate~$N$ sentences randomly from the \ac{CFG} using the \texttt{HSGen} tool from HTK~\cite{young:htkbook}.
+Then, the sentences are re-scored according to the log-likelihood of each word in the sentence, normalized by the length of the sentence:
+\begin{equation} \label{eq:sentence_score}
+  \text{score}(s_j \given \xobs, G_1^t) = \frac{1}{L_j} \sum_{k=1}^{L_j} \log P(w_{jk} \given \xobs, G_1^t),
+\end{equation}
+where~$s_j$ is the~$j$th sentence,~$L_j$ is the number of words in the sentence~$s_j$, and~$w_{jk}$ is the~$k$th word in the sentence~$s_j$.
+Finally, an $N$-best list of possible descriptions is produced by sorting the scores.

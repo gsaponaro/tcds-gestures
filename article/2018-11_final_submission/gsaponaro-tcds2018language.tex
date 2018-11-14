@@ -1,0 +1,160 @@
+%!TEX encoding = UTF-8 Unicode
+\pdfoutput=1 % tell arXiv to use PDFLaTeX
+
+\documentclass[journal]{IEEEtran}
+
+\usepackage[T1]{fontenc} % output - specifies encoding used in fonts; needs full LaTeX distribution to produce good-looking output
+\usepackage[utf8]{inputenc} % input - type accented characters directly from keyboard
+\usepackage[english]{babel} % internationalization - hyphenation, typographic rules for one or more languages
+
+\usepackage[nounderscore]{syntax} % definition of the context-free grammar
+
+\usepackage[
+  backend=biber, % bibliography engine
+  style=ieee, % bibliography style .bbx and citation style .cbx
+  hyperref, % make citations and references clickable - requires hyperref pkg
+  maxbibnames=99, % 99 = display all authors of multi-author articles
+  doi=false, % do not display DOI
+  isbn=false, % do not display ISBN
+]{biblatex} % note: incompatible with ucs (-> utf8x), natbib
+\renewcommand{\bibfont}{\footnotesize}
+\usepackage[
+  autostyle % adapt citation style to current document language
+]{csquotes} % Context Sensitive Quotations; provides biblatex \enquote{}
+
+% fix conflict between hyperref and footmisc
+% https://tex.stackexchange.com/a/62091
+\usepackage{hyperref}
+\let\oldFootnote\footnote
+\newcommand\nextToken\relax
+\renewcommand\footnote[1]{%
+    \oldFootnote{#1}\futurelet\nextToken\isFootnote}
+\newcommand\isFootnote{%
+    \ifx\footnote\nextToken\textsuperscript{,}\fi}
+
+\usepackage[nolist]{acronym}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bm} % bold math
+\usepackage{booktabs}
+\usepackage{graphicx}
+\newcommand{\myWidth}{0.16} % used in various figures involving photos
+\usepackage[multiple]{footmisc} % multiple footnote at the same point
+\usepackage{siunitx}
+\usepackage{subfig}
+\usepackage{tabularx}
+\usepackage{url}
+
+\usepackage{tikz}
+\usetikzlibrary{matrix,positioning}
+\usetikzlibrary{decorations.text}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{fit}
+\tikzstyle{circle}=[shape=circle,minimum size=0.7cm,very thick]
+\tikzstyle{every path}=[very thick]
+\usetikzlibrary{arrows}
+
+\usepackage[update,prepend]{epstopdf}
+\graphicspath{{figures/}{bios/}}
+
+\addbibresource{lang_journal_bibliography.bib}
+
+% custom commands and frequent expressions that require typesetting care
+\newcommand{\actioneffect}{action--effect}
+\newcommand{\AffWords}{Affordance--Words}
+\newcommand{\FB}{Forward--Backward}
+\newcommand{\HR}{Human--Robot}
+\newcommand{\HRI}{\HR{} Interaction}
+\newcommand{\hh}{human--human}
+\newcommand{\hr}{human--robot}
+\newcommand{\hri}{\hr{} interaction}
+\newcommand{\ObjAct}{Object--Action}
+\newcommand{\objecthand}{object--hand}
+\newcommand{\SensMot}{Sensory--Motor}
+\newcommand{\selfother}{self--other}
+
+\newcommand{\phmm}{\ensuremath{P_{\text{HMM}}}}
+\newcommand{\pbn}{\ensuremath{P_{\text{BN}}}}
+\newcommand{\pcomb}{\ensuremath{P_\text{comb}}}
+\newcommand{\xinf}{\ensuremath{X_\text{inf}}}
+\newcommand{\xobs}{\ensuremath{X_\text{obs}}}
+\newcommand{\xlat}{\ensuremath{X_\text{lat}}}
+
+\newcommand{\given}{\ensuremath{\mid}}
+
+% list of acronyms
+\begin{acronym}
+\acro{AI}{Artificial Intelligence}
+\acro{BN}{Bayesian Network}
+\acro{CFG}{context-free grammar}
+\acro{HMM}{Hidden Markov Model}
+\acro{OAC}{\ObjAct{} Complex}
+\acrodefplural{OAC}{\ObjAct{} Complexes}
+\acro{PDF}{Probability Density Function}
+\end{acronym}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\title{Beyond the Self: Using Grounded Affordances to Interpret and Describe Others' Actions}
+
+\author{Giovanni~Saponaro,~\IEEEmembership{Student Member,~IEEE,}
+        Lorenzo~Jamone,~\IEEEmembership{Member,~IEEE,}
+        Alexandre~Bernardino,~\IEEEmembership{Senior~Member,~IEEE}
+        Giampiero~Salvi,~\IEEEmembership{Member,~IEEE}
+        \thanks{
+          Manuscript received November 15, 2017; revised xxx mm, yyyy. This research was supported by the FCT project~UID/EEA/50009/2013 and by the CHIST-ERA project IGLU.}
+\thanks{G.~Saponaro and A.~Bernardino are with the
+Institute for Systems and Robotics, Instituto Superior Técnico,
+Universidade de Lisboa, Lisbon, Portugal, e-mail: \{gsaponaro,alex\}@isr.tecnico.ulisboa.pt.}
+\thanks{L.~Jamone is with ARQ~(Advanced Robotics at Queen Mary), School of Electronic Engineering and Computer Science, Queen Mary University of London, United Kingdom
+and with the
+Institute for Systems and Robotics, Instituto Superior Técnico, Universidade de Lisboa, Lisbon, Portugal,
+e-mail: l.jamone@qmul.ac.uk.}
+\thanks{G.~Salvi is with KTH Royal Institute of Technology, Stockholm, Sweden,
+  e-mail: giampi@kth.se.}
+}
+
+% make the title area
+\maketitle
+\IEEEpeerreviewmaketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+  \input{abstract}
+\end{abstract}
+
+\begin{IEEEkeywords}
+affordances, embodied cognition, gestures, humanoid robots, language acquisition through development.
+\end{IEEEkeywords}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{introduction}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{related_work}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{method}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{experimental_settings}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{results}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{conclusions}
+
+\appendices % for IEEEtran - https://tex.stackexchange.com/q/347621
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{appendix}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\printbibliography
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{author_bios_and_photos/bios}
+
+\end{document}
