@@ -3,7 +3,7 @@
 \section{Experimental Settings}
 \label{sec:experimental_settings}
 Our experiments consist on testing our method on a number of example scenarios that will be described in Sec.~\ref{sec:results}.
-In this section we provide experimental details and key assumptions in the method.
+In this section we provide experimental details and key assumptions of the method.
 
 \begin{table}
     \centering
@@ -33,8 +33,8 @@ In this section we provide experimental details and key assumptions in the metho
 \subsection{\AffWords{} Model}
 Table~\ref{tab:bnsymb} presents a list of variables and the corresponding values used in the \AffWords{} model.
 Note that the name of the values of the affordance variables have been assigned by us arbitrarily to the clusters, for the sake of making the results more human-interpretable.
-However, the robot has no prior knowledge about the meaning of these clusters nor their order in case they correspond to ordered quantities.
-In order to extract object features and effects from the sensory data we assume that the robot possesses visual segmentation and geometric reasoning capabilities, meaning that it is able to segment the~(potentially multiple) regions of interest corresponding to the physical objects of the world from the background~(e.g., a planar surface such as a table) and to determine their positions.
+However, the robot has no prior knowledge about the meaning of these clusters nor about their order, in case they correspond to ordered quantities.
+For extracting object features and effects from the sensory data, we assume that the robot possesses visual segmentation and geometric reasoning capabilities, meaning that it is able to segment the~(potentially multiple) regions of interest corresponding to the physical objects of the world from the background~(e.g., a planar surface such as a table) and to determine their positions.
 
 We use the following notation in order to distinguish between the values of the affordance variables~(all but the last row in Table~\ref{tab:bnsymb}) and the words~(last row in the table).
 Words and sentences are always enclosed in quotation marks.
@@ -43,9 +43,9 @@ Similarly, ``grasp'' will correspond to a spoken word, whereas grasp corresponds
 
 There is no one-to-one correspondence between the values of the affordance variables and words.
 This was partly emerging from the natural variability that is inherent in the way humans describe situations in spoken words.
-It was also a design choice, because we wanted to prove that the model was not merely able to recover simple word--meaning associations, but was able to cope with more natural spoken utterances.
+It was also a design choice, because we wanted to prove that the model was not merely able to recover simple \wordmeaning{} associations, but was able to cope with more natural spoken utterances.
 Consequently, in the spoken descriptions:
-(i)~there are many synonyms for the same concept: for instance, cubic object are called ``box'', ``square'' or ``cube''. Also, actions and effects are described using different tenses (``is grasping'', ``grasped'', ``has (just) grasped'');
+(i)~there are many synonyms for the same concept: for instance, cubic objects are called ``box'', ``square'' or ``cube''. Also, actions and effects are described using different tenses (``is grasping'', ``grasped'', ``has (just) grasped'');
 (ii)~different affordance variable values may have the same associated verbal description, e.g., two color clusters corresponding to different shades of green are both referred to as ``green'';
 (iii)~finally, many affordance variable values have no direct description: for example, the object velocity and \objecthand{} velocity~(slow, medium, fast), or the \objecthand{} contact~(short, long) are never described directly, and need to be inferred from the situation.
 

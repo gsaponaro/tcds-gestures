@@ -20,7 +20,7 @@ The morphology and the motor realization of the actions can be different between
 Some authors have studied the ability to interpret other agents under the deep learning paradigm.
 In~\cite{kim:2017:nn}, a recurrent neural network is proposed to have an artificial simulated agent infer human intention~(as output) from joint input information about objects, their potential affordances or opportunities, and human actions, employing different time scales for different actions.
 However, in that work a virtual simulation able to produce large quantities of data was used.
-This is both unrealistic when trying to explain human cognition, and limited, because a simulator cannot model all the physical events and unpredictability of the real world.
+This is both unrealistic when trying to explain human cognition, and limited, because a simulator cannot model all the physical events and the unpredictability of the real world.
 In contrast, we use real, noisy data acquired from robots and sensors to validate our model.
 In addition, deep neural networks trained with large amounts of data can be difficult to inspect in their inner layers and activations~\cite{szegedy:2014:intriguing}, whereas our Bayesian model is focused on exhibiting emerging patterns of causality, choices, explanations from relatively few data points.
 
@@ -35,7 +35,7 @@ The advantage of robot affordances lies in the ability to capture essential func
 
 Zech et al. published a systematic taxonomy of robot affordance models~\cite{zech:2017:ab}.
 According to their criteria~(we refer the reader to the taxonomy for the precise definitions), in terms of \emph{perception} our work classifies as using
-an agent perspective, meso-level features, $1^{\text{st}}$~order, stable temporality;
+an agent perspective, meso-level features, $1$st~order, stable temporality;
 in terms of \emph{development}: acquisition by exploration, prediction by inference, generalization
 exploitation by action selection and language, offline learning.
 
@@ -51,8 +51,8 @@ The data used for learning such a model is from robot manipulation experiments, 
 Each experiment is associated with a number of alternative verbal descriptions uttered by two human speakers, for a total of \SI{1270}~recordings.
 That framework assumes that the robot action is known \emph{a~priori} during the training phase~(e.g., during a grasping action the robot knows with certainty that it is performing a grasp), and the resulting model can be used at testing to make inferences about the environment.
 In a recent work~\cite{saponaro:2017:glu} we relaxed the assumption of knowing the action.
-We did this by merging the action estimation obtained from an external gesture recognizer~\cite{saponaro:2013:crhri} as a \emph{hard evidence}~(i.e., certain evidence) to the full model, meaning that the action was deterministic.
-By contrast, in this paper we propose a theoretical way to fuse the two sources of information~(about the self and about others) in a fully probabilistic manner, therefore introducing the \emph{soft evidence}.
+We did this by merging the action estimation obtained from an external gesture recognizer~\cite{saponaro:2013:crhri} as \emph{hard evidence}~(i.e., certain evidence) to the full model, meaning that the action was deterministic.
+By contrast, in this paper we propose a theoretical way to fuse the two sources of information~(about the self and about others) in a fully probabilistic manner, therefore introducing \emph{soft evidence}.
 This addition allows to perform more fine-grained types of inferences and reasoning than before.
 First, predictions over affordances and words when observing another agent with uncertainty.
-Secondly, the generation of \emph{verbal descriptions} from the estimated word probabilities, for easier human interpretation of the model's explanations.
+Second, the generation of \emph{verbal descriptions} from the estimated word probabilities, for easier human interpretation of the model's explanations.

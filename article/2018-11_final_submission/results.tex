@@ -13,7 +13,7 @@
 In this section, we report the experimental findings obtained with our proposed model.
 Because it is based on \aclp{BN}, the model can make inferences over any set of its variables~$\xinf$, given any other set of observed variables~$\xobs$.
 In particular, the model can do reasoning on the elements that constitute our computational concept of affordances, i.e., Action, Object Features, Effects in Fig.~\ref{fig:model}.
-Furthermore, it can do reasoning over words.
+Furthermore, it can do reasoning over Words.
 We present the following types of results:
 \begin{itemize}
   \item inferences over affordance variables~(see Table~\ref{tab:bnsymb}) in Sec.~\ref{sec:results:inference_actions}, \ref{sec:results:inference_effects}, \ref{sec:results:anticipation_effects};
@@ -99,10 +99,10 @@ This experiment exposes that \emph{all} the variables of Tab.~\ref{tab:bnsymb} j
 
 Fig.~\ref{fig:impact_of_evidence_on_ObjVel} shows the considered inference in two cases: when the prior information says that the shape is spherical~(see Fig.~\ref{fig:impact_of_evidence_on_ObjVel_sphere}), and when it is cubic~(see Fig.~\ref{fig:impact_of_evidence_on_ObjVel_box}).
 
-The first distribution to the left in both figures shows the prediction of object velocity from the \AffWords{} model alone, without any additional information.
+The leftmost distribution in both figures shows the prediction of object velocity from the \AffWords{} model alone, without any additional information.
 When the shape is spherical, the model is not sure about the velocity, whereas if the shape is cubic, the model does not expect high velocities.
 If we add clear evidence on the action \emph{touch} from the action recognition model, suddenly the combined model predicts slow velocities in both cases, as expected.
-However, if the action recognition evidence is gradually changed from \emph{touch} to \emph{tap} the predictions of the model depend on the shape of the object.
+However, if the action recognition evidence is gradually changed from \emph{touch} to \emph{tap}, the predictions of the model depend on the shape of the object.
 Higher velocities are expected for spherical objects that can roll, compared to cubic objects.
 
 \subsection{Effect Anticipation}
@@ -153,7 +153,9 @@ In Fig.~\ref{fig:probdiff} we show the variation in word occurrence probabilitie
 \item when the evidence corresponds to the one of the previous point, with the addition of the \emph{tap} action observed from the gesture recognizer (hard evidence).
 \end{enumerate}
 
-In this result, we notice two facts: (i)~the probabilities of words related to tapping and pushing increase when a tapping action evidence from gesture recognition is introduced; conversely, the probabilities of other action words~(touching and poking) decreases; (ii)~the probability of the word ``rolling''~(which is an effect of an action onto an object) also increases when the tap action evidence is entered.
+In this result, we notice two facts.
+First, the probabilities of words related to tapping and pushing increase when a tapping action evidence from gesture recognition is introduced; conversely, the probabilities of other action words~(touching and poking) decreases.
+Second, the probability of the word ``rolling''~(which is an effect of an action onto an object) also increases when the tap action evidence is entered.
 
 \newcommand{\evidenceProducingAnd}{$\xobs=$\{ Action=grasp, ObjVel=medium \}}
 \newcommand{\evidenceProducingBut}{$\xobs=$\{ Action=grasp, ObjVel=slow \}}
