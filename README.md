@@ -21,7 +21,7 @@ By estimating the probability of words given the evidence and feeding them into 
 ![Early recognition when the human performs an action on a spherical object](misc/fig5a.png)
 
 In this repository, we provide MATLAB code to use our model.
-We hope that is is a step towards providing robots with the fundamental skills to engage in social collaboration with humans.
+We hope that this is a step towards providing robots with the fundamental skills to engage in social collaboration with humans.
 If you have any questions, please let us know by filing an issue.
 Finally, if this work is useful for your research, please kindly cite the paper referenced at the top of this document.
 
