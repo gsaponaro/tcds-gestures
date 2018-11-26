@@ -5,7 +5,25 @@ This repository contains code and material for this paper:
 
 ## Description
 
-TBA
+We propose a developmental approach that allows a robot to interpret and describe the actions of human agents by reusing previous experience.
+The robot first learns the association between words and object affordances by manipulating the objects in its environment.
+It then uses this information to learn a mapping between its own actions and those performed by a human in a shared environment (see figure below).
+It finally fuses the information from these two models to interpret and describe human actions in light of its own experience.
+
+![Examples of human actions from the point of view of the robot](misc/fig1.png)
+
+In our experiments, we show that the model can be used flexibly to do inference on different aspects of the scene.
+We can predict the effects of an action on the basis of object properties.
+We can revise the belief that a certain action occurred, given the observed effects of the human action.
+In an early action recognition fashion, we can anticipate the effects when the action has only been partially observed (see figure below).
+By estimating the probability of words given the evidence and feeding them into a pre-defined grammar, we can generate relevant descriptions of the scene.
+
+![Early recognition when the human performs an action on a spherical object](misc/fig5a.png)
+
+In this repository, we provide MATLAB code to use our model.
+We hope that is is a step towards providing robots with the fundamental skills to engage in social collaboration with humans.
+If you have any questions, please let us know by filing an issue.
+Finally, if this work is useful for your research, please kindly cite the paper referenced at the top of this document.
 
 ## Installation
 
