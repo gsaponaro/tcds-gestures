@@ -17,19 +17,25 @@ TBA
 
 ### Linux instructions
 
-Install FullBNT to `~/matlab/toolbox` then patch it with our provided patch, like this:
+First, clone this repository:
 
-```
+```bash
+git clone https://github.com/gsaponaro/tcds-gestures.git
 cd tcds-gestures
+```
+
+Second, install FullBNT to `~/matlab/toolbox` and apply the patch that we provide:
+
+```bash
 mkdir ~/matlab
 mkdir ~/matlab/toolbox
 unzip 3rdparty/FullBNT-1.0.4.zip -d ~/matlab/toolbox
 patch ~/matlab/toolbox/FullBNT-1.0.4/HMM/fwdback.m < extern/FullBNT/fwdback.patch
 ```
 
-Clone [AffordancesAndSpeech](https://github.com/giampierosalvi/AffordancesAndSpeech) to a location that can be found by our file `configurePaths.m`. Currently this can be `~/NOBACKUP` or `~/Documents`. For example:
+Third, clone [AffordancesAndSpeech](https://github.com/giampierosalvi/AffordancesAndSpeech) to a location that can be found by our file `configurePaths.m`. Currently, this can be `~/NOBACKUP` or `~/Documents`. For example:
 
-```
+```bash
 cd ~/Documents
 git clone https://github.com/giampierosalvi/AffordancesAndSpeech.git
 ```
