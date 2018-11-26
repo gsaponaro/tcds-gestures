@@ -3,6 +3,8 @@ This repository contains code and material for this paper:
 
 * Giovanni Saponaro, Lorenzo Jamone, Alexandre Bernardino and Giampiero Salvi. Beyond the Self: Using Grounded Affordances to Interpret and Describe Others' Actions. IEEE Transactions on Cognitive and Developmental Systems, 2018 (accepted).
 
+If this work is useful for your research, please kindly cite that paper.
+
 ## Description
 
 We propose a developmental approach that allows a robot to interpret and describe the actions of human agents by reusing previous experience.
@@ -22,8 +24,8 @@ By estimating the probability of words given the evidence and feeding them into 
 
 In this repository, we provide MATLAB code to use our model.
 We hope that this is a step towards providing robots with the fundamental skills to engage in social collaboration with humans.
+
 If you have any questions, please let us know by filing an issue.
-Finally, if this work is useful for your research, please kindly cite the paper referenced at the top of this document.
 
 ## Installation
 
