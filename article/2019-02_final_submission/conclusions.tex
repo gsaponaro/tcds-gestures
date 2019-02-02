@@ -1,0 +1,29 @@
+%!TEX encoding = UTF-8 Unicode
+
+\section{Conclusions and Future Work}
+\label{sec:conclusions}
+
+We presented a model that allows a robot to interpret and describe the actions of external agents, by reusing the knowledge previously acquired in an ego-centric manner.
+In a developmental setting, the robot first learns the link between words and object affordances by exploring its environment.
+Then, it uses this information to learn to classify the gestures and actions of another agent.
+Finally, by fusing the information from the two probabilistic models, in our experiments we show that the robot can reason over affordances and words when observing the other agent; this can also be leveraged to do early action recognition~(see Sec.~\ref{sec:results:anticipation_effects}).
+Although the complete model only estimates probabilities of single words given the evidence, we showed that feeding these probabilities into a pre-defined grammar produces human-interpretable sentences that correctly describe the situation.
+We also highlighted some interesting language-related properties of the model, such as:
+congruent/incongruent conjunctions,
+choice of appropriate synonym words,
+describing object features with general words.
+
+Our demonstrations are based on a restricted scenario~(see Sec.~\ref{sec:experimental_settings}), i.e., one human and one robot manipulating simple objects on a shared table, a pre-defined number of motor actions and effects, and a vocabulary of approximately~$50$ words to describe the experiments verbally.
+However, one of the main strengths of our study is that it spans different fields such as robot learning, language grounding, and object affordances.
+We also work with real robotic data, as opposed to learning images-to-text mappings~(as in many works in computer vision) or using robot simulations~(as in many works in robotics).
+
+In terms of \emph{scalability}, note that our \ac{BN} model can learn both the dependency scructure and the parameters of the model from observations.
+The method that estimates the dependency structure, in particular, is sensitive to biases in the data.
+Consequently, in order to avoid misconceptions, the robot needs to explore any possible situation that may occur.
+For example, if the robot only observes blue spheres rolling, it might infer that it is the color that makes the object roll, rather than its shape.
+In order to scale the method to a larger number of concepts, it would be necessary to scale the amount of data considerably, similarly to what is typically done in deep learning.
+In models of developmental robotics, where this is neither practically feasible, nor desirable, we would need to devise methods that can generalize more efficiently from very few observations.
+
+As future work, it would be useful to investigate how the model can extract syntactic information from the observed data autonomously, thus relaxing the bag-of-words assumption in the current model.
+Another line of research would be to study how the model can guide the discovery of new acoustic patterns~(e.g., \cite{falstrom:2017:glu, vanhainen:2014:icassp, vanhainen:2012:interspeech}), and how to incorporate the newly discovered symbols into our \AffWords{} model.
+This would release our current assumption of a pre-defined set of words.

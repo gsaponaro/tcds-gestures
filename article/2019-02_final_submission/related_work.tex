@@ -1,0 +1,58 @@
+%!TEX encoding = UTF-8 Unicode
+
+\section{Related Work}
+\label{sec:related_work}
+
+Human cooperation is a phenomenon that we often take for granted~(at least in adults), possibly because it is widespread and intimately embedded into human societies.
+However, this non-trivial skill is greatly facilitated, and influenced, by human language~\cite{mueller:2000:psych}.
+For instance, educational research has shown that, when language is used as a cultural tool for intellectual tasks in preteen students, discursive interaction enables collective thinking to become more effective, also fostering individual reasoning and faster learning~\cite{rojas:2003:ijer}.
+
+The ability to understand and interpret our peers has also been studied in neuroscience and psychology, focusing on internal simulations and re-enactments of previous experiences~\cite{schillaci:2012:hbu,billing:2016:frobt}, or on visuomotor neurons~\cite{rizzolatti:2001:nrn}, i.e., neurons that are activated by visual stimuli.
+Mirror neurons respond to action and object interaction, both when the agent acts and when it observes the same action performed by others, hence the name ``mirror''.
+They are based on the principle that perceptual input can be linked with the human action system for predicting future outcomes of actions, i.e., the effect of actions, particularly when the person possesses concrete prior personal experience of the actions being observed in others~\cite{aglioti:2008:basketball,knoblich:2001:psychsci}.
+
+In applying the mirror neuron theory in robotics, as we and others do~\cite{gazzola:2007:neuroimage,lopes:2009:ab}, an agent can first acquire knowledge by sensing and self-exploring its surrounding environment.
+Afterwards, it can employ that learned knowledge to novel observations of another agent~(e.g., a human person) who performs similar physical actions to the ones executed during prior training.
+In particular, when the two interacting agents are a caregiver and an infant, the mechanism is called \emph{parental scaffolding}, having been implemented on robots too~\cite{ugur:2015:robotica,ugur:2015:tamd}.
+These works tackle the so-called correspondence problem~\cite{nehaniv:2002:correspondence}, in our case in a simple collaboration scenario, assuming that the two agents are capable of applying actions to objects leading to similar effects, enabling the transfer, and that they operate on a shared space~(i.e., a table accessible by both agents' arms).
+The morphology and the motor realization of the actions can be different between the two agents.
+
+Some authors have studied the ability to interpret other agents under the deep learning paradigm.
+In~\cite{kim:2017:nn}, a recurrent neural network is proposed to have an artificial simulated agent infer human intention~(as output) from joint input information about objects, their potential affordances or opportunities, and human actions, employing different time scales for different actions.
+However, in that work a virtual simulation able to produce large quantities of data was used.
+This is both unrealistic when trying to explain human cognition, and limited, because a simulator cannot model all the physical events and the unpredictability of the real world.
+In contrast, we use real, noisy data acquired from robots and sensors to validate our model.
+In addition, deep neural networks trained with large amounts of data can be difficult to inspect in their inner layers and activations~\cite{szegedy:2014:intriguing}, whereas our Bayesian model is focused on exhibiting emerging patterns of causality, choices, explanations from relatively few data points.
+
+DeepMind and Google published a method~\cite{santoro:2017:relational_reasoning} to perform relational reasoning on images, i.e., a system that learns to reflect about entities and their mutual relations, with the ability of providing answers to questions such as ``Are there any rubber things that have the same size as the yellow metallic cylinder?''.
+That work is very powerful from the point of view of cognitive systems, vision and language.
+Our approach is different because (i)~we focus on \emph{robotic} cognitive systems, including manipulation and the uncertainties inherent to robot vision and control, and (ii)~we follow the developmental paradigm and the embodiment hypothesis~\cite{lungarella:2003:devrobsurvey}, meaning that, leveraging the fact that a human and a humanoid produce actions with similar effects, we relate words with the robot's \emph{sensorimotor} experience, rather than sensory only~(purely images-to-text).
+
+In robotics and cognitive systems research, both object-directed action recognition in external agents~\cite{koppula:2013:ijrr} and the incorporation of language in \hr{} systems~\cite{harnad:1990,matuszek:2014:aaai} have received ample attention, for example using the concept of \emph{intuitive physics}~\cite{lake:2017:bbs,gao:2018:acl} to be able to predict outcomes from real or simulated interactions with objects.
+A growing interest is devoted to robots that learn new cognitive skills and improve their capabilities by interacting autonomously with the surrounding environment.
+Robots operating in the real, unstructured world may understand available opportunities conditioned on their body, perception and sensorimotor experiences: the intersection of these elements gives rise to object \emph{affordances}~(action possibilities), as they are called in psychology~\cite{gibson:2014}.
+The advantage of robot affordances lies in the ability to capture essential functional properties of environment objects in terms of the actions that the agent is able to perform with them, allowing to reason with prior knowledge about never-before-seen scenarios, thus exhibiting learning~\cite{montesano:2008,jamone:2016:tcds} and some degree of online adaptation~\cite{maestre:2017:icdl}.
+
+Zech et al. published a systematic taxonomy of robot affordance models~\cite{zech:2017:ab}.
+According to their criteria~(we refer the reader to the taxonomy for the precise definitions), in terms of \emph{perception} our work classifies as using
+an agent perspective, meso-level features, $1$st~order, stable temporality;
+in terms of \emph{development}: acquisition by exploration, prediction by inference, generalization
+exploitation by action selection and language, offline learning.
+
+Several works have studied the potential coupling between learning robot affordances and \emph{language grounding}.
+The union of these two elements can give new skills to cognitive robots, such as:
+creation of categorical concepts from multimodal association obtained by grasping and observing objects, while listening to partial verbal descriptions~\cite{nakamura:2009:iros,araki:2012:iros};
+associating spoken words with sensorimotor experience~\cite{salvi:2012:smcb,morse:2016:cogsci};
+linking language with sensorimotor representations~\cite{stramandinoli:2016:icdl}; or
+carrying out complex tasks~(which require planning of a sequence of actions) expressed in natural language instructions to a robot~\cite{antunes:2016:icra}.
+
+In particular Salvi et al.~\cite{salvi:2012:smcb}, which this paper extends, proposes a joint model to learn robot affordances~(i.e., relationships between actions, objects and resulting effects) together with word meanings.
+The data used for learning such a model is from robot manipulation experiments, acquired from an ego-centric perspective.
+Each experiment is associated with a number of alternative verbal descriptions uttered by two human speakers, for a total of \SI{1270}~recordings.
+That framework assumes that the robot action is known \emph{a~priori} during the training phase~(e.g., during a grasping action the robot knows with certainty that it is performing a grasp), and the resulting model can be used at testing to make inferences about the environment.
+In a recent work~\cite{saponaro:2017:glu} we relaxed the assumption of knowing the action.
+We did this by merging the action estimation obtained from an external gesture recognizer~\cite{saponaro:2013:crhri} as \emph{hard evidence}~(i.e., certain evidence) to the full model, meaning that the action was deterministic.
+By contrast, in this paper we propose a theoretical way to fuse the two sources of information~(about the self and about others) in a fully probabilistic manner, therefore introducing \emph{soft evidence}.
+This addition allows to perform more fine-grained types of inferences and reasoning than before.
+First, predictions over affordances and words when observing another agent with uncertainty.
+Second, the generation of \emph{verbal descriptions} from the estimated word probabilities, for easier human interpretation of the model's explanations.

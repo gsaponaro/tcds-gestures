@@ -1,0 +1,46 @@
+%!TEX encoding = UTF-8 Unicode
+
+\section{Grammar Definition}
+\label{appendix:grammar}
+Below, we provide the grammar definition used to generate verbal descriptions from the probability distribution over words estimated by the model.
+Note, however, that no grammar was used during the learning phase: the speech recognizer used as a frontend to the spoken descriptions is based on a loop of words with no grammar, and the \AffWords{} model is based on a bag-of-words assumption, where only the presence or absence of each word in the description is considered.
+The symbol \texttt{.|.} represents alternative items, while the symbol \texttt{[.]} optional items.
+Non-terminal symbols are given between \texttt{<.>} in italics, while words~(terminal symbols) are given in plain text and font: thus, the full set of words is given by all the plain text words below.
+
+\begin{grammar}
+  <sentence> ::= <agent> <action> <object> <conjunction> <object> <effect>
+
+  <agent> ::= the robot | he | baltazar
+
+  <action> ::= <touch> | <poke> | <tap> | <push> | <grasp> | <pick>
+
+  <touch> ::= touches | [has] [just] touched | is touching
+
+  <poke> ::= pokes | [has] [just] poked | is poking
+
+  <tap> ::= taps | [has] [just] tapped | is tapping
+
+  <push> ::= pushes | [has] [just] pushed | is pushing
+
+  <grasp> ::= grasps | [has] [just] grasped | is grasping
+
+  <pick> ::= picks | [has] [just] picked | is picking
+
+  <object> ::= the [<size>] [<color>] <shape>
+
+  <size> ::= big | small
+
+  <color> ::= green | yellow | blue
+
+  <shape> ::= sphere | ball | cube | box | square
+
+  <conjunction> ::= and | but
+
+  <effect> ::= <inertmove> | <slideroll> | <fallrise>
+
+  <inertmove> ::= is inert | is still | moves | is moving
+
+  <slideroll> ::= slides | is sliding | rolls | is rolling
+
+  <fallrise> ::= rises | is rising | falls | is falling
+\end{grammar}
