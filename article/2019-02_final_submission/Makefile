@@ -1,6 +1,6 @@
 #!/usr/bin/make -f
 
-NAME = gsaponaro-tcds2018language
+NAME = gsaponaro-tcds2019
 
 pdf:
 	pdflatex $(NAME) # --shell-escape option needed by epstopdf
