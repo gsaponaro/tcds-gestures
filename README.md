@@ -1,7 +1,7 @@
 # tcds-gestures
 This repository contains code and material for this paper:
 
-* Giovanni Saponaro, Lorenzo Jamone, Alexandre Bernardino and Giampiero Salvi. Beyond the Self: Using Grounded Affordances to Interpret and Describe Others' Actions. IEEE Transactions on Cognitive and Developmental Systems, 2018 (accepted).
+* Giovanni Saponaro, Lorenzo Jamone, Alexandre Bernardino and Giampiero Salvi. Beyond the Self: Using Grounded Affordances to Interpret and Describe Others' Actions. IEEE Transactions on Cognitive and Developmental Systems, 2019. [IEEE Xplore](https://ieeexplore.ieee.org/document/8616857)
 
 If this work is useful for your research, please kindly cite that paper.
 
@@ -59,6 +59,10 @@ Third, clone [AffordancesAndSpeech](https://github.com/giampierosalvi/Affordance
 cd ~/Documents
 git clone https://github.com/giampierosalvi/AffordancesAndSpeech.git
 ```
+
+## Usage
+
+TBC
 
 ## License
 
