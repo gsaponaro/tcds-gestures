@@ -13,13 +13,14 @@ load('BN_lab.mat');
 
 %% user parameters
 create_figures = true;
+save_figures = false;
 
 fontsize = 14;
 color1 = [0.21 0.17 0.53]; % dark blue
 color2 = [0.2  0.72 0.63]; % greenish blue
 color3 = [0.98 0.98 0.05]; % yellowish
 
-%% Figure 3
+%% Figure 3 of the paper
 % Inference over action given the evidence
 % X_obs = {Size=small, Shape=sphere, ObjVel=slow}, combined with different
 % probabilistic soft evidence about the action.
@@ -143,14 +144,16 @@ if create_figures
     l = legend(b3, 'grasp', 'tap', 'touch');
     set(l, 'Location','northwest');
 
-    print('-depsc', 'impact_of_evidence_on_Action.eps');
+    if save_figures
+        print('-depsc', 'impact_of_evidence_on_Action.eps');
+    end
 end
 
-%% Figure 4
+%% Figure 4 of the paper
 % Inference over the object velocity effect of different
 % objects, when given probabilistic soft evidence about the action.
 
-% sphere
+% Figure 4(a) of the paper: sphere
 
 % soft evidence over Action, for various experiments to visualize together
 % BNActionValue order: grasp,tap,touch
@@ -182,9 +185,9 @@ for ex = 1:nexamples
     p(:, ex+1) = BNMarginalProb(netobj_lab, inferred);
 end
 
-% TODO put in Figure 4, subfig left
 if create_figures
-    figure;
+    figure(4);
+    subplot(1,2,1);
     b = bar(p');
     b(1).FaceColor = color1;
     b(2).FaceColor = color2;
@@ -197,10 +200,13 @@ if create_figures
     ylim([0, 1.0]);
     l = legend(b, 'slow', 'medium', 'fast');
     set(l, 'Location','best');
-    print('-depsc', 'impact_of_evidence_on_ObjVel_sphere.eps');
+
+    if save_figures
+        print('-depsc', 'impact_of_evidence_on_ObjVel_sphere.eps');
+    end
 end
 
-% box
+% Figure 4(b) of the paper: box
 
 % load data
 load('BN_lab.mat');
@@ -224,9 +230,8 @@ for ex = 1:nexamples
     p(:, ex+1) = BNMarginalProb(netobj_lab, inferred);
 end
 
-% TODO put in Figure 4, subfig right
 if create_figures
-    figure;
+    subplot(1,2,2);
     b = bar(p');
     b(1).FaceColor = color1;
     b(2).FaceColor = color2;
@@ -240,16 +245,19 @@ if create_figures
     ylim([0, 1.0]);
     l = legend(b, 'slow', 'medium', 'fast');
     set(l, 'Location','best');
-    print('-depsc', 'impact_of_evidence_on_ObjVel_box.eps');
+
+    if save_figures
+        print('-depsc', 'impact_of_evidence_on_ObjVel_box.eps');
+    end
 end
 
-%% Figure 5
+%% Figure 5 of the paper
 % Object velocity effect anticipation before impact. The evidence from the
 % gesture recognizer (left) is fed into the Affordance-Words model before
 % the end of the execution. The combined model predicts the effect (right)
 % and describes it in words.
 
-%% Figure 6
+%% Figure 6 of the paper
 % Variation of word occurrence probabilities:
 % DeltaP(w_i) = P_comb(w_i | X_obs, Action=tap) − P_BN (w_i | X_obs),
 % where X_obs = {Size=big, Shape=sphere, ObjVel=fast}. This
@@ -259,11 +267,11 @@ end
 % effects. We have omitted words for which no significant
 % variation was observed.
 
-%% Table II
+%% Table II of the paper
 % 10-best list of sentences generated from the evidence
 % X_obs = {Color=yellow, Size=big, Shape=sphere, ObjVel=fast}.
 
-%% Figure 7
+%% Figure 7 of the paper
 % 10-best list of sentences generated given two different sets of evidence.
 % In (a) the model interprets the object movement as indicating a succesful
 % grasp and uses the conjunction "and". In (b) the slow movement is
