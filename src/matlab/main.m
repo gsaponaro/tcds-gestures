@@ -208,7 +208,7 @@ end
 
 % Figure 4(b) of the paper: box
 
-% load data
+% load Bayesian Network
 load('BN_lab.mat');
 
 % give some initial evidence to the Bayesian Network
@@ -257,6 +257,18 @@ end
 % the end of the execution. The combined model predicts the effect (right)
 % and describes it in words.
 
+% top left
+% evolution_of_action_posterior_sphere_log
+
+% top right
+% evolution_of_action_posterior_sphere_effect_pred
+
+% bottom left
+% evolution_of_action_posterior_box_log
+
+% bottom right
+% evolution_of_action_posterior_box_effect_pred
+
 %% Figure 6 of the paper
 % Variation of word occurrence probabilities:
 % DeltaP(w_i) = P_comb(w_i | X_obs, Action=tap) − P_BN (w_i | X_obs),
@@ -266,6 +278,48 @@ end
 % recognition) to the initial evidence about object features and
 % effects. We have omitted words for which no significant
 % variation was observed.
+
+% load Bayesian Network
+load('BN_lab.mat');
+
+nodevaluepairs = {'Color', 'yellow', 'Size', 'big', 'Shape', 'circle', 'ObjVel', 'fast'};
+
+%netobj_lab = BNEnterNodeEvidence(netobj_lab, {'Color', 'yellow', ...
+%    'Size', 'big', 'Shape', 'circle', 'ObjVel', 'fast'});
+netobj_lab = BNEnterNodeEvidence(netobj_lab, nodevaluepairs);
+probs = BNGetWordProbs(netobj_lab);
+netobj_lab = BNEnterNodeEvidence(netobj_lab, {'Action', 'tap'});
+probs2 = BNGetWordProbs(netobj_lab);
+
+probdiff = probs2-probs;
+
+% plot with all the words, including those where the variation was zero
+% if create_figures
+%     figure;
+%     bar(probdiff)
+%     set(gca, 'xtick', 1:length(netobj_lab.WORDNODES))
+%     wordnameswithquotes = strcat('"', netobj_lab.nodeNames(netobj_lab.WORDNODES(toplot)), '"');
+%     set(gca, 'xticklabel', wordnameswithquotes);
+%     xtickangle(45);
+%     if save_figures
+%         print('-depsc', 'fullfig.eps');
+%     end
+% end
+
+if create_figures
+    toplot = abs(probdiff)>0.02;
+    figure(6);
+    bar(probdiff(toplot));
+    set(gca, 'xtick', 1:length(netobj_lab.WORDNODES(toplot)))
+    wordnameswithquotes = strcat('"', netobj_lab.nodeNames(netobj_lab.WORDNODES(toplot)), '"');
+    set(gca, 'xticklabel', wordnameswithquotes);
+    ylabel('$\Delta P(w_i)$', 'Interpreter','latex', 'FontSize', 20);
+    xtickangle(45);
+
+    if save_figures
+        print('-depsc', 'partialfig.eps');
+    end
+end
 
 %% Table II of the paper
 % 10-best list of sentences generated from the evidence
