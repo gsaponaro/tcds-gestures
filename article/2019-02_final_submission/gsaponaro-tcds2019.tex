@@ -63,7 +63,9 @@
 \newcommand{\actioneffect}{action--effect}
 \newcommand{\actionperception}{action--perception}
 \newcommand{\AffWords}{Affordance--Words}
-\newcommand{\FB}{Forward--Backward}
+\newcommand{\affwords}{affordance--words}
+\newcommand{\etal}{\emph{et al.}}
+\newcommand{\fb}{forward--backward}
 \newcommand{\HR}{Human--Robot}
 \newcommand{\HRI}{\HR{} Interaction}
 \newcommand{\hh}{human--human}
@@ -82,14 +84,15 @@
 \newcommand{\xobs}{\ensuremath{X_\text{obs}}}
 \newcommand{\xlat}{\ensuremath{X_\text{lat}}}
 
-\newcommand{\given}{\ensuremath{\mid}}
+% \newcommand{\given}{\ensuremath{\mid}} % preferred by Giovanni
+\newcommand{\given}{|} % adopted by IEEE
 
 % list of acronyms
 \begin{acronym}
 \acro{AI}{Artificial Intelligence}
-\acro{BN}{Bayesian Network}
+\acro{BN}{Bayesian network}
 \acro{CFG}{context-free grammar}
-\acro{HMM}{Hidden Markov Model}
+\acro{HMM}{Hidden markov model}
 \acro{OAC}{\ObjAct{} Complex}
 \acrodefplural{OAC}{\ObjAct{} Complexes}
 \acro{PDF}{Probability Density Function}
@@ -102,19 +105,34 @@
 
 \author{Giovanni~Saponaro,~\IEEEmembership{Student Member,~IEEE,}
         Lorenzo~Jamone,~\IEEEmembership{Member,~IEEE,}
-        Alexandre~Bernardino,~\IEEEmembership{Senior~Member,~IEEE}
+        Alexandre~Bernardino,~\IEEEmembership{Senior~Member,~IEEE,} and
         Giampiero~Salvi
         \thanks{
-          Manuscript received November 15, 2017; revised September 6, 2018; accepted November 14, 2018. This research was supported by the FCT projects~UID/EEA/50009/2013, AHA~CMUP-ERI/HCI/0046/2013 and by the CHIST-ERA project IGLU.}
+          Manuscript received November 15, 2017; revised September 6, 2018; accepted November 14, 2018.
+          This work was supported in part by Fundação para a Ciência e a Tecnologia Projects under Grant UID/EEA/50009/2013 and Grant AHA~CMUP-ERI/HCI/0046/2013, and in part by CHIST-ERA Project IGLU.
+          \emph{(Corresponding author: Giovanni Saponaro.)}}
 \thanks{G.~Saponaro and A.~Bernardino are with the
-Institute for Systems and Robotics, Instituto Superior Técnico,
-Universidade de Lisboa, Lisbon, Portugal, e-mail: \{gsaponaro,alex\}@isr.tecnico.ulisboa.pt.}
-\thanks{L.~Jamone is with ARQ~(Advanced Robotics at Queen Mary), School of Electronic Engineering and Computer Science, Queen Mary University of London, United Kingdom
-and with the
-Institute for Systems and Robotics, Instituto Superior Técnico, Universidade de Lisboa, Lisbon, Portugal,
-e-mail: l.jamone@qmul.ac.uk.}
-\thanks{G.~Salvi is with KTH Royal Institute of Technology, Stockholm, Sweden,
-  e-mail: giampi@kth.se.}
+Institute for Systems and Robotics,
+Instituto Superior Técnico,
+Universidade de Lisboa,
+1049-001 Lisbon, Portugal
+(e-mail: gsaponaro@isr.tecnico.ulisboa.pt; alex@isr.tecnico.ulisboa.pt).}
+\thanks{L.~Jamone is with the
+Advanced Robotics at Queen Mary,
+School of Electronic Engineering and Computer Science,
+Queen Mary University of London,
+London E1~4NS, U.K.,
+and also with the
+Institute for Systems and Robotics,
+Instituto Superior Técnico,
+Universidade de Lisboa,
+1049-001 Lisbon, Portugal
+(e-mail: l.jamone@qmul.ac.uk).}
+\thanks{G.~Salvi is with the
+School of Electrical Engineering and Computer Science,
+KTH Royal Institute of Technology,
+10044 Stockholm, Sweden
+(e-mail: giampi@kth.se).}
 }
 
 % make the title area
@@ -127,7 +145,7 @@ e-mail: l.jamone@qmul.ac.uk.}
 \end{abstract}
 
 \begin{IEEEkeywords}
-affordances, embodied cognition, gestures, humanoid robots, language acquisition through development.
+Affordances, embodied cognition, gestures, humanoid robots, language acquisition through development.
 \end{IEEEkeywords}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
