@@ -257,17 +257,19 @@ end
 % the end of the execution. The combined model predicts the effect (right)
 % and describes it in words.
 
-% top left
-% evolution_of_action_posterior_sphere_log
+% (a) top
+evolution_of_action_posterior_sphere;
+% Figure 2 therein (evolution_of_action_posterior_sphere_log)
+% is the top-left plot,
+% Figure 3 therein (evolution_of_action_posterior_sphere_effect_pred)
+% is the top-right plot
 
-% top right
-% evolution_of_action_posterior_sphere_effect_pred
-
-% bottom left
-% evolution_of_action_posterior_box_log
-
-% bottom right
-% evolution_of_action_posterior_box_effect_pred
+% (b) bottom
+evolution_of_action_posterior_box;
+% Figure 2 therein (evolution_of_action_posterior_box_log)
+% is the bottom-left plot,
+% Figure 3 therein (evolution_of_action_posterior_box_effect_pred)
+% is the bottom-right plot
 
 %% Figure 6 of the paper
 % Variation of word occurrence probabilities:
