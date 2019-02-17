@@ -8,7 +8,7 @@
 %% configure BNT and other paths
 configurePaths;
 
-%% load Bayesian Network
+%% load data
 load('BN_lab.mat');
 
 %% user parameters
@@ -163,7 +163,7 @@ ev = [0 0 1
     0 0.75 0.25
     0 1 0];
 
-% load Bayesian Network
+% load data
 load('BN_lab.mat');
 
 % give some initial evidence to the Bayesian Network
@@ -208,7 +208,7 @@ end
 
 % Figure 4(b) of the paper: box
 
-% load Bayesian Network
+% load data
 load('BN_lab.mat');
 
 % give some initial evidence to the Bayesian Network
@@ -279,7 +279,7 @@ end
 % effects. We have omitted words for which no significant
 % variation was observed.
 
-% load Bayesian Network
+% load data
 load('BN_lab.mat');
 
 nodevaluepairs = {'Color', 'yellow', 'Size', 'big', 'Shape', 'circle', 'ObjVel', 'fast'};
@@ -324,6 +324,62 @@ end
 %% Table II of the paper
 % 10-best list of sentences generated from the evidence
 % X_obs = {Color=yellow, Size=big, Shape=sphere, ObjVel=fast}.
+
+% load data
+load('BN_lab.mat');
+
+% 10000 sentences generated randomly accroding to the grammar in
+% AffordanceAndSpeech/word2sent/grammar.grm (see Makefile for more
+% information)
+% if needed, we can generate many more
+sentenceFilename = 'sentence_data/sentence_10000samples_uniq.txt';
+
+% enter the evidence
+netobj_lab = BNEnterNodeEvidence(netobj_lab, {'Color', 'yellow', ...
+    'Size', 'big', 'Shape', 'circle', 'ObjVel', 'fast'});
+
+% % extract word probabilities
+% pw = BNGetWordProbs(netobj_lab);
+
+% % plot probabilities of the words
+% word_threshold = 0.2; % user parameter
+% toplot = pw>word_threshold;
+% if create_figures
+%     figure;
+%     bar(pw(toplot));
+%     set(gca, 'xtick', 1:length(netobj_lab.WORDNODES(toplot)));
+%     wordnameswithquotes = strcat('"', netobj_lab.nodeNames(netobj_lab.WORDNODES(toplot)), '"');
+%     set(gca, 'xticklabel', wordnameswithquotes);
+%     set(gca,'XTickLabelRotation',45);
+%     ylabel('$P(w_i)$', 'Interpreter','latex', 'FontSize', 20);
+%     if save_figures
+%         print('-depsc', 'example_pw.eps');
+%     end
+% end
+
+% rescore sentences with word probabilities and pick best sentence
+% TODO: fix the following error. Index exceeds array bounds.
+% Error in BNScoreSentences (line 45)
+%        sentenceLogProbs(sentenceidx) = sentenceLogProbs(sentenceidx) + wordLogProbs(idx);
+%                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[sentences, normlogprobs] = BNScoreSentences(netobj_lab, sentenceFilename);
+
+% add quotation marks around all sentences
+sentences = strcat('"', sentences, '"');
+
+% % find the best sentence
+% [bestprob, bestsentidx] = max(normlogprobs);
+% % ...and display it
+% sentences{bestsentidx};
+
+% sort sentences
+[sortedprobs, sortedidxs] = sort(normlogprobs, 'descend');
+
+% display n-best list
+nbest = 10;
+for h = 1:nbest
+    disp([sentences{sortedidxs(h)} ' ' num2str(normlogprobs(sortedidxs(h)))]);
+end
 
 %% Figure 7 of the paper
 % 10-best list of sentences generated given two different sets of evidence.
