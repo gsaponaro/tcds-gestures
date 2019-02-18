@@ -62,7 +62,9 @@ git clone https://github.com/giampierosalvi/AffordancesAndSpeech.git
 
 ## Usage
 
-TBC
+In MATLAB, execute the script `main.m` in the `src/matlab` directory, for reproducing results in the paper in the same order.
+The script is divided into sections, introduced by a double percent comment sign (`%%`).
+Each section corresponds to a specific result in the paper.
 
 ## License
 
