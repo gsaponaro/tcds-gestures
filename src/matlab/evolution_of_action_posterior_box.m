@@ -1,6 +1,6 @@
 %% configure BNT and other paths
-clear;
-configurePaths;
+%clear;
+%configurePaths;
 
 %% user parameters
 create_figures = true;

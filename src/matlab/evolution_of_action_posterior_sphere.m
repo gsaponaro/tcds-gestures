@@ -1,9 +1,9 @@
 %% configure BNT and other paths
-clear;
-configurePaths;
+%clear;
+%configurePaths;
 
 %% user parameters
-create_figures = true;
+%create_figures = true;
 %barwidth = 0.4;
 fontsize = 10;
 
