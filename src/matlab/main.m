@@ -399,7 +399,7 @@ load('BN_lab.mat');
 % if needed, we can generate many more
 sentenceFilename = 'sentence_data/sentence_10000samples_uniq.txt';
 
-fprintf("Example in which the generated conjunction is ``and''\n")
+fprintf('Example in which the generated conjunction is "and"\n')
 
 % enter some evidence
 netobj_lab = BNEnterNodeEvidence(netobj_lab, ...
@@ -444,7 +444,7 @@ netobj_lab = BNResetEvidence(netobj_lab);
 
 fprintf('\n');
 
-fprintf("Example in which the generated conjunction is ``but''\n")
+fprintf('Example in which the generated conjunction is "but"\n')
 
 netobj_lab = BNEnterNodeEvidence(netobj_lab, ...
     {'Action', 'grasp', 'ObjVel', 'slow'});
