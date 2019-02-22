@@ -5,7 +5,7 @@
 %% user parameters
 %create_figures = true;
 %barwidth = 0.4;
-fontsize = 10;
+%fontsize = 10;
 
 %% load HMM gesture models trained for CR-HRI 2013 article
 % hmm1: tap
@@ -220,48 +220,52 @@ if create_figures
     title('$P_{\rm{comb}}(\rm{ObjVel} \mid X_{\rm{obs}}, G_1^t)$', 'Interpreter','latex', 'FontSize',fontsize);
     set(gca, 'yticklabels', netobj_lab.nodeValueNames{BNWhichNode(netobj_lab, 'ObjVel')}, 'FontSize',fontsize);
     set(gca, 'xlim', [0 1.05])
-    print('-depsc', 'evolution_of_action_posterior_sphere_effect_pred.eps');
+    if save_figures
+        print('-depsc', 'evolution_of_action_posterior_sphere_effect_pred.eps');
+    end
 end
 
 %% NOT USED: evolution of probabilities in linear domain
 
-if create_figures
-
-%     list_of_ev_as_strings = cell(1,num_iterations);
-%     list_of_real_frames = cell(1,1+num_iterations);
-%     list_of_real_frames{1} = mat2str(1);
-%     for iter_ev = 1:num_iterations
-%         list_of_ev_as_strings{iter_ev} = mat2str(ev{iter_ev});
-%         iter_ev;
-%         list_of_real_frames{1+iter_ev} = mat2str(iter_ev*interval*2);
-%     end;
-
+% if create_figures
+% 
+% %     list_of_ev_as_strings = cell(1,num_iterations);
+% %     list_of_real_frames = cell(1,1+num_iterations);
+% %     list_of_real_frames{1} = mat2str(1);
+% %     for iter_ev = 1:num_iterations
+% %         list_of_ev_as_strings{iter_ev} = mat2str(ev{iter_ev});
+% %         iter_ev;
+% %         list_of_real_frames{1+iter_ev} = mat2str(iter_ev*interval*2);
+% %     end;
+% 
+% %     figure;
+% %     b = bar(cell2mat(p)');
+% %     xlabel('Action Evidence [grasp tap touch]', 'FontSize',fontsize);
+% %     set(gca, 'xticklabels', list_of_ev_as_strings);
+% %     xtickangle(45);
+% %     ylabel('$P_{\rm{comb}}(\rm{ObjVel} \mid \rm{Shape=sphere})$', 'Interpreter','latex', 'FontSize',fontsize);
+% %     l = legend(b, 'slow', 'medium', 'fast');
+% %     set(l, 'Location','north');
+% 
 %     figure;
-%     b = bar(cell2mat(p)');
-%     xlabel('Action Evidence [grasp tap touch]', 'FontSize',fontsize);
-%     set(gca, 'xticklabels', list_of_ev_as_strings);
-%     xtickangle(45);
-%     ylabel('$P_{\rm{comb}}(\rm{ObjVel} \mid \rm{Shape=sphere})$', 'Interpreter','latex', 'FontSize',fontsize);
-%     l = legend(b, 'slow', 'medium', 'fast');
-%     set(l, 'Location','north');
-
-    figure;
-    subplot(3,1,1); % to reduce aspect ratio
-    hp = plot(normliks');
-    hp(1).Color = 'g';
-    hp(1).LineStyle = '--';
-    hp(1).LineWidth = 1;
-    hp(2).Color = 'r';
-    hp(2).LineStyle = '-';
-    hp(2).LineWidth = 1;
-    hp(3).Color = 'b';
-    hp(3).LineStyle = '-.';
-    hp(3).LineWidth = 1;
-    xlabel('$\rm{frame~t}~(\times~30~\rm{ms})$', 'Interpreter','latex', 'FontSize',fontsize);
-    set(gca, 'ylim', [-0.05 1.05], 'xlim', [1 size(normliks, 2)]);
-    ylabel('$P_{\rm{HMM}}(A \mid G_1^t)$', 'Interpreter','latex', 'FontSize',fontsize);
-    l2 = legend(hp, 'grasp', 'tap', 'touch');
-    l2.FontSize = fontsize;
-    l2.Location = 'east';
-    %print('-depsc', 'evolution_of_action_posterior_on_sphere.eps');
-end;
+%     subplot(3,1,1); % to reduce aspect ratio
+%     hp = plot(normliks');
+%     hp(1).Color = 'g';
+%     hp(1).LineStyle = '--';
+%     hp(1).LineWidth = 1;
+%     hp(2).Color = 'r';
+%     hp(2).LineStyle = '-';
+%     hp(2).LineWidth = 1;
+%     hp(3).Color = 'b';
+%     hp(3).LineStyle = '-.';
+%     hp(3).LineWidth = 1;
+%     xlabel('$\rm{frame~t}~(\times~30~\rm{ms})$', 'Interpreter','latex', 'FontSize',fontsize);
+%     set(gca, 'ylim', [-0.05 1.05], 'xlim', [1 size(normliks, 2)]);
+%     ylabel('$P_{\rm{HMM}}(A \mid G_1^t)$', 'Interpreter','latex', 'FontSize',fontsize);
+%     l2 = legend(hp, 'grasp', 'tap', 'touch');
+%     l2.FontSize = fontsize;
+%     l2.Location = 'east';
+%     if save_figures
+%         print('-depsc', 'evolution_of_action_posterior_on_sphere.eps');
+%     end
+% end;
